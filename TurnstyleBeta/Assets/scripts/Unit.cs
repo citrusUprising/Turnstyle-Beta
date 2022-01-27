@@ -42,7 +42,7 @@ public class Unit : MonoBehaviour
     Status[] statuses;
     Unit[] allies;
     Unit[] enemies;
-    StatusType[] immunity; 
+    StatusName[] immunity; 
     int fatigue;
     int hp;
     int maxHP;
@@ -50,7 +50,7 @@ public class Unit : MonoBehaviour
     bool dead;
     bool isActive;
 
-    public Unit(string name, StatusType[] immunity, Ability[] abilities, int hp)
+    public Unit(string name, StatusName[] immunity, Ability[] abilities, int hp)
     {
         this.unitName = name;
         this.immunity = immunity;
@@ -63,7 +63,7 @@ public class Unit : MonoBehaviour
         this.isActive = true;
         Status health = new Status(StatusType.Health, StatusName.None, 0, 0);
         Status buff = new Status(StatusType.Buff, StatusName.None, 0, 0);
-        Status debuff = new Status(StatusType.Debuff, StatusName, None, 0, 0);
+        Status debuff = new Status(StatusType.Debuff, StatusName.None, 0, 0);
         this.statuses = new Status[] {health,  buff, debuff};
     }
     void getTeams()
@@ -95,7 +95,7 @@ public class Unit : MonoBehaviour
 
     }
 
-    void takeDamage()
+    public void takeDamage(Unit source, int damage)
     {
 
     }

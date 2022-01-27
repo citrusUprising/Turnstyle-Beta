@@ -4,13 +4,13 @@ using UnityEngine;
 
 public abstract class Ability
 {
-    string name;
-    string text;
-    bool multitarget;
-    bool selftarget;
-    bool allies;
+    public string name;
+    public string text;
+    public bool multitarget;
+    public bool selftarget;
+    public bool allies;
 
-    public abstract void effect();
+    public abstract void effect(Unit target, Unit source);
 
     public abstract bool requirment(); 
 }
@@ -25,10 +25,14 @@ public class basicAttack : Ability
         this. allies = false;
     }
 
-    public void effect(Unit target, Unit source)
+    public override void effect(Unit target, Unit source)
     {
         target.takeDamage(source, 3); 
     }
 
+    public override bool requirment()
+    {
+        return true;
+    }
 
 }
