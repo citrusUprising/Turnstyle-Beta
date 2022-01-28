@@ -38,19 +38,19 @@ public class Status
 
 public class Unit : MonoBehaviour
 {
-    string unitName;
-    Ability[] abilities;
-    Status[] statuses;
+    public string unitName;
+    public Ability[] abilities;
+    public Status[] statuses;
     public GameObject[] allies;
     public GameObject[] enemies;
-    StatusName[] immunity; 
-    int fatigue;
+    public StatusName[] immunity; 
+    public int fatigue;
     public int hp;
     public int maxHP;
-    Unit priorTarget;
-    bool dead;
-    bool isActive;
-    QueuedAction queuedAction;
+    public Unit priorTarget;
+    public bool dead;
+    public bool isActive;
+    public QueuedAction queuedAction;
 
     public Unit(string name, StatusName[] immunity, Ability[] abilities, int hp)
     {
@@ -75,7 +75,7 @@ public class Unit : MonoBehaviour
         this.enemies = GameObject.FindGameObjectsWithTag("Enemy");
     }
 
-    void act()
+    public void act()
     {
         if(this.statuses[(int) StatusType.Debuff].name == StatusName.Flinch)
         {
@@ -113,7 +113,7 @@ public class Unit : MonoBehaviour
         this.queuedAction.speed = 0;
     }
 
-    void turnEnd()
+    public void turnEnd()
     {
         Debug.Log(this.unitName + " has ended their turn");
         this.priorTarget = this.queuedAction.target;
@@ -148,7 +148,7 @@ public class Unit : MonoBehaviour
         }
     }
 
-    void makeActive()
+    public void makeActive()
     {
         if (!this.isActive)
         {
@@ -165,7 +165,7 @@ public class Unit : MonoBehaviour
         }
     }
 
-    void stopActive()
+    public void stopActive()
     {
         if (this.isActive)
         {
@@ -183,7 +183,7 @@ public class Unit : MonoBehaviour
         this.fatigue = 0;
     }
 
-    void healSelf(int amount)
+    public void healSelf(int amount)
     {
         this.hp = Math.Min(this.hp + amount, this.maxHP);
     }
@@ -224,7 +224,7 @@ public class Unit : MonoBehaviour
         }
     }
 
-    void applyStatus(StatusType type, StatusName newStatus, int duration, int magnitude)
+   public void applyStatus(StatusType type, StatusName newStatus, int duration, int magnitude)
     {
         foreach(StatusName s in this.immunity)
         {
@@ -246,7 +246,7 @@ public class Unit : MonoBehaviour
         }
     }
 
-    void turnStart()
+   public void turnStart()
     {
         if (this.unitName.Equals("Sniper") && this.fatigue == 0)
         {
