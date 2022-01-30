@@ -70,6 +70,14 @@ public class combatController : MonoBehaviour
     // but there are no tweensin unity. at least not that i know.
     private Vector3[] nameTagCoords = new Vector3[5];
 
+    // these are taken from the name tag objects and set in the begin rotation function
+    // they are used for the lerp
+    private Vector3 oldNameTagCoordsBeverly;
+    private Vector3 oldNameTagCoordsAmery;
+    private Vector3 oldNameTagCoordsKoralie;
+    private Vector3 oldNameTagCoordsJade;
+    private Vector3 oldNameTagCoordsSeraphim;
+
     // this is time 
     static float t = 0.0f;
 
@@ -77,13 +85,13 @@ public class combatController : MonoBehaviour
     // these are used in the rotate state, but will also be used
     // later on for game logic stuff
     // --------------------------------------------------------- //
-    public GameObject nameTagBeverly;
-    public GameObject nameTagAmery;
-    public GameObject nameTagKoralie;
-    public GameObject nameTagJade;
-    public GameObject nameTagSeraphim;
+    public nameTag nameTagBeverly;
+    public nameTag nameTagAmery;
+    public nameTag nameTagKoralie;
+    public nameTag nameTagJade;
+    public nameTag nameTagSeraphim;
     // this is an array of the above objects
-    private GameObject[] nameTagArray = new GameObject[5]; 
+    private nameTag[] nameTagArray = new nameTag[5]; 
 
     // Start is called before the first frame update
     void Start()
@@ -108,7 +116,7 @@ public class combatController : MonoBehaviour
 
         for (int i = 0; i < 5; i++)
         {
-            nameTagCoords[i] = nameTagArray[i].transform.localPosition;
+            nameTagCoords[i] = nameTagArray[i].transform.position;
         }
 
     }
@@ -224,7 +232,7 @@ public class combatController : MonoBehaviour
         // this is a local variable that i use to move the name tags around
         // in the alpha we did all of this code in 2 lines. thank you javascript <3 ily bb
         // you never know what you have until you lose it T_T
-        GameObject[] changeNameTagArray = new GameObject[5];
+        nameTag[] changeNameTagArray = new nameTag[5];
 
         // so basically everything gets pushed down one
         // and the thing in end gets put in the front
@@ -261,7 +269,12 @@ public class combatController : MonoBehaviour
 
         //NOW we update the actual nameTagArray with the local variable
         nameTagArray = changeNameTagArray;
-        
+
+        for (int i = 0; i < 5; i++)
+        {
+            nameTagArray[i].previousPosition = nameTagArray[i].transform.position;
+            nameTagArray[i].nextPosition = nameTagCoords[i];
+        }
     }
 
     void rotatePentagon()
@@ -273,12 +286,16 @@ public class combatController : MonoBehaviour
         // lerps the rotation of the pentagon to the next rotation
         pentagonSprite.GetComponent<RectTransform>().rotation = Quaternion.Lerp(oldRotation, newRotation, t);
 
+
         // so this should be replaced with a lerp, something along the lines of 
         // Vector3.Lerp( SOMETHING , nameTagCoords[i] , t );
         for (int i = 0; i < 5; i++)
         {
-            nameTagArray[i].transform.localPosition = nameTagCoords[i];
+            nameTagArray[i].transform.position = Vector3.Lerp(nameTagArray[i].previousPosition, nameTagArray[i].nextPosition, t);
         }
+
+        Debug.Log(t);
+
 
         // increases time
         // honestly i have no clue how this works. i have never understood what "deltaTime" means in any programming language
@@ -286,10 +303,15 @@ public class combatController : MonoBehaviour
         t += 2.5f * Time.deltaTime;
 
         // when this happens, this function should no longer be called
-        if (t >= 1.0f)
+        if (t > 1.0f)
         {
             // caps time at 1.0f
             t = 1.0f;
+
+            for (int i = 0; i < 5; i++)
+            {
+                nameTagArray[i].transform.position = Vector3.Lerp(nameTagArray[i].previousPosition, nameTagArray[i].nextPosition, t);
+            }
 
             // the pentagon is done rotating by now
             isRotating = false;

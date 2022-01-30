@@ -13,6 +13,8 @@ public class nameTag : MonoBehaviour
     public int hpValue;
     public int hpValueMax;
     private string hpValueString;
+    public Vector3 previousPosition;
+    public Vector3 nextPosition;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +35,5 @@ public class nameTag : MonoBehaviour
         hpText.GetComponent<TextMeshProUGUI>().text = hpValueString;
 
         healthBar.GetComponent<Image>().fillAmount = (float)hpValue / (float)hpValueMax;
-
     }
 }
