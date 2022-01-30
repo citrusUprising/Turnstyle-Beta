@@ -21,7 +21,6 @@ public class nameTag : MonoBehaviour
         healthBar = transform.GetChild(2).gameObject;
         hpText = transform.GetChild(3).gameObject;
 
-        
     }
 
     // Update is called once per frame
@@ -32,6 +31,8 @@ public class nameTag : MonoBehaviour
         hpValueString = "HP " + hpValue.ToString() + "/" + hpValueMax.ToString();
 
         hpText.GetComponent<TextMeshProUGUI>().text = hpValueString;
+
+        healthBar.GetComponent<Image>().fillAmount = (float)hpValue / (float)hpValueMax;
 
     }
 }
