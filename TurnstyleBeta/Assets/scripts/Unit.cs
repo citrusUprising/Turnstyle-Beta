@@ -122,18 +122,57 @@ public class Unit : MonoBehaviour
         this.queuedAction.speed = 0;
         if(this.statuses[(int) StatusType.Health].name == StatusName.Regeneration)
         {
-            this.hp = Math.Min(this.hp + 3, this.maxHP);
+            this.hp = Math.Min(this.hp + this.statuses[(int) StatusType.Health].magnitude, this.maxHP);
         }
         if(this.statuses[(int) StatusType.Health].name == StatusName.Burn)
         {
-            this.hp = Math.Max(0, this.hp - 3);
+            this.hp = Math.Max(0, this.hp - this.statuses[(int) StatusType.Health].magnitude);
         }
-        if(this.hp == 0 && !this.dead)
+        if(this.hp <= 0 && !this.dead)
         { //I have replaced the queue with just printing to the debug log for the moment
             //I have also not set anything to change tint
             this.dead = true;
             Debug.Log(this.unitName + " died!");
         }
+        if(this.unitName.Equals("Jade")&&this.fatigue < 2){
+            Debug.Log("This ability is under construction"); //flag
+            /*foreach(GameObject o in this.allies){
+                if(o.statuses[(int)StatusType.Debuff].name != StatusName.None){
+                    Debug.Log(this.unitName+" cured "+o.unitName+" of any conditions");
+                    o.statuses[(int)StatusType.Debuff].name = StatusName.None;
+                    o.statuses[(int)StatusType.Debuff].duration = 0;
+                    o.statuses[(int)StatusType.Debuff].magnitude = 0;
+                }
+            */}
+        if(this.unitName.Equals("Amery")){
+            Debug.Log("This ability is under construction"); //flag
+            /*bool fullHealth = true;
+            Unit highest;
+            int highestHP = 0;
+            Unit lowest;
+            int lowestHP = 21;
+
+            foreach(GameObject o in this.allies){
+                if (o.hp < o.maxHP){
+                    fullHealth = false;
+                    break;
+                    }
+                }
+            if (!fullHealth){
+                foreach(GameObject o in this.allies){
+                    if(o.hp > highestHP){
+                        highest = o;
+                        highestHP = o.hp;
+                        }
+                    if(o.hp < lowestHP){
+                        lowest = o;
+                        lowestHP = o.hp;
+                        }
+                    }
+                lowest.healSelf(4);
+                highest.hp = Math.Min(highest.hp-4, highest.maxHP);
+                }*/
+            }
         foreach(Status s in this.statuses)
         {
             if(s.duration > 0)
@@ -152,12 +191,7 @@ public class Unit : MonoBehaviour
     {
         if (!this.isActive)
         {
-            if (this.unitName.Equals("Telepath"))
-            {
-                this.statuses[(int) StatusType.Health].name = StatusName.Regeneration;
-                this.statuses[(int) StatusType.Health].duration = 0;
-            }
-            if(this.unitName.Equals("Juggernaut"))
+            if(this.unitName.Equals("Koralie"))
             {
                 this.statuses[(int) StatusType.Health].name = StatusName.None;
             }
@@ -174,7 +208,7 @@ public class Unit : MonoBehaviour
                 s.duration = 0;
                 s.name = StatusName.None;
             }
-            if(this.unitName == "Juggernaut")
+            if(this.unitName == "Koralie")
             {
                 this.statuses[(int) StatusType.Health].name = StatusName.Regeneration;
             }
@@ -206,12 +240,12 @@ public class Unit : MonoBehaviour
         {
             amount = (int) Math.Ceiling((double) amount / 2);
         }
-        if(this.unitName.Equals("Medic") && this.queuedAction.speed >= 5 && UnityEngine.Random.Range(0,1) > 0.5)
+        if(this.unitName.Equals("Seraphim") && this.queuedAction.speed >= 5 && UnityEngine.Random.Range(0,1) > 0.5)
         { //again no output queue just printing to debug log
             Debug.Log(this.unitName + " dodged the attack");
             return;
         }
-        if(source.unitName.Equals("Bounty Hunter") && source.queuedAction.target == source.priorTarget)
+        if(source.unitName.Equals("Beverly") && source.queuedAction.target == source.priorTarget)
         {
             amount = (int) Math.Ceiling(amount * 1.5);
         }
@@ -248,11 +282,6 @@ public class Unit : MonoBehaviour
 
    public void turnStart()
     {
-        if (this.unitName.Equals("Sniper") && this.fatigue == 0)
-        {
-            this.statuses[(int) StatusType.Buff].name = StatusName.Aegis;
-            this.statuses[(int) StatusType.Buff].duration = 1;
-        }
     }
 
     // Start is called before the first frame update
