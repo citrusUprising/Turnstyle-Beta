@@ -341,6 +341,11 @@ public class combatController : MonoBehaviour
             pointerCoords[selectedMove],
             moveSelectPointer.transform.localPosition[2]);
         
+        // can change to string/etc later, 
+        // currently only sets player name & abilities based on num input, abilities are empty strings rnow
+        // i cannot get the image to swap for the life of me
+        currentDrawnBox.GetComponent<PlayerMoveSelect>().ChangeColor(0);
+
         // we need logic to change the sprite of the currentDrawnBox to match the color of the current character
         // who is having their moves selected for them
         // also the name of the moves and the descriptions of the moves should change to match the next character
