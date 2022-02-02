@@ -10,10 +10,10 @@ public abstract class Ability
     public bool multitarget;
     public bool selftarget;
     public bool allies;
-
+    public int damage;
     public abstract void effect(Unit target, Unit source);
 
-    public abstract bool requirment(Unit target, Unit source); 
+    public abstract bool requirement(Unit target, Unit source); 
 }
 
 public class BasicAttack : Ability
@@ -24,6 +24,7 @@ public class BasicAttack : Ability
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
+        this.damage = 3;
     }
 
     public override void effect(Unit target, Unit source)
@@ -31,7 +32,7 @@ public class BasicAttack : Ability
         target.takeDamage(source, 3); 
     }
 
-    public override bool requirment(Unit target, Unit source)
+    public override bool requirement(Unit target, Unit source)
     {
         return true;
     }
@@ -46,6 +47,7 @@ public class BasicHeal : Ability
         this.multitarget = false;
         this.selftarget = false;
         this.allies = true;
+        this.damage = 0;
     }
 
     public override void effect(Unit target, Unit source)
@@ -53,7 +55,7 @@ public class BasicHeal : Ability
         target.hp = Math.Min(target.hp + 3, target.maxHP);
     }
 
-    public override bool requirment(Unit target, Unit source)
+    public override bool requirement(Unit target, Unit source)
     {
         return true;
     }
@@ -68,6 +70,7 @@ public class GroupAttack : Ability
         this.multitarget = true;
         this.selftarget = false;
         this.allies = false;
+        this.damage = 1;
     }
 
     public override void effect(Unit target, Unit source)
@@ -75,7 +78,7 @@ public class GroupAttack : Ability
         target.takeDamage(source, 1);
     }
 
-    public override bool requirment(Unit target, Unit source)
+    public override bool requirement(Unit target, Unit source)
     {
         return true;
     }
@@ -97,7 +100,7 @@ public class GroupHeal : Ability
         target.hp = Math.Min(target.hp + 1, target.maxHP);
     }
 
-    public override bool requirment(Unit target, Unit source)
+    public override bool requirement(Unit target, Unit source)
     {
         return true;
     }
@@ -112,6 +115,7 @@ public class HeavyAttack : Ability
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
+        this.damage = 8;
     }
 
     public override void effect(Unit target, Unit source)
@@ -119,7 +123,7 @@ public class HeavyAttack : Ability
         target.takeDamage(source, 8);
     }
 
-    public override bool requirment(Unit target, Unit source)
+    public override bool requirement(Unit target, Unit source)
     {
         return true;
     }
@@ -141,7 +145,7 @@ public class SelfHeal : Ability
         target.healSelf(5);
     }
 
-    public override bool requirment(Unit target, Unit source)
+    public override bool requirement(Unit target, Unit source)
     {
         return true;
     }
@@ -164,7 +168,7 @@ public class Drone : Ability
         target.applyStatus(StatusType.Health, StatusName.Regeneration, 3, 0);
     }
 
-    public override bool requirment(Unit target, Unit source)
+    public override bool requirement(Unit target, Unit source)
     {
         return true;
     }

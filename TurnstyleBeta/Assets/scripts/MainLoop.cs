@@ -5,23 +5,22 @@ using Random = System.Random;
 
 public class MainLoop : MonoBehaviour
 {
+	public GameObject[] friendlies;
+	public GameObject[] enemies;
 	//player units
-	private Friendly[] playerUnits;
+	public Friendly[] playerUnits;
 	//And enemy
-	private Enemy[] enemyUnits;
+	public Enemy[] enemyUnits;
 
 	//Seperate arrays for units on bench and off
-	private Friendly[] activeUnits;
-	private Friendly[] benchUnits;
+	public Friendly[] activeUnits;
+	public Friendly[] benchUnits;
 	//And also a list of actions to take, except it's really a list of units
 	private List<Unit> queuedActions;
     // Start is called before the first frame update
     void Start()
     {	
-    	//get units
-    	GameObject[] friendlies = GameObject.FindGameObjectsWithTag("Ally");
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        //get the scripts on them
+        //get the scripts on units
         for (int i = 0; i < friendlies.Length; i++){
         	playerUnits[i] = friendlies[i].GetComponent<Friendly>();
         }
@@ -75,8 +74,8 @@ public class MainLoop : MonoBehaviour
     			int unitIndex = 0;
     			bool foundTarget = false;
     			if(ability.allies == true){
-					foreach(Friendly targetUnit in playerUnits){
-						if(ability.requirment(targetUnit, unit)){
+					foreach(Friendly targetUnit in activeUnits){
+						if(ability.requirement(targetUnit, unit)){
 							legalTargets[abilityIndex].Add(unitIndex);
 							foundTarget = true;
 						}
@@ -87,7 +86,7 @@ public class MainLoop : MonoBehaviour
     				foreach(Enemy targetUnit in enemyUnits){
     					if(targetUnit == unit && !ability.selftarget)
     						continue;
-						if(ability.requirment(targetUnit, unit)){
+						if(ability.requirement(targetUnit, unit)){
 							legalTargets[abilityIndex].Add(unitIndex);
 							foundTarget = true;
 						}
@@ -113,6 +112,13 @@ public class MainLoop : MonoBehaviour
     	}
     }
 
+    //set player action.
+    void setPlayerAction(Unit unit, Unit target, Ability abil, int speed){
+    	unit.queuedAction = new QueuedAction(target, abil, speed + unit.fatigue);
+    	queuedActions.Add(unit);
+    }
+
+    //Resolve all actions in order
     void resolveActions(){
     	queuedActions.Sort(delegate(Unit a, Unit b) {return b.queuedAction.speed - b.fatigue-a.queuedAction.speed + a.fatigue;});
     	foreach(Unit actor in queuedActions){
@@ -121,5 +127,16 @@ public class MainLoop : MonoBehaviour
     		actor.act();
     	}
     	queuedActions.Clear();
+    }
+
+    //Sets which active units
+    //Pass it the index of the first active unit
+    void setActiveUnits(int start){
+    	for(int i = 0; i < 3; i++){
+    		activeUnits[i] = playerUnits[(i + start)% 5];
+    	}
+    	for (int i = 0; i < 2; i++){
+    		benchUnits[i] = playerUnits[(i + start + 3)% 5];
+    	}
     }
 }
