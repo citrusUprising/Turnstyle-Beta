@@ -168,7 +168,7 @@ public class Mitigate : Ability
         target.applyStatus(StatusType.Health, StatusName.Regeneration, 3, 4);
     }
 
-    public override bool requirment(Unit target, Unit source)
+    public override bool requirement(Unit target, Unit source)
     {
         return true;
     }
@@ -199,7 +199,7 @@ public class Scrum : Ability
   target.applyStatus(StatusType.Debuff, StatusName.Null, 3, 0);
     }
 
-    public override bool requirment(Unit target, Unit source)
+    public override bool requirement(Unit target, Unit source)
     {
         return true;
     }
@@ -222,7 +222,7 @@ public class Smolder : Ability
         target.takeDamage(source, 3 + source.queuedAction.speed/2);
     }
 
-    public override bool requirment(Unit target, Unit source)
+    public override bool requirement(Unit target, Unit source)
     {
         return true;
     }
@@ -246,7 +246,7 @@ public class Imbibe : Ability
         target.applyStatus(StatusType.Debuff,StatusName.StrungOut, 2, 0);
     }
 
-    public override bool requirment(Unit target, Unit source)
+    public override bool requirement(Unit target, Unit source)
     {
         return true;
     }
@@ -269,7 +269,7 @@ public class Repel : Ability
         target.takeDamage(source, 2);
     }
 
-    public override bool requirment(Unit target, Unit source)
+    public override bool requirement(Unit target, Unit source)
     {
         return true;
     }
@@ -295,7 +295,7 @@ public class Fallguy : Ability
     source.applyStatus(StatusType.Debuff,StatusName.Distracted, 1, 0);
     }
 
-    public override bool requirment(Unit target, Unit source)
+    public override bool requirement(Unit target, Unit source)
     {
         return true;
     }
@@ -319,7 +319,7 @@ public class Crush : Ability
         source.hp = Math.Min(source.hp-4, source.maxHP);
     }
 
-    public override bool requirment(Unit target, Unit source)
+    public override bool requirement(Unit target, Unit source)
     {
         return true;
     }
@@ -343,7 +343,7 @@ public class Rally : Ability
         source.hp = Math.Min(source.hp-2, source.maxHP);
     }
 
-    public override bool requirment(Unit target, Unit source)
+    public override bool requirement(Unit target, Unit source)
     {
         return true;
     }
@@ -367,7 +367,7 @@ public class Stunnerclap : Ability
         target.applyStatus(StatusType.Debuff,StatusName.StrungOut, 1, 0);
     }
 
-    public override bool requirment(Unit target, Unit source)
+    public override bool requirement(Unit target, Unit source)
     {
         return true;
     }
@@ -393,7 +393,7 @@ public class Soulrip : Ability
         else Debug.Log(source.unitName+" couldn't manifest");
     }
 
-    public override bool requirment(Unit target, Unit source)
+    public override bool requirement(Unit target, Unit source)
     {
         return true;
     }
@@ -421,7 +421,7 @@ public class Dazzle : Ability
         }else Debug.Log(target.unitName+" avoided the "+this.name);
     }
 
-    public override bool requirment(Unit target, Unit source)
+    public override bool requirement(Unit target, Unit source)
     {
         return true;
     }
@@ -444,7 +444,7 @@ public class Scry : Ability
         target.applyStatus(StatusType.Debuff,StatusName.Distracted, 2, 0);
     }
 
-    public override bool requirment(Unit target, Unit source)
+    public override bool requirement(Unit target, Unit source)
     {
         return true;
     }
@@ -478,7 +478,7 @@ public class Motivate : Ability
         }
     }
 
-    public override bool requirment(Unit target, Unit source)
+    public override bool requirement(Unit target, Unit source)
     {
         return true;
     }
@@ -501,7 +501,7 @@ public class Slump : Ability
         target.applyStatus(StatusType.Health,StatusName.Regeneration,1,6);
     }
 
-    public override bool requirment(Unit target, Unit source)
+    public override bool requirement(Unit target, Unit source)
     {
         return true;
     }
@@ -524,7 +524,7 @@ public class Hunker : Ability
         target.applyStatus(StatusType.Buff,StatusName.Aegis, 2, 0);
     }
 
-    public override bool requirment(Unit target, Unit source)
+    public override bool requirement(Unit target, Unit source)
     {
         return true;
     }
@@ -547,7 +547,7 @@ public class Temp : Ability
         target
     }
 
-    public override bool requirment(Unit target, Unit source)
+    public override bool requirement(Unit target, Unit source)
     {
         return true;
     }
