@@ -15,7 +15,12 @@ public class combatController : MonoBehaviour
     public GameObject moveSelectBox;
     public GameObject confirmBox;
     public GameObject playResultsBox;
-    private string state;
+    public GameObject pauseMenu;
+    public GameObject gameLoop;
+    private string state = "rotate";
+
+    // this is currently only used in the pause state
+    private string previousState = "rotate";
 
     // this is the current box that is being drawn in the top right corner
     // every state transition destroys this and most of them create a new one
@@ -60,6 +65,9 @@ public class combatController : MonoBehaviour
     // this will be important for implementing game logic
     private int rotationState = 0;
 
+    public float pentagonRotateX;
+    public float pentagonRotateY;
+
     // this stores the coordinates of the name tags when the scene starts
     // the logic behind this is a little flimsy. right now, all the name tags have to be in the correct location in the scene,
     // or else they wont be put in the right locaion later.
@@ -91,23 +99,31 @@ public class combatController : MonoBehaviour
     public nameTag nameTagJade;
     public nameTag nameTagSeraphim;
     // this is an array of the above objects
-    private nameTag[] nameTagArray = new nameTag[5]; 
+    private nameTag[] nameTagArray = new nameTag[5];
+
+    // --------------------------------------------------------- //
+    // used in the paused state
+    // --------------------------------------------------------- //
+    private GameObject pauseMenuInstance;
+    private bool justUnpaused = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        // the available states so far are "rotate", "moveSelect", "targetSelect", "confirm", "playResults" (in that order)
+        // the available states so far are "rotate", "moveSelect", "targetSelect", "confirm", "playResults", "paused" (in that order)
         // "rotate" is for rotating the pentagon 
         // "moveSelect" is for selecting the move for a character
         // "targetSelect" is for selecting the target for the move slected in moveSelect
         // "confirm" is for reviewing and confirming the selected moves
         // "playResults" is when the player has no controls and the combat animations play out
+        // "paused" is when the pause menu is opened. it can be accessed by any state other than "playResults" and goes back to that state
         //
         // these go in the order of:
         // rotate -> moveSelect(1) -> targetSelect(1) -> moveSelect(2) -> targetSelect(2) -> moveSelect(3) -> targetSelect(3) -> confirm ->
         // EITHER moveSelect(1) OR playResults -> rotate REPEAT
         transitionToRotate();
 
+        // 3 and 4 are inactive, 0, 1, and 2 are active
         nameTagArray[0] = nameTagBeverly;
         nameTagArray[1] = nameTagAmery;
         nameTagArray[2] = nameTagKoralie;
@@ -196,11 +212,27 @@ public class combatController : MonoBehaviour
         // cuz we don't have all that done rn, i'm just using this for the moment for bug testing and such
         else if (state == "playResults")
         {
-            if (Input.GetKeyDown(KeyCode.X))
+            
+        }
+
+        else if (state == "paused")
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                transitionToRotate();
+                transitionFromPause();
             }
         }
+
+        // the pause menu should be able to be opened as long as the state is not playResults
+        if (state != "playResults" && state != "pause")
+        {
+            if (Input.GetKeyDown(KeyCode.Escape) && justUnpaused == false)
+            {
+                transitionToPause();
+            }
+        }
+
+        justUnpaused = false;
     }
 
     // gets called once at the beginning of the pentagon rotation when the player presses up or down
@@ -280,8 +312,8 @@ public class combatController : MonoBehaviour
     void rotatePentagon()
     {
         // converts the Vector3 rotatoins to Quarternion
-        Quaternion oldRotation = Quaternion.Euler(0, 0, pentagonRotation);
-        Quaternion newRotation = Quaternion.Euler(0, 0, nextPentagonRotation);
+        Quaternion oldRotation = Quaternion.Euler(pentagonRotateX, pentagonRotateY, pentagonRotation);
+        Quaternion newRotation = Quaternion.Euler(pentagonRotateX, pentagonRotateY, nextPentagonRotation);
 
         // lerps the rotation of the pentagon to the next rotation
         pentagonSprite.GetComponent<RectTransform>().rotation = Quaternion.Lerp(oldRotation, newRotation, t);
@@ -293,9 +325,6 @@ public class combatController : MonoBehaviour
         {
             nameTagArray[i].transform.position = Vector3.Lerp(nameTagArray[i].previousPosition, nameTagArray[i].nextPosition, t);
         }
-
-        Debug.Log(t);
-
 
         // increases time
         // honestly i have no clue how this works. i have never understood what "deltaTime" means in any programming language
@@ -325,12 +354,14 @@ public class combatController : MonoBehaviour
     void transitionToRotate()
     {
         Destroy(currentDrawnBox);
+        setPreviousState();
         state = "rotate";
         currentDrawnBox = Instantiate(rotateBox, canvas.transform);
     }
 
     void transitionToMoveSelect()
     {
+        setPreviousState();
         state = "moveSelect";
         Destroy(currentDrawnBox);
         currentDrawnBox = Instantiate(moveSelectBox, canvas.transform);
@@ -377,6 +408,7 @@ public class combatController : MonoBehaviour
     void transitionToTargetSelect()
     {
         numberOfSelectedMoves++;
+        setPreviousState();
         state = "targetSelect";
         // this state does not have a box associated with it. therefore, the old box should not be destroyed
 
@@ -385,7 +417,8 @@ public class combatController : MonoBehaviour
         if (numberOfSelectedMoves == 3)
         {
             transitionToConfirm();
-        } else
+        } 
+        else
         {
             transitionToMoveSelect();
         }
@@ -394,6 +427,7 @@ public class combatController : MonoBehaviour
 
     void transitionToConfirm()
     {
+        setPreviousState();
         state = "confirm";
         Destroy(currentDrawnBox);
         currentDrawnBox = Instantiate(confirmBox, canvas.transform);
@@ -402,8 +436,62 @@ public class combatController : MonoBehaviour
     // playResults is also not really implemented yet
     void transitionToPlayResults()
     {
+        setPreviousState();
         state = "playResults";
         Destroy(currentDrawnBox);
         currentDrawnBox = Instantiate(playResultsBox, canvas.transform);
+    }
+
+    void transitionToPause()
+    {
+        setPreviousState();
+        state = "paused";
+        Debug.Log(previousState);
+        pauseMenuInstance = Instantiate(pauseMenu, canvas.transform);
+    }
+
+    void transitionFromPause()
+    {
+        Debug.Log("transitioned from pause");
+
+        switch (previousState)
+        {
+
+            case "rotate":
+                transitionToRotate();
+                break;
+
+            case "moveSelect":
+                transitionToMoveSelect();
+                break;
+
+            case "targetSelect":
+                transitionToTargetSelect();
+                break;
+
+            case "confirm":
+                transitionToConfirm();
+                break;
+
+            // this should never happen
+            case "playResults":
+                transitionToPlayResults();
+                break;
+
+            // this should never happen
+            default:
+                break;
+
+        }
+        Destroy(pauseMenuInstance);
+        justUnpaused = true;
+    }
+
+    void setPreviousState()
+    {
+        if (state != "paused")
+        {
+            previousState = state;
+        }
     }
 }
