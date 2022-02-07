@@ -12,7 +12,7 @@ public class PlayerMoveSelect : MonoBehaviour
     public Sprite Pink;
     public Sprite Green;
     public Sprite Red;
-    private Sprite menuImg;
+    private Image menuImg;
 
     // 📛 text
     private GameObject NameTxt;
@@ -21,6 +21,7 @@ public class PlayerMoveSelect : MonoBehaviour
     private GameObject move1;
     private GameObject move2;
     private GameObject move3;
+    private bool isYellow;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,31 +35,31 @@ public class PlayerMoveSelect : MonoBehaviour
     }
     
     public void ChangeColor(int character){
-        menuImg = this.GetComponent<Image>().sprite;
+        menuImg = this.GetComponent<Image>();
         NameTxt = transform.GetChild(0).gameObject;
         move1 = transform.GetChild(2).gameObject;
         move2 = transform.GetChild(3).gameObject;
         move3 = transform.GetChild(4).gameObject;
         if(character == 0){
             // beverly
-            menuImg = Blue;
+            menuImg.sprite = Blue;
             NameTxt.GetComponent<TextMeshProUGUI>().text = "Beverly";
-            move1.GetComponent<TextMeshProUGUI>().text = "";
-            move2.GetComponent<TextMeshProUGUI>().text = "";
-            move3.GetComponent<TextMeshProUGUI>().text = "";
+            move1.GetComponent<TextMeshProUGUI>().text = "#Girl";
+            move2.GetComponent<TextMeshProUGUI>().text = ":)";
+            move3.GetComponent<TextMeshProUGUI>().text = "<3";
             
         }
         if(character == 1){
             // amery
-            menuImg = Yellow;
+            menuImg.sprite = Yellow;
             NameTxt.GetComponent<TextMeshProUGUI>().text ="Amery";
-            move1.GetComponent<TextMeshProUGUI>().text = "";
-            move2.GetComponent<TextMeshProUGUI>().text = "";
-            move3.GetComponent<TextMeshProUGUI>().text = "";
+            move1.GetComponent<TextMeshProUGUI>().text = ":(";
+            move2.GetComponent<TextMeshProUGUI>().text = "move 2";
+            move3.GetComponent<TextMeshProUGUI>().text = "peggle 2!";
         }
         if(character == 2){
             // koralie
-            menuImg = Pink;
+            menuImg.sprite = Pink;
             NameTxt.GetComponent<TextMeshProUGUI>().text = "Koralie";
             move1.GetComponent<TextMeshProUGUI>().text = "";
             move2.GetComponent<TextMeshProUGUI>().text = "";
@@ -66,7 +67,7 @@ public class PlayerMoveSelect : MonoBehaviour
         }
         if(character == 3){
             // jade
-            menuImg = Green;
+            menuImg.sprite = Green;
             NameTxt.GetComponent<TextMeshProUGUI>().text = "Jade";
             move1.GetComponent<TextMeshProUGUI>().text = "";
             move2.GetComponent<TextMeshProUGUI>().text = "";
@@ -74,7 +75,7 @@ public class PlayerMoveSelect : MonoBehaviour
         }
         if(character == 4){
             // seraphim
-            menuImg = Red;
+            menuImg.sprite = Red;
             NameTxt.GetComponent<TextMeshProUGUI>().text = "Seraphim";
             move1.GetComponent<TextMeshProUGUI>().text = "";
             move2.GetComponent<TextMeshProUGUI>().text = "";

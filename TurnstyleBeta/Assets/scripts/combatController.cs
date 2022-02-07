@@ -375,7 +375,7 @@ public class combatController : MonoBehaviour
         // can change to string/etc later, 
         // currently only sets player name & abilities based on num input, abilities are empty strings rnow
         // i cannot get the image to swap for the life of me
-        currentDrawnBox.GetComponent<PlayerMoveSelect>().ChangeColor(0);
+        currentDrawnBox.GetComponent<PlayerMoveSelect>().ChangeColor(2);
 
         // we need logic to change the sprite of the currentDrawnBox to match the color of the current character
         // who is having their moves selected for them
