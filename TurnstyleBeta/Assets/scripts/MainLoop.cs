@@ -15,8 +15,13 @@ public class MainLoop : MonoBehaviour
 	//Seperate arrays for units on bench and off
 	public Friendly[] activeUnits;
 	public Friendly[] benchUnits;
+
+	//List of text to display at end of turn
+	public List<string> outputQueue;
+
 	//And also a list of actions to take, except it's really a list of units
 	private List<Unit> queuedActions;
+	public int speedTotal;
     // Start is called before the first frame update
     void Start()
     {	
@@ -33,6 +38,8 @@ public class MainLoop : MonoBehaviour
         benchUnits = new Friendly[]{playerUnits[3], playerUnits[4]};
 
         queuedActions = new List<Unit>();
+        speedTotal = 12;
+        outputQueue = new List<string>();
     }
 
     // Update is called once per frame
@@ -52,6 +59,7 @@ public class MainLoop : MonoBehaviour
     	foreach (Friendly unit in benchUnits){
     		unit.stopActive();
     	}
+    	speedTotal = 12;
     }
 
     //Code for handling the enemies
@@ -114,16 +122,18 @@ public class MainLoop : MonoBehaviour
 
     //set player action.
     void setPlayerAction(Unit unit, Unit target, Ability abil, int speed){
+    	if(!queuedActions.Contains(unit))
+    		queuedActions.Add(unit);
     	unit.queuedAction = new QueuedAction(target, abil, speed + unit.fatigue);
-    	queuedActions.Add(unit);
     }
 
     //Resolve all actions in order
     void resolveActions(){
-    	queuedActions.Sort(delegate(Unit a, Unit b) {return b.queuedAction.speed - b.fatigue-a.queuedAction.speed + a.fatigue;});
+    	queuedActions.Sort(delegate(Unit a, Unit b) {return b.queuedAction.speed-a.queuedAction.speed;});
     	foreach(Unit actor in queuedActions){
     		if(actor.dead)
     			continue;
+    		outputQueue.Add(actor.name + " used " +  actor.queuedAction.ability.name + "!");
     		actor.act();
     	}
     	queuedActions.Clear();
@@ -139,4 +149,43 @@ public class MainLoop : MonoBehaviour
     		benchUnits[i] = playerUnits[(i + start + 3)% 5];
     	}
     }
+
+   	//UI controller calls this function when turn ends
+   	void endTurn(){
+   		//queue all enemy actions
+   		queueEnemyActions();
+   		//Do all the actions 
+   		resolveActions();
+   		//Run end turn stuff
+   		foreach (Unit unit in playerUnits){
+   			unit.turnEnd();
+   		}
+   		foreach (Unit unit in enemyUnits){
+   			unit.turnEnd();
+   		}
+   		//display output
+
+   		//is game over?
+   		bool allDead = true;
+   		foreach(Unit unit in playerUnits){
+   			if(!unit.dead){
+   				allDead = false;
+   				break;
+   			}
+   		}
+   		//if allDead, loss
+   		bool enemyDead = true;
+   		foreach(Unit unit in enemyUnits){
+   			if(!unit.dead){
+   				enemyDead = false;
+   				break;
+   			}
+   		}
+   		//if enemyDead, win
+
+   		//Otherwise continue
+   		if(!allDead && !enemyDead){
+   			startTurn();
+   		}
+   	}
 }
