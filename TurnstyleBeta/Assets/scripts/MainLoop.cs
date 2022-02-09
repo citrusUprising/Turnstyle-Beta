@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = System.Random;
-
+using TMPro;
 public class MainLoop : MonoBehaviour
 {
 	public GameObject[] friendlies;
@@ -34,8 +35,8 @@ public class MainLoop : MonoBehaviour
         }
         //Put the first 3 units into activeUnits, remainder in bench
         //Code is a bit awkward but could be worse
-        activeUnits = new Friendly[]{playerUnits[0], playerUnits[1], playerUnits[2]};
-        benchUnits = new Friendly[]{playerUnits[3], playerUnits[4]};
+        //activeUnits = new Friendly[]{playerUnits[0], playerUnits[1], playerUnits[2]};
+        //benchUnits = new Friendly[]{playerUnits[3], playerUnits[4]};
 
         queuedActions = new List<Unit>();
         speedTotal = 12;
@@ -45,7 +46,8 @@ public class MainLoop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.I))
+        	StartCoroutine(OutputText());
     }
 
     //Pretty much all code will be in functions hooked up to UI elements
@@ -186,6 +188,32 @@ public class MainLoop : MonoBehaviour
    		//Otherwise continue
    		if(!allDead && !enemyDead){
    			startTurn();
+   		}
+   	}
+
+
+   	//Coroutine for displaying output
+   	IEnumerator OutputText(){
+   		//Get the text box since it gets generated
+   		TextMeshProUGUI textbox = GameObject.Find("resultsBox(Clone)").transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
+   		GameObject textObject = GameObject.Find("resultsBox(Clone)").transform.GetChild(0).gameObject;
+   		//outputQueue.Add("a");
+   		//outputQueue.Add("b");
+   		//outputQueue.Add("c");
+   		//outputQueue.Add("d");
+   		//outputQueue.Add("e");
+   		//outputQueue.Add("f");
+   		//outputQueue.Add("g");
+   		for(int i = 0; i < outputQueue.Count; i++){
+   			string outputBuild = "";
+   			for(int index = -4; index < 1; index++){
+   				if(i + index < 0)
+   					continue;
+   				outputBuild += outputQueue[i + index] + "\n";
+   			}
+   			//Debug.Log(outputBuild);
+   			textbox.text = outputBuild;
+   			yield return new WaitForSeconds(.5f);
    		}
    	}
 }
