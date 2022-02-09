@@ -1208,6 +1208,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentStation: {fileID: 900250774}
   speed: 0.03
+  height: -20
 --- !u!114 &1176020104 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}

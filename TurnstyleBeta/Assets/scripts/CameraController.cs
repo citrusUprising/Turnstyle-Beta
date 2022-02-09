@@ -9,10 +9,11 @@ public class CameraController : MonoBehaviour
     Vector3 moveToPosition; 
     public float speed = 2f;
     int currentLine = 0;
+    public float height;
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = currentStation.transform.position + new Vector3(0,0,-10);
+        transform.position = currentStation.transform.position + new Vector3(0,0, height);
     }
 
     // Update is called once per frame
@@ -40,7 +41,7 @@ public class CameraController : MonoBehaviour
         {
             moveToStation(currentLine);
         }
-        moveToPosition = currentStation.transform.position + new Vector3(0, 0, -10);
+        moveToPosition = currentStation.transform.position + new Vector3(0, 0, height);
         transform.position = Vector3.Lerp(transform.position, moveToPosition, speed);
     }
 
