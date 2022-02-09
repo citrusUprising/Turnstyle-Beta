@@ -36,4 +36,5 @@ public class nameTag : MonoBehaviour
 
         healthBar.GetComponent<Image>().fillAmount = (float)hpValue / (float)hpValueMax;
     }
+
 }
