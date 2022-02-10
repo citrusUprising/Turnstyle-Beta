@@ -2447,6 +2447,7 @@ MonoBehaviour:
   currentStation: {fileID: 900250774}
   speed: 0.03
   height: -20
+  scale: {x: 2, y: 2, z: 2}
 --- !u!1001 &1116489684
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3431,6 +3432,18 @@ PrefabInstance:
     - target: {fileID: 2133216932194625812, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: m_SizeDelta.y
       value: 1.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 2133216932194625812, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2133216932194625812, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2133216932194625812, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2133216932194625812, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: m_LocalPosition.x

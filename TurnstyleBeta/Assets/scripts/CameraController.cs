@@ -10,6 +10,7 @@ public class CameraController : MonoBehaviour
     public float speed = 2f;
     int currentLine = 0;
     public float height;
+    public Vector3 scale; 
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +22,7 @@ public class CameraController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
+            currentStation.destinations[currentLine].transform.localScale = new Vector3(1, 1, 1);
             currentLine++;
             if(currentLine == currentStation.destinations.Length)
             {
@@ -30,6 +32,7 @@ public class CameraController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
+            currentStation.destinations[currentLine].transform.localScale = new Vector3(1,1,1);
             currentLine = currentLine - 1;
             if (currentLine == -1)
             {
@@ -39,8 +42,10 @@ public class CameraController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
+            currentStation.transform.localScale = new Vector3(1, 1, 1);
             moveToStation(currentLine);
         }
+        currentStation.destinations[currentLine].transform.localScale = scale;
         moveToPosition = currentStation.transform.position + new Vector3(0, 0, height);
         transform.position = Vector3.Lerp(transform.position, moveToPosition, speed);
     }
