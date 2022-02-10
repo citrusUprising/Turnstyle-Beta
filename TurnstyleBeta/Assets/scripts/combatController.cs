@@ -112,13 +112,12 @@ public class combatController : MonoBehaviour
     public int totalSpeedThisTurn = 12;
     private int speedForCurrentMove = 0;
     private int totalSpeedAllocatedThisTurn = 0;
-    private string currentMoveName = "CURRENT MOVE";
+    // private string currentMoveName = "CURRENT MOVE";
     private GameObject topSquare;
     private GameObject bottomSquare;
     private GameObject speedSelectTextObject;
     private totalSpeed totalSpeedIndicator1;
     private totalSpeed totalSpeedIndicator2;
-    private bool isBlinking = false;
     private int[] selectedSpeeds = new int[3];
 
     // --------------------------------------------------------- //
@@ -135,6 +134,8 @@ public class combatController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        totalSpeedIndicator1 = Instantiate(totalSpeedPrefab, canvas.transform);
+
         // the available states so far are "rotate", "moveSelect", "targetSelect", "confirm", "playResults", "paused" (in that order)
         // "rotate" is for rotating the pentagon 
         // "moveSelect" is for selecting the move for a character
@@ -160,8 +161,6 @@ public class combatController : MonoBehaviour
         {
             nameTagCoords[i] = nameTagArray[i].transform.position;
         }
-
-        totalSpeedIndicator1 = Instantiate(totalSpeedPrefab, canvas.transform);
     }
 
     // Update is called once per frame
