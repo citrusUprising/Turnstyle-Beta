@@ -1230,6 +1230,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3087557339621338828, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6172e0aba30c2d04aa67f2f41d0d1d8d, type: 3}
+    - target: {fileID: 3087557339621338828, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_Color.b
+      value: 0.6453333
+      objectReference: {fileID: 0}
+    - target: {fileID: 3087557339621338828, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3087557339621338828, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: m_Name
       value: Orange Station 1
@@ -2306,6 +2322,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3087557339621338828, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6172e0aba30c2d04aa67f2f41d0d1d8d, type: 3}
     - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: m_Name
       value: Yellow Station 3
