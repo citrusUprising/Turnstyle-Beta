@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class combatController : MonoBehaviour
 {
@@ -13,10 +15,12 @@ public class combatController : MonoBehaviour
     public Canvas canvas;
     public GameObject rotateBox;
     public GameObject moveSelectBox;
+    public GameObject speedSelectBox;
     public GameObject confirmBox;
     public GameObject playResultsBox;
     public GameObject pauseMenu;
-    public GameObject gameLoop;
+    public MainLoop gameLoop;
+    public totalSpeed totalSpeedPrefab;
     private string state = "rotate";
 
     // this is currently only used in the pause state
@@ -102,6 +106,27 @@ public class combatController : MonoBehaviour
     private nameTag[] nameTagArray = new nameTag[5];
 
     // --------------------------------------------------------- //
+    // these are used in the speedSelect state
+    // --------------------------------------------------------- //
+    public int totalSpeedEachTurn = 12;
+    public int totalSpeedThisTurn = 12;
+    private int speedForCurrentMove = 0;
+    private int totalSpeedAllocatedThisTurn = 0;
+    private string currentMoveName = "CURRENT MOVE";
+    private GameObject topSquare;
+    private GameObject bottomSquare;
+    private GameObject speedSelectTextObject;
+    private totalSpeed totalSpeedIndicator1;
+    private totalSpeed totalSpeedIndicator2;
+    private bool isBlinking = false;
+    private int[] selectedSpeeds = new int[3];
+
+    // --------------------------------------------------------- //
+    // variables for setPlayerAction()
+    // --------------------------------------------------------- //
+
+
+    // --------------------------------------------------------- //
     // used in the paused state
     // --------------------------------------------------------- //
     private GameObject pauseMenuInstance;
@@ -114,6 +139,7 @@ public class combatController : MonoBehaviour
         // "rotate" is for rotating the pentagon 
         // "moveSelect" is for selecting the move for a character
         // "targetSelect" is for selecting the target for the move slected in moveSelect
+        // "speedSelect" is for selecting the speed for the move afte the target has been selected
         // "confirm" is for reviewing and confirming the selected moves
         // "playResults" is when the player has no controls and the combat animations play out
         // "paused" is when the pause menu is opened. it can be accessed by any state other than "playResults" and goes back to that state
@@ -135,6 +161,7 @@ public class combatController : MonoBehaviour
             nameTagCoords[i] = nameTagArray[i].transform.position;
         }
 
+        totalSpeedIndicator1 = Instantiate(totalSpeedPrefab, canvas.transform);
     }
 
     // Update is called once per frame
@@ -191,10 +218,58 @@ public class combatController : MonoBehaviour
             {
                 transitionToTargetSelect();
             }
+            // back function needs to be implemented
+            // should go back to rotate if numberOfSelectedMoves is 0 and back to moveSelect if it is greater than zero
+            // if it goes back to moveSelect, then it should -- numberOfSelectedMoves
+            else if (Input.GetKeyDown(KeyCode.Z))
+            {
+
+            }
         } 
 
+        // needs to be implemented
         else if (state == "targetSelect")
         {
+
+        }
+
+        else if (state == "speedSelect")
+        {
+            // this confirms the selected speed and goes to the next state
+            // if there have been three selected moves, then it goes to the confirm state
+            // if there have not, it goes to move select
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                // this is used for a few different things, including handling which unit is acting
+                numberOfSelectedMoves++;
+                if (numberOfSelectedMoves == 3)
+                {
+                    transitionToConfirm();
+                }
+                else
+                {
+                    transitionToMoveSelect();
+                }
+            }
+
+            // back function: needs to be implemented
+            // should go back to the target select and reset the speed that was set for that move
+            else if (Input.GetKeyDown(KeyCode.Z))
+            {
+
+            }
+
+            // changes the speed of the selected move up by one
+            else if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                changeSpeed(1);
+            }
+
+            // changes it down by one
+            else if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                changeSpeed(-1);
+            }
 
         }
 
@@ -203,6 +278,10 @@ public class combatController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.X))
             {
                 transitionToPlayResults();
+            } 
+            else if (Input.GetKeyDown(KeyCode.Z))
+            {
+                transitionToRotate();
             }
         }
 
@@ -212,7 +291,10 @@ public class combatController : MonoBehaviour
         // cuz we don't have all that done rn, i'm just using this for the moment for bug testing and such
         else if (state == "playResults")
         {
-            
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                transitionToRotate();
+            }
         }
 
         else if (state == "paused")
@@ -260,6 +342,8 @@ public class combatController : MonoBehaviour
         {
             rotationState = 4;
         }
+
+        Debug.Log(rotationState);
 
         // this is a local variable that i use to move the name tags around
         // in the alpha we did all of this code in 2 lines. thank you javascript <3 ily bb
@@ -357,6 +441,7 @@ public class combatController : MonoBehaviour
         setPreviousState();
         state = "rotate";
         currentDrawnBox = Instantiate(rotateBox, canvas.transform);
+        resetSpeed();
     }
 
     void transitionToMoveSelect()
@@ -371,6 +456,11 @@ public class combatController : MonoBehaviour
             moveSelectPointer.transform.localPosition[0],
             pointerCoords[selectedMove],
             moveSelectPointer.transform.localPosition[2]);
+
+
+        
+        // this needs to be put back in once the friendly objects are properly put into the nameTags
+        //gameLoop.setActiveUnits(rotationState);
         
         // we need logic to change the sprite of the currentDrawnBox to match the color of the current character
         // who is having their moves selected for them
@@ -399,25 +489,95 @@ public class combatController : MonoBehaviour
         
     }
 
-    // because i have not implemented this yet, it will go automatically to the next moveSelect
+    // because we have not implemented this yet, it will go automatically to the speedSelect
     void transitionToTargetSelect()
     {
-        numberOfSelectedMoves++;
         setPreviousState();
         state = "targetSelect";
         // this state does not have a box associated with it. therefore, the old box should not be destroyed
+        transitionToSpeedSelect();
+    }
 
-        // so this logic should come when the player presses X to select a target
-        // additionally, it should also do that if there is no target to select (like in the case of a move hitting all enemies/allies) 
-        if (numberOfSelectedMoves == 3)
-        {
-            transitionToConfirm();
-        } 
-        else
-        {
-            transitionToMoveSelect();
-        }
+    // a lot of things have to happen here
+    // TODO: 1. change color of the totalSpeedIndicator and speedSelectBox based on who is active
+    //       2. add blinking animation 
+    //       3. change text of the speedSelectBox to match the current move 
+    void transitionToSpeedSelect()
+    {
+        setPreviousState();
+        state = "speedSelect";
+        Destroy(currentDrawnBox);
+        currentDrawnBox = Instantiate(speedSelectBox, canvas.transform);
+
+        // this is the second speed indicator that appears in the top left 
+        totalSpeedIndicator2 = Instantiate(totalSpeedPrefab, canvas.transform);
         
+        // puts it right into place. please excuse my magic numbers
+        totalSpeedIndicator2.transform.localPosition = new Vector3(
+            currentDrawnBox.transform.localPosition[0] - 133,
+            currentDrawnBox.transform.localPosition[1] - 104,
+            0);
+
+        // updates the text on the indicators 
+        totalSpeedIndicator1.currentDisplayedSpeed = totalSpeedThisTurn;
+        totalSpeedIndicator2.currentDisplayedSpeed = totalSpeedThisTurn;
+
+        // the topSquare and bottomSqaure are white squares that go above the arrows drawn on the speedSelect
+        // right now they are invisible 100% of the time lol
+        topSquare = currentDrawnBox.transform.GetChild(2).gameObject;
+        bottomSquare = currentDrawnBox.transform.GetChild(3).gameObject;
+        speedSelectTextObject = currentDrawnBox.transform.GetChild(0).gameObject;
+
+        speedForCurrentMove = 0;
+    }
+
+    void changeSpeed(int change)
+    {
+        // two things can cancel this function:
+        // 1. if the speed is going DOWN
+        //      the speed for the currently selected move cannot go below 0
+        // 2. if the speed is going UP
+        //      the total speed that you have allocated total (across all moves) cannot go above the maximum speed each turn
+        // this prevents the speed from going out of bounds (like negative numbers or > 12)
+        if ((change == -1 && speedForCurrentMove + change > -1) || (change == 1 && totalSpeedAllocatedThisTurn < totalSpeedEachTurn))
+        {
+            // change the speed for the current move
+            speedForCurrentMove += change;
+
+            // update that in the array of all the speed values for each move
+            selectedSpeeds[numberOfSelectedMoves] = speedForCurrentMove;
+
+            // calculate the total speed allocated based on the speed values for each move
+            totalSpeedAllocatedThisTurn = selectedSpeeds[0] + selectedSpeeds[1] + selectedSpeeds[2];
+
+            // see how much speed you have left to allocate based on the difference between the total speed and the speed you have allocated
+            totalSpeedThisTurn = totalSpeedEachTurn - totalSpeedAllocatedThisTurn;
+
+
+            // update the speed shown on the speedSelectBox to show the speed that is being put into the currently selected move
+            speedSelectTextObject.GetComponent<TextMeshProUGUI>().text = speedForCurrentMove.ToString();
+
+            // changes the total speed display
+            totalSpeedIndicator1.currentDisplayedSpeed = totalSpeedThisTurn;
+            totalSpeedIndicator2.currentDisplayedSpeed = totalSpeedThisTurn;
+
+            selectedSpeeds[numberOfSelectedMoves] = speedForCurrentMove;
+        }
+    }
+
+    // resets everything to do with speed
+    // right now, this is called on transitionToRotate(), so that when a new turn starts, everything works again
+    // in the future we can make this more sophisticated so that we can use it to partially reset the speed when we go back to a previous move
+    // select and need to only reset some of the speed values
+    void resetSpeed()
+    {
+        selectedSpeeds[0] = 0;
+        selectedSpeeds[1] = 0;
+        selectedSpeeds[2] = 0;
+        speedForCurrentMove = 0;
+        totalSpeedAllocatedThisTurn = 0;
+        totalSpeedThisTurn = totalSpeedEachTurn;
+        totalSpeedIndicator1.currentDisplayedSpeed = totalSpeedThisTurn;
     }
 
     void transitionToConfirm()
