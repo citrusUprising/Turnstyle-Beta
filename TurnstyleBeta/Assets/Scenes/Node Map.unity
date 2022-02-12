@@ -1111,7 +1111,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: destinations.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: destinations.Array.data[0]
@@ -1121,6 +1121,10 @@ PrefabInstance:
       propertyPath: destinations.Array.data[1]
       value: 
       objectReference: {fileID: 1953921151}
+    - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: destinations.Array.data[2]
+      value: 
+      objectReference: {fileID: 1453518014}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
 --- !u!224 &564507640 stripped
