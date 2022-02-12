@@ -342,8 +342,6 @@ public class combatController : MonoBehaviour
             rotationState = 4;
         }
 
-        Debug.Log(rotationState);
-
         // this is a local variable that i use to move the name tags around
         // in the alpha we did all of this code in 2 lines. thank you javascript <3 ily bb
         // you never know what you have until you lose it T_T
