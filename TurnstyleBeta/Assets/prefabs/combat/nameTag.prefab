@@ -776,7 +776,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6267005066099130129, guid: a53e4c2e24f216546ab8b8a824137b0b, type: 3}
       propertyPath: m_Name
-      value: statusEffectTracker (1)
+      value: buffEffectTracker
       objectReference: {fileID: 0}
     - target: {fileID: 8310889262038051605, guid: a53e4c2e24f216546ab8b8a824137b0b, type: 3}
       propertyPath: kindOfStatus
@@ -882,7 +882,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6267005066099130129, guid: a53e4c2e24f216546ab8b8a824137b0b, type: 3}
       propertyPath: m_Name
-      value: statusEffectTracker (2)
+      value: debuffEffectTracker
       objectReference: {fileID: 0}
     - target: {fileID: 8310889262038051605, guid: a53e4c2e24f216546ab8b8a824137b0b, type: 3}
       propertyPath: kindOfStatus
