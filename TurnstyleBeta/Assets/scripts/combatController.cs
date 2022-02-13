@@ -91,7 +91,7 @@ public class combatController : MonoBehaviour
     private Vector3 oldNameTagCoordsSeraphim;
 
     // this is time 
-    static float t = 0.0f;
+    private float t = 0.0f;
 
     // --------------------------------------------------------- //
     // these are used in the rotate state, but will also be used
@@ -136,6 +136,18 @@ public class combatController : MonoBehaviour
     {
         totalSpeedIndicator1 = Instantiate(totalSpeedPrefab, canvas.transform);
 
+        // 3 and 4 are inactive, 0, 1, and 2 are active
+        nameTagArray[0] = nameTagBeverly;
+        nameTagArray[1] = nameTagAmery;
+        nameTagArray[2] = nameTagKoralie;
+        nameTagArray[3] = nameTagJade;
+        nameTagArray[4] = nameTagSeraphim;
+
+        for (int i = 0; i < 5; i++)
+        {
+            nameTagCoords[i] = nameTagArray[i].transform.position;
+        }
+
         // the available states so far are "rotate", "moveSelect", "targetSelect", "confirm", "playResults", "paused" (in that order)
         // "rotate" is for rotating the pentagon 
         // "moveSelect" is for selecting the move for a character
@@ -149,18 +161,6 @@ public class combatController : MonoBehaviour
         // rotate -> moveSelect(1) -> targetSelect(1) -> moveSelect(2) -> targetSelect(2) -> moveSelect(3) -> targetSelect(3) -> confirm ->
         // EITHER moveSelect(1) OR playResults -> rotate REPEAT
         transitionToRotate();
-
-        // 3 and 4 are inactive, 0, 1, and 2 are active
-        nameTagArray[0] = nameTagBeverly;
-        nameTagArray[1] = nameTagAmery;
-        nameTagArray[2] = nameTagKoralie;
-        nameTagArray[3] = nameTagJade;
-        nameTagArray[4] = nameTagSeraphim;
-
-        for (int i = 0; i < 5; i++)
-        {
-            nameTagCoords[i] = nameTagArray[i].transform.position;
-        }
     }
 
     // Update is called once per frame
@@ -394,6 +394,17 @@ public class combatController : MonoBehaviour
             nameTagArray[i].previousPosition = nameTagArray[i].transform.position;
             nameTagArray[i].nextPosition = nameTagCoords[i];
         }
+
+        if (direction == -1)
+        {
+            nameTagArray[0].togglePassiveShowing();
+            nameTagArray[3].togglePassiveShowing();
+        }
+        else if (direction == 1)
+        {
+            nameTagArray[4].togglePassiveShowing();
+            nameTagArray[2].togglePassiveShowing();
+        }
     }
 
     void rotatePentagon()
@@ -405,9 +416,6 @@ public class combatController : MonoBehaviour
         // lerps the rotation of the pentagon to the next rotation
         pentagonSprite.GetComponent<RectTransform>().rotation = Quaternion.Lerp(oldRotation, newRotation, t);
 
-
-        // so this should be replaced with a lerp, something along the lines of 
-        // Vector3.Lerp( SOMETHING , nameTagCoords[i] , t );
         for (int i = 0; i < 5; i++)
         {
             nameTagArray[i].transform.position = Vector3.Lerp(nameTagArray[i].previousPosition, nameTagArray[i].nextPosition, t);
@@ -446,6 +454,15 @@ public class combatController : MonoBehaviour
         state = "rotate";
         currentDrawnBox = Instantiate(rotateBox, canvas.transform);
         resetSpeed();
+
+        //Debug.Log(nameTagArray);
+
+        
+
+        nameTagArray[0].togglePassiveShowing();
+        nameTagArray[1].togglePassiveShowing();
+        nameTagArray[2].togglePassiveShowing();
+
     }
 
     void transitionToMoveSelect()
@@ -461,11 +478,15 @@ public class combatController : MonoBehaviour
             pointerCoords[selectedMove],
             moveSelectPointer.transform.localPosition[2]);
 
+        nameTagArray[0].togglePassiveShowing();
+        nameTagArray[1].togglePassiveShowing();
+        nameTagArray[2].togglePassiveShowing();
 
-        
+
+
         // this needs to be put back in once the friendly objects are properly put into the nameTags
         //gameLoop.setActiveUnits(rotationState);
-        
+
         // we need logic to change the sprite of the currentDrawnBox to match the color of the current character
         // who is having their moves selected for them
         // also the name of the moves and the descriptions of the moves should change to match the next character

@@ -6,6 +6,12 @@ using UnityEngine.UI;
 using TMPro;
 public class nameTag : MonoBehaviour
 {
+
+    // TODO:
+    // nudge the passive locations over until the animation works
+    // reset the T whenever toggle pass
+
+    private GameObject passiveSprite;
     private GameObject fatigue;
     private GameObject healthBar;
     private GameObject hpText;
@@ -15,19 +21,28 @@ public class nameTag : MonoBehaviour
     private string hpValueString;
     public Vector3 previousPosition;
     public Vector3 nextPosition;
+    private bool isPassiveHidden = true;
+    private bool passiveIsAnimating = false;
+    private Vector3 passiveHiddenLocation;
+    private Vector3 passiveShownLocation;
+    private float t = 0.0f;
 
     // Start is called before the first frame update
     void Start()
     {
-        fatigue = transform.GetChild(1).gameObject;
-        healthBar = transform.GetChild(2).gameObject;
-        hpText = transform.GetChild(3).gameObject;
+        passiveSprite = transform.GetChild(0).gameObject;
+        fatigue = transform.GetChild(3).gameObject;
+        healthBar = transform.GetChild(4).gameObject;
+        hpText = transform.GetChild(5).gameObject;
 
+        passiveHiddenLocation = new Vector3(passiveSprite.transform.localPosition[0], passiveSprite.transform.localPosition[1], 0);
+        passiveShownLocation = new Vector3(passiveSprite.transform.localPosition[0], passiveSprite.transform.localPosition[1] - 96, 0);
     }
 
     // Update is called once per frame
     void Update()
     {
+
         fatigue.GetComponent<TextMeshProUGUI>().text = fatigueValue.ToString();
 
         hpValueString = "HP " + hpValue.ToString() + "/" + hpValueMax.ToString();
@@ -35,6 +50,50 @@ public class nameTag : MonoBehaviour
         hpText.GetComponent<TextMeshProUGUI>().text = hpValueString;
 
         healthBar.GetComponent<Image>().fillAmount = (float)hpValue / (float)hpValueMax;
+
+        animatePassive();
+    }
+    
+    public void togglePassiveShowing()
+    {
+        if (isPassiveHidden)
+        {
+            isPassiveHidden = false;
+        } 
+        else
+        {
+            isPassiveHidden = true;
+        }
+
+        passiveIsAnimating = true;
+
+        if (t != 0f)
+        {
+            t = 1f - t;
+        }
     }
 
+    void animatePassive()
+    {
+        if (passiveIsAnimating)
+        {
+
+            if (isPassiveHidden)
+            {
+                passiveSprite.transform.localPosition = Vector3.Lerp(passiveShownLocation, passiveHiddenLocation, t);
+            }
+            else 
+            {
+                passiveSprite.transform.localPosition = Vector3.Lerp(passiveHiddenLocation, passiveShownLocation, t);
+            }
+
+            t += 2.5f * Time.deltaTime;
+
+            if (t > 1.0f)
+            {
+                t = 0f;
+                passiveIsAnimating = false;
+            }
+        }
+    }
 }
