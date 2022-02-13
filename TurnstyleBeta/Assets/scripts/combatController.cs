@@ -239,8 +239,13 @@ public class combatController : MonoBehaviour
             // if there have not, it goes to move select
             if (Input.GetKeyDown(KeyCode.X))
             {
+                // destroy the old speedIndicator2 (the one on top of the speed select sprite)
+                // i had to make a custom function for some reason idk
+                totalSpeedIndicator2.destroySelf();
+
                 // this is used for a few different things, including handling which unit is acting
                 numberOfSelectedMoves++;
+
                 if (numberOfSelectedMoves == 3)
                 {
                     transitionToConfirm();
@@ -249,6 +254,7 @@ public class combatController : MonoBehaviour
                 {
                     transitionToMoveSelect();
                 }
+
             }
 
             // back function: needs to be implemented
@@ -434,6 +440,7 @@ public class combatController : MonoBehaviour
 
     void transitionToRotate()
     {
+        numberOfSelectedMoves = 0;
         Destroy(currentDrawnBox);
         setPreviousState();
         state = "rotate";

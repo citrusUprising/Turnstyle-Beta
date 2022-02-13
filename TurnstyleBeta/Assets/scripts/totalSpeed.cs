@@ -31,4 +31,9 @@ public class totalSpeed : MonoBehaviour
     {
         GetComponent<Image>().sprite = spriteToChangeTo;
     }
+
+    public void destroySelf()
+    {
+        Destroy(gameObject);
+    }
 }
