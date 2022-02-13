@@ -102,6 +102,15 @@ public class combatController : MonoBehaviour
     private nameTag[] nameTagArray = new nameTag[5];
 
     // --------------------------------------------------------- //
+    // player objects
+    // --------------------------------------------------------- //
+    public GameObject Beverly;
+    public Friendly Amery;
+    public Friendly Koralie;
+    public Friendly Jade;
+    public Friendly Seraphim;
+
+    // --------------------------------------------------------- //
     // used in the paused state
     // --------------------------------------------------------- //
     private GameObject pauseMenuInstance;
@@ -110,6 +119,7 @@ public class combatController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         // the available states so far are "rotate", "moveSelect", "targetSelect", "confirm", "playResults", "paused" (in that order)
         // "rotate" is for rotating the pentagon 
         // "moveSelect" is for selecting the move for a character
@@ -129,6 +139,19 @@ public class combatController : MonoBehaviour
         nameTagArray[2] = nameTagKoralie;
         nameTagArray[3] = nameTagJade;
         nameTagArray[4] = nameTagSeraphim;
+
+        // // init each player
+        // // string name, StatusName[] immunity, Ability[] abilities, int hp
+        // // Ability[] b = new Ability[]{new Smolder(), new Dazzle(), new Imbibe()};
+        // Ability[] a = new Ability[]{new Mitigate(), new Fallguy(), new Scrum()};
+        // Ability[] k = new Ability[]{new Repel(), new Hunker(), new Crush()};
+        // Ability[] j = new Ability[]{new Stunnerclap(), new Rally(), new Motivate()};
+        // Ability[] s = new Ability[]{new Soulrip(), new Scry(), new Slump()};
+        // // Beverly = new Friendly("Beverly", new StatusName[4], b, 16);
+        // Amery = new Friendly("Amery", new StatusName[4], a, 12);
+        // Koralie = new Friendly("Koralie", new StatusName[4], k, 20);
+        // Jade = new Friendly("Jade", new StatusName[4], j, 15);
+        // Seraphim = new Friendly("Seraphim", new StatusName[4], s, 10);
 
         for (int i = 0; i < 5; i++)
         {

@@ -16,12 +16,25 @@ public class nameTag : MonoBehaviour
     public Vector3 previousPosition;
     public Vector3 nextPosition;
 
+    public GameObject character;
+
     // Start is called before the first frame update
     void Start()
     {
         fatigue = transform.GetChild(1).gameObject;
         healthBar = transform.GetChild(2).gameObject;
         hpText = transform.GetChild(3).gameObject;
+        Friendly test = character.GetComponent<Friendly>();
+        if(test){
+            Debug.Log("Got character info");
+            Debug.Log(test);
+            hpValueMax = test.maxHP;   
+            hpValue = test.hp;     
+        }
+        else{
+            Debug.Log("Character object error.");
+        }
+
 
     }
 

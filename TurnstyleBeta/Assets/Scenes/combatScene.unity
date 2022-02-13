@@ -199,6 +199,11 @@ MonoBehaviour:
   nameTagKoralie: {fileID: 545475370}
   nameTagJade: {fileID: 951670869}
   nameTagSeraphim: {fileID: 1252358152}
+  Beverly: {fileID: 996637130}
+  Amery: {fileID: 0}
+  Koralie: {fileID: 0}
+  Jade: {fileID: 0}
+  Seraphim: {fileID: 0}
 --- !u!114 &61845108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,6 +242,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 61845105}
   m_CullTransparentMesh: 1
+--- !u!1 &295711794
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 295711795}
+  - component: {fileID: 295711796}
+  m_Layer: 0
+  m_Name: Seraphim
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &295711795
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295711794}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 545.7444, y: 257.49408, z: -117.264694}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &295711796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295711794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a41530215aa43f749919f6723bc5791f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitName: 
+  allies: []
+  enemies: []
+  immunity: 
+  fatigue: 0
+  hp: 10
+  maxHP: 10
+  priorTarget: {fileID: 0}
+  dead: 0
+  isActive: 0
 --- !u!224 &399669878 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6194342817783395098, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
@@ -536,6 +594,10 @@ PrefabInstance:
       value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 8640419028851797480, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 2064381029}
+    - target: {fileID: 8640419028851797480, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
       propertyPath: hpValueMax
       value: 16
       objectReference: {fileID: 0}
@@ -730,6 +792,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 990851450}
   m_CullTransparentMesh: 1
+--- !u!1 &996637130
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 996637132}
+  - component: {fileID: 996637133}
+  m_Layer: 0
+  m_Name: Beverly
+  m_TagString: Ally
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &996637132
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996637130}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 545.7444, y: 257.49408, z: -117.264694}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &996637133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996637130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a41530215aa43f749919f6723bc5791f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitName: Beverly
+  allies: []
+  enemies: []
+  immunity: 
+  fatigue: 0
+  hp: 12
+  maxHP: 16
+  priorTarget: {fileID: 0}
+  dead: 0
+  isActive: 0
 --- !u!1001 &1187822943
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -858,6 +973,10 @@ PrefabInstance:
       value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 8640419028851797480, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 996637130}
+    - target: {fileID: 8640419028851797480, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
       propertyPath: hpValueMax
       value: 16
       objectReference: {fileID: 0}
@@ -884,6 +1003,59 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 9017956464396516356, guid: a3342c13ef0122547a47ee636bc14559, type: 3}
   m_PrefabInstance: {fileID: 9017956465384535737}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1279925537
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1279925538}
+  - component: {fileID: 1279925539}
+  m_Layer: 0
+  m_Name: Jade
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1279925538
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279925537}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 545.7444, y: 257.49408, z: -117.264694}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1279925539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279925537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a41530215aa43f749919f6723bc5791f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitName: Jade
+  allies: []
+  enemies: []
+  immunity: 
+  fatigue: 0
+  hp: 15
+  maxHP: 15
+  priorTarget: {fileID: 0}
+  dead: 0
+  isActive: 0
 --- !u!1 &1382596076
 GameObject:
   m_ObjectHideFlags: 0
@@ -1120,6 +1292,10 @@ PrefabInstance:
       value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 8640419028851797480, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 295711794}
+    - target: {fileID: 8640419028851797480, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
       propertyPath: hpValueMax
       value: 16
       objectReference: {fileID: 0}
@@ -1205,6 +1381,59 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6194342817783395098, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
   m_PrefabInstance: {fileID: 6194342817384378431}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1861748450
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1861748451}
+  - component: {fileID: 1861748452}
+  m_Layer: 0
+  m_Name: Amery
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1861748451
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1861748450}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 545.7444, y: 257.49408, z: -117.264694}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1861748452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1861748450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a41530215aa43f749919f6723bc5791f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitName: Amery
+  allies: []
+  enemies: []
+  immunity: 
+  fatigue: 0
+  hp: 12
+  maxHP: 12
+  priorTarget: {fileID: 0}
+  dead: 0
+  isActive: 0
 --- !u!1 &1881125686
 GameObject:
   m_ObjectHideFlags: 0
@@ -1298,6 +1527,59 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6194342817783395098, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
   m_PrefabInstance: {fileID: 1187822943}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2064381029
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2064381030}
+  - component: {fileID: 2064381031}
+  m_Layer: 0
+  m_Name: Koralie
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2064381030
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064381029}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 545.7444, y: 257.49408, z: -117.264694}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2064381031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064381029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a41530215aa43f749919f6723bc5791f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitName: Koralie
+  allies: []
+  enemies: []
+  immunity: 
+  fatigue: 0
+  hp: 20
+  maxHP: 20
+  priorTarget: {fileID: 0}
+  dead: 0
+  isActive: 0
 --- !u!1001 &2111278358
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1409,6 +1691,10 @@ PrefabInstance:
       propertyPath: hpValue
       value: 16
       objectReference: {fileID: 0}
+    - target: {fileID: 8640419028851797480, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 1279925537}
     - target: {fileID: 8640419028851797480, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
       propertyPath: hpValueMax
       value: 16
@@ -1538,6 +1824,10 @@ PrefabInstance:
       propertyPath: hpValue
       value: 16
       objectReference: {fileID: 0}
+    - target: {fileID: 8640419028851797480, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 1861748450}
     - target: {fileID: 8640419028851797480, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
       propertyPath: hpValueMax
       value: 16

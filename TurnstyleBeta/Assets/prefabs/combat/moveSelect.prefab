@@ -367,6 +367,11 @@ MonoBehaviour:
   Pink: {fileID: 21300000, guid: 3c0f1bb7f7791694ea337d0875b54fdc, type: 3}
   Green: {fileID: 21300000, guid: a477076d8fed4294d9428ed3538bc408, type: 3}
   Red: {fileID: 21300000, guid: 2fadf7b6e6d40314b9990fa064424f70, type: 3}
+  BlueImg: {fileID: 21300000, guid: c912d12fe0d343142b04a83d0f9e2983, type: 3}
+  YellowImg: {fileID: 21300000, guid: e1092237d39caf348b4677418a13243c, type: 3}
+  PinkImg: {fileID: 21300000, guid: 3c0f1bb7f7791694ea337d0875b54fdc, type: 3}
+  GreenImg: {fileID: 21300000, guid: a477076d8fed4294d9428ed3538bc408, type: 3}
+  RedImg: {fileID: 21300000, guid: 2fadf7b6e6d40314b9990fa064424f70, type: 3}
 --- !u!1 &4720814543980422122
 GameObject:
   m_ObjectHideFlags: 0
