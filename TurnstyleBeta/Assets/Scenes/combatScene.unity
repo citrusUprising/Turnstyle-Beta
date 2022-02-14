@@ -254,7 +254,7 @@ GameObject:
   - component: {fileID: 295711796}
   m_Layer: 0
   m_Name: Seraphim
-  m_TagString: Untagged
+  m_TagString: Ally
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -285,7 +285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a41530215aa43f749919f6723bc5791f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: 
+  unitName: Seraphim
   allies: []
   enemies: []
   immunity: 
@@ -300,6 +300,81 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6194342817783395098, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
   m_PrefabInstance: {fileID: 1667599317}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &524708517
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 524708520}
+  - component: {fileID: 524708519}
+  - component: {fileID: 524708518}
+  m_Layer: 0
+  m_Name: Enemy 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &524708518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524708517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 3d5c56d8a31f0d54488a853a777dab75, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &524708519
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524708517}
+  m_CullTransparentMesh: 1
+--- !u!224 &524708520
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524708517}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -137.34299}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 651, y: 251}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &545475370 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8640419028851797480, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
@@ -477,6 +552,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1382596080}
     m_Modifications:
+    - target: {fileID: 2736015246434819403, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 2064381029}
+    - target: {fileID: 2736015246434819403, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
+      propertyPath: playerImg
+      value: 
+      objectReference: {fileID: 21300000, guid: 3c0f1bb7f7791694ea337d0875b54fdc, type: 3}
     - target: {fileID: 6194342817756411935, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
       propertyPath: m_text
       value: Koralie
@@ -840,7 +923,7 @@ MonoBehaviour:
   enemies: []
   immunity: 
   fatigue: 0
-  hp: 12
+  hp: 16
   maxHP: 16
   priorTarget: {fileID: 0}
   dead: 0
@@ -852,6 +935,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1382596080}
     m_Modifications:
+    - target: {fileID: 2736015246434819403, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 996637130}
+    - target: {fileID: 2736015246434819403, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
+      propertyPath: playerImg
+      value: 
+      objectReference: {fileID: 21300000, guid: c912d12fe0d343142b04a83d0f9e2983, type: 3}
+    - target: {fileID: 2736015246434819403, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
+      propertyPath: moveSelect
+      value: 
+      objectReference: {fileID: 4720814543380981461, guid: b9800b8604f742c42bd4e016ccba34fc, type: 3}
     - target: {fileID: 6194342817756411935, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
       propertyPath: m_text
       value: Beverly
@@ -980,6 +1075,10 @@ PrefabInstance:
       propertyPath: hpValueMax
       value: 16
       objectReference: {fileID: 0}
+    - target: {fileID: 8640419028851797480, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
+      propertyPath: moveSelect
+      value: 
+      objectReference: {fileID: 4720814543380981461, guid: b9800b8604f742c42bd4e016ccba34fc, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
 --- !u!224 &1234528162 stripped
@@ -1015,7 +1114,7 @@ GameObject:
   - component: {fileID: 1279925539}
   m_Layer: 0
   m_Name: Jade
-  m_TagString: Untagged
+  m_TagString: Ally
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1171,6 +1270,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1382596080}
     m_Modifications:
+    - target: {fileID: 2736015246434819403, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 295711794}
+    - target: {fileID: 2736015246434819403, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
+      propertyPath: playerImg
+      value: 
+      objectReference: {fileID: 21300000, guid: 2fadf7b6e6d40314b9990fa064424f70, type: 3}
     - target: {fileID: 6194342817756411935, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
       propertyPath: m_text
       value: Seraphim
@@ -1393,7 +1500,7 @@ GameObject:
   - component: {fileID: 1861748452}
   m_Layer: 0
   m_Name: Amery
-  m_TagString: Untagged
+  m_TagString: Ally
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1539,7 +1646,7 @@ GameObject:
   - component: {fileID: 2064381031}
   m_Layer: 0
   m_Name: Koralie
-  m_TagString: Untagged
+  m_TagString: Ally
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1587,6 +1694,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1382596080}
     m_Modifications:
+    - target: {fileID: 2736015246434819403, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 1279925537}
+    - target: {fileID: 2736015246434819403, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
+      propertyPath: playerImg
+      value: 
+      objectReference: {fileID: 21300000, guid: a477076d8fed4294d9428ed3538bc408, type: 3}
     - target: {fileID: 6194342817756411935, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
       propertyPath: m_text
       value: Jade
@@ -1708,6 +1823,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1382596080}
     m_Modifications:
+    - target: {fileID: 2736015246434819403, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 1861748450}
+    - target: {fileID: 2736015246434819403, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
+      propertyPath: playerImg
+      value: 
+      objectReference: {fileID: 21300000, guid: e1092237d39caf348b4677418a13243c, type: 3}
     - target: {fileID: 6194342817756411935, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
       propertyPath: m_text
       value: Amery

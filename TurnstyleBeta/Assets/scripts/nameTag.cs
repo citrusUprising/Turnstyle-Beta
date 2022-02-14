@@ -26,16 +26,13 @@ public class nameTag : MonoBehaviour
         hpText = transform.GetChild(3).gameObject;
         Friendly test = character.GetComponent<Friendly>();
         if(test){
-            Debug.Log("Got character info");
-            Debug.Log(test);
+            Debug.Log("Got character info"+test);
             hpValueMax = test.maxHP;   
             hpValue = test.hp;     
         }
         else{
             Debug.Log("Character object error.");
         }
-
-
     }
 
     // Update is called once per frame

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class combatController : MonoBehaviour
 {
@@ -43,7 +44,6 @@ public class combatController : MonoBehaviour
 
     // the selector sprite
     private GameObject moveSelectPointer;
-
 
     // --------------------------------------------------------- //
     // variables that interact with the rotate state
@@ -140,18 +140,12 @@ public class combatController : MonoBehaviour
         nameTagArray[3] = nameTagJade;
         nameTagArray[4] = nameTagSeraphim;
 
-        // // init each player
-        // // string name, StatusName[] immunity, Ability[] abilities, int hp
-        // // Ability[] b = new Ability[]{new Smolder(), new Dazzle(), new Imbibe()};
-        // Ability[] a = new Ability[]{new Mitigate(), new Fallguy(), new Scrum()};
-        // Ability[] k = new Ability[]{new Repel(), new Hunker(), new Crush()};
-        // Ability[] j = new Ability[]{new Stunnerclap(), new Rally(), new Motivate()};
-        // Ability[] s = new Ability[]{new Soulrip(), new Scry(), new Slump()};
-        // // Beverly = new Friendly("Beverly", new StatusName[4], b, 16);
-        // Amery = new Friendly("Amery", new StatusName[4], a, 12);
-        // Koralie = new Friendly("Koralie", new StatusName[4], k, 20);
-        // Jade = new Friendly("Jade", new StatusName[4], j, 15);
-        // Seraphim = new Friendly("Seraphim", new StatusName[4], s, 10);
+        // init each player's moves here ⬇ this code is ugly but it works
+        nameTagArray[0].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Smolder(), new Dazzle(), new Imbibe()}; 
+        nameTagArray[1].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Mitigate(), new Fallguy(), new Scrum()};
+        nameTagArray[2].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Repel(), new Hunker(), new Crush()};
+        nameTagArray[3].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Stunnerclap(), new Rally(), new Motivate()};
+        nameTagArray[4].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Soulrip(), new Scry(), new Slump()};
 
         for (int i = 0; i < 5; i++)
         {
@@ -203,11 +197,14 @@ public class combatController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
                 changeSelectedMove(1);
+                // nameTagArray[numberOfSelectedMoves].GetComponent<PlayerMoveSelect>().movePointer(1);
+                
             }
             // when the up arrow is pressed, move the selection up
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 changeSelectedMove(-1);
+                // nameTagArray[numberOfSelectedMoves].GetComponent<PlayerMoveSelect>().movePointer(-1);
             }
             // when the X key is pressed, we need to go to selecting targets
             if (Input.GetKeyDown(KeyCode.X))
@@ -387,6 +384,10 @@ public class combatController : MonoBehaviour
         setPreviousState();
         state = "moveSelect";
         Destroy(currentDrawnBox);
+        
+        // 🎨 setting draw box color & move names 
+        nameTagArray[numberOfSelectedMoves].GetComponent<PlayerMoveSelect>().ChangeColor();     
+
         currentDrawnBox = Instantiate(moveSelectBox, canvas.transform);
         selectedMove = 0;
         moveSelectPointer = currentDrawnBox.transform.GetChild(5).gameObject;
@@ -394,15 +395,6 @@ public class combatController : MonoBehaviour
             moveSelectPointer.transform.localPosition[0],
             pointerCoords[selectedMove],
             moveSelectPointer.transform.localPosition[2]);
-        
-        // can change to string/etc later, 
-        // currently only sets player name & abilities based on num input, abilities are empty strings rnow
-        // i cannot get the image to swap for the life of me
-        currentDrawnBox.GetComponent<PlayerMoveSelect>().ChangeColor(2);
-
-        // we need logic to change the sprite of the currentDrawnBox to match the color of the current character
-        // who is having their moves selected for them
-        // also the name of the moves and the descriptions of the moves should change to match the next character
     }
 
     void changeSelectedMove(int change)
@@ -416,15 +408,15 @@ public class combatController : MonoBehaviour
         {
             selectedMove = 2;
         }
-
         // move the cursor up or down to the next move
         moveSelectPointer.transform.localPosition = new Vector3(
             moveSelectPointer.transform.localPosition[0], 
             pointerCoords[selectedMove], 
             moveSelectPointer.transform.localPosition[2]);
 
-        // we also have to replace the description of the move with the description of the selected move
-        
+        // 👉 changing move description to reflect pointer movement
+        currentDrawnBox.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = 
+        nameTagArray[0].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities[selectedMove].text;
     }
 
     // because i have not implemented this yet, it will go automatically to the next moveSelect

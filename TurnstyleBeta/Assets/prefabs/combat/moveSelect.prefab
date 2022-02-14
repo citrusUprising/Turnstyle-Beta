@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: move one
+  m_text: Smolder
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 82f475ca820e7bf4186f550673997a04, type: 2}
   m_sharedMaterial: {fileID: 6720260575455018710, guid: 82f475ca820e7bf4186f550673997a04, type: 2}
@@ -199,7 +199,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: move three
+  m_text: Imbibe
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 82f475ca820e7bf4186f550673997a04, type: 2}
   m_sharedMaterial: {fileID: 6720260575455018710, guid: 82f475ca820e7bf4186f550673997a04, type: 2}
@@ -279,7 +279,6 @@ GameObject:
   - component: {fileID: 4720814543380981460}
   - component: {fileID: 4720814543380981458}
   - component: {fileID: 4720814543380981459}
-  - component: {fileID: 5976329376557875637}
   m_Layer: 5
   m_Name: moveSelect
   m_TagString: Untagged
@@ -350,28 +349,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5976329376557875637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4720814543380981461}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 984148fe0d01c2d49afafe876450df1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Blue: {fileID: 21300000, guid: c912d12fe0d343142b04a83d0f9e2983, type: 3}
-  Yellow: {fileID: 21300000, guid: e1092237d39caf348b4677418a13243c, type: 3}
-  Pink: {fileID: 21300000, guid: 3c0f1bb7f7791694ea337d0875b54fdc, type: 3}
-  Green: {fileID: 21300000, guid: a477076d8fed4294d9428ed3538bc408, type: 3}
-  Red: {fileID: 21300000, guid: 2fadf7b6e6d40314b9990fa064424f70, type: 3}
-  BlueImg: {fileID: 21300000, guid: c912d12fe0d343142b04a83d0f9e2983, type: 3}
-  YellowImg: {fileID: 21300000, guid: e1092237d39caf348b4677418a13243c, type: 3}
-  PinkImg: {fileID: 21300000, guid: 3c0f1bb7f7791694ea337d0875b54fdc, type: 3}
-  GreenImg: {fileID: 21300000, guid: a477076d8fed4294d9428ed3538bc408, type: 3}
-  RedImg: {fileID: 21300000, guid: 2fadf7b6e6d40314b9990fa064424f70, type: 3}
 --- !u!1 &4720814543980422122
 GameObject:
   m_ObjectHideFlags: 0
@@ -437,7 +414,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Blue
+  m_text: Beverly
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 63966710d2c481544a494dd77bc1cc79, type: 2}
   m_sharedMaterial: {fileID: -888945008187845637, guid: 63966710d2c481544a494dd77bc1cc79, type: 2}
@@ -571,7 +548,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: move two
+  m_text: Dazzle
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 82f475ca820e7bf4186f550673997a04, type: 2}
   m_sharedMaterial: {fileID: 6720260575455018710, guid: 82f475ca820e7bf4186f550673997a04, type: 2}
@@ -705,7 +682,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: this is the description of the currently selected move.
+  m_text: Hit enemy with fire, damaging them based on your speed
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 82f475ca820e7bf4186f550673997a04, type: 2}
   m_sharedMaterial: {fileID: 6720260575455018710, guid: 82f475ca820e7bf4186f550673997a04, type: 2}
