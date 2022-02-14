@@ -102,15 +102,6 @@ public class combatController : MonoBehaviour
     private nameTag[] nameTagArray = new nameTag[5];
 
     // --------------------------------------------------------- //
-    // player objects
-    // --------------------------------------------------------- //
-    public GameObject Beverly;
-    public Friendly Amery;
-    public Friendly Koralie;
-    public Friendly Jade;
-    public Friendly Seraphim;
-
-    // --------------------------------------------------------- //
     // used in the paused state
     // --------------------------------------------------------- //
     private GameObject pauseMenuInstance;
