@@ -102,7 +102,7 @@ public class combatController : MonoBehaviour
     public nameTag nameTagJade;
     public nameTag nameTagSeraphim;
     // this is an array of the above objects
-    private nameTag[] nameTagArray = new nameTag[5];
+    public nameTag[] nameTagArray;
 
     // --------------------------------------------------------- //
     // these are used in the speedSelect state
@@ -134,27 +134,16 @@ public class combatController : MonoBehaviour
     void Start()
     {
 
-        // the available states so far are "rotate", "moveSelect", "targetSelect", "confirm", "playResults", "paused" (in that order)
-        // "rotate" is for rotating the pentagon 
-        // "moveSelect" is for selecting the move for a character
-        // "targetSelect" is for selecting the target for the move slected in moveSelect
-        // "confirm" is for reviewing and confirming the selected moves
-        // "playResults" is when the player has no controls and the combat animations play out
-        // "paused" is when the pause menu is opened. it can be accessed by any state other than "playResults" and goes back to that state
-        //
-        // these go in the order of:
-        // rotate -> moveSelect(1) -> targetSelect(1) -> moveSelect(2) -> targetSelect(2) -> moveSelect(3) -> targetSelect(3) -> confirm ->
-        // EITHER moveSelect(1) OR playResults -> rotate REPEAT
-        transitionToRotate();
         totalSpeedIndicator1 = Instantiate(totalSpeedPrefab, canvas.transform);
 
 
         // 3 and 4 are inactive, 0, 1, and 2 are active
-        nameTagArray[0] = nameTagBeverly;
+        /* nameTagArray[0] = nameTagBeverly;
         nameTagArray[1] = nameTagAmery;
         nameTagArray[2] = nameTagKoralie;
         nameTagArray[3] = nameTagJade;
         nameTagArray[4] = nameTagSeraphim;
+        */
 
         // init each player's moves here ⬇ this code is ugly but it works
         nameTagArray[0].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Smolder(), new Dazzle(), new Imbibe()}; 
