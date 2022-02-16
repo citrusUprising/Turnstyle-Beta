@@ -26,6 +26,7 @@ public class nameTag : MonoBehaviour
     private Vector3 passiveHiddenLocation;
     private Vector3 passiveShownLocation;
     private float t = 0.0f;
+    // private statusTooltip tooltipA;
 
     public GameObject character;
 
@@ -48,6 +49,9 @@ public class nameTag : MonoBehaviour
        
         passiveHiddenLocation = new Vector3(passiveSprite.transform.localPosition[0], passiveSprite.transform.localPosition[1], 0);
         passiveShownLocation = new Vector3(passiveSprite.transform.localPosition[0], passiveSprite.transform.localPosition[1] - 96, 0);
+
+        // tooltipA = transform.GetChild(9).statusTooltip;
+        // tooltipA.hide();
     }
 
     // Update is called once per frame
@@ -81,6 +85,37 @@ public class nameTag : MonoBehaviour
         if (t != 0f)
         {
             t = 1f - t;
+        }
+    }
+
+    public void showPassive()
+    {
+        if (isPassiveHidden)
+        {
+            isPassiveHidden = false;
+
+            passiveIsAnimating = true;
+
+            if (t != 0f)
+            {
+                t = 1f - t;
+            }
+        }
+    }
+        
+
+    public void hidePassive()
+    {
+        if (!isPassiveHidden)
+        {
+            isPassiveHidden = true;
+
+            passiveIsAnimating = true;
+
+            if (t != 0f)
+            {
+                t = 1f - t;
+            }
         }
     }
 
