@@ -409,13 +409,13 @@ public class combatController : MonoBehaviour
 
         if (direction == -1)
         {
-            nameTagArray[0].togglePassiveShowing();
-            nameTagArray[3].togglePassiveShowing();
+            nameTagArray[3].hidePassive(); // hide?
+            nameTagArray[0].showPassive(); // show?
         }
         else if (direction == 1)
         {
-            nameTagArray[4].togglePassiveShowing();
-            nameTagArray[2].togglePassiveShowing();
+            nameTagArray[4].hidePassive(); // hide?
+            nameTagArray[2].showPassive(); // show?
         }
     }
 
@@ -467,9 +467,9 @@ public class combatController : MonoBehaviour
         currentDrawnBox = Instantiate(rotateBox, canvas.transform);
         resetSpeed();
 
-        nameTagArray[0].togglePassiveShowing();
-        nameTagArray[1].togglePassiveShowing();
-        nameTagArray[2].togglePassiveShowing();
+        nameTagArray[0].showPassive(); // show
+        nameTagArray[1].showPassive(); // show
+        nameTagArray[2].showPassive(); // show
     }
 
     void transitionToMoveSelect()
@@ -491,9 +491,9 @@ public class combatController : MonoBehaviour
 
         if (previousState == "rotate")
         {
-            nameTagArray[0].togglePassiveShowing();
-            nameTagArray[1].togglePassiveShowing();
-            nameTagArray[2].togglePassiveShowing();
+            nameTagArray[0].hidePassive(); // hide
+            nameTagArray[1].hidePassive(); // hide
+            nameTagArray[2].hidePassive(); // hide
         }
 
 

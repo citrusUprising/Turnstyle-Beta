@@ -88,6 +88,37 @@ public class nameTag : MonoBehaviour
         }
     }
 
+    public void showPassive()
+    {
+        if (isPassiveHidden)
+        {
+            isPassiveHidden = false;
+
+            passiveIsAnimating = true;
+
+            if (t != 0f)
+            {
+                t = 1f - t;
+            }
+        }
+    }
+        
+
+    public void hidePassive()
+    {
+        if (!isPassiveHidden)
+        {
+            isPassiveHidden = true;
+
+            passiveIsAnimating = true;
+
+            if (t != 0f)
+            {
+                t = 1f - t;
+            }
+        }
+    }
+
     void animatePassive()
     {
         if (passiveIsAnimating)
