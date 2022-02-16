@@ -40,7 +40,7 @@ public class combatController : MonoBehaviour
     private int numberOfSelectedMoves = 0;
 
     // the current move that the selector is on, 0-2
-    private int selectedMove = 0;
+    private int selectedAbilityIndex = 0;
 
     // hard-coded coordinates for the selector sprite
     private int[] pointerCoords = new int[3] { -57, -81, -105 };
@@ -122,7 +122,10 @@ public class combatController : MonoBehaviour
     // --------------------------------------------------------- //
     // variables for setPlayerAction()
     // --------------------------------------------------------- //
-
+    private Unit selectedUnit;
+    private Unit selectedTarget;
+    private Ability selectedAbility;
+    private int selectedSpeed;
 
     // --------------------------------------------------------- //
     // used in the paused state
@@ -214,19 +217,20 @@ public class combatController : MonoBehaviour
             // when the down arrow is pressed, move the selection down
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
-                changeSelectedMove(1);
+                changeSelectedAbilityIndex(1);
                 // nameTagArray[numberOfSelectedMoves].GetComponent<PlayerMoveSelect>().movePointer(1);
                 
             }
             // when the up arrow is pressed, move the selection up
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
-                changeSelectedMove(-1);
+                changeSelectedAbilityIndex(-1);
                 // nameTagArray[numberOfSelectedMoves].GetComponent<PlayerMoveSelect>().movePointer(-1);
             }
             // when the X key is pressed, we need to go to selecting targets
             if (Input.GetKeyDown(KeyCode.X))
             {
+                selectedAbility = nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities[selectedAbilityIndex];
                 transitionToTargetSelect();
             }
             // back function needs to be implemented
@@ -254,6 +258,10 @@ public class combatController : MonoBehaviour
                 // destroy the old speedIndicator2 (the one on top of the speed select sprite)
                 // i had to make a custom function for some reason idk
                 totalSpeedIndicator2.destroySelf();
+
+                selectedSpeed = selectedSpeeds[numberOfSelectedMoves];
+                
+                // setPlayerAction(selectedUnit, selectedTarget, selectedAbility, selectedSpeed);
 
                 // this is used for a few different things, including handling which unit is acting
                 numberOfSelectedMoves++;
@@ -482,11 +490,11 @@ public class combatController : MonoBehaviour
         nameTagArray[numberOfSelectedMoves].GetComponent<PlayerMoveSelect>().ChangeColor();     
 
         currentDrawnBox = Instantiate(moveSelectBox, canvas.transform);
-        selectedMove = 0;
+        selectedAbilityIndex = 0;
         moveSelectPointer = currentDrawnBox.transform.GetChild(5).gameObject;
         moveSelectPointer.transform.localPosition = new Vector3(
             moveSelectPointer.transform.localPosition[0],
-            pointerCoords[selectedMove],
+            pointerCoords[selectedAbilityIndex],
             moveSelectPointer.transform.localPosition[2]);
 
         if (previousState == "rotate")
@@ -495,6 +503,8 @@ public class combatController : MonoBehaviour
             nameTagArray[1].hidePassive(); // hide
             nameTagArray[2].hidePassive(); // hide
         }
+
+        selectedUnit = nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>();
 
 
         // this needs to be put back in once the friendly objects are properly put into the nameTags
@@ -505,26 +515,26 @@ public class combatController : MonoBehaviour
         // also the name of the moves and the descriptions of the moves should change to match the next character
     }
 
-    void changeSelectedMove(int change)
+    void changeSelectedAbilityIndex(int change)
     {
-        selectedMove += change;
-        if (selectedMove == 3)
+        selectedAbilityIndex += change;
+        if (selectedAbilityIndex == 3)
         {
-            selectedMove = 0;
+            selectedAbilityIndex = 0;
         }
-        if (selectedMove == -1)
+        if (selectedAbilityIndex == -1)
         {
-            selectedMove = 2;
+            selectedAbilityIndex = 2;
         }
         // move the cursor up or down to the next move
         moveSelectPointer.transform.localPosition = new Vector3(
             moveSelectPointer.transform.localPosition[0], 
-            pointerCoords[selectedMove], 
+            pointerCoords[selectedAbilityIndex], 
             moveSelectPointer.transform.localPosition[2]);
 
         // 👉 changing move description to reflect pointer movement
         currentDrawnBox.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = 
-        nameTagArray[0].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities[selectedMove].text;
+        nameTagArray[0].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities[selectedAbilityIndex].text;
     }
 
     // because we have not implemented this yet, it will go automatically to the speedSelect
