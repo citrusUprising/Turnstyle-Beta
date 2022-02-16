@@ -138,12 +138,11 @@ public class combatController : MonoBehaviour
 
 
         // 3 and 4 are inactive, 0, 1, and 2 are active
-        /* nameTagArray[0] = nameTagBeverly;
+        nameTagArray[0] = nameTagBeverly;
         nameTagArray[1] = nameTagAmery;
         nameTagArray[2] = nameTagKoralie;
         nameTagArray[3] = nameTagJade;
         nameTagArray[4] = nameTagSeraphim;
-        */
 
         // init each player's moves here ⬇ this code is ugly but it works
         nameTagArray[0].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Smolder(), new Dazzle(), new Imbibe()}; 
@@ -430,6 +429,7 @@ public class combatController : MonoBehaviour
 
         for (int i = 0; i < 5; i++)
         {
+            Debug.Log(i);
             nameTagArray[i].transform.position = Vector3.Lerp(nameTagArray[i].previousPosition, nameTagArray[i].nextPosition, t);
         }
 
