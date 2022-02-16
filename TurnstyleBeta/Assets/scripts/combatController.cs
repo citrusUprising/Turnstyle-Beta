@@ -48,7 +48,6 @@ public class combatController : MonoBehaviour
     // the selector sprite
     private GameObject moveSelectPointer;
 
-
     // --------------------------------------------------------- //
     // variables that interact with the rotate state
     // --------------------------------------------------------- //
@@ -134,7 +133,21 @@ public class combatController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        // the available states so far are "rotate", "moveSelect", "targetSelect", "confirm", "playResults", "paused" (in that order)
+        // "rotate" is for rotating the pentagon 
+        // "moveSelect" is for selecting the move for a character
+        // "targetSelect" is for selecting the target for the move slected in moveSelect
+        // "confirm" is for reviewing and confirming the selected moves
+        // "playResults" is when the player has no controls and the combat animations play out
+        // "paused" is when the pause menu is opened. it can be accessed by any state other than "playResults" and goes back to that state
+        //
+        // these go in the order of:
+        // rotate -> moveSelect(1) -> targetSelect(1) -> moveSelect(2) -> targetSelect(2) -> moveSelect(3) -> targetSelect(3) -> confirm ->
+        // EITHER moveSelect(1) OR playResults -> rotate REPEAT
+        transitionToRotate();
         totalSpeedIndicator1 = Instantiate(totalSpeedPrefab, canvas.transform);
+
 
         // 3 and 4 are inactive, 0, 1, and 2 are active
         nameTagArray[0] = nameTagBeverly;
@@ -142,6 +155,13 @@ public class combatController : MonoBehaviour
         nameTagArray[2] = nameTagKoralie;
         nameTagArray[3] = nameTagJade;
         nameTagArray[4] = nameTagSeraphim;
+
+        // init each player's moves here ⬇ this code is ugly but it works
+        nameTagArray[0].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Smolder(), new Dazzle(), new Imbibe()}; 
+        nameTagArray[1].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Mitigate(), new Fallguy(), new Scrum()};
+        nameTagArray[2].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Repel(), new Hunker(), new Crush()};
+        nameTagArray[3].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Stunnerclap(), new Rally(), new Motivate()};
+        nameTagArray[4].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Soulrip(), new Scry(), new Slump()};
 
         for (int i = 0; i < 5; i++)
         {
@@ -206,11 +226,14 @@ public class combatController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
                 changeSelectedMove(1);
+                // nameTagArray[numberOfSelectedMoves].GetComponent<PlayerMoveSelect>().movePointer(1);
+                
             }
             // when the up arrow is pressed, move the selection up
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 changeSelectedMove(-1);
+                // nameTagArray[numberOfSelectedMoves].GetComponent<PlayerMoveSelect>().movePointer(-1);
             }
             // when the X key is pressed, we need to go to selecting targets
             if (Input.GetKeyDown(KeyCode.X))
@@ -470,6 +493,10 @@ public class combatController : MonoBehaviour
         setPreviousState();
         state = "moveSelect";
         Destroy(currentDrawnBox);
+        
+        // 🎨 setting draw box color & move names 
+        nameTagArray[numberOfSelectedMoves].GetComponent<PlayerMoveSelect>().ChangeColor();     
+
         currentDrawnBox = Instantiate(moveSelectBox, canvas.transform);
         selectedMove = 0;
         moveSelectPointer = currentDrawnBox.transform.GetChild(5).gameObject;
@@ -503,15 +530,15 @@ public class combatController : MonoBehaviour
         {
             selectedMove = 2;
         }
-
         // move the cursor up or down to the next move
         moveSelectPointer.transform.localPosition = new Vector3(
             moveSelectPointer.transform.localPosition[0], 
             pointerCoords[selectedMove], 
             moveSelectPointer.transform.localPosition[2]);
 
-        // we also have to replace the description of the move with the description of the selected move
-        
+        // 👉 changing move description to reflect pointer movement
+        currentDrawnBox.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = 
+        nameTagArray[0].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities[selectedMove].text;
     }
 
     // because we have not implemented this yet, it will go automatically to the speedSelect

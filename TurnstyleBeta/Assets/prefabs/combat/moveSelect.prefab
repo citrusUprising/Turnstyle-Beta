@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: move one
+  m_text: Smolder
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 82f475ca820e7bf4186f550673997a04, type: 2}
   m_sharedMaterial: {fileID: 6720260575455018710, guid: 82f475ca820e7bf4186f550673997a04, type: 2}
@@ -199,7 +199,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: move three
+  m_text: Imbibe
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 82f475ca820e7bf4186f550673997a04, type: 2}
   m_sharedMaterial: {fileID: 6720260575455018710, guid: 82f475ca820e7bf4186f550673997a04, type: 2}
@@ -414,7 +414,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Blue
+  m_text: Beverly
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 63966710d2c481544a494dd77bc1cc79, type: 2}
   m_sharedMaterial: {fileID: -888945008187845637, guid: 63966710d2c481544a494dd77bc1cc79, type: 2}
@@ -548,7 +548,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: move two
+  m_text: Dazzle
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 82f475ca820e7bf4186f550673997a04, type: 2}
   m_sharedMaterial: {fileID: 6720260575455018710, guid: 82f475ca820e7bf4186f550673997a04, type: 2}
@@ -682,7 +682,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: this is the description of the currently selected move.
+  m_text: Hit enemy with fire, damaging them based on your speed
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 82f475ca820e7bf4186f550673997a04, type: 2}
   m_sharedMaterial: {fileID: 6720260575455018710, guid: 82f475ca820e7bf4186f550673997a04, type: 2}

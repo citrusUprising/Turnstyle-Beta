@@ -27,6 +27,8 @@ public class nameTag : MonoBehaviour
     private Vector3 passiveShownLocation;
     private float t = 0.0f;
 
+    public GameObject character;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +36,16 @@ public class nameTag : MonoBehaviour
         fatigue = transform.GetChild(3).gameObject;
         healthBar = transform.GetChild(4).gameObject;
         hpText = transform.GetChild(5).gameObject;
-
+        Friendly test = character.GetComponent<Friendly>();
+        if(test){
+            Debug.Log("Got character info"+test);
+            hpValueMax = test.maxHP;   
+            hpValue = test.hp;     
+        }
+        else{
+            Debug.Log("Character object error.");
+        }
+       
         passiveHiddenLocation = new Vector3(passiveSprite.transform.localPosition[0], passiveSprite.transform.localPosition[1], 0);
         passiveShownLocation = new Vector3(passiveSprite.transform.localPosition[0], passiveSprite.transform.localPosition[1] - 96, 0);
     }
