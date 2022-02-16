@@ -14,8 +14,8 @@ public class MainLoop : MonoBehaviour
 	public Enemy[] enemyUnits;
 
 	//Seperate arrays for units on bench and off
-	public Friendly[] activeUnits;
-	public Friendly[] benchUnits;
+	public Friendly[] activeUnits = new Friendly[3];
+	public Friendly[] benchUnits = new Friendly[2];
 
 	//List of text to display at end of turn
 	public List<string> outputQueue;
@@ -35,8 +35,14 @@ public class MainLoop : MonoBehaviour
         }
         //Put the first 3 units into activeUnits, remainder in bench
         //Code is a bit awkward but could be worse
-        //activeUnits = new Friendly[]{playerUnits[0], playerUnits[1], playerUnits[2]};
-        //benchUnits = new Friendly[]{playerUnits[3], playerUnits[4]};
+
+        // this needs to be put back in once the friendly objects are properly put into the nameTags
+        //activeUnits[0] = playerUnits[0];
+        //activeUnits[1] = playerUnits[1];
+        //activeUnits[2] = playerUnits[2];    // = new Friendly[]{playerUnits[0], playerUnits[1], playerUnits[2]};
+
+        //benchUnits[0] = playerUnits[3];
+        //benchUnits[1] = playerUnits[4];     //= new Friendly[]{playerUnits[3], playerUnits[4]};
 
         queuedActions = new List<Unit>();
         speedTotal = 12;
@@ -123,7 +129,7 @@ public class MainLoop : MonoBehaviour
     }
 
     //set player action.
-    void setPlayerAction(Unit unit, Unit target, Ability abil, int speed){
+    public void setPlayerAction(Unit unit, Unit target, Ability abil, int speed){
     	if(!queuedActions.Contains(unit))
     		queuedActions.Add(unit);
     	unit.queuedAction = new QueuedAction(target, abil, speed + unit.fatigue);
@@ -143,7 +149,7 @@ public class MainLoop : MonoBehaviour
 
     //Sets which active units
     //Pass it the index of the first active unit
-    void setActiveUnits(int start){
+    public void setActiveUnits(int start){
     	for(int i = 0; i < 3; i++){
     		activeUnits[i] = playerUnits[(i + start)% 5];
     	}
@@ -153,7 +159,7 @@ public class MainLoop : MonoBehaviour
     }
 
    	//UI controller calls this function when turn ends
-   	void endTurn(){
+   	public void endTurn(){
    		//queue all enemy actions
    		queueEnemyActions();
    		//Do all the actions 

@@ -86,6 +86,11 @@ public class titleScreen : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            StartCoroutine(loadScene(2));
+        }
+
         pointer.transform.localPosition = new Vector3(
             pointer.transform.localPosition[0],
             options[selectedOption].transform.localPosition[1],
@@ -112,6 +117,6 @@ public class titleScreen : MonoBehaviour
 
         yield return new WaitForSeconds(transitionTime);
 
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(index);
     }
 }
