@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
 // TODO:
 // add functionality in the nameTag script (or gameLoop?) that calls these functions at the appropriate times
@@ -56,6 +57,10 @@ public class statusEffectController : MonoBehaviour
     // that means that when a status effect is over, it should be destroyed 
     public string friendOrFoe;
 
+    public statusTooltip tooltip;
+
+    private int count = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -96,6 +101,37 @@ public class statusEffectController : MonoBehaviour
         {
             changeTurnCount(-1);
         } */
+
+
+        // this is still broken lol
+        /*if (EventSystem.current.IsPointerOverGameObject())
+        {
+            StartCoroutine(showTooltip());
+        }
+        else
+        {
+            tooltip.hide();
+            StopAllCoroutines();
+        }*/
+    }
+
+    public IEnumerator showTooltip()
+    {
+        yield return new WaitForSeconds(.5f);
+        tooltip.show();
+    }
+
+    void OnMouseOver()
+    {
+        Debug.Log(count);
+        count++;
+        StartCoroutine(showTooltip());
+    }
+
+    void OnMouseExit()
+    {
+        tooltip.hide();
+        StopAllCoroutines();
     }
 
     // this changes the status, the sprite, the turnsLeft, and the text displayed

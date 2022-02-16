@@ -455,14 +455,9 @@ public class combatController : MonoBehaviour
         currentDrawnBox = Instantiate(rotateBox, canvas.transform);
         resetSpeed();
 
-        //Debug.Log(nameTagArray);
-
-        
-
         nameTagArray[0].togglePassiveShowing();
         nameTagArray[1].togglePassiveShowing();
         nameTagArray[2].togglePassiveShowing();
-
     }
 
     void transitionToMoveSelect()
@@ -478,10 +473,12 @@ public class combatController : MonoBehaviour
             pointerCoords[selectedMove],
             moveSelectPointer.transform.localPosition[2]);
 
-        nameTagArray[0].togglePassiveShowing();
-        nameTagArray[1].togglePassiveShowing();
-        nameTagArray[2].togglePassiveShowing();
-
+        if (previousState == "rotate")
+        {
+            nameTagArray[0].togglePassiveShowing();
+            nameTagArray[1].togglePassiveShowing();
+            nameTagArray[2].togglePassiveShowing();
+        }
 
 
         // this needs to be put back in once the friendly objects are properly put into the nameTags
