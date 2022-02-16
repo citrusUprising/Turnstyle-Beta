@@ -643,6 +643,7 @@ public class combatController : MonoBehaviour
         state = "playResults";
         Destroy(currentDrawnBox);
         currentDrawnBox = Instantiate(playResultsBox, canvas.transform);
+        StartCoroutine(gameLoop.OutputText());
     }
 
     void transitionToPause()
