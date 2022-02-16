@@ -182,7 +182,7 @@ public class Scrum : Ability
         this.text = "Cure an ally of debuffs, then inflict them with Null(3)";
         this.multitarget = false;
         this.selftarget = false;
-        this.allies = false;
+        this.allies = true;
     }
 
     public override void effect(Unit target, Unit source)
