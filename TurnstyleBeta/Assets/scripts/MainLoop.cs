@@ -123,9 +123,9 @@ public class MainLoop : MonoBehaviour
     		int chosenTarget = legalTargets[chosenAbility][rand.Next(legalTargets[chosenAbility].Count)];
     		Unit actTarget;
     		if(unit.abilities[chosenAbility].allies)
-    			actTarget = playerUnits[chosenTarget];
-    		else
     			actTarget = enemyUnits[chosenTarget];
+    		else
+    			actTarget = activeUnits[chosenTarget];
     		queuedActions.Add(unit);
     		unit.queuedAction = new QueuedAction(actTarget, unit.abilities[chosenAbility], rand.Next(9));
     	}
