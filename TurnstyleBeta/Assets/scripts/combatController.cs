@@ -613,7 +613,19 @@ public class combatController : MonoBehaviour
         state = "targetSelect";
         // this state does not have a box associated with it. therefore, the old box should not be destroyed
         Debug.Log(selectedAbility);
-        if (selectedAbility.selftarget || selectedAbility.multitarget){
+        if (selectedAbility.selftarget) {
+            selectedTarget = nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>();
+            transitionToSpeedSelect();
+        } else if (selectedAbility.multitarget)
+        {
+            if (selectedAbility.allies) 
+            {
+                selectedTarget = nameTagArray[0].GetComponent<nameTag>().character.GetComponent<Friendly>();
+            }
+            else
+            {
+                selectedTarget = enemies[0].GetComponent<Enemy>();
+            }
             transitionToSpeedSelect();
         }
         if(selectedAbility.allies){

@@ -242,7 +242,7 @@ public class MainLoop : MonoBehaviour
    			}
    			//Debug.Log(outputBuild);
    			textbox.text = outputBuild;
-   			yield return new WaitForSeconds(.5f);
+   			yield return new WaitForSeconds(.75f);
    		}
    	}
 }
