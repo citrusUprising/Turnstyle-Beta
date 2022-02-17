@@ -52,6 +52,7 @@ public class MainLoop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+    	//Debug, can remove if wanted
         if (Input.GetKeyDown(KeyCode.I))
         	StartCoroutine(OutputText());
     }
