@@ -48,6 +48,8 @@ public class combatController : MonoBehaviour
     // the selector sprite
     private GameObject moveSelectPointer;
 
+    private GameObject targetSelectPointer;
+
     // --------------------------------------------------------- //
     // variables that interact with the rotate state
     // --------------------------------------------------------- //
@@ -136,9 +138,7 @@ public class combatController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         totalSpeedIndicator1 = Instantiate(totalSpeedPrefab, canvas.transform);
-
 
         // 3 and 4 are inactive, 0, 1, and 2 are active
         nameTagArray[0] = nameTagBeverly;
@@ -185,7 +185,6 @@ public class combatController : MonoBehaviour
             {
                 transitionToMoveSelect();
             }
-
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
                 // if the pentagon is NOT rotating, then begin rotating DOWN
@@ -203,7 +202,6 @@ public class combatController : MonoBehaviour
                     beginRotatingPentagon(1);
                 }
             }
-
             // here is all the logic 
             if (isRotating)
             {
@@ -244,7 +242,22 @@ public class combatController : MonoBehaviour
         // needs to be implemented
         else if (state == "targetSelect")
         {
-
+            // when the down arrow is pressed, move the selection down
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                Debug.Log("previous enemy");
+                // change target   
+            }
+            // when the up arrow is pressed, move the selection up
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                Debug.Log("next enemy");
+            }
+            // when the X key is pressed, we need to go to selecting targets
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                transitionToSpeedSelect();
+            }
         }
 
         else if (state == "speedSelect")
@@ -506,13 +519,8 @@ public class combatController : MonoBehaviour
 
         selectedUnit = nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>();
 
-
         // this needs to be put back in once the friendly objects are properly put into the nameTags
         //gameLoop.setActiveUnits(rotationState);
-
-        // we need logic to change the sprite of the currentDrawnBox to match the color of the current character
-        // who is having their moves selected for them
-        // also the name of the moves and the descriptions of the moves should change to match the next character
     }
 
     void changeSelectedAbilityIndex(int change)
@@ -543,7 +551,18 @@ public class combatController : MonoBehaviour
         setPreviousState();
         state = "targetSelect";
         // this state does not have a box associated with it. therefore, the old box should not be destroyed
-        transitionToSpeedSelect();
+
+        if (selectedAbility.selftarget || selectedAbility.multitarget){
+            transitionToSpeedSelect();
+        }
+        if(selectedAbility.allies){
+            // create ally select pointer
+        }
+        else{
+            targetSelectPointer = currentDrawnBox.transform.GetChild(6).gameObject;
+            targetSelectPointer.SetActive(true);
+        }
+        // transitionToSpeedSelect();
     }
 
     // a lot of things have to happen here
