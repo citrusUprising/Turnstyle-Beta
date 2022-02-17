@@ -200,7 +200,7 @@ public class MainLoop : MonoBehaviour
 
 
    	//Coroutine for displaying output
-   	IEnumerator OutputText(){
+   	public IEnumerator OutputText(){
    		//Get the text box since it gets generated
    		TextMeshProUGUI textbox = GameObject.Find("resultsBox(Clone)").transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
    		GameObject textObject = GameObject.Find("resultsBox(Clone)").transform.GetChild(0).gameObject;

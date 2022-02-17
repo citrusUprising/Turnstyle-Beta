@@ -11,7 +11,7 @@ public abstract class Ability
     public bool selftarget;
     public bool allies;
     public int damage;
-    public abstract void effect(Unit target, Unit source);
+    public abstract void effect(Unit target, Unit source, MainLoop L);
 
     public abstract bool requirement(Unit target, Unit source); 
 }
@@ -27,7 +27,7 @@ public class BasicAttack : Ability
         this.damage = 3;
     }
 
-    public override void effect(Unit target, Unit source)
+    public override void effect(Unit target, Unit source, MainLoop L)
     {
         target.takeDamage(source, 3); 
     }
@@ -50,7 +50,7 @@ public class BasicHeal : Ability
         this.damage = 0;
     }
 
-    public override void effect(Unit target, Unit source)
+    public override void effect(Unit target, Unit source, MainLoop L)
     {
         target.hp = Math.Min(target.hp + 3, target.maxHP);
     }
@@ -72,7 +72,7 @@ public class GroupAttack : Ability
         this.damage = 1;
     }
 
-    public override void effect(Unit target, Unit source)
+    public override void effect(Unit target, Unit source, MainLoop L)
     {
         target.takeDamage(source, 1);
     }
@@ -94,7 +94,7 @@ public class GroupHeal : Ability
         this.allies = true;
     }
 
-    public override void effect(Unit target, Unit source)
+    public override void effect(Unit target, Unit source, MainLoop L)
     {
         target.hp = Math.Min(target.hp + 1, target.maxHP);
     }
@@ -117,7 +117,7 @@ public class HeavyAttack : Ability
         this.damage = 8;
     }
 
-    public override void effect(Unit target, Unit source)
+    public override void effect(Unit target, Unit source, MainLoop L)
     {
         target.takeDamage(source, 8);
     }
@@ -139,7 +139,7 @@ public class SelfHeal : Ability
         this.allies = false;
     }
 
-    public override void effect(Unit target, Unit source)
+    public override void effect(Unit target, Unit source, MainLoop L)
     {
         target.healSelf(5);
     }
@@ -162,9 +162,9 @@ public class Mitigate : Ability
         this.allies = true;
     }
 
-    public override void effect(Unit target, Unit source)
+    public override void effect(Unit target, Unit source, MainLoop L)
     {
-        Debug.Log(source.unitName + " used " + this.name + " on " + target.unitName);
+        L.outputQueue.Add(source.unitName + " used " + this.name + " on " + target.unitName);
         target.applyStatus(StatusType.Health, StatusName.Regeneration, 3, 4);
     }
 
@@ -185,13 +185,13 @@ public class Scrum : Ability
         this.allies = false;
     }
 
-    public override void effect(Unit target, Unit source)
+    public override void effect(Unit target, Unit source, MainLoop L)
     {
-        Debug.Log(source.unitName+" used "+this.name+" on "+target.unitName);
+        L.outputQueue.Add(source.unitName+" used "+this.name+" on "+target.unitName);
   if(target.statuses[(int) StatusType.Debuff].name != StatusName.None){
-    Debug.Log(target.unitName+" was cured of "+target.statuses[(int) StatusType.Debuff].name+" and given Null");
+    L.outputQueue.Add(target.unitName+" was cured of "+target.statuses[(int) StatusType.Debuff].name+" and given Null");
   }else{
-    Debug.Log(target.unitName+" was given Null");
+    L.outputQueue.Add(target.unitName+" was given Null");
   }
   target.statuses[(int) StatusType.Debuff].name = StatusName.None;
   target.statuses[(int) StatusType.Debuff].duration = 0;
@@ -216,9 +216,9 @@ public class Smolder : Ability
         this.allies = false;
     }
 
-    public override void effect(Unit target, Unit source)
+    public override void effect(Unit target, Unit source, MainLoop L)
     {
-        Debug.Log(source.unitName+" used "+this.name+" on "+target.unitName);
+        L.outputQueue.Add(source.unitName+" used "+this.name+" on "+target.unitName);
         target.takeDamage(source, 3 + source.queuedAction.speed/2);
     }
 
@@ -239,9 +239,9 @@ public class Imbibe : Ability
         this.allies = false;
     }
 
-    public override void effect(Unit target, Unit source)
+    public override void effect(Unit target, Unit source, MainLoop L)
     {
-        Debug.Log(source.unitName +" imbibed coffee");
+        L.outputQueue.Add(source.unitName +" imbibed coffee");
         target.applyStatus(StatusType.Buff,StatusName.Haste, 2, 5);
         target.applyStatus(StatusType.Debuff,StatusName.StrungOut, 2, 0);
     }
@@ -263,9 +263,9 @@ public class Repel : Ability
         this.allies = false;
     }
 
-    public override void effect(Unit target, Unit source)
+    public override void effect(Unit target, Unit source, MainLoop L)
     {
-        Debug.Log(source.unitName + " used " + this.name + " on enemy team");
+        L.outputQueue.Add(source.unitName + " used " + this.name + " on enemy team");
         target.takeDamage(source, 2);
     }
 
@@ -286,9 +286,9 @@ public class Fallguy : Ability
         this.allies = true;
     }
 
-    public override void effect(Unit target, Unit source)
+    public override void effect(Unit target, Unit source, MainLoop L)
     {
-    Debug.Log(source.unitName+" used "+this.name);
+    L.outputQueue.Add(source.unitName+" used "+this.name);
     if(target.unitName != source.unitName)
     target.applyStatus(StatusType.Buff,StatusName.Aegis, 1, 0);
     else
@@ -312,9 +312,9 @@ public class Crush : Ability
         this.allies = false;
     }
 
-    public override void effect(Unit target, Unit source)
+    public override void effect(Unit target, Unit source, MainLoop L)
     {
-        Debug.Log(source.unitName+" used "+this.name+" on "+target.unitName);
+        L.outputQueue.Add(source.unitName+" used "+this.name+" on "+target.unitName);
         target.takeDamage(source, 8);
         source.hp = Math.Min(source.hp-4, source.maxHP);
     }
@@ -336,9 +336,9 @@ public class Rally : Ability
         this.allies = true;
     }
 
-    public override void effect(Unit target, Unit source)
+    public override void effect(Unit target, Unit source, MainLoop L)
     {
-        Debug.Log(source.unitName+" used "+this.name+" on "+target.unitName);
+        L.outputQueue.Add(source.unitName+" used "+this.name+" on "+target.unitName);
         target.healSelf(8);
         source.hp = Math.Min(source.hp-2, source.maxHP);
     }
@@ -360,9 +360,9 @@ public class Stunnerclap : Ability
         this.allies = false;
     }
 
-    public override void effect(Unit target, Unit source)
+    public override void effect(Unit target, Unit source, MainLoop L)
     {
-        Debug.Log(source.unitName+" used "+this.name+" on "+target.unitName);
+        L.outputQueue.Add(source.unitName+" used "+this.name+" on "+target.unitName);
         target.takeDamage(source,2);
         target.applyStatus(StatusType.Debuff,StatusName.StrungOut, 1, 0);
     }
@@ -384,13 +384,13 @@ public class Soulrip : Ability
         this.allies = false;
     }
 
-    public override void effect(Unit target, Unit source)
+    public override void effect(Unit target, Unit source, MainLoop L)
     {
-        Debug.Log(source.unitName+" possessed "+target.unitName);
+        L.outputQueue.Add(source.unitName+" possessed "+target.unitName);
         if(source.fatigue <= 0 || UnityEngine.Random.Range(0,1) <= (1-.25*source.fatigue)){
-            Debug.Log(target.unitName+"'s soul was torn");
+            L.outputQueue.Add(target.unitName+"'s soul was torn");
             target.takeDamage(source, 10);}
-        else Debug.Log(source.unitName+" couldn't manifest");
+        else L.outputQueue.Add(source.unitName+" couldn't manifest");
     }
 
     public override bool requirement(Unit target, Unit source)
@@ -410,15 +410,15 @@ public class Dazzle : Ability
         this.allies = false;
     }
 
-    public override void effect(Unit target, Unit source)
+    public override void effect(Unit target, Unit source, MainLoop L)
     {
         if(UnityEngine.Random.Range(0,1) <= 0.35){
-            Debug.Log(source.unitName+"'s "+this.name+" flinched "+target.unitName);
+            L.outputQueue.Add(source.unitName+"'s "+this.name+" flinched "+target.unitName);
             target.applyStatus(StatusType.Debuff,StatusName.Flinch, 1, 0);
         }else if(UnityEngine.Random.Range(0,1) <= 0.35){
-            Debug.Log(source.unitName+"'s "+this.name+" burned "+target.unitName);
+            L.outputQueue.Add(source.unitName+"'s "+this.name+" burned "+target.unitName);
             target.applyStatus(StatusType.Health, StatusName.Burn, 2, 4);
-        }else Debug.Log(target.unitName+" avoided the "+this.name);
+        }else L.outputQueue.Add(target.unitName+" avoided the "+this.name);
     }
 
     public override bool requirement(Unit target, Unit source)
@@ -438,9 +438,9 @@ public class Scry : Ability
         this.allies = false;
     }
 
-    public override void effect(Unit target, Unit source)
+    public override void effect(Unit target, Unit source, MainLoop L)
     {
-        Debug.Log(source.unitName+" used "+this.name+" on "+target.unitName);
+        L.outputQueue.Add(source.unitName+" used "+this.name+" on "+target.unitName);
         target.applyStatus(StatusType.Debuff,StatusName.Distracted, 2, 0);
     }
 
@@ -461,19 +461,19 @@ public class Motivate : Ability
         this.allies = true;
     }
 
-    public override void effect(Unit target, Unit source)
+    public override void effect(Unit target, Unit source, MainLoop L)
     {
         float rng = UnityEngine.Random.Range(0,1);
         if(rng <= 0.33){
-            Debug.Log(source.unitName+"'s "+this.name+" gave "+target.unitName+" Aegis(1)");
+            L.outputQueue.Add(source.unitName+"'s "+this.name+" gave "+target.unitName+" Aegis(1)");
             target.applyStatus(StatusType.Buff,StatusName.Aegis, 1,0);
         }
         else if(rng <= 0.66){
-            Debug.Log(source.unitName+"'s "+this.name+" gave "+target.unitName+" Enrage(1)");
+            L.outputQueue.Add(source.unitName+"'s "+this.name+" gave "+target.unitName+" Enrage(1)");
             target.applyStatus(StatusType.Buff, StatusName.Enrage, 1,0);
         }
         else {
-            Debug.Log(source.unitName+"'s "+this.name+" gave "+target.unitName+" Haste(2,3)");
+            L.outputQueue.Add(source.unitName+"'s "+this.name+" gave "+target.unitName+" Haste(2,3)");
             target.applyStatus(StatusType.Buff, StatusName.Haste, 2,3);
         }
     }
@@ -495,9 +495,9 @@ public class Slump : Ability
         this.allies = false;
     }
 
-    public override void effect(Unit target, Unit source)
+    public override void effect(Unit target, Unit source, MainLoop L)
     {
-        Debug.Log(source.unitName+" "+this.name+"ed");
+        L.outputQueue.Add(source.unitName+" "+this.name+"ed");
         target.applyStatus(StatusType.Health,StatusName.Regeneration,1,6);
     }
 
@@ -518,9 +518,9 @@ public class Hunker : Ability
         this.allies = false;
     }
 
-    public override void effect(Unit target, Unit source)
+    public override void effect(Unit target, Unit source, MainLoop L)
     {
-        Debug.Log(source.unitName+" "+this.name+"ed");
+        L.outputQueue.Add(source.unitName+" "+this.name+"ed");
         target.applyStatus(StatusType.Buff,StatusName.Aegis, 2, 0);
     }
 
@@ -542,7 +542,7 @@ public class Temp : Ability
         this.allies = true;
     }
 
-    public override void effect(Unit target, Unit source)
+    public override void effect(Unit target, Unit source, MainLoop L)
     {
         target
     }
