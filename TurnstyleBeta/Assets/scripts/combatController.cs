@@ -19,10 +19,10 @@ public class combatController : MonoBehaviour
     public GameObject confirmBox;
     public GameObject playResultsBox;
     public GameObject pauseMenu;
-    public MainLoop gameLoop;
+    public GameObject mainLoopObject;
     public totalSpeed totalSpeedPrefab;
     private string state = "rotate";
-
+    MainLoop gameLoop;
     // this is currently only used in the pause state
     private string previousState = "rotate";
 
@@ -171,12 +171,13 @@ public class combatController : MonoBehaviour
         nameTagArray[3].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Stunnerclap(), new Rally(), new Motivate()};
         nameTagArray[4].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Soulrip(), new Scry(), new Slump()};
 
-        enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        //enemies = GameObject.FindGameObjectsWithTag("Enemy");
         for (int i = 0; i < 5; i++)
         {
             nameTagCoords[i] = nameTagArray[i].transform.position;
         }
 
+        gameLoop = mainLoopObject.GetComponent<MainLoop>();
         // the available states so far are "rotate", "moveSelect", "targetSelect", "confirm", "playResults", "paused" (in that order)
         // "rotate" is for rotating the pentagon 
         // "moveSelect" is for selecting the move for a character
@@ -201,6 +202,7 @@ public class combatController : MonoBehaviour
             // if you press X, advance to the next state, destroying the rotate UI and replacing it with move select UI
             if (Input.GetKeyDown(KeyCode.X))
             {
+                gameLoop.setActiveUnits(nameTagArray); 
                 transitionToMoveSelect();
             }
             if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -266,7 +268,6 @@ public class combatController : MonoBehaviour
             {
                 Debug.Log("previous enemy");
                 changeSelectedTarget(-1, selectedAbility.allies);
-
                 // change target   
             }
             // when the up arrow is pressed, move the selection up
@@ -295,10 +296,14 @@ public class combatController : MonoBehaviour
                 totalSpeedIndicator2.destroySelf();
 
                 selectedSpeed = selectedSpeeds[numberOfSelectedMoves];
-                
-                // setPlayerAction(selectedUnit, selectedTarget, selectedAbility, selectedSpeed);
-
-                // this is used for a few different things, including handling which unit is acting
+                Debug.Log("Selected Unit: " + selectedUnit.name);
+                Debug.Log("Selected Target: " + selectedTarget.name);
+                Debug.Log("Selected Ability: " + selectedAbility.name);
+                Debug.Log("Selected Speed: " + selectedSpeed);
+                //gameLoop.debugPlayerUnits();
+                gameLoop.setPlayerAction(selectedUnit, selectedTarget, selectedAbility, selectedSpeed);
+              
+                    // this is used for a few different things, including handling which unit is acting
                 numberOfSelectedMoves++;
 
                 if (numberOfSelectedMoves == 3)
@@ -338,15 +343,16 @@ public class combatController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.X))
             {
                 if(selectedAbility.allies){
-                    actions[numberOfSelectedMoves] += nameTagArray[targetIndex].GetComponent<nameTag>().character.GetComponent<Friendly>().name;
+                    actions[numberOfSelectedMoves-1] += nameTagArray[targetIndex].GetComponent<nameTag>().character.GetComponent<Friendly>().name;
                 }
                 else{
-                    actions[numberOfSelectedMoves] += enemies[targetIndex].GetComponent<Enemy>().name;
+                    actions[numberOfSelectedMoves-1] += enemies[targetIndex].GetComponent<Enemy>().name;
                 }
                 transitionToPlayResults();
             } 
             else if (Input.GetKeyDown(KeyCode.Z))
             {
+                numberOfSelectedMoves = 0;
                 transitionToRotate();
             }
         }
@@ -379,7 +385,6 @@ public class combatController : MonoBehaviour
                 transitionToPause();
             }
         }
-
         justUnpaused = false;
     }
 
@@ -584,17 +589,20 @@ public class combatController : MonoBehaviour
             if(targetIndex == -1)
                 targetIndex = 4;
             targetPointer.transform.localPosition = playerTargets[targetIndex];
+            selectedTarget = nameTagArray[targetIndex].GetComponent<nameTag>().character.GetComponent<Friendly>();
         }
         else{
             if(targetIndex == enemies.Length)
                 targetIndex = 0;
             if(targetIndex == -1)
                 targetIndex = enemies.Length-1;
-                targetPointer.transform.localPosition = new Vector3(
+            targetPointer.transform.localPosition = new Vector3(
                     enemies[targetIndex].transform.localPosition[0] - 100,
                     enemies[targetIndex].transform.localPosition[1],
                     enemies[targetIndex].transform.localPosition[2]
                 );
+            selectedTarget = enemies[targetIndex].GetComponent<Enemy>();
+            Debug.Log("Target = " + selectedTarget.name);
         }
     }
 
@@ -718,6 +726,7 @@ public class combatController : MonoBehaviour
         Destroy(currentDrawnBox);
 
         currentDrawnBox = Instantiate(playResultsBox, canvas.transform);
+        gameLoop.endTurn();
         StartCoroutine(gameLoop.OutputText());
     }
 

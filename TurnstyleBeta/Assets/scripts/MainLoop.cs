@@ -9,9 +9,9 @@ public class MainLoop : MonoBehaviour
 	public GameObject[] friendlies;
 	public GameObject[] enemies;
 	//player units
-	public Friendly[] playerUnits;
+	Friendly[] playerUnits;
 	//And enemy
-	public Enemy[] enemyUnits;
+	Enemy[] enemyUnits;
 
 	//Seperate arrays for units on bench and off
 	public Friendly[] activeUnits = new Friendly[3];
@@ -25,7 +25,9 @@ public class MainLoop : MonoBehaviour
 	public int speedTotal;
     // Start is called before the first frame update
     void Start()
-    {	
+    {
+        playerUnits = new Friendly[friendlies.Length];
+        enemyUnits = new Enemy[enemies.Length];
         //get the scripts on units
         for (int i = 0; i < friendlies.Length; i++){
         	playerUnits[i] = friendlies[i].GetComponent<Friendly>();
@@ -136,13 +138,33 @@ public class MainLoop : MonoBehaviour
     	unit.queuedAction = new QueuedAction(target, abil, speed + unit.fatigue);
     }
 
+    void debugQeuedActions()
+    {
+        foreach (Unit actor in queuedActions)
+        {
+            Debug.Log(actor.name + " is in queuedActions");
+        }
+    }
+    public void debugPlayerUnits()
+    {
+        foreach (Unit actor in playerUnits)
+        {
+            Debug.Log(actor.name + " is in playerUnits");
+        }
+        Debug.Log("done debugging Player Units");
+    }
     //Resolve all actions in order
     void resolveActions(){
+        debugQeuedActions();
     	queuedActions.Sort(delegate(Unit a, Unit b) {return b.queuedAction.speed-a.queuedAction.speed;});
-    	foreach(Unit actor in queuedActions){
+        Debug.Log("Queued Actions sorted");
+        debugQeuedActions();
+        Debug.Log("Done debugging queued actions after sort");
+        foreach (Unit actor in queuedActions){
     		if(actor.dead)
     			continue;
-    		outputQueue.Add(actor.name + " used " +  actor.queuedAction.ability.name + "!");
+            Debug.Log(actor.name + " used " + actor.queuedAction.ability.name + "!");
+            outputQueue.Add(actor.name + " used " +  actor.queuedAction.ability.name + "!");
     		actor.act();
     	}
     	queuedActions.Clear();
@@ -150,13 +172,13 @@ public class MainLoop : MonoBehaviour
 
     //Sets which active units
     //Pass it the index of the first active unit
-    public void setActiveUnits(int start){
+    public void setActiveUnits(nameTag[] nameTags){
     	for(int i = 0; i < 3; i++){
-    		activeUnits[i] = playerUnits[(i + start)% 5];
+    		activeUnits[i] = nameTags[i].GetComponent<nameTag>().character.GetComponent<Friendly>();
     	}
     	for (int i = 0; i < 2; i++){
-    		benchUnits[i] = playerUnits[(i + start + 3)% 5];
-    	}
+    		benchUnits[i] = nameTags[i+3].GetComponent<nameTag>().character.GetComponent<Friendly>();
+        }
     }
 
    	//UI controller calls this function when turn ends
