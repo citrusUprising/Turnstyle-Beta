@@ -15,7 +15,7 @@ public class Enemy : Unit
         gameObject.tag = "Enemy";         
         this.enemies = GameObject.FindGameObjectsWithTag("Ally");
         this.allies = GameObject.FindGameObjectsWithTag("Enemy");
-        this.abilities = new Ability[] { new BasicAttack(), new GroupAttack(), new BasicHeal() };
+        this.abilities = new Ability[] { new BasicAttack(), new HeavyAttack(), new BasicHeal() };
         Status health = new Status(StatusType.Health, StatusName.None, 0, 0);
         Status buff = new Status(StatusType.Buff, StatusName.None, 0, 0);
         Status debuff = new Status(StatusType.Debuff, StatusName.None, 0, 0);

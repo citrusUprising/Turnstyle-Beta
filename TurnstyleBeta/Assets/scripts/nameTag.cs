@@ -57,8 +57,8 @@ public class nameTag : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        fatigue.GetComponent<TextMeshProUGUI>().text = fatigueValue.ToString();
+        hpValue = character.GetComponent<Friendly>().hp;
+        fatigue.GetComponent<TextMeshProUGUI>().text = character.GetComponent<Friendly>().fatigue.ToString();
 
         hpValueString = "HP " + hpValue.ToString() + "/" + hpValueMax.ToString();
 
