@@ -21,6 +21,7 @@ public class combatController : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject mainLoopObject;
     public totalSpeed totalSpeedPrefab;
+    public GameObject glossary;
     private string state = "rotate";
     MainLoop gameLoop;
     // this is currently only used in the pause state
@@ -152,6 +153,10 @@ public class combatController : MonoBehaviour
     // results display
     // --------------------------------------------------------- //
     private string[] actions = new string[3];
+
+    private bool isGlossaryShowing = false;
+    private GameObject glossaryObject;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -386,6 +391,20 @@ public class combatController : MonoBehaviour
             }
         }
         justUnpaused = false;
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            if (isGlossaryShowing)
+            {
+                Destroy(glossaryObject);
+                isGlossaryShowing = false;
+            }
+            else
+            {
+                glossaryObject = Instantiate(glossary, canvas.transform);
+                isGlossaryShowing = true;
+            }
+        }
     }
 
     // gets called once at the beginning of the pentagon rotation when the player presses up or down

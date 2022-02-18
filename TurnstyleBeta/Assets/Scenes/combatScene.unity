@@ -194,6 +194,7 @@ MonoBehaviour:
   pauseMenu: {fileID: 7457042368697883701, guid: eed798127ef69b149858f9eb24c58f81, type: 3}
   mainLoopObject: {fileID: 1743770248}
   totalSpeedPrefab: {fileID: 8855248490546646884, guid: 4bc29b76b2715b845a7daa1355d47d9f, type: 3}
+  glossary: {fileID: 2191306835290409139, guid: 7d96f0fe2973e0344b263beb5c88f377, type: 3}
   targetPointer: {fileID: 1878042729}
   pentagonRotateX: -31.6
   pentagonRotateY: 36.69
