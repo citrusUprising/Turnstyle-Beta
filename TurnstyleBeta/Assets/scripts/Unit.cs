@@ -164,15 +164,17 @@ public class Unit : MonoBehaviour
             gameLoop.outputQueue.Add(this.unitName + " died!");
         }
         if(this.unitName.Equals("Jade")&&this.fatigue < 2){
-            gameLoop.outputQueue.Add("This ability is under construction"); //flag
-            /*foreach(GameObject o in this.allies){
-                if(o.statuses[(int)StatusType.Debuff].name != StatusName.None){
-                    gameLoop.outputQueue.Add(this.unitName+" cured "+o.unitName+" of any conditions");
-                    o.statuses[(int)StatusType.Debuff].name = StatusName.None;
-                    o.statuses[(int)StatusType.Debuff].duration = 0;
-                    o.statuses[(int)StatusType.Debuff].magnitude = 0;
+            foreach(GameObject o in this.allies){
+                Unit temp = o.GetComponent<Unit>();
+                if(temp.statuses[(int)StatusType.Debuff].name != StatusName.None &&
+                temp.statuses[(int)StatusType.Debuff].name != StatusName.Null){
+                    gameLoop.outputQueue.Add(this.unitName+" cured "+temp.unitName+" of any conditions");
+                    temp.statuses[(int)StatusType.Debuff].name = StatusName.None;
+                    temp.statuses[(int)StatusType.Debuff].duration = 0;
+                    temp.statuses[(int)StatusType.Debuff].magnitude = 0;
                 }
-            */}
+            }
+        }
         if(this.unitName.Equals("Amery")){
             gameLoop.outputQueue.Add("This ability is under construction"); //flag
             /*bool fullHealth = true;
