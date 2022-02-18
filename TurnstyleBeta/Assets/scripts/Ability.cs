@@ -513,6 +513,313 @@ public class Hunker : Ability
     }
 }
 
+public class Temp01 : Ability
+{
+    public Temp01()
+    {
+        this.name = "Temp01";
+        this.text = "Inflict Target with either Burn(1,8) or Burn(5,2)";
+        this.multitarget = false;
+        this.selftarget = false;
+        this.allies = false;
+    }
+
+    public override void effect(Unit target, Unit source, MainLoop L)
+    {
+        float rng = UnityEngine.Random.Range(0,1);
+        if(rng < 0.5){
+            target.applyStatus(StatusType.Health,StatusName.Burn,1,8);
+        }else{
+            target.applyStatus(StatusType.Health,StatusName.Burn,5,2);
+        }
+    }
+
+    public override bool requirement(Unit target, Unit source)
+    {
+        return true;
+    }
+}
+
+public class Temp02 : Ability
+{
+    public Temp02()
+    {
+        this.name = "Temp02";
+        this.text = "Deal 6 damage to a target";
+        this.multitarget = false;
+        this.selftarget = false;
+        this.allies = false;
+    }
+
+    public override void effect(Unit target, Unit source, MainLoop L)
+    {
+        target.takeDamage(source, 6);
+    }
+
+    public override bool requirement(Unit target, Unit source)
+    {
+        return true;
+    }
+}
+
+public class Temp03 : Ability
+{
+    public Temp03()
+    {
+        this.name = "Temp03";
+        this.text = "Deal 1 damage to all enemies. 50% to inflict Encumbered.";
+        this.multitarget = true;
+        this.selftarget = false;
+        this.allies = false;
+    }
+
+    public override void effect(Unit target, Unit source, MainLoop L)
+    {
+        target.takeDamage(source, 1);
+        float rng = UnityEngine.Random.Range(0,1);
+        if(rng > 0.5)target.applyStatus(StatusType.Debuff,StatusName.Encumbered, 100, 0);
+    }
+
+    public override bool requirement(Unit target, Unit source)
+    {
+        return true;
+    }
+}
+
+public class Temp04 : Ability
+{
+    public Temp04()
+    {
+        this.name = "Temp04";
+        this.text = "Deals damage to a target equal to half the user's accrued damage.";
+        this.multitarget = false;
+        this.selftarget = false;
+        this.allies = false;
+    }
+
+    public override void effect(Unit target, Unit source, MainLoop L)
+    {
+        int damage;
+        damage = (source.maxHP-source.hp)/2;
+        target.takeDamage(source, damage);
+    }
+
+    public override bool requirement(Unit target, Unit source)
+    {
+        return true;
+    }
+}
+
+public class Temp05 : Ability
+{
+    public Temp05()
+    {
+        this.name = "Temp05";
+        this.text = "50% chance give all allies Regen(5,1)";
+        this.multitarget = true;
+        this.selftarget = false;
+        this.allies = true;
+    }
+
+    public override void effect(Unit target, Unit source, MainLoop L)
+    {
+        float rng = UnityEngine.Random.Range(0,1);
+        if(rng>.5)target.applyStatus(StatusType.Health,StatusName.Regeneration, 5, 1);
+    }
+
+    public override bool requirement(Unit target, Unit source)
+    {
+        return true;
+    }
+}
+
+public class Temp06 : Ability
+{
+    public Temp06()
+    {
+        this.name = "Temp06";
+        this.text = "Grants party Aegis(1)";
+        this.multitarget = true;
+        this.selftarget = false;
+        this.allies = true;
+    }
+
+    public override void effect(Unit target, Unit source, MainLoop L)
+    {
+        target.applyStatus(StatusType.Buff,StatusName.Aegis,1,0);
+    }
+
+    public override bool requirement(Unit target, Unit source)
+    {
+        return true;
+    }
+}
+
+public class Temp07 : Ability
+{
+    public Temp07()
+    {
+        this.name = "Temp07";
+        this.text = "Deal 6 damage to a target, ignoring Buffs and Debuffs. This cannot miss.";
+        this.multitarget = false;
+        this.selftarget = false;
+        this.allies = false;
+    }
+
+    public override void effect(Unit target, Unit source, MainLoop L)
+    {
+        target.hp = Math.Max(target.hp - 6, 0);
+    }
+
+    public override bool requirement(Unit target, Unit source)
+    {
+        return true;
+    }
+}
+
+public class Temp08 : Ability
+{
+    public Temp08()
+    {
+        this.name = "Temp08";
+        this.text = "Deal 2 damage to a target and inflict Strung Out(2)";
+        this.multitarget = false;
+        this.selftarget = false;
+        this.allies = false;
+    }
+
+    public override void effect(Unit target, Unit source, MainLoop L)
+    {
+        target.takeDamage(source,2);
+        target.applyStatus(StatusType.Debuff,StatusName.StrungOut,2,0);
+    }
+
+    public override bool requirement(Unit target, Unit source)
+    {
+        return true;
+    }
+}
+
+public class Temp09 : Ability
+{
+    public Temp09()
+    {
+        this.name = "Temp09";
+        this.text = "Deal 2 damage to a target. If the target has a buff, remove the buff. If not, deal 2 more damage.";
+        this.multitarget = false;
+        this.selftarget = false;
+        this.allies = false;
+    }
+
+    public override void effect(Unit target, Unit source, MainLoop L)
+    {
+        if(target.statuses[(int) StatusType.Buff].name != StatusName.None){
+            target.takeDamage(source,2);
+            Debug.Log(target.unitName+" was relieved of "+target.statuses[(int) StatusType.Buff].name);
+        }else{
+            target.takeDamage(source,4);
+        }
+        target.statuses[(int) StatusType.Buff].name = StatusName.None;
+        target.statuses[(int) StatusType.Buff].duration = 0;
+        target.statuses[(int) StatusType.Buff].magnitude = 0;
+    }
+
+    public override bool requirement(Unit target, Unit source)
+    {
+        return true;
+    }
+}
+
+public class Temp10 : Ability
+{
+    public Temp10()
+    {
+        this.name = "Temp10";
+        this.text = "Inflict a target with Flinch";
+        this.multitarget = false;
+        this.selftarget = false;
+        this.allies = false;
+    }
+
+    public override void effect(Unit target, Unit source, MainLoop L)
+    {
+        target.applyStatus(StatusType.Debuff,StatusName.Flinch, 1, 0);
+    }
+
+    public override bool requirement(Unit target, Unit source)
+    {
+        return true;
+    }
+}
+
+public class Temp11 : Ability
+{
+    public Temp11()
+    {
+        this.name = "Temp11";
+        this.text = "Halve a target's health.";
+        this.multitarget = false;
+        this.selftarget = false;
+        this.allies = false;
+    }
+
+    public override void effect(Unit target, Unit source, MainLoop L)
+    {
+        target.hp = Math.Max(target.hp/2, 0);
+        Debug.Log(target.unitName+"'s health was halved");
+    }
+
+    public override bool requirement(Unit target, Unit source)
+    {
+        return true;
+    }
+}
+
+public class Temp12 : Ability
+{
+    public Temp12()
+    {
+        this.name = "Temp12";
+        this.text = "50% chance to inflict all enemies with Distracted(2)";
+        this.multitarget = true;
+        this.selftarget = false;
+        this.allies = false;
+    }
+
+    public override void effect(Unit target, Unit source, MainLoop L)
+    {
+        float rng = UnityEngine.Random.Range(0,1);
+        if(rng > 0.5)target.applyStatus(StatusType.Debuff,StatusName.Distracted, 2, 0);
+    }
+
+    public override bool requirement(Unit target, Unit source)
+    {
+        return true;
+    }
+}
+
+public class Temp13 : Ability
+{
+    public Temp13()
+    {
+        this.name = "Temp13";
+        this.text = "Grant an ally Enrage (2)";
+        this.multitarget = false;
+        this.selftarget = false;
+        this.allies = true;
+    }
+
+    public override void effect(Unit target, Unit source, MainLoop L)
+    {
+        target.applyStatus(StatusType.Buff,StatusName.Enrage, 2, 0);
+    }
+
+    public override bool requirement(Unit target, Unit source)
+    {
+        return true;
+    }
+}
+
 /*
 public class Temp : Ability
 {
