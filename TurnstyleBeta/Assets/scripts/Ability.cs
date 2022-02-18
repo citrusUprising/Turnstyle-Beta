@@ -43,7 +43,7 @@ public class BasicHeal : Ability
     public BasicHeal()
     {
         this.name = "Basic Heal";
-        this.text = "Heal 3 damage.";
+        this.text = "Heal 3 damage from ally.";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = true;
@@ -164,7 +164,7 @@ public class Mitigate : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        L.outputQueue.Add(source.unitName + " used " + this.name + " on " + target.unitName);
+        //flag
         target.applyStatus(StatusType.Health, StatusName.Regeneration, 3, 4);
     }
 
@@ -187,11 +187,8 @@ public class Scrum : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        L.outputQueue.Add(source.unitName+" used "+this.name+" on "+target.unitName);
   if(target.statuses[(int) StatusType.Debuff].name != StatusName.None){
-    L.outputQueue.Add(target.unitName+" was cured of "+target.statuses[(int) StatusType.Debuff].name+" and given Null");
-  }else{
-    L.outputQueue.Add(target.unitName+" was given Null");
+    L.outputQueue.Add(target.unitName+" was cured of "+target.statuses[(int) StatusType.Debuff].name);
   }
   target.statuses[(int) StatusType.Debuff].name = StatusName.None;
   target.statuses[(int) StatusType.Debuff].duration = 0;
@@ -210,7 +207,7 @@ public class Smolder : Ability
     public Smolder()
     {
         this.name = "Smolder";
-        this.text = "Hit enemy with fire, damaging them based on your speed";
+        this.text = "Hit enemy with fire, damaging them based on user's speed";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
@@ -218,7 +215,6 @@ public class Smolder : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        L.outputQueue.Add(source.unitName+" used "+this.name+" on "+target.unitName);
         target.takeDamage(source, 3 + source.queuedAction.speed/2);
     }
 
@@ -241,7 +237,7 @@ public class Imbibe : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        L.outputQueue.Add(source.unitName +" imbibed coffee");
+        //L.outputQueue.Add(source.unitName +" imbibed coffee");
         target.applyStatus(StatusType.Buff,StatusName.Haste, 2, 5);
         target.applyStatus(StatusType.Debuff,StatusName.StrungOut, 2, 0);
     }
@@ -265,7 +261,6 @@ public class Repel : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        L.outputQueue.Add(source.unitName + " used " + this.name + " on enemy team");
         target.takeDamage(source, 2);
     }
 
@@ -288,7 +283,6 @@ public class Fallguy : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-    L.outputQueue.Add(source.unitName+" used "+this.name);
     if(target.unitName != source.unitName)
     target.applyStatus(StatusType.Buff,StatusName.Aegis, 1, 0);
     else
@@ -314,7 +308,6 @@ public class Crush : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        L.outputQueue.Add(source.unitName+" used "+this.name+" on "+target.unitName);
         target.takeDamage(source, 8);
         source.hp = Math.Min(source.hp-4, source.maxHP);
     }
@@ -338,7 +331,6 @@ public class Rally : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        L.outputQueue.Add(source.unitName+" used "+this.name+" on "+target.unitName);
         target.healSelf(8);
         source.hp = Math.Min(source.hp-2, source.maxHP);
     }
@@ -362,7 +354,6 @@ public class Stunnerclap : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        L.outputQueue.Add(source.unitName+" used "+this.name+" on "+target.unitName);
         target.takeDamage(source,2);
         target.applyStatus(StatusType.Debuff,StatusName.StrungOut, 1, 0);
     }
@@ -413,10 +404,8 @@ public class Dazzle : Ability
     public override void effect(Unit target, Unit source, MainLoop L)
     {
         if(UnityEngine.Random.Range(0,1) <= 0.35){
-            L.outputQueue.Add(source.unitName+"'s "+this.name+" flinched "+target.unitName);
             target.applyStatus(StatusType.Debuff,StatusName.Flinch, 1, 0);
         }else if(UnityEngine.Random.Range(0,1) <= 0.35){
-            L.outputQueue.Add(source.unitName+"'s "+this.name+" burned "+target.unitName);
             target.applyStatus(StatusType.Health, StatusName.Burn, 2, 4);
         }else L.outputQueue.Add(target.unitName+" avoided the "+this.name);
     }
@@ -440,7 +429,6 @@ public class Scry : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        L.outputQueue.Add(source.unitName+" used "+this.name+" on "+target.unitName);
         target.applyStatus(StatusType.Debuff,StatusName.Distracted, 2, 0);
     }
 
@@ -465,15 +453,12 @@ public class Motivate : Ability
     {
         float rng = UnityEngine.Random.Range(0,1);
         if(rng <= 0.33){
-            L.outputQueue.Add(source.unitName+"'s "+this.name+" gave "+target.unitName+" Aegis(1)");
             target.applyStatus(StatusType.Buff,StatusName.Aegis, 1,0);
         }
         else if(rng <= 0.66){
-            L.outputQueue.Add(source.unitName+"'s "+this.name+" gave "+target.unitName+" Enrage(1)");
             target.applyStatus(StatusType.Buff, StatusName.Enrage, 1,0);
         }
         else {
-            L.outputQueue.Add(source.unitName+"'s "+this.name+" gave "+target.unitName+" Haste(2,3)");
             target.applyStatus(StatusType.Buff, StatusName.Haste, 2,3);
         }
     }
@@ -497,7 +482,6 @@ public class Slump : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        L.outputQueue.Add(source.unitName+" "+this.name+"ed");
         target.applyStatus(StatusType.Health,StatusName.Regeneration,1,6);
     }
 
@@ -520,7 +504,6 @@ public class Hunker : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        L.outputQueue.Add(source.unitName+" "+this.name+"ed");
         target.applyStatus(StatusType.Buff,StatusName.Aegis, 2, 0);
     }
 
