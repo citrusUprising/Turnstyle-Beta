@@ -628,6 +628,7 @@ public class combatController : MonoBehaviour
             }
             transitionToSpeedSelect();
         }
+        changeSelectedTarget(0, selectedAbility.allies);
         if(selectedAbility.allies){
             targetPointer.transform.localPosition = playerTargets[0];
         }
