@@ -49,6 +49,16 @@ public class combatController : MonoBehaviour
     private GameObject moveSelectPointer;
 
     // --------------------------------------------------------- //
+    // 🎯 target select variables
+    // --------------------------------------------------------- //
+    public GameObject targetPointer;
+    private int targetIndex = 0;
+
+    private Vector3[] playerTargets = new Vector3[5] {new Vector3(-65, 8, 0), 
+    new Vector3(43,-110,0), new Vector3(16,-216,0), new Vector3(-260, -201, 0),
+    new Vector3(-260, -31, 0)};
+
+    // --------------------------------------------------------- //
     // variables that interact with the rotate state
     // --------------------------------------------------------- //
 
@@ -133,20 +143,26 @@ public class combatController : MonoBehaviour
     private GameObject pauseMenuInstance;
     private bool justUnpaused = false;
 
+    // --------------------------------------------------------- //
+    // 👾 enemy variables
+    // --------------------------------------------------------- //
+    public GameObject[] enemies;
+
+    // --------------------------------------------------------- //
+    // results display
+    // --------------------------------------------------------- //
+    private string[] actions = new string[3];
     // Start is called before the first frame update
     void Start()
     {
-
         totalSpeedIndicator1 = Instantiate(totalSpeedPrefab, canvas.transform);
 
-
         // 3 and 4 are inactive, 0, 1, and 2 are active
-        /* nameTagArray[0] = nameTagBeverly;
+        nameTagArray[0] = nameTagBeverly;
         nameTagArray[1] = nameTagAmery;
         nameTagArray[2] = nameTagKoralie;
         nameTagArray[3] = nameTagJade;
         nameTagArray[4] = nameTagSeraphim;
-        */
 
         // init each player's moves here ⬇ this code is ugly but it works
         nameTagArray[0].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Smolder(), new Dazzle(), new Imbibe()}; 
@@ -155,6 +171,7 @@ public class combatController : MonoBehaviour
         nameTagArray[3].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Stunnerclap(), new Rally(), new Motivate()};
         nameTagArray[4].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Soulrip(), new Scry(), new Slump()};
 
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
         for (int i = 0; i < 5; i++)
         {
             nameTagCoords[i] = nameTagArray[i].transform.position;
@@ -186,7 +203,6 @@ public class combatController : MonoBehaviour
             {
                 transitionToMoveSelect();
             }
-
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
                 // if the pentagon is NOT rotating, then begin rotating DOWN
@@ -204,7 +220,6 @@ public class combatController : MonoBehaviour
                     beginRotatingPentagon(1);
                 }
             }
-
             // here is all the logic 
             if (isRotating)
             {
@@ -231,6 +246,7 @@ public class combatController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.X))
             {
                 selectedAbility = nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities[selectedAbilityIndex];
+                actions[numberOfSelectedMoves] += selectedAbility.name + " on ";
                 transitionToTargetSelect();
             }
             // back function needs to be implemented
@@ -245,7 +261,26 @@ public class combatController : MonoBehaviour
         // needs to be implemented
         else if (state == "targetSelect")
         {
+            // when the down arrow is pressed, move the selection down
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                Debug.Log("previous enemy");
+                changeSelectedTarget(-1, selectedAbility.allies);
 
+                // change target   
+            }
+            // when the up arrow is pressed, move the selection up
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                Debug.Log("next enemy");
+                changeSelectedTarget(1, selectedAbility.allies);
+            }
+            // when the X key is pressed, we need to go to selecting speed
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                targetPointer.GetComponent<Image>().enabled = false;
+                transitionToSpeedSelect();
+            }
         }
 
         else if (state == "speedSelect")
@@ -302,6 +337,12 @@ public class combatController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.X))
             {
+                if(selectedAbility.allies){
+                    actions[numberOfSelectedMoves] += nameTagArray[targetIndex].GetComponent<nameTag>().character.GetComponent<Friendly>().name;
+                }
+                else{
+                    actions[numberOfSelectedMoves] += enemies[targetIndex].GetComponent<Enemy>().name;
+                }
                 transitionToPlayResults();
             } 
             else if (Input.GetKeyDown(KeyCode.Z))
@@ -438,6 +479,7 @@ public class combatController : MonoBehaviour
 
         for (int i = 0; i < 5; i++)
         {
+            Debug.Log(i);
             nameTagArray[i].transform.position = Vector3.Lerp(nameTagArray[i].previousPosition, nameTagArray[i].nextPosition, t);
         }
 
@@ -487,7 +529,7 @@ public class combatController : MonoBehaviour
         Destroy(currentDrawnBox);
         
         // 🎨 setting draw box color & move names 
-        nameTagArray[numberOfSelectedMoves].GetComponent<PlayerMoveSelect>().ChangeColor();     
+        nameTagArray[numberOfSelectedMoves].GetComponent<PlayerMoveSelect>().ChangeColor();   
 
         currentDrawnBox = Instantiate(moveSelectBox, canvas.transform);
         selectedAbilityIndex = 0;
@@ -505,14 +547,10 @@ public class combatController : MonoBehaviour
         }
 
         selectedUnit = nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>();
-
+        actions[numberOfSelectedMoves] += selectedUnit.name+ ": ";
 
         // this needs to be put back in once the friendly objects are properly put into the nameTags
         //gameLoop.setActiveUnits(rotationState);
-
-        // we need logic to change the sprite of the currentDrawnBox to match the color of the current character
-        // who is having their moves selected for them
-        // also the name of the moves and the descriptions of the moves should change to match the next character
     }
 
     void changeSelectedAbilityIndex(int change)
@@ -534,7 +572,30 @@ public class combatController : MonoBehaviour
 
         // 👉 changing move description to reflect pointer movement
         currentDrawnBox.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = 
-        nameTagArray[0].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities[selectedAbilityIndex].text;
+        nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities[selectedAbilityIndex].text;
+    }
+
+    void changeSelectedTarget(int change, bool allied){
+        targetIndex += change;
+        // this is kind of messy but it gets the allied targets in color order of 💙💛💗💚💖 
+        if(allied){
+            if(targetIndex == 5)
+                targetIndex = 0;
+            if(targetIndex == -1)
+                targetIndex = 4;
+            targetPointer.transform.localPosition = playerTargets[targetIndex];
+        }
+        else{
+            if(targetIndex == enemies.Length)
+                targetIndex = 0;
+            if(targetIndex == -1)
+                targetIndex = enemies.Length-1;
+                targetPointer.transform.localPosition = new Vector3(
+                    enemies[targetIndex].transform.localPosition[0] - 100,
+                    enemies[targetIndex].transform.localPosition[1],
+                    enemies[targetIndex].transform.localPosition[2]
+                );
+        }
     }
 
     // because we have not implemented this yet, it will go automatically to the speedSelect
@@ -543,7 +604,14 @@ public class combatController : MonoBehaviour
         setPreviousState();
         state = "targetSelect";
         // this state does not have a box associated with it. therefore, the old box should not be destroyed
-        transitionToSpeedSelect();
+        Debug.Log(selectedAbility);
+        if (selectedAbility.selftarget || selectedAbility.multitarget){
+            transitionToSpeedSelect();
+        }
+        if(selectedAbility.allies){
+            targetPointer.transform.localPosition = playerTargets[0];
+        }
+        targetPointer.GetComponent<Image>().enabled = true;
     }
 
     // a lot of things have to happen here
@@ -633,7 +701,13 @@ public class combatController : MonoBehaviour
         setPreviousState();
         state = "confirm";
         Destroy(currentDrawnBox);
+
         currentDrawnBox = Instantiate(confirmBox, canvas.transform);
+        
+        // changing confirm moves to each action 
+            for(int i = 0; i < 3; i++){
+            currentDrawnBox.transform.GetChild(i+2).gameObject.GetComponent<TextMeshProUGUI>().text = actions[i];   
+        }
     }
 
     // playResults is also not really implemented yet
@@ -642,6 +716,7 @@ public class combatController : MonoBehaviour
         setPreviousState();
         state = "playResults";
         Destroy(currentDrawnBox);
+
         currentDrawnBox = Instantiate(playResultsBox, canvas.transform);
         StartCoroutine(gameLoop.OutputText());
     }

@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 // TODO:
 // add functionality in the nameTag script (or gameLoop?) that calls these functions at the appropriate times
 // add tooltip popups that tell you what the status does
-public class statusEffectController : MonoBehaviour
+public class statusEffectController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     // these are all the possible sprites that can be displayed in the left side of this object
     public Sprite aegisSprite;
@@ -30,6 +30,9 @@ public class statusEffectController : MonoBehaviour
 
     // represents how many turns are left in the current status. 
     public int turnsLeft;
+
+    // represents how much for burn, regen, and haste
+    public int magnitude;
 
     // a string that represents how many turns are left. this is updated with the function "updateTurnsLeftString()"
     // that function makes sure the string is "" instead of "0" if there are zero turns left
@@ -59,8 +62,6 @@ public class statusEffectController : MonoBehaviour
 
     public statusTooltip tooltip;
 
-    private int count = 0;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -89,7 +90,7 @@ public class statusEffectController : MonoBehaviour
 
         /* if (Input.GetKeyDown(KeyCode.S))
         {
-            updateStatus("burn", 2);
+            updateStatus("burn", 2 3);
         }
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -102,41 +103,31 @@ public class statusEffectController : MonoBehaviour
             changeTurnCount(-1);
         } */
 
-
-        // this is still broken lol
-        /*if (EventSystem.current.IsPointerOverGameObject())
-        {
-            StartCoroutine(showTooltip());
-        }
-        else
-        {
-            tooltip.hide();
-            StopAllCoroutines();
-        }*/
+        updateStatus("burn", 2, 3);
     }
 
-    public IEnumerator showTooltip()
+    public void OnPointerEnter(PointerEventData eventData)
     {
-        yield return new WaitForSeconds(.5f);
-        tooltip.show();
+        StopAllCoroutines();
+        StartCoroutine(startTooltipTimer());
     }
 
-    void OnMouseOver()
-    {
-        Debug.Log(count);
-        count++;
-        StartCoroutine(showTooltip());
-    }
-
-    void OnMouseExit()
+    public void OnPointerExit(PointerEventData eventData)
     {
         tooltip.hide();
         StopAllCoroutines();
     }
 
+    public IEnumerator startTooltipTimer()
+    {
+        yield return new WaitForSeconds(.5f);
+
+        tooltip.show(currentStatus, turnsLeft, magnitude);
+    }
+
     // this changes the status, the sprite, the turnsLeft, and the text displayed
     // the default values are used in changeTurnCount() to reset the object to a blank state, with no status or turns left
-    public void updateStatus(string newStatus = "none", int newTurnCount = 0)
+    public void updateStatus(string newStatus = "none", int newTurnCount = 0, int newMagnitude = 0)
     {
         // update the status variable
         currentStatus = newStatus;
@@ -146,6 +137,8 @@ public class statusEffectController : MonoBehaviour
 
         // update turnsLeft
         turnsLeft = newTurnCount;
+
+        magnitude = newMagnitude;
 
         // make sure the string version is right
         updateTurnsLeftString();
