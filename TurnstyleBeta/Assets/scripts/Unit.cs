@@ -86,30 +86,52 @@ public class Unit : MonoBehaviour
             this.statuses[(int) StatusType.Debuff].duration = 0;
             return;
         }
-        gameLoop.outputQueue.Add(this.unitName + " used " + this.queuedAction.ability.name + "!");
+        //we don't always want to print this so it has been moved
+        //gameLoop.outputQueue.Add(this.unitName + " used " + this.queuedAction.ability.name + "!");
         this.getTeams();
         if(this.queuedAction.ability.multitarget == true)
         {
+            bool used = false;
             if(this.queuedAction.ability.allies == true)
             {
                 foreach(GameObject o in this.allies)
                 {
-                    this.queuedAction.ability.effect(o.GetComponent<Unit>(),this, gameLoop);
+                    if(!o.GetComponent<Unit>().dead){
+                        if(!used){
+                            gameLoop.outputQueue.Add(this.unitName + " used " + this.queuedAction.ability.name + "!");
+                            used = true;
+                        }
+                        this.queuedAction.ability.effect(o.GetComponent<Unit>(),this, gameLoop);
+                    }
                 }
             } 
             else
             {
                 foreach(GameObject o in this.enemies) { 
-                    this.queuedAction.ability.effect(o.GetComponent<Unit>(), this, gameLoop);
+                    if(!o.GetComponent<Unit>().dead){
+                        if(!used){
+                            gameLoop.outputQueue.Add(this.unitName + " used " + this.queuedAction.ability.name + "!");
+                            used = true;
+                        }
+                        this.queuedAction.ability.effect(o.GetComponent<Unit>(),this, gameLoop);
+                    }
                 }
             }
+            if(!used)
+                gameLoop.outputQueue.Add(this.unitName + "'s ability had no targets!");
         } else if (this.queuedAction.ability.selftarget == true)
         {
+            gameLoop.outputQueue.Add(this.unitName + " used " + this.queuedAction.ability.name + "!");
             this.queuedAction.ability.effect(this, this, gameLoop);
         }
         else
         {
-            this.queuedAction.ability.effect(this.queuedAction.target, this, gameLoop);
+            if(!this.queuedAction.target.dead){
+                gameLoop.outputQueue.Add(this.unitName + " used " + this.queuedAction.ability.name + "!");
+                this.queuedAction.ability.effect(this.queuedAction.target, this, gameLoop);
+            }
+            else
+                gameLoop.outputQueue.Add(this.unitName + "'s ability had no target!");
         }
         this.fatigue += 1;
     }
