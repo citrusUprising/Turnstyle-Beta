@@ -110,6 +110,7 @@ public class Unit : MonoBehaviour
         {
             this.queuedAction.ability.effect(this.queuedAction.target, this, gameLoop);
         }
+        this.fatigue += 1;
     }
 
     public void turnEnd()
