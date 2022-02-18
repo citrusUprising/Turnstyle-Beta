@@ -603,10 +603,10 @@ public class combatController : MonoBehaviour
         targetIndex += change;
         // this is kind of messy but it gets the allied targets in color order of 💙💛💗💚💖 
         if(allied){
-            if(targetIndex == 5)
+            if(targetIndex == 3)
                 targetIndex = 0;
             if(targetIndex == -1)
-                targetIndex = 4;
+                targetIndex = 2;
             targetPointer.transform.localPosition = playerTargets[targetIndex];
             selectedTarget = nameTagArray[targetIndex].GetComponent<nameTag>().character.GetComponent<Friendly>();
         }
@@ -647,6 +647,7 @@ public class combatController : MonoBehaviour
             }
             transitionToSpeedSelect();
         }
+        changeSelectedTarget(0, selectedAbility.allies);
         if(selectedAbility.allies){
             targetPointer.transform.localPosition = playerTargets[0];
         }

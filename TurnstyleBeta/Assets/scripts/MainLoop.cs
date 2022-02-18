@@ -250,6 +250,10 @@ public class MainLoop : MonoBehaviour
    			textbox.text = outputBuild;
    			yield return new WaitForSeconds(.75f);
    		}
+        foreach (Unit unit in enemyUnits)
+        {
+            unit.Kill();
+        }
         outputQueue.Clear();
    	}
 }
