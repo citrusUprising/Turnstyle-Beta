@@ -86,6 +86,7 @@ public class Unit : MonoBehaviour
             this.statuses[(int) StatusType.Debuff].duration = 0;
             return;
         }
+        gameLoop.outputQueue.Add(this.unitName + " used " + this.queuedAction.ability.name + "!");
         this.getTeams();
         if(this.queuedAction.ability.multitarget == true)
         {

@@ -16,7 +16,7 @@ public class MainLoop : MonoBehaviour
 	//Seperate arrays for units on bench and off
 	public Friendly[] activeUnits = new Friendly[3];
 	public Friendly[] benchUnits = new Friendly[2];
-
+    Random rand;
 	//List of text to display at end of turn
 	public List<string> outputQueue;
 
@@ -26,6 +26,7 @@ public class MainLoop : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        rand = new Random();
         playerUnits = new Friendly[friendlies.Length];
         enemyUnits = new Enemy[enemies.Length];
         //get the scripts on units
@@ -118,9 +119,12 @@ public class MainLoop : MonoBehaviour
     			abilityIndex++;
     		}
     		//randomly decide the ability and target
-    		Random rand = new Random(); 
+    		//Random rand = new Random(); 
     		int chosenAbility = legalAbilities[rand.Next(legalAbilities.Count)];
-    		int chosenTarget = legalTargets[chosenAbility][rand.Next(legalTargets[chosenAbility].Count)];
+            int randTest = rand.Next(legalTargets[chosenAbility].Count);
+            Debug.Log("randTest = " + randTest);
+            int chosenTarget = legalTargets[chosenAbility][randTest];
+            //Debug.Log("available random targets: " + legalTargets[chosenAbility].Count);
     		Unit actTarget;
     		if(unit.abilities[chosenAbility].allies)
     			actTarget = enemyUnits[chosenTarget];
@@ -164,7 +168,7 @@ public class MainLoop : MonoBehaviour
     		if(actor.dead)
     			continue;
             Debug.Log(actor.name + " used " + actor.queuedAction.ability.name + "!");
-            outputQueue.Add(actor.name + " used " +  actor.queuedAction.ability.name + "!");
+            //outputQueue.Add(actor.name + " used " +  actor.queuedAction.ability.name + "!");
     		actor.act();
     	}
     	queuedActions.Clear();
