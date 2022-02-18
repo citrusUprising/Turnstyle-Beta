@@ -745,8 +745,18 @@ public class combatController : MonoBehaviour
         currentDrawnBox = Instantiate(confirmBox, canvas.transform);
         
         // changing confirm moves to each action 
-            for(int i = 0; i < 3; i++){
-            currentDrawnBox.transform.GetChild(i+2).gameObject.GetComponent<TextMeshProUGUI>().text = actions[i];   
+        for(int i = 0; i < 3; i++){
+            Friendly displayedUnit = nameTagArray[i].GetComponent<nameTag>().character.GetComponent<Friendly>();
+            string actionDescription = displayedUnit.unitName + ": " + displayedUnit.queuedAction.ability.name + " on ";
+            if(displayedUnit.queuedAction.ability.multitarget){
+                if(displayedUnit.queuedAction.ability.allies)
+                    actionDescription += "allies.";
+                else
+                    actionDescription += "enemies.";
+            }
+            else
+                actionDescription += displayedUnit.queuedAction.target.unitName + ".";
+            currentDrawnBox.transform.GetChild(i+2).gameObject.GetComponent<TextMeshProUGUI>().text = actionDescription;   
         }
     }
 
