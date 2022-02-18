@@ -86,6 +86,7 @@ public class Unit : MonoBehaviour
             this.statuses[(int) StatusType.Debuff].duration = 0;
             return;
         }
+        gameLoop.outputQueue.Add(this.unitName + " used " + this.queuedAction.ability.name + "!");
         this.getTeams();
         if(this.queuedAction.ability.multitarget == true)
         {
@@ -110,18 +111,22 @@ public class Unit : MonoBehaviour
         {
             this.queuedAction.ability.effect(this.queuedAction.target, this, gameLoop);
         }
-        this.queuedAction.target = null;
-        this.queuedAction.ability = null;
-        this.queuedAction.speed = 0;
+        this.fatigue += 1;
     }
 
     public void turnEnd()
     {
         gameLoop.outputQueue.Add(this.unitName + " has ended their turn");
-        this.priorTarget = this.queuedAction.target;
-        this.queuedAction.target = null;
-        this.queuedAction.ability = null;
-        this.queuedAction.speed = 0;
+        Debug.Log(this.unitName + " has ended their turn");
+        //Debug.Log("queuedAction.ability.name: " + this.queuedAction.ability.name);
+        if (this.queuedAction != null)
+        {
+            this.priorTarget = this.queuedAction.target;
+            this.queuedAction.target = null;
+            this.queuedAction.ability = null;
+            this.queuedAction.speed = 0;
+        }
+
         if(this.statuses[(int) StatusType.Health].name == StatusName.Regeneration)
         {
             this.hp = Math.Min(this.hp + this.statuses[(int) StatusType.Health].magnitude, this.maxHP);

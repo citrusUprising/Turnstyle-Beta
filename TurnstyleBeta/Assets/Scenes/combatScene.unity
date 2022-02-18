@@ -192,7 +192,7 @@ MonoBehaviour:
   confirmBox: {fileID: 2664563520191296499, guid: 1c51bb4028db8f44ca6d032d59f65e85, type: 3}
   playResultsBox: {fileID: 578489610368611346, guid: e79fc911d5b626846b4f12d0c93f117a, type: 3}
   pauseMenu: {fileID: 7457042368697883701, guid: eed798127ef69b149858f9eb24c58f81, type: 3}
-  gameLoop: {fileID: 1743770249}
+  mainLoopObject: {fileID: 1743770248}
   totalSpeedPrefab: {fileID: 8855248490546646884, guid: 4bc29b76b2715b845a7daa1355d47d9f, type: 3}
   targetPointer: {fileID: 1878042729}
   pentagonRotateX: -31.6
@@ -210,7 +210,10 @@ MonoBehaviour:
   - {fileID: 1252358152}
   totalSpeedEachTurn: 12
   totalSpeedThisTurn: 12
-  enemies: []
+  enemies:
+  - {fileID: 752763428}
+  - {fileID: 1090882965}
+  - {fileID: 1894227885}
 --- !u!114 &61845108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1092,6 +1095,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
+--- !u!1 &752763428 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2348889262567115114, guid: 98b04edebba616c4284d57617a3632bb, type: 3}
+  m_PrefabInstance: {fileID: 2348889263091524559}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &763891169 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2348889262567115111, guid: 98b04edebba616c4284d57617a3632bb, type: 3}
@@ -1336,6 +1344,11 @@ MonoBehaviour:
   dead: 0
   isActive: 0
   gameLoop: {fileID: 1743770249}
+--- !u!1 &1090882965 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2348889262567115114, guid: 98b04edebba616c4284d57617a3632bb, type: 3}
+  m_PrefabInstance: {fileID: 250382690}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1187822943
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1917,32 +1930,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.49803922}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8bbda0fe9e2d3264bbf64ee31d2433bf, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1349145694
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1349145691}
-  m_CullTransparentMesh: 1
+  unitName: Jade
+  allies: []
+  enemies: []
+  immunity: 
+  fatigue: 0
+  hp: 15
+  maxHP: 15
+  priorTarget: {fileID: 0}
+  dead: 0
+  isActive: 0
+  gameLoop: {fileID: 1743770249}
 --- !u!1 &1382596076
 GameObject:
   m_ObjectHideFlags: 0
@@ -2047,8 +2045,6 @@ RectTransform:
   - {fileID: 1881125687}
   - {fileID: 1264847549}
   - {fileID: 1878042730}
-  - {fileID: 1349145692}
-  - {fileID: 1228779047}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2455,8 +2451,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1743770250}
+  - component: {fileID: 1743770251}
   - component: {fileID: 1743770249}
+  - component: {fileID: 1743770250}
   m_Layer: 0
   m_Name: MainLoop
   m_TagString: Untagged
@@ -2476,10 +2473,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da2150ac96d21744e8c27006094c414f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  friendlies: []
-  enemies: []
-  playerUnits: []
-  enemyUnits: []
+  friendlies:
+  - {fileID: 996637130}
+  - {fileID: 1861748450}
+  - {fileID: 2064381029}
+  - {fileID: 1279925537}
+  - {fileID: 295711794}
+  enemies:
+  - {fileID: 752763428}
+  - {fileID: 1090882965}
+  - {fileID: 1894227885}
   activeUnits:
   - {fileID: 0}
   - {fileID: 0}
@@ -2489,8 +2492,16 @@ MonoBehaviour:
   - {fileID: 0}
   outputQueue: []
   speedTotal: 12
---- !u!4 &1743770250
-Transform:
+--- !u!222 &1743770250
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743770248}
+  m_CullTransparentMesh: 1
+--- !u!224 &1743770251
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2503,6 +2514,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 879, y: 131}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1764584812
 GameObject:
   m_ObjectHideFlags: 0
@@ -2800,6 +2816,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1894227885 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2348889262567115114, guid: 98b04edebba616c4284d57617a3632bb, type: 3}
+  m_PrefabInstance: {fileID: 144371706}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1967301445 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6194342817783395098, guid: 581d5c53dbc192c489f73b006cead580, type: 3}

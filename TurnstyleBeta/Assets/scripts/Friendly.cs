@@ -15,6 +15,10 @@ public class Friendly : Unit
         gameObject.tag = "Ally";
         this.allies = GameObject.FindGameObjectsWithTag("Ally");
         this.enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        Status health = new Status(StatusType.Health, StatusName.None, 0, 0);
+        Status buff = new Status(StatusType.Buff, StatusName.None, 0, 0);
+        Status debuff = new Status(StatusType.Debuff, StatusName.None, 0, 0);
+        this.statuses = new Status[] { health, buff, debuff };
     }
 
     // Update is called once per frame
