@@ -313,6 +313,14 @@ public class Unit : MonoBehaviour
     {
     }
 
+    public void Kill()
+    {
+        if (this.dead)
+        {
+            gameObject.GetComponent<CanvasRenderer>().SetAlpha(0);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
