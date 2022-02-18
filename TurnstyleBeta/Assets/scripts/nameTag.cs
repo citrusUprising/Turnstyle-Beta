@@ -6,23 +6,21 @@ using UnityEngine.UI;
 using TMPro;
 public class nameTag : MonoBehaviour
 {
-
-    // TODO:
-    // nudge the passive locations over until the animation works
-    // reset the T whenever toggle pass
-
     private GameObject passiveSprite;
     private GameObject fatigue;
     private GameObject healthBar;
     private GameObject hpText;
+
     public int fatigueValue;
     public int hpValue;
     public int hpValueMax;
     private string hpValueString;
+
     public Vector3 previousPosition;
     public Vector3 nextPosition;
     private bool isPassiveHidden = true;
     private bool passiveIsAnimating = false;
+
     private Vector3 passiveHiddenLocation;
     private Vector3 passiveShownLocation;
     private float t = 0.0f;
@@ -37,6 +35,7 @@ public class nameTag : MonoBehaviour
         fatigue = transform.GetChild(3).gameObject;
         healthBar = transform.GetChild(4).gameObject;
         hpText = transform.GetChild(5).gameObject;
+
         Friendly test = character.GetComponent<Friendly>();
         if(test){
             Debug.Log("Got character info"+test);
@@ -48,7 +47,7 @@ public class nameTag : MonoBehaviour
         }
        
         passiveHiddenLocation = new Vector3(passiveSprite.transform.localPosition[0], passiveSprite.transform.localPosition[1], 0);
-        passiveShownLocation = new Vector3(passiveSprite.transform.localPosition[0], passiveSprite.transform.localPosition[1] - 96, 0);
+        passiveShownLocation = new Vector3(passiveSprite.transform.localPosition[0], passiveSprite.transform.localPosition[1] - 96, 0); 
 
         // tooltipA = transform.GetChild(9).statusTooltip;
         // tooltipA.hide();
@@ -137,6 +136,17 @@ public class nameTag : MonoBehaviour
 
             if (t > 1.0f)
             {
+                t = 1f;
+
+                if (isPassiveHidden)
+                {
+                    passiveSprite.transform.localPosition = Vector3.Lerp(passiveShownLocation, passiveHiddenLocation, t);
+                }
+                else
+                {
+                    passiveSprite.transform.localPosition = Vector3.Lerp(passiveHiddenLocation, passiveShownLocation, t);
+                }
+
                 t = 0f;
                 passiveIsAnimating = false;
             }
