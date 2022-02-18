@@ -155,6 +155,7 @@ public class combatController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         totalSpeedIndicator1 = Instantiate(totalSpeedPrefab, canvas.transform);
 
         // 3 and 4 are inactive, 0, 1, and 2 are active
@@ -190,6 +191,7 @@ public class combatController : MonoBehaviour
         // these go in the order of:
         // rotate -> moveSelect(1) -> targetSelect(1) -> moveSelect(2) -> targetSelect(2) -> moveSelect(3) -> targetSelect(3) -> confirm ->
         // EITHER moveSelect(1) OR playResults -> rotate REPEAT
+        targetPointer.GetComponent<CanvasRenderer>().SetAlpha(0);
         transitionToRotate();
     }
 
@@ -279,7 +281,7 @@ public class combatController : MonoBehaviour
             // when the X key is pressed, we need to go to selecting speed
             if (Input.GetKeyDown(KeyCode.X))
             {
-                targetPointer.GetComponent<Image>().enabled = false;
+                targetPointer.GetComponent<CanvasRenderer>().SetAlpha(0);
                 transitionToSpeedSelect();
             }
         }
@@ -601,6 +603,7 @@ public class combatController : MonoBehaviour
                     enemies[targetIndex].transform.localPosition[1],
                     enemies[targetIndex].transform.localPosition[2]
                 );
+
             selectedTarget = enemies[targetIndex].GetComponent<Enemy>();
             Debug.Log("Target = " + selectedTarget.name);
         }
@@ -615,9 +618,11 @@ public class combatController : MonoBehaviour
         Debug.Log(selectedAbility);
         if (selectedAbility.selftarget) {
             selectedTarget = nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>();
+            targetPointer.GetComponent<CanvasRenderer>().SetAlpha(0);
             transitionToSpeedSelect();
         } else if (selectedAbility.multitarget)
         {
+            targetPointer.GetComponent<CanvasRenderer>().SetAlpha(0);
             if (selectedAbility.allies) 
             {
                 selectedTarget = nameTagArray[0].GetComponent<nameTag>().character.GetComponent<Friendly>();
@@ -628,11 +633,16 @@ public class combatController : MonoBehaviour
             }
             transitionToSpeedSelect();
         }
-        changeSelectedTarget(0, selectedAbility.allies);
-        if(selectedAbility.allies){
-            targetPointer.transform.localPosition = playerTargets[0];
+        else{
+            changeSelectedTarget(0, selectedAbility.allies);
+            if(selectedAbility.allies){
+                targetPointer.transform.localPosition = playerTargets[0];
+                targetPointer.transform.eulerAngles = new Vector3(0,180,0);
+            }
+            else
+                targetPointer.transform.eulerAngles = new Vector3(0,0,0);
+            targetPointer.GetComponent<CanvasRenderer>().SetAlpha(1);
         }
-        targetPointer.GetComponent<Image>().enabled = true;
     }
 
     // a lot of things have to happen here
