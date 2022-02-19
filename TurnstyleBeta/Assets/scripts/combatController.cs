@@ -553,7 +553,15 @@ public class combatController : MonoBehaviour
         setPreviousState();
         state = "moveSelect";
         Destroy(currentDrawnBox);
-        
+        Debug.Log("Dead Move Select: " + nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>().dead);
+        while (nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>().dead)
+        {
+            numberOfSelectedMoves++;
+            if (numberOfSelectedMoves == 3)
+            {
+                break;
+            }
+        }
         // 🎨 setting draw box color & move names 
         nameTagArray[numberOfSelectedMoves].GetComponent<PlayerMoveSelect>().ChangeColor();   
 
@@ -571,7 +579,7 @@ public class combatController : MonoBehaviour
             nameTagArray[1].hidePassive(); // hide
             nameTagArray[2].hidePassive(); // hide
         }
-
+        
         selectedUnit = nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>();
         actions[numberOfSelectedMoves] += selectedUnit.name+ ": ";
 
@@ -757,6 +765,8 @@ public class combatController : MonoBehaviour
         // changing confirm moves to each action 
         for(int i = 0; i < 3; i++){
             Friendly displayedUnit = nameTagArray[i].GetComponent<nameTag>().character.GetComponent<Friendly>();
+            if (displayedUnit.dead)
+                continue;
             string actionDescription = displayedUnit.unitName + ": " + displayedUnit.queuedAction.ability.name + " on ";
             if(displayedUnit.queuedAction.ability.multitarget){
                 if(displayedUnit.queuedAction.ability.allies)
