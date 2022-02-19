@@ -138,7 +138,7 @@ public class Unit : MonoBehaviour
 
     public void turnEnd()
     {
-        gameLoop.outputQueue.Add(this.unitName + " has ended their turn");
+        //gameLoop.outputQueue.Add(this.unitName + " has ended their turn");
         Debug.Log(this.unitName + " has ended their turn");
         //Debug.Log("queuedAction.ability.name: " + this.queuedAction.ability.name);
         if (this.queuedAction != null)
