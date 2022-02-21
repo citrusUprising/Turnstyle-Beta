@@ -23,6 +23,7 @@ public class MainLoop : MonoBehaviour
 	//And also a list of actions to take, except it's really a list of units
 	private List<Unit> queuedActions;
 	public int speedTotal;
+    public float textSpeed;
     // Start is called before the first frame update
     void Start()
     {
@@ -248,7 +249,7 @@ public class MainLoop : MonoBehaviour
    			}
    			//Debug.Log(outputBuild);
    			textbox.text = outputBuild;
-   			yield return new WaitForSeconds(.75f);
+   			yield return new WaitForSeconds(textSpeed);
    		}
         foreach (Unit unit in enemyUnits)
         {
