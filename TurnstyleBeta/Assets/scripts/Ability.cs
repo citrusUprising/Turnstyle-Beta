@@ -284,7 +284,7 @@ public class Fallguy : Ability
     public override void effect(Unit target, Unit source, MainLoop L)
     {
     if(target.unitName != source.unitName)
-    target.applyStatus(StatusType.Buff,StatusName.Aegis, 1, 0);
+        target.applyStatus(StatusType.Buff,StatusName.Aegis, 1, 0);
     else
     source.applyStatus(StatusType.Debuff,StatusName.Distracted, 1, 0);
     }
