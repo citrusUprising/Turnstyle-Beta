@@ -52,6 +52,13 @@ public class Unit : MonoBehaviour
     public bool isActive;
     public QueuedAction queuedAction;
     public MainLoop gameLoop;
+    static Dictionary<StatusName, string> statusNames;
+    
+
+    static Unit(){
+        statusNames = new Dictionary<StatusName, string>();
+        statusNames.Add(StatusName.Haste, "hasted");
+    }
 
     public Unit(string name, StatusName[] immunity, Ability[] abilities, int hp)
     {
