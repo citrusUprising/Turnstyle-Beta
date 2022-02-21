@@ -212,7 +212,7 @@ public class combatController : MonoBehaviour
                 gameLoop.setActiveUnits(nameTagArray); 
                 transitionToMoveSelect();
             }
-            if (Input.GetKeyDown(KeyCode.DownArrow))
+            if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 // if the pentagon is NOT rotating, then begin rotating DOWN
                 if (!isRotating)
@@ -221,7 +221,7 @@ public class combatController : MonoBehaviour
                 }
                     
             }
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.RightArrow))
             {
                 // if the pentagon IS rotating, then begin rotating UP
                 if (!isRotating)
