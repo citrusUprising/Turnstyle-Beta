@@ -96,7 +96,8 @@ public class Unit : MonoBehaviour
             {
                 foreach(GameObject o in this.allies)
                 {
-                    if(!o.GetComponent<Unit>().dead){
+                    if(!o.GetComponent<Unit>().dead && o.GetComponent<Unit>().isActive)
+                    {
                         if(!used){
                             gameLoop.outputQueue.Add(this.unitName + " used " + this.queuedAction.ability.name + "!");
                             used = true;
