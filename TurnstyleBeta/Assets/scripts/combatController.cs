@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -157,6 +158,16 @@ public class combatController : MonoBehaviour
     private bool isGlossaryShowing = false;
     private GameObject glossaryObject;
 
+    // --------------------------------------------------------- //
+    // GameObjects that hold FMOD Studio Event Emitters for playing SFX
+    // --------------------------------------------------------- //
+    public GameObject turnstyleRotate;
+    public GameObject menuForward;
+    public GameObject menuBack;
+    public GameObject menuScroll;
+    public GameObject speedScroll;
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -209,6 +220,7 @@ public class combatController : MonoBehaviour
             // if you press X, advance to the next state, destroying the rotate UI and replacing it with move select UI
             if (Input.GetKeyDown(KeyCode.X))
             {
+                menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play();
                 gameLoop.setActiveUnits(nameTagArray); 
                 transitionToMoveSelect();
             }
@@ -217,6 +229,7 @@ public class combatController : MonoBehaviour
                 // if the pentagon is NOT rotating, then begin rotating DOWN
                 if (!isRotating)
                 {
+                    turnstyleRotate.GetComponent<FMODUnity.StudioEventEmitter>().Play();
                     beginRotatingPentagon(-1);
                 }
                     
@@ -226,6 +239,7 @@ public class combatController : MonoBehaviour
                 // if the pentagon IS rotating, then begin rotating UP
                 if (!isRotating)
                 {
+                    turnstyleRotate.GetComponent<FMODUnity.StudioEventEmitter>().Play();
                     beginRotatingPentagon(1);
                 }
             }
@@ -241,6 +255,7 @@ public class combatController : MonoBehaviour
             // when the down arrow is pressed, move the selection down
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
+                menuScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
                 changeSelectedAbilityIndex(1);
                 // nameTagArray[numberOfSelectedMoves].GetComponent<PlayerMoveSelect>().movePointer(1);
                 
@@ -248,12 +263,14 @@ public class combatController : MonoBehaviour
             // when the up arrow is pressed, move the selection up
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
+                menuScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
                 changeSelectedAbilityIndex(-1);
                 // nameTagArray[numberOfSelectedMoves].GetComponent<PlayerMoveSelect>().movePointer(-1);
             }
             // when the X key is pressed, we need to go to selecting targets
             if (Input.GetKeyDown(KeyCode.X))
             {
+                menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play();
                 selectedAbility = nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities[selectedAbilityIndex];
                 actions[numberOfSelectedMoves] += selectedAbility.name + " on ";
                 transitionToTargetSelect();
@@ -263,7 +280,7 @@ public class combatController : MonoBehaviour
             // if it goes back to moveSelect, then it should -- numberOfSelectedMoves
             else if (Input.GetKeyDown(KeyCode.Z))
             {
-
+                
             }
         } 
 
@@ -273,6 +290,7 @@ public class combatController : MonoBehaviour
             // when the down arrow is pressed, move the selection down
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
+                menuScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
                 Debug.Log("previous enemy");
                 changeSelectedTarget(-1, selectedAbility.allies);
                 // change target   
@@ -280,12 +298,14 @@ public class combatController : MonoBehaviour
             // when the up arrow is pressed, move the selection up
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
+                menuScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
                 Debug.Log("next enemy");
                 changeSelectedTarget(1, selectedAbility.allies);
             }
             // when the X key is pressed, we need to go to selecting speed
             if (Input.GetKeyDown(KeyCode.X))
             {
+                menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play();
                 targetPointer.GetComponent<CanvasRenderer>().SetAlpha(0);
                 transitionToSpeedSelect();
             }
@@ -298,6 +318,7 @@ public class combatController : MonoBehaviour
             // if there have not, it goes to move select
             if (Input.GetKeyDown(KeyCode.X))
             {
+                menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play();
                 // destroy the old speedIndicator2 (the one on top of the speed select sprite)
                 // i had to make a custom function for some reason idk
                 totalSpeedIndicator2.destroySelf();
@@ -328,18 +349,20 @@ public class combatController : MonoBehaviour
             // should go back to the target select and reset the speed that was set for that move
             else if (Input.GetKeyDown(KeyCode.Z))
             {
-
+                
             }
 
             // changes the speed of the selected move up by one
             else if (Input.GetKeyDown(KeyCode.UpArrow))
             {
+                speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
                 changeSpeed(1);
             }
 
             // changes it down by one
             else if (Input.GetKeyDown(KeyCode.DownArrow))
             {
+                speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
                 changeSpeed(-1);
             }
 
@@ -349,7 +372,8 @@ public class combatController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.X))
             {
-                if(selectedAbility.allies){
+                menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+                if (selectedAbility.allies){
                     actions[numberOfSelectedMoves-1] += nameTagArray[targetIndex].GetComponent<nameTag>().character.GetComponent<Friendly>().name;
                 }
                 else{
@@ -359,6 +383,7 @@ public class combatController : MonoBehaviour
             } 
             else if (Input.GetKeyDown(KeyCode.Z))
             {
+                menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play();
                 numberOfSelectedMoves = 0;
                 transitionToRotate();
             }
@@ -372,6 +397,7 @@ public class combatController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.X))
             {
+                menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play();
                 transitionToRotate();
             }
         }

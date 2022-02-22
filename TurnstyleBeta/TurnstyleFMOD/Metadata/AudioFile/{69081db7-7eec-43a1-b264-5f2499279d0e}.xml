@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{69081db7-7eec-43a1-b264-5f2499279d0e}">
+		<property name="assetPath">
+			<value>turnstile_rotate.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.75328798185941048</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{40e41151-c888-41b3-a13a-78bb50f836ba}</destination>
+		</relationship>
+	</object>
+</objects>
