@@ -9,8 +9,11 @@ public class statusTooltip : MonoBehaviour
     public TextMeshProUGUI displayText;
     public nameTag parentNameTag;
 
+    public string[] statusEffectDescriptions = new string[11];
+
+    private string[] statusStringArray = new string[11];
+
     public string text;
-    public Dictionary<string, string> statusEffectDescriptions = new Dictionary<string, string>();
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ :-)
     //
@@ -28,19 +31,29 @@ public class statusTooltip : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        statusEffectDescriptions[(int)StatusName.Aegis] = "Takes 50% less damage.";
+        statusEffectDescriptions[(int)StatusName.Burn] = "Takes *N* damage each turn.";
+        statusEffectDescriptions[(int)StatusName.Distracted] = "Takes 100% more damage.";
+        statusEffectDescriptions[(int)StatusName.Encumbered] = "Gains 1 extra fatigue each turn.";
+        statusEffectDescriptions[(int)StatusName.Enrage] = "Deals 100% more damage.";
+        statusEffectDescriptions[(int)StatusName.Flinch] = "Can't take an action this turn.";
+        statusEffectDescriptions[(int)StatusName.Haste] = "Gets +*N* speed.";
+        statusEffectDescriptions[(int)StatusName.Null] = "Cannot get another debuff.";
+        statusEffectDescriptions[(int)StatusName.Regeneration] = "Heals *N* HP each turn.";
+        statusEffectDescriptions[(int)StatusName.StrungOut] = "Deals 50% less damage.";
+        statusEffectDescriptions[(int)StatusName.None] = "";
 
-        statusEffectDescriptions["aegis"] = "Takes 50% less damage.";
-        statusEffectDescriptions["burn"] = "Takes *N* damage each turn.";
-        statusEffectDescriptions["distracted"] = "Takes 100% more damage.";
-        statusEffectDescriptions["encumbered"] = "Gains 1 extra fatigue each turn.";
-        statusEffectDescriptions["enraged"] = "Deals 100% more damage.";
-        statusEffectDescriptions["flinch"] = "Can't take an action this turn.";
-        statusEffectDescriptions["haste"] = "Gets +*N* speed.";
-        statusEffectDescriptions["null"] = "Cannot get another debuff.";
-        statusEffectDescriptions["regen"] = "Heals *N* HP each turn.";
-        statusEffectDescriptions["strungOut"] = "Deals 50% less damage.";
-        statusEffectDescriptions["none"] = "";
+        statusStringArray[(int)StatusName.Aegis] = "Aegis";
+        statusStringArray[(int)StatusName.Burn] = "Burn";
+        statusStringArray[(int)StatusName.Distracted] = "Distracted";
+        statusStringArray[(int)StatusName.Encumbered] = "Encumbered";
+        statusStringArray[(int)StatusName.Enrage] = "Enrage";
+        statusStringArray[(int)StatusName.Flinch] = "Flinch";
+        statusStringArray[(int)StatusName.Haste] = "Haste";
+        statusStringArray[(int)StatusName.Null] = "Null";
+        statusStringArray[(int)StatusName.Regeneration] = "Regeneration";
+        statusStringArray[(int)StatusName.StrungOut] = "Strung Out";
+        statusStringArray[(int)StatusName.None] = "";
 
         hide();
     }
@@ -51,9 +64,9 @@ public class statusTooltip : MonoBehaviour
         
     }
 
-    public void show(string statusEffect, int turnsLeft, int magnitude)
+    public void show(int statusEffect, int turnsLeft, int magnitude)
     {
-        if (statusEffect != "none")
+        if (statusEffect != 0)
         {
 
             string turnsLeftText;
@@ -73,7 +86,7 @@ public class statusTooltip : MonoBehaviour
             // first line:
             // status effect name (in bold, upper case). the status effect name is split between two expressions 
             // the turns left, as a string so that if there is one turn left, it cuts the "s"
-                "<size=14px><font=\"Staatliches-Regular SDF\"><b>" + char.ToUpper(statusEffect[0]) + statusEffect.Substring(1) + ": " + turnsLeftText + "</b></font></size>" + "\n" +
+                "<size=14px><font=\"Staatliches-Regular SDF\"><b>" + statusStringArray[statusEffect] + ": " + turnsLeftText + "</b></font></size>" + "\n" +
 
                 // second line:
                 // the description of the current status. 

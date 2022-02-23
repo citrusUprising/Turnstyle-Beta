@@ -536,6 +536,12 @@ public class combatController : MonoBehaviour
 
     void transitionToRotate()
     {
+
+        //Debug.Log("rotate");
+        foreach (nameTag tag in nameTagArray)
+        {
+            tag.countDownOnAllStatuses();
+        }
         numberOfSelectedMoves = 0;
         Destroy(currentDrawnBox);
         setPreviousState();

@@ -28,6 +28,10 @@ public class nameTag : MonoBehaviour
 
     public GameObject character;
 
+    public GameObject healthStatusTracker;
+    public GameObject buffStatusTracker;
+    public GameObject debuffStatusTracker;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -151,5 +155,30 @@ public class nameTag : MonoBehaviour
                 passiveIsAnimating = false;
             }
         }
+    }
+
+    public void updateAllStatuses()
+    {
+        healthStatusTracker.GetComponent<statusEffectController>().updateStatus(
+            (int)character.GetComponent<Unit>().statuses[(int)StatusType.Health].name,
+            (int)character.GetComponent<Unit>().statuses[(int)StatusType.Health].duration,
+            (int)character.GetComponent<Unit>().statuses[(int)StatusType.Health].magnitude);
+
+        buffStatusTracker.GetComponent<statusEffectController>().updateStatus(
+            (int)character.GetComponent<Unit>().statuses[(int)StatusType.Buff].name,
+            (int)character.GetComponent<Unit>().statuses[(int)StatusType.Buff].duration,
+            (int)character.GetComponent<Unit>().statuses[(int)StatusType.Buff].magnitude);
+
+        debuffStatusTracker.GetComponent<statusEffectController>().updateStatus(
+            (int)character.GetComponent<Unit>().statuses[(int)StatusType.Debuff].name,
+            (int)character.GetComponent<Unit>().statuses[(int)StatusType.Debuff].duration,
+            (int)character.GetComponent<Unit>().statuses[(int)StatusType.Debuff].magnitude);
+    }
+
+    public void countDownOnAllStatuses()
+    {
+        healthStatusTracker.GetComponent<statusEffectController>().changeTurnCount(-1);
+        buffStatusTracker.GetComponent<statusEffectController>().changeTurnCount(-1);
+        debuffStatusTracker.GetComponent<statusEffectController>().changeTurnCount(-1);
     }
 }
