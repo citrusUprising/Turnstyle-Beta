@@ -159,10 +159,26 @@ public class nameTag : MonoBehaviour
 
     public void updateAllStatuses()
     {
+
+        // this was the code i was using to test the duration on the status effects before
+        // they get sent to the status effect contorller
+        // SPECIFICALLY this chunk of commented out code logs the value of the duration of the health status effects on every ally
+        // it does it very often, so it logs a lot of the same number
+        /*
+        if ((int)character.GetComponent<Unit>().statuses[(int)StatusType.Health].name != 0)
+        {
+            int duration = (int)character.GetComponent<Unit>().statuses[(int)StatusType.Health].duration;
+
+            Debug.LogWarning(duration.ToString());
+        }
+        */
+
         healthStatusTracker.GetComponent<statusEffectController>().updateStatus(
             (int)character.GetComponent<Unit>().statuses[(int)StatusType.Health].name,
             (int)character.GetComponent<Unit>().statuses[(int)StatusType.Health].duration,
             (int)character.GetComponent<Unit>().statuses[(int)StatusType.Health].magnitude);
+
+        
 
         buffStatusTracker.GetComponent<statusEffectController>().updateStatus(
             (int)character.GetComponent<Unit>().statuses[(int)StatusType.Buff].name,

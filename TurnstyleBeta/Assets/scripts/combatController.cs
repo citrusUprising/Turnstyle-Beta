@@ -370,6 +370,7 @@ public class combatController : MonoBehaviour
         // cuz we don't have all that done rn, i'm just using this for the moment for bug testing and such
         else if (state == "playResults")
         {
+            
             if (Input.GetKeyDown(KeyCode.X))
             {
                 transitionToRotate();
@@ -505,7 +506,6 @@ public class combatController : MonoBehaviour
 
         for (int i = 0; i < 5; i++)
         {
-            Debug.Log(i);
             nameTagArray[i].transform.position = Vector3.Lerp(nameTagArray[i].previousPosition, nameTagArray[i].nextPosition, t);
         }
 
@@ -534,14 +534,14 @@ public class combatController : MonoBehaviour
         }
     }
 
-    void transitionToRotate()
+    public void transitionToRotate()
     {
 
-        //Debug.Log("rotate");
         foreach (nameTag tag in nameTagArray)
         {
             tag.countDownOnAllStatuses();
         }
+
         numberOfSelectedMoves = 0;
         Destroy(currentDrawnBox);
         setPreviousState();
@@ -803,7 +803,6 @@ public class combatController : MonoBehaviour
     {
         setPreviousState();
         state = "paused";
-        Debug.Log(previousState);
         pauseMenuInstance = Instantiate(pauseMenu, canvas.transform);
     }
 

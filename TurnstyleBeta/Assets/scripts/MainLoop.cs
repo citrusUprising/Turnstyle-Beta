@@ -193,6 +193,7 @@ public class MainLoop : MonoBehaviour
 
    	//UI controller calls this function when turn ends
    	public void endTurn(){
+
    		//queue all enemy actions
    		queueEnemyActions();
    		//Do all the actions 

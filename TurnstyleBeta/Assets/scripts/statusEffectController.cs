@@ -83,6 +83,8 @@ public class statusEffectController : MonoBehaviour, IPointerEnterHandler, IPoin
         // getting the correct children
         imageObject = transform.GetChild(0).gameObject;
         textObject = transform.GetChild(1).gameObject;
+
+        // updateStatus((int)StatusName.Burn, 5, 1);
     }
 
     // Update is called once per frame
@@ -105,7 +107,7 @@ public class statusEffectController : MonoBehaviour, IPointerEnterHandler, IPoin
             changeTurnCount(-1);
         } */
 
-        // updateStatus((int)StatusName.Burn, 2, 3);
+        
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -131,6 +133,7 @@ public class statusEffectController : MonoBehaviour, IPointerEnterHandler, IPoin
     // the default values are used in changeTurnCount() to reset the object to a blank state, with no status or turns left
     public void updateStatus(int newStatus = 0, int newTurnCount = 0, int newMagnitude = 0)
     {
+     
         // update the status variable
         currentStatus = newStatus;
 
@@ -160,18 +163,15 @@ public class statusEffectController : MonoBehaviour, IPointerEnterHandler, IPoin
             // updates the string
             updateTurnsLeftString();
 
-            // if the turnsleft is above 0, it's fine
-            if (turnsLeft > 0)
-            {
-                textObject.GetComponent<TextMeshProUGUI>().text = turnsLeftString;
-            }
+            textObject.GetComponent<TextMeshProUGUI>().text = turnsLeftString;
+
 
             // if it's below zero, that means we need to
             // for FRIENDS:
             //      change the display so the sprite is "none"
             // for FOES:
             //      destroy this object
-            else
+            if (turnsLeft < 1)
             {
 
                 if (friendOrFoe == "friend")
