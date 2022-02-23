@@ -171,7 +171,7 @@ public class Unit : MonoBehaviour
             this.dead = true;
             gameLoop.outputQueue.Add(this.unitName + " died!");
         }
-        if(this.unitName.Equals("Jade")&&this.fatigue < 2){
+        if(this.unitName.Equals("Jade")&&this.fatigue < 2&&this.isActive&& !this.dead){
             foreach(GameObject o in this.allies){
                 Unit temp = o.GetComponent<Unit>();
                 if(temp.statuses[(int)StatusType.Debuff].name != StatusName.None &&
@@ -183,7 +183,7 @@ public class Unit : MonoBehaviour
                 }
             }
         }
-        if(this.unitName.Equals("Amery")){
+        if(this.unitName.Equals("Amery")&&this.isActive&& !this.dead){
             gameLoop.outputQueue.Add("This ability is under construction"); //flag
             /*bool fullHealth = true;
             Unit highest;
