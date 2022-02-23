@@ -771,9 +771,10 @@ public class combatController : MonoBehaviour
         // changing confirm moves to each action 
         for(int i = 0; i < 3; i++){
             Friendly displayedUnit = nameTagArray[i].GetComponent<nameTag>().character.GetComponent<Friendly>();
-            if (displayedUnit.dead)
+            if (displayedUnit.dead){
                 currentDrawnBox.transform.GetChild(i+2).gameObject.GetComponent<TextMeshProUGUI>().text = displayedUnit.unitName + " is KO'd!";
                 continue;
+            }
             string actionDescription = displayedUnit.unitName + ": " + displayedUnit.queuedAction.ability.name + " on ";
             if(displayedUnit.queuedAction.ability.multitarget){
                 if(displayedUnit.queuedAction.ability.allies)

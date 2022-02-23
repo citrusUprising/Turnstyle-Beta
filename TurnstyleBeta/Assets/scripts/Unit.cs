@@ -214,18 +214,7 @@ public class Unit : MonoBehaviour
                 highest.hp = Math.Min(highest.hp-4, highest.maxHP);
                 }*/
             }
-        foreach(Status s in this.statuses)
-        {
-            if(s.duration > 0)
-            {
-                s.duration -= 1;
-                if(s.duration == 0)
-                {
-                    gameLoop.outputQueue.Add(this.unitName + "'s " + s.name + " wore off");
-                    s.name = StatusName.None;
-                }
-            }
-        }
+        
     }
 
     public void makeActive()
@@ -324,6 +313,18 @@ public class Unit : MonoBehaviour
 
    public void turnStart()
     {
+        foreach(Status s in this.statuses)
+        {
+            if(s.duration > 0)
+            {
+                s.duration -= 1;
+                if(s.duration == 0)
+                {
+                    gameLoop.outputQueue.Add(this.unitName + "'s " + s.name + " wore off");
+                    s.name = StatusName.None;
+                }
+            }
+        }
     }
 
     public void Kill()
