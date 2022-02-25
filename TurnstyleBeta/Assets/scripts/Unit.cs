@@ -308,6 +308,7 @@ public class Unit : MonoBehaviour
             this.statuses[(int) type].duration = duration;
             this.statuses[(int) type].magnitude = magnitude;
             gameLoop.outputQueue.Add(this.unitName + " has " + newStatus);
+            
         }
     }
 
