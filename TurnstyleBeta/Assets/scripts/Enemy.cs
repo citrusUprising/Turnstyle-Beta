@@ -20,6 +20,14 @@ public class Enemy : Unit
         Status buff = new Status(StatusType.Buff, StatusName.None, 0, 0);
         Status debuff = new Status(StatusType.Debuff, StatusName.None, 0, 0);
         this.statuses = new Status[] { health, buff, debuff };
+        
+        switch (this.unitName){
+
+            case "yellow":
+            this.hp = 12;
+            break;
+
+        }
     }
 
     // Update is called once per frame
