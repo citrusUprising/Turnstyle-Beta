@@ -90,6 +90,7 @@ public class Enemy : Unit
             this.hp = 0;
             this.maxHP = 0;
             this.dead = true;
+            this.abilities = new Ability[] {};
             break;
 
         }
