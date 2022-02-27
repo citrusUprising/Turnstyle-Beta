@@ -26,7 +26,7 @@ public class statusEffectController : MonoBehaviour, IPointerEnterHandler, IPoin
     public Sprite noneSprite;
 
     // represents the current status. it can be any of the names of the sprites (minus "sprite" ofc)
-    public string currentStatus;
+    public int currentStatus;
 
     // represents how many turns are left in the current status. 
     public int turnsLeft;
@@ -46,7 +46,7 @@ public class statusEffectController : MonoBehaviour, IPointerEnterHandler, IPoin
     public string kindOfStatus;
 
     // converts currentStatus into the respective sprite
-    private Dictionary<string, Sprite> statusSpriteDict = new Dictionary<string, Sprite>();
+    private Sprite[] statusSpriteArray = new Sprite[11];
 
     // the text object that displays how many turns are left
     private GameObject textObject;
@@ -62,25 +62,29 @@ public class statusEffectController : MonoBehaviour, IPointerEnterHandler, IPoin
 
     public statusTooltip tooltip;
 
+    public nameTag nameTag;
+
     // Start is called before the first frame update
     void Start()
     {
-        // yeah just filling up the dictionary
-        statusSpriteDict["aegis"] = aegisSprite;
-        statusSpriteDict["burn"] = burnSprite;
-        statusSpriteDict["distracted"] = distractedSprite;
-        statusSpriteDict["encumbered"] = encumberedSprite;
-        statusSpriteDict["enraged"] = enragedSprite;
-        statusSpriteDict["flinch"] = flinchSprite;
-        statusSpriteDict["haste"] = hasteSprite;
-        statusSpriteDict["null"] = nullSprite;
-        statusSpriteDict["regen"] = regenSprite;
-        statusSpriteDict["strungOut"] = strungOutSprite;
-        statusSpriteDict["none"] = noneSprite;
+        // yeah just filling up the array
+        statusSpriteArray[(int)StatusName.Aegis] = aegisSprite;
+        statusSpriteArray[(int)StatusName.Burn] = burnSprite;
+        statusSpriteArray[(int)StatusName.Distracted] = distractedSprite;
+        statusSpriteArray[(int)StatusName.Encumbered] = encumberedSprite;
+        statusSpriteArray[(int)StatusName.Enrage] = enragedSprite;
+        statusSpriteArray[(int)StatusName.Flinch] = flinchSprite;
+        statusSpriteArray[(int)StatusName.Haste] = hasteSprite;
+        statusSpriteArray[(int)StatusName.Null] = nullSprite;
+        statusSpriteArray[(int)StatusName.Regeneration] = regenSprite;
+        statusSpriteArray[(int)StatusName.StrungOut] = strungOutSprite;
+        statusSpriteArray[(int)StatusName.None] = noneSprite;
 
         // getting the correct children
         imageObject = transform.GetChild(0).gameObject;
         textObject = transform.GetChild(1).gameObject;
+
+        // updateStatus((int)StatusName.Burn, 5, 1);
     }
 
     // Update is called once per frame
@@ -103,7 +107,7 @@ public class statusEffectController : MonoBehaviour, IPointerEnterHandler, IPoin
             changeTurnCount(-1);
         } */
 
-        updateStatus("burn", 2, 3);
+        
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -127,13 +131,14 @@ public class statusEffectController : MonoBehaviour, IPointerEnterHandler, IPoin
 
     // this changes the status, the sprite, the turnsLeft, and the text displayed
     // the default values are used in changeTurnCount() to reset the object to a blank state, with no status or turns left
-    public void updateStatus(string newStatus = "none", int newTurnCount = 0, int newMagnitude = 0)
+    public void updateStatus(int newStatus = 0, int newTurnCount = 0, int newMagnitude = 0)
     {
+     
         // update the status variable
         currentStatus = newStatus;
 
         // update the image based on the dictionary
-        imageObject.GetComponent<Image>().sprite = statusSpriteDict[currentStatus];
+        imageObject.GetComponent<Image>().sprite = statusSpriteArray[currentStatus];
 
         // update turnsLeft
         turnsLeft = newTurnCount;
@@ -150,34 +155,34 @@ public class statusEffectController : MonoBehaviour, IPointerEnterHandler, IPoin
     // changes the turnsLeft
     public void changeTurnCount(int change)
     {
-        // changes the turnsLeft
-        turnsLeft += change;
-
-        // updates the string
-        updateTurnsLeftString();
-
-        // if the turnsleft is above 0, it's fine
-        if (turnsLeft > 0)
+        if (currentStatus != 0)
         {
+            // changes the turnsLeft
+            turnsLeft += change;
+
+            // updates the string
+            updateTurnsLeftString();
+
             textObject.GetComponent<TextMeshProUGUI>().text = turnsLeftString;
-        }
-        
-        // if it's below zero, that means we need to
-        // for FRIENDS:
-        //      change the display so the sprite is "none"
-        // for FOES:
-        //      destroy this object
-        else
-        {
-            
-            if (friendOrFoe == "friend")
+
+
+            // if it's below zero, that means we need to
+            // for FRIENDS:
+            //      change the display so the sprite is "none"
+            // for FOES:
+            //      destroy this object
+            if (turnsLeft < 1)
             {
-                // the default values are "none" and 0
-                updateStatus();
-            }
-            else
-            {
-                Destroy(gameObject);
+
+                if (friendOrFoe == "friend")
+                {
+                    // the default values are "none" and 0
+                    updateStatus();
+                }
+                else
+                {
+                    Destroy(gameObject);
+                }
             }
         }
     }

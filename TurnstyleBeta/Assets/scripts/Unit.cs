@@ -142,6 +142,7 @@ public class Unit : MonoBehaviour
                 gameLoop.outputQueue.Add(this.unitName + "'s ability had no target!");
         }
         this.fatigue += 1;
+        
     }
 
     public void turnEnd()
@@ -170,8 +171,9 @@ public class Unit : MonoBehaviour
             //I have also not set anything to change tint
             this.dead = true;
             gameLoop.outputQueue.Add(this.unitName + " died!");
+            
         }
-        if(this.unitName.Equals("Jade")&&this.fatigue < 2){
+        if(this.unitName.Equals("Jade")&&this.fatigue < 2&&this.isActive&& !this.dead){
             foreach(GameObject o in this.allies){
                 Unit temp = o.GetComponent<Unit>();
                 if(temp.statuses[(int)StatusType.Debuff].name != StatusName.None &&
@@ -183,7 +185,7 @@ public class Unit : MonoBehaviour
                 }
             }
         }
-        if(this.unitName.Equals("Amery")){
+        if(this.unitName.Equals("Amery")&&this.isActive&& !this.dead){
             gameLoop.outputQueue.Add("This ability is under construction"); //flag
             /*bool fullHealth = true;
             Unit highest;
@@ -212,18 +214,7 @@ public class Unit : MonoBehaviour
                 highest.hp = Math.Min(highest.hp-4, highest.maxHP);
                 }*/
             }
-        foreach(Status s in this.statuses)
-        {
-            if(s.duration > 0)
-            {
-                s.duration -= 1;
-                if(s.duration == 0)
-                {
-                    gameLoop.outputQueue.Add(this.unitName + "'s " + s.name + " wore off");
-                    s.name = StatusName.None;
-                }
-            }
-        }
+        
     }
 
     public void makeActive()
@@ -284,16 +275,17 @@ public class Unit : MonoBehaviour
             gameLoop.outputQueue.Add(this.unitName + " dodged the attack");
             return;
         }
-        if(source.unitName.Equals("Beverly") && source.queuedAction.target == source.priorTarget)
-        {
-            amount = (int) Math.Ceiling(amount * 1.5);
-        }
         this.hp = Math.Max(this.hp - amount, 0);
         gameLoop.outputQueue.Add(this.unitName + " took " + amount + " damage.");
         if (this.hp == 0 && !this.dead){ //No output queue just printing to debug log
                                            //No tint changing either
             this.dead = true;
             gameLoop.outputQueue.Add(this.unitName + " died!");
+            if(source.unitName.Equals("Beverly"))
+            {
+                source.fatigue = 0;
+                Debug.Log(source.unitName+" gets a second wind");
+            }
         }
     }
 
@@ -316,11 +308,24 @@ public class Unit : MonoBehaviour
             this.statuses[(int) type].duration = duration;
             this.statuses[(int) type].magnitude = magnitude;
             gameLoop.outputQueue.Add(this.unitName + " has " + newStatus);
+            
         }
     }
 
    public void turnStart()
     {
+        foreach(Status s in this.statuses)
+        {
+            if(s.duration > 0)
+            {
+                s.duration -= 1;
+                if(s.duration == 0)
+                {
+                    gameLoop.outputQueue.Add(this.unitName + "'s " + s.name + " wore off");
+                    s.name = StatusName.None;
+                }
+            }
+        }
     }
 
     public void Kill()

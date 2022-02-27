@@ -24,6 +24,9 @@ public class MainLoop : MonoBehaviour
 	private List<Unit> queuedActions;
 	public int speedTotal;
     public float textSpeed;
+
+    public GameObject uiController;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -190,6 +193,7 @@ public class MainLoop : MonoBehaviour
 
    	//UI controller calls this function when turn ends
    	public void endTurn(){
+
    		//queue all enemy actions
    		queueEnemyActions();
    		//Do all the actions 
@@ -249,12 +253,21 @@ public class MainLoop : MonoBehaviour
    			}
    			//Debug.Log(outputBuild);
    			textbox.text = outputBuild;
+
    			yield return new WaitForSeconds(textSpeed);
-   		}
+
+            foreach(nameTag tag in uiController.GetComponent<combatController>().nameTagArray)
+            {
+                tag.updateAllStatuses();
+            }
+            
+        }
         foreach (Unit unit in enemyUnits)
         {
             unit.Kill();
         }
         outputQueue.Clear();
+
+        
    	}
 }
