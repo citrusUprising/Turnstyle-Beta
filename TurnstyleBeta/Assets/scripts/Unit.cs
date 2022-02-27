@@ -99,29 +99,53 @@ public class Unit : MonoBehaviour
         if(this.queuedAction.ability.multitarget == true)
         {
             bool used = false;
+            bool monster = false;
+            if (!this.isActive) monster = true;
             if(this.queuedAction.ability.allies == true)
             {
-                foreach(GameObject o in this.allies)
-                {
-                    if(!o.GetComponent<Unit>().dead && o.GetComponent<Unit>().isActive)
-                    {
-                        if(!used){
-                            gameLoop.outputQueue.Add(this.unitName + " used " + this.queuedAction.ability.name + "!");
-                            used = true;
+                if(!monster){
+                    foreach(GameObject o in this.allies){
+                        if(!o.GetComponent<Unit>().dead && o.GetComponent<Unit>().isActive){
+                            if(!used){
+                                gameLoop.outputQueue.Add(this.unitName + " used " + this.queuedAction.ability.name + "!");
+                                used = true;
+                            }
+                            this.queuedAction.ability.effect(o.GetComponent<Unit>(),this, gameLoop);
                         }
-                        this.queuedAction.ability.effect(o.GetComponent<Unit>(),this, gameLoop);
+                    }
+                }else{
+                    foreach(GameObject o in this.enemies){ 
+                        if(!o.GetComponent<Unit>().dead){
+                            if(!used){
+                                gameLoop.outputQueue.Add(this.unitName + " used " + this.queuedAction.ability.name + "!");
+                                used = true;
+                            }
+                            this.queuedAction.ability.effect(o.GetComponent<Unit>(),this, gameLoop);
+                        }
                     }
                 }
             } 
             else
             {
-                foreach(GameObject o in this.enemies) { 
-                    if(!o.GetComponent<Unit>().dead){
-                        if(!used){
-                            gameLoop.outputQueue.Add(this.unitName + " used " + this.queuedAction.ability.name + "!");
-                            used = true;
+                if(!monster){
+                    foreach(GameObject o in this.enemies) { 
+                        if(!o.GetComponent<Unit>().dead){
+                            if(!used){
+                                gameLoop.outputQueue.Add(this.unitName + " used " + this.queuedAction.ability.name + "!");
+                                used = true;
+                            }
+                            this.queuedAction.ability.effect(o.GetComponent<Unit>(),this, gameLoop);
                         }
-                        this.queuedAction.ability.effect(o.GetComponent<Unit>(),this, gameLoop);
+                    }
+                }else{
+                    foreach(GameObject o in this.allies){
+                        if(!o.GetComponent<Unit>().dead && o.GetComponent<Unit>().isActive){
+                            if(!used){
+                                gameLoop.outputQueue.Add(this.unitName + " used " + this.queuedAction.ability.name + "!");
+                                used = true;
+                            }
+                            this.queuedAction.ability.effect(o.GetComponent<Unit>(),this, gameLoop);
+                        }
                     }
                 }
             }
