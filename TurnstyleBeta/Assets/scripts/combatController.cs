@@ -157,7 +157,16 @@ public class combatController : MonoBehaviour
 
     private GameObject glossaryObject;
 
-    
+    // --------------------------------------------------------- //
+    // GameObjects that hold FMOD Studio Event Emitters for playing SFX
+    // --------------------------------------------------------- //
+    public GameObject turnstyleRotate;
+    public GameObject menuForward;
+    public GameObject menuBack;
+    public GameObject menuScroll;
+    public GameObject speedScroll;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -216,6 +225,7 @@ public class combatController : MonoBehaviour
                 // if you press X, advance to the next state, destroying the rotate UI and replacing it with move select UI
                 if (Input.GetKeyDown(KeyCode.X))
                 {
+                    menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                     gameLoop.setActiveUnits(nameTagArray);
                     transitionToMoveSelect();
                 }
@@ -224,6 +234,7 @@ public class combatController : MonoBehaviour
                     // if the pentagon is NOT rotating, then begin rotating DOWN
                     if (!isRotating)
                     {
+                        turnstyleRotate.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                         beginRotatingPentagon(-1);
                     }
 
@@ -233,6 +244,7 @@ public class combatController : MonoBehaviour
                     // if the pentagon IS rotating, then begin rotating UP
                     if (!isRotating)
                     {
+                        turnstyleRotate.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                         beginRotatingPentagon(1);
                     }
                 }
@@ -248,6 +260,7 @@ public class combatController : MonoBehaviour
                 // when the down arrow is pressed, move the selection down
                 if (Input.GetKeyDown(KeyCode.DownArrow))
                 {
+                    menuScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                     changeSelectedAbilityIndex(1);
                     // nameTagArray[numberOfSelectedMoves].GetComponent<PlayerMoveSelect>().movePointer(1);
 
@@ -255,12 +268,14 @@ public class combatController : MonoBehaviour
                 // when the up arrow is pressed, move the selection up
                 if (Input.GetKeyDown(KeyCode.UpArrow))
                 {
+                    menuScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                     changeSelectedAbilityIndex(-1);
                     // nameTagArray[numberOfSelectedMoves].GetComponent<PlayerMoveSelect>().movePointer(-1);
                 }
                 // when the X key is pressed, we need to go to selecting targets
                 if (Input.GetKeyDown(KeyCode.X))
                 {
+                    menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                     selectedAbility = nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities[selectedAbilityIndex];
                     actions[numberOfSelectedMoves] += selectedAbility.name + " on ";
                     transitionToTargetSelect();
@@ -270,7 +285,7 @@ public class combatController : MonoBehaviour
                 // if it goes back to moveSelect, then it should -- numberOfSelectedMoves
                 else if (Input.GetKeyDown(KeyCode.Z))
                 {
-
+                    //menuBack.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                 }
             }
 
@@ -280,6 +295,7 @@ public class combatController : MonoBehaviour
                 // when the down arrow is pressed, move the selection down
                 if (Input.GetKeyDown(KeyCode.LeftArrow))
                 {
+                    menuScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                     Debug.Log("previous enemy");
                     changeSelectedTarget(-1, selectedAbility.allies);
                     // change target   
@@ -287,12 +303,14 @@ public class combatController : MonoBehaviour
                 // when the up arrow is pressed, move the selection up
                 if (Input.GetKeyDown(KeyCode.RightArrow))
                 {
+                    menuScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                     Debug.Log("next enemy");
                     changeSelectedTarget(1, selectedAbility.allies);
                 }
                 // when the X key is pressed, we need to go to selecting speed
                 if (Input.GetKeyDown(KeyCode.X))
                 {
+                    menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                     targetPointer.GetComponent<CanvasRenderer>().SetAlpha(0);
                     transitionToSpeedSelect();
                 }
@@ -305,6 +323,8 @@ public class combatController : MonoBehaviour
                 // if there have not, it goes to move select
                 if (Input.GetKeyDown(KeyCode.X))
                 {
+                    menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
+
                     // destroy the old speedIndicator2 (the one on top of the speed select sprite)
                     // i had to make a custom function for some reason idk
                     totalSpeedIndicator2.destroySelf();
@@ -341,12 +361,14 @@ public class combatController : MonoBehaviour
                 // changes the speed of the selected move up by one
                 else if (Input.GetKeyDown(KeyCode.UpArrow))
                 {
+                    speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                     changeSpeed(1);
                 }
 
                 // changes it down by one
                 else if (Input.GetKeyDown(KeyCode.DownArrow))
                 {
+                    speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                     changeSpeed(-1);
                 }
 
@@ -364,10 +386,12 @@ public class combatController : MonoBehaviour
                     {
                         actions[numberOfSelectedMoves - 1] += enemies[targetIndex].GetComponent<Enemy>().name;
                     }
+                    menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                     transitionToPlayResults();
                 }
                 else if (Input.GetKeyDown(KeyCode.Z))
                 {
+                    menuBack.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                     numberOfSelectedMoves = 0;
                     transitionToRotate();
                 }

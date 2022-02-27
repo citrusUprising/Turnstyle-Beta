@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -18,6 +19,12 @@ public class titleScreen : MonoBehaviour
     private GameObject[] options = new GameObject[3];
 
     private float rotateDirection;
+
+    // GameObjects that hold FMOD Studio Event Emitters for playing SFX
+    public GameObject menuScroll;
+    public GameObject selectSound;
+
+    public 
 
     // Start is called before the first frame update
     void Start()
@@ -52,6 +59,9 @@ public class titleScreen : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
+            // Play menu scroll sfx
+            menuScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+
             selectedOption--;
             if (selectedOption == -1)
             {
@@ -61,6 +71,9 @@ public class titleScreen : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
+            // Play menu scroll sfx
+            menuScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+
             selectedOption++;
             if (selectedOption == 3)
             {
@@ -75,6 +88,9 @@ public class titleScreen : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.X))
         {
+            // Play select sound sfx
+            selectSound.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+
             if (selectedOption == 0)
             {
                 StartCoroutine(loadScene(1));
