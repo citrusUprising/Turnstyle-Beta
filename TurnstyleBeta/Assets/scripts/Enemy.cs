@@ -99,12 +99,16 @@ public class Enemy : Unit
             a = new Color(0.7f,0.1f,0.4f);
             break;
 
-            default:
+            case "Null":
             this.hp = 0;
             this.maxHP = 0;
             this.dead = true;
             this.abilities = new Ability[] {};
             a = new Color(0,0,0,0);
+            break;
+
+            default:
+            a = new Color(1,1,1,1);
             break;
 
         }
