@@ -227,6 +227,7 @@ public class combatController : MonoBehaviour
                 {
                     menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                     gameLoop.setActiveUnits(nameTagArray);
+                    Debug.Log("Setting Active Units");
                     transitionToMoveSelect();
                 }
                 if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.LeftArrow))

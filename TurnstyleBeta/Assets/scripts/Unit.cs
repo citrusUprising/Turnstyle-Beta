@@ -99,11 +99,9 @@ public class Unit : MonoBehaviour
         if(this.queuedAction.ability.multitarget == true)
         {
             bool used = false;
-            bool monster = false;
-            if (!this.isActive) monster = true;
             if(this.queuedAction.ability.allies == true)
             {
-                if(!monster){
+                if(this.tag == "Ally"){
                     foreach(GameObject o in this.allies){
                         if(!o.GetComponent<Unit>().dead && o.GetComponent<Unit>().isActive){
                             if(!used){
@@ -127,7 +125,7 @@ public class Unit : MonoBehaviour
             } 
             else
             {
-                if(!monster){
+                if(this.tag == "Ally"){
                     foreach(GameObject o in this.enemies) { 
                         if(!o.GetComponent<Unit>().dead){
                             if(!used){
@@ -250,6 +248,7 @@ public class Unit : MonoBehaviour
                 this.statuses[(int) StatusType.Health].name = StatusName.None;
             }
             this.isActive = true;
+            Debug.Log(this.unitName + " has become active");
         }
     }
 
@@ -261,12 +260,14 @@ public class Unit : MonoBehaviour
             {
                 s.duration = 0;
                 s.name = StatusName.None;
+                s.magnitude = 0;
             }
             if(this.unitName == "Koralie")
             {
                 this.statuses[(int) StatusType.Health].name = StatusName.Regeneration;
             }
             this.isActive = false;
+            Debug.Log(this.unitName + " has become inactive");
         }
         this.fatigue = 0;
     }
