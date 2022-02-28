@@ -322,7 +322,7 @@ public class Rally : Ability
     public Rally()
     {
         this.name = "Rally";
-        this.text = "Heal an ally for 8 damage and deal 2 damage to user";
+        this.text = "Heal an ally for 9 damage and deal 3 damage to user";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = true;
@@ -330,10 +330,8 @@ public class Rally : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        //Debug.Log("Rally target is "+target.unitName);
-        //Debug.Log("Rally source is "+source.unitName);
-        target.healSelf(8);
-        source.hp = Math.Min(source.hp-2, source.maxHP);
+        source.hp = Math.Min(source.hp-3, source.maxHP);
+        target.healSelf(9);
     }
 
     public override bool requirement(Unit target, Unit source)
@@ -377,9 +375,11 @@ public class Soulrip : Ability
     }
 
     public override void effect(Unit target, Unit source, MainLoop L)
-    {
-        L.outputQueue.Add(source.unitName+" possessed "+target.unitName);
-        if(source.fatigue <= 0 || UnityEngine.Random.Range(0,1) <= (1-.25*source.fatigue)){
+    {   double test = 1-0.25*source.fatigue;
+        float check = UnityEngine.Random.Range(0.0f,1.0f);
+        Debug.Log("Seraphim's accuracy is "+test);
+        Debug.Log("Seraphim rolled "+ check);
+        if(source.fatigue <= 0 || check <= test){
             L.outputQueue.Add(target.unitName+"'s soul was torn");
             target.takeDamage(source, 10);}
         else L.outputQueue.Add(source.unitName+" couldn't manifest");
