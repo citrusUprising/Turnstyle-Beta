@@ -45,7 +45,7 @@ public class combatController : MonoBehaviour
     private int selectedAbilityIndex = 0;
 
     // hard-coded coordinates for the selector sprite
-    private int[] pointerCoords = new int[3] { -57, -81, -105 };
+    private int[] pointerCoords = new int[3] { -52, -76, -100 };
 
     // the selector sprite
     private GameObject moveSelectPointer;
