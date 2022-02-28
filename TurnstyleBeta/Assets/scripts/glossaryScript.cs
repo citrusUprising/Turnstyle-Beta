@@ -50,6 +50,20 @@ public class glossaryScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (isShowing)
+        {
+            offScreenLeft[1] = 0;
+            offScreenRight[1] = 0;
+            center[1] = 0;
+        }
+        else if (isShowing == false)
+        {
+            offScreenLeft[1] = Screen.height;
+            offScreenRight[1] = Screen.height;
+            center[1] = Screen.height;
+        }
+
         if (isAnimating)
         {
 
