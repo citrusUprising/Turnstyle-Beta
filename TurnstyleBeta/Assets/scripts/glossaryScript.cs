@@ -28,14 +28,17 @@ public class glossaryScript : MonoBehaviour
     private float t = 0f;
 
     private Vector3 keyPromptOnScreen = new Vector3(16, 32, 0);
-    private Vector3 keyPromptOffScreen = new Vector3(-273, -160, 0);
-    private float t2 = 0f;
+    private Vector3 keyPromptOffScreen = new Vector3(16, -160, 0);
 
-    private bool keyPromptDestroyed = false;
+    private bool keyPromptDestroyed;
+
+    private float keyPromptFlickerTime = .25f;
 
     // Start is called before the first frame update
     void Start()
     {
+        // keyPromptDestroyed = false;
+
         if (isShowing)
         {
             show();
@@ -177,44 +180,79 @@ public class glossaryScript : MonoBehaviour
     public IEnumerator animateKeyPrompt()
     {
 
-        keyPrompt.transform.position = keyPromptOnScreen;
+        StartCoroutine(lerpKeyPromptPosition());
 
-        toggleKeyPromptAlpha();
-        yield return new WaitForSeconds(.5f);
+        StartCoroutine(lerpKeyPromptAlpha(0f));
+        yield return new WaitForSeconds(keyPromptFlickerTime);
 
-        toggleKeyPromptAlpha();
-        yield return new WaitForSeconds(.5f);
+        StartCoroutine(lerpKeyPromptAlpha(1f));
+        yield return new WaitForSeconds(keyPromptFlickerTime);
 
-        toggleKeyPromptAlpha();
-        yield return new WaitForSeconds(.5f);
+        StartCoroutine(lerpKeyPromptAlpha(0f));
+        yield return new WaitForSeconds(keyPromptFlickerTime);
 
-        toggleKeyPromptAlpha();
-        yield return new WaitForSeconds(.5f);
+        StartCoroutine(lerpKeyPromptAlpha(1f));
+        yield return new WaitForSeconds(keyPromptFlickerTime);
 
-        toggleKeyPromptAlpha();
-        yield return new WaitForSeconds(.5f);
+        StartCoroutine(lerpKeyPromptAlpha(0f));
+        yield return new WaitForSeconds(keyPromptFlickerTime);
 
-        toggleKeyPromptAlpha();
-        yield return new WaitForSeconds(.5f);
+        StartCoroutine(lerpKeyPromptAlpha(1f));
+        yield return new WaitForSeconds(keyPromptFlickerTime);
+
+        StartCoroutine(lerpKeyPromptAlpha(0f));
+        yield return new WaitForSeconds(keyPromptFlickerTime);
+
+        StartCoroutine(lerpKeyPromptAlpha(1f));
+        yield return new WaitForSeconds(keyPromptFlickerTime);
+
+        StartCoroutine(lerpKeyPromptAlpha(0f));
+        yield return new WaitForSeconds(keyPromptFlickerTime);
+
+        StartCoroutine(lerpKeyPromptAlpha(1f));
+        yield return new WaitForSeconds(keyPromptFlickerTime);
     }
 
-    void toggleKeyPromptAlpha()
+    IEnumerator lerpKeyPromptAlpha(float targetAlpha)
     {
-        if (keyPromptDestroyed == false)
-        {
-            var color = keyPrompt.GetComponent<Image>().color;
+        float time = 0f;
+        float duration = keyPromptFlickerTime;
+        var color = keyPrompt.GetComponent<Image>().color;
+        float oldAlpha = color.a;
+        var currentAlpha = oldAlpha;
 
-            if (color.a == 1f)
-            {
-                color.a = .5f;
-            }
-            else
-            {
-                color.a = 1f;
-            }
+        while (time < duration)
+        {
+            currentAlpha = Mathf.Lerp(oldAlpha, targetAlpha, time / duration);
+
+            time += Time.deltaTime;
+            
+            color.a = currentAlpha;
 
             keyPrompt.GetComponent<Image>().color = color;
+
+            yield return null;
         }
+
+        color.a = targetAlpha;
+
+        keyPrompt.GetComponent<Image>().color = color;
+    }
+
+    IEnumerator lerpKeyPromptPosition()
+    {
+        float time = 0f;
+        float duration = .75f;
+        while (time < duration)
+        {
+            keyPrompt.transform.position = Vector3.Lerp(keyPromptOffScreen, keyPromptOnScreen, time);
+
+            time += Time.deltaTime;
+
+            yield return null;
+        }
+
+        keyPrompt.transform.position = keyPromptOnScreen;
     }
 
     void changeArrowAlpha(float alpha)
