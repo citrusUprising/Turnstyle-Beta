@@ -101,27 +101,49 @@ public class Unit : MonoBehaviour
             bool used = false;
             if(this.queuedAction.ability.allies == true)
             {
-                foreach(GameObject o in this.allies)
-                {
-                    if(!o.GetComponent<Unit>().dead && o.GetComponent<Unit>().isActive)
-                    {
-                        if(!used){
-                            gameLoop.outputQueue.Add(this.unitName + " used " + this.queuedAction.ability.name + "!");
-                            used = true;
+                if(this.tag == "Ally"){
+                    foreach(GameObject o in this.allies){
+                        if(!o.GetComponent<Unit>().dead && o.GetComponent<Unit>().isActive){
+                            if(!used){
+                                gameLoop.outputQueue.Add(this.unitName + " used " + this.queuedAction.ability.name + "!");
+                                used = true;
+                            }
+                            this.queuedAction.ability.effect(o.GetComponent<Unit>(),this, gameLoop);
                         }
-                        this.queuedAction.ability.effect(o.GetComponent<Unit>(),this, gameLoop);
+                    }
+                }else{
+                    foreach(GameObject o in this.enemies){ 
+                        if(!o.GetComponent<Unit>().dead){
+                            if(!used){
+                                gameLoop.outputQueue.Add(this.unitName + " used " + this.queuedAction.ability.name + "!");
+                                used = true;
+                            }
+                            this.queuedAction.ability.effect(o.GetComponent<Unit>(),this, gameLoop);
+                        }
                     }
                 }
             } 
             else
             {
-                foreach(GameObject o in this.enemies) { 
-                    if(!o.GetComponent<Unit>().dead){
-                        if(!used){
-                            gameLoop.outputQueue.Add(this.unitName + " used " + this.queuedAction.ability.name + "!");
-                            used = true;
+                if(this.tag == "Ally"){
+                    foreach(GameObject o in this.enemies) { 
+                        if(!o.GetComponent<Unit>().dead){
+                            if(!used){
+                                gameLoop.outputQueue.Add(this.unitName + " used " + this.queuedAction.ability.name + "!");
+                                used = true;
+                            }
+                            this.queuedAction.ability.effect(o.GetComponent<Unit>(),this, gameLoop);
                         }
-                        this.queuedAction.ability.effect(o.GetComponent<Unit>(),this, gameLoop);
+                    }
+                }else{
+                    foreach(GameObject o in this.allies){
+                        if(!o.GetComponent<Unit>().dead && o.GetComponent<Unit>().isActive){
+                            if(!used){
+                                gameLoop.outputQueue.Add(this.unitName + " used " + this.queuedAction.ability.name + "!");
+                                used = true;
+                            }
+                            this.queuedAction.ability.effect(o.GetComponent<Unit>(),this, gameLoop);
+                        }
                     }
                 }
             }
@@ -226,6 +248,7 @@ public class Unit : MonoBehaviour
                 this.statuses[(int) StatusType.Health].name = StatusName.None;
             }
             this.isActive = true;
+            Debug.Log(this.unitName + " has become active");
         }
     }
 
@@ -237,12 +260,14 @@ public class Unit : MonoBehaviour
             {
                 s.duration = 0;
                 s.name = StatusName.None;
+                s.magnitude = 0;
             }
             if(this.unitName == "Koralie")
             {
                 this.statuses[(int) StatusType.Health].name = StatusName.Regeneration;
             }
             this.isActive = false;
+            Debug.Log(this.unitName + " has become inactive");
         }
         this.fatigue = 0;
     }

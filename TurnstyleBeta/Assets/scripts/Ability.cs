@@ -330,6 +330,8 @@ public class Rally : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
+        //Debug.Log("Rally target is "+target.unitName);
+        //Debug.Log("Rally source is "+source.unitName);
         target.healSelf(8);
         source.hp = Math.Min(source.hp-2, source.maxHP);
     }
