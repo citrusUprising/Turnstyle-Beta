@@ -445,7 +445,7 @@ public class combatController : MonoBehaviour
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.Escape) || glossaryObject.GetComponent<glossaryScript>().isShowing == false)
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Z))
             {
                 glossaryObject.GetComponent<glossaryScript>().hide();
             }
