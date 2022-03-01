@@ -444,7 +444,7 @@ public class Motivate : Ability
     public Motivate()
     {
         this.name = "Motivate";
-        this.text = "Grants Random effect (Strengthened for 1 turn, Shielded for 1 turn, Haste (3) for 2 turns) to an ally";//flag
+        this.text = "Gives an ally Strengthened for 1 turn, Shielded for 1 turn, or Haste (3) for 2 turns.";//flag
         this.multitarget = false;
         this.selftarget = false;
         this.allies = true;

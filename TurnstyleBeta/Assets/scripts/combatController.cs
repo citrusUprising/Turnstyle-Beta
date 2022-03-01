@@ -223,7 +223,7 @@ public class combatController : MonoBehaviour
             if (state == "rotate")
             {
                 // if you press X, advance to the next state, destroying the rotate UI and replacing it with move select UI
-                if (Input.GetKeyDown(KeyCode.X))
+                if (Input.GetKeyDown(KeyCode.X) && isRotating == false)
                 {
                     menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                     gameLoop.setActiveUnits(nameTagArray);
@@ -420,7 +420,7 @@ public class combatController : MonoBehaviour
             }
 
             // the pause menu should be able to be opened as long as the state is not playResults
-            if (state != "playResults" && state != "pause")
+            if (state != "playResults" && state != "pause" && isRotating == false)
             {
                 if (Input.GetKeyDown(KeyCode.Escape) && justUnpaused == false)
                 {
@@ -429,27 +429,29 @@ public class combatController : MonoBehaviour
             }
         }
         
-
-        if (Input.GetKeyDown(KeyCode.G))
+        if (isRotating == false)
         {
-            if (glossaryObject.GetComponent<glossaryScript>().isShowing)
+            if (Input.GetKeyDown(KeyCode.G))
             {
-                
+                if (glossaryObject.GetComponent<glossaryScript>().isShowing)
+                {
+
+                    glossaryObject.GetComponent<glossaryScript>().hide();
+                }
+                else if (glossaryObject.GetComponent<glossaryScript>().isShowing == false)
+                {
+
+                    glossaryObject.GetComponent<glossaryScript>().show();
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.Escape) || glossaryObject.GetComponent<glossaryScript>().isShowing == false)
+            {
                 glossaryObject.GetComponent<glossaryScript>().hide();
             }
-            else if (glossaryObject.GetComponent<glossaryScript>().isShowing == false)
-            {
-
-                glossaryObject.GetComponent<glossaryScript>().show();
-            }
         }
-
-        if (Input.GetKeyDown(KeyCode.Escape) || glossaryObject.GetComponent<glossaryScript>().isShowing == false)
-        {
-            glossaryObject.GetComponent<glossaryScript>().hide();
-        }
-
-            justUnpaused = false;
+        
+        justUnpaused = false;
     }
 
     // gets called once at the beginning of the pentagon rotation when the player presses up or down

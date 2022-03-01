@@ -30,18 +30,16 @@ public class glossaryScript : MonoBehaviour
     private Vector3 keyPromptOnScreen = new Vector3(16, 32, 0);
     private Vector3 keyPromptOffScreen = new Vector3(16, -160, 0);
 
-    private bool keyPromptDestroyed;
-
     private float keyPromptFlickerTime = .25f;
 
     // Start is called before the first frame update
     void Start()
     {
-        // keyPromptDestroyed = false;
 
         if (isShowing)
         {
             show();
+            
             StartCoroutine(animateKeyPrompt());
         }
         else
@@ -100,7 +98,6 @@ public class glossaryScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.G) || Input.GetKeyDown(KeyCode.Escape)) 
         {
-            keyPromptDestroyed = true;
             Destroy(keyPrompt);
         }
     }
@@ -215,44 +212,69 @@ public class glossaryScript : MonoBehaviour
 
     IEnumerator lerpKeyPromptAlpha(float targetAlpha)
     {
-        float time = 0f;
-        float duration = keyPromptFlickerTime;
-        var color = keyPrompt.GetComponent<Image>().color;
-        float oldAlpha = color.a;
-        var currentAlpha = oldAlpha;
-
-        while (time < duration)
+        if (keyPrompt != null)
         {
-            currentAlpha = Mathf.Lerp(oldAlpha, targetAlpha, time / duration);
 
-            time += Time.deltaTime;
-            
-            color.a = currentAlpha;
+            float time = 0f;
+            float duration = keyPromptFlickerTime;
+            var color = keyPrompt.GetComponent<Image>().color;
+            float oldAlpha = color.a;
+            var currentAlpha = oldAlpha;
 
-            keyPrompt.GetComponent<Image>().color = color;
+            while (time < duration)
+            {
+                currentAlpha = Mathf.Lerp(oldAlpha, targetAlpha, time / duration);
 
-            yield return null;
+                time += Time.deltaTime;
+
+                color.a = currentAlpha;
+
+                if (keyPrompt != null)
+                {
+                    keyPrompt.GetComponent<Image>().color = color;
+                }
+                    
+
+                yield return null;
+            }
+
+            color.a = targetAlpha;
+
+            if (keyPrompt != null)
+            {
+                keyPrompt.GetComponent<Image>().color = color;
+            } 
         }
-
-        color.a = targetAlpha;
-
-        keyPrompt.GetComponent<Image>().color = color;
+        
     }
 
     IEnumerator lerpKeyPromptPosition()
     {
-        float time = 0f;
-        float duration = .75f;
-        while (time < duration)
+
+        if (keyPrompt != null)
         {
-            keyPrompt.transform.position = Vector3.Lerp(keyPromptOffScreen, keyPromptOnScreen, time);
 
-            time += Time.deltaTime;
+            float time = 0f;
+            float duration = .75f;
 
-            yield return null;
+            while (time < duration)
+            {
+
+                if (keyPrompt != null)
+                {
+                    keyPrompt.transform.position = Vector3.Lerp(keyPromptOffScreen, keyPromptOnScreen, time);
+                }
+
+                time += Time.deltaTime;
+
+                yield return null;
+            }
+
+            if (keyPrompt != null)
+            {
+                keyPrompt.transform.position = keyPromptOnScreen;
+            }
         }
-
-        keyPrompt.transform.position = keyPromptOnScreen;
     }
 
     void changeArrowAlpha(float alpha)

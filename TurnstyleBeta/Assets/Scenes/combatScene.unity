@@ -272,7 +272,7 @@ PrefabInstance:
       objectReference: {fileID: 1743770249}
     - target: {fileID: 2348889262567115110, guid: 98b04edebba616c4284d57617a3632bb, type: 3}
       propertyPath: unitName
-      value: C
+      value: Trickster
       objectReference: {fileID: 0}
     - target: {fileID: 2348889262567115111, guid: 98b04edebba616c4284d57617a3632bb, type: 3}
       propertyPath: m_Pivot.x
@@ -442,7 +442,7 @@ PrefabInstance:
       objectReference: {fileID: 1743770249}
     - target: {fileID: 2348889262567115110, guid: 98b04edebba616c4284d57617a3632bb, type: 3}
       propertyPath: unitName
-      value: B
+      value: Support
       objectReference: {fileID: 0}
     - target: {fileID: 2348889262567115111, guid: 98b04edebba616c4284d57617a3632bb, type: 3}
       propertyPath: m_Pivot.x
@@ -3907,6 +3907,10 @@ PrefabInstance:
       propertyPath: gameLoop
       value: 
       objectReference: {fileID: 1743770249}
+    - target: {fileID: 2348889262567115110, guid: 98b04edebba616c4284d57617a3632bb, type: 3}
+      propertyPath: unitName
+      value: Beefy
+      objectReference: {fileID: 0}
     - target: {fileID: 2348889262567115111, guid: 98b04edebba616c4284d57617a3632bb, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
