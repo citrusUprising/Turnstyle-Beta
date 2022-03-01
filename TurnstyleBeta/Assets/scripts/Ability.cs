@@ -404,9 +404,11 @@ public class Dazzle : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        if(UnityEngine.Random.Range(0,1) <= 0.35){
+        float check1 = UnityEngine.Random.Range(0.0f,1.0f);
+        float check2 = UnityEngine.Random.Range(0.0f,1.0f);
+        if(check1 <= 0.35){
             target.applyStatus(StatusType.Debuff,StatusName.Flinch, 1, 0);
-        }else if(UnityEngine.Random.Range(0,1) <= 0.35){
+        }else if(check2 <= 0.35){
             target.applyStatus(StatusType.Health, StatusName.Burn, 2, 4);
         }else L.outputQueue.Add(target.unitName+" avoided the "+this.name);
     }
@@ -452,7 +454,7 @@ public class Motivate : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        float rng = UnityEngine.Random.Range(0,1);
+        float rng = UnityEngine.Random.Range(0.0f,1.0f);
         if(rng <= 0.33){
             target.applyStatus(StatusType.Buff,StatusName.Aegis, 1,0);
         }
@@ -527,7 +529,7 @@ public class Temp01 : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        float rng = UnityEngine.Random.Range(0,1);
+        float rng = UnityEngine.Random.Range(0.0f,1.0f);
         if(rng < 0.5){
             target.applyStatus(StatusType.Health,StatusName.Burn,1,8);
         }else{
@@ -577,7 +579,7 @@ public class Temp03 : Ability
     public override void effect(Unit target, Unit source, MainLoop L)
     {
         target.takeDamage(source, 1);
-        float rng = UnityEngine.Random.Range(0,1);
+        float rng = UnityEngine.Random.Range(0.0f,1.0f);
         if(rng > 0.5)target.applyStatus(StatusType.Debuff,StatusName.Encumbered, 100, 0);
     }
 
@@ -624,8 +626,8 @@ public class Temp05 : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        float rng = UnityEngine.Random.Range(0,1);
-        if(rng>.5)target.applyStatus(StatusType.Health,StatusName.Regeneration, 5, 1);
+        float rng = UnityEngine.Random.Range(0.0f,1.0f);
+        if(rng>0.5)target.applyStatus(StatusType.Health,StatusName.Regeneration, 5, 1);
     }
 
     public override bool requirement(Unit target, Unit source)
@@ -789,7 +791,7 @@ public class Temp12 : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        float rng = UnityEngine.Random.Range(0,1);
+        float rng = UnityEngine.Random.Range(0.0f,1.0f);
         if(rng > 0.5)target.applyStatus(StatusType.Debuff,StatusName.Distracted, 2, 0);
     }
 
