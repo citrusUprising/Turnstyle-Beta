@@ -183,11 +183,11 @@ public class MainLoop : MonoBehaviour
     public void setActiveUnits(nameTag[] nameTags){
     	for(int i = 0; i < 3; i++){
     		activeUnits[i] = nameTags[i].GetComponent<nameTag>().character.GetComponent<Friendly>();
-            nameTags[i].GetComponent<nameTag>().character.GetComponent<Friendly>().isActive = true;
+            nameTags[i].GetComponent<nameTag>().character.GetComponent<Friendly>().makeActive();
         }
     	for (int i = 0; i < 2; i++){
     		benchUnits[i] = nameTags[i+3].GetComponent<nameTag>().character.GetComponent<Friendly>();
-            nameTags[i].GetComponent<nameTag>().character.GetComponent<Friendly>().isActive = false;
+            nameTags[i+3].GetComponent<nameTag>().character.GetComponent<Friendly>().stopActive();
         }
     }
 

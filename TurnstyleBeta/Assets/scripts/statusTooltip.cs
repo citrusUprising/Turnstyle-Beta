@@ -43,16 +43,16 @@ public class statusTooltip : MonoBehaviour
         statusEffectDescriptions[(int)StatusName.StrungOut] = "Deals 50% less damage.";
         statusEffectDescriptions[(int)StatusName.None] = "";
 
-        statusStringArray[(int)StatusName.Aegis] = "Aegis";
+        statusStringArray[(int)StatusName.Aegis] = "Shielded"; //flag
         statusStringArray[(int)StatusName.Burn] = "Burn";
-        statusStringArray[(int)StatusName.Distracted] = "Distracted";
-        statusStringArray[(int)StatusName.Encumbered] = "Encumbered";
-        statusStringArray[(int)StatusName.Enrage] = "Enrage";
+        statusStringArray[(int)StatusName.Distracted] = "Vulnerable"; //flag
+        statusStringArray[(int)StatusName.Encumbered] = "Fatigue Up"; //flag
+        statusStringArray[(int)StatusName.Enrage] = "Strengthened"; //flag
         statusStringArray[(int)StatusName.Flinch] = "Flinch";
         statusStringArray[(int)StatusName.Haste] = "Haste";
         statusStringArray[(int)StatusName.Null] = "Null";
         statusStringArray[(int)StatusName.Regeneration] = "Regeneration";
-        statusStringArray[(int)StatusName.StrungOut] = "Strung Out";
+        statusStringArray[(int)StatusName.StrungOut] = "Weakened"; //flag
         statusStringArray[(int)StatusName.None] = "";
 
         hide();

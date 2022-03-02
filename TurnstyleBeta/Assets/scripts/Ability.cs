@@ -20,7 +20,7 @@ public class BasicAttack : Ability
 {
     public BasicAttack() {
         this.name = "Basic Attack";
-        this.text = "Deal 3 damage.";
+        this.text = "Deal 3 damage to a target";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
@@ -88,7 +88,7 @@ public class GroupHeal : Ability
     public GroupHeal()
     {
         this.name = "Group Heal";
-        this.text = "Heal 1 damage to all allies.";
+        this.text = "Heal 1 damage from all allies.";
         this.multitarget = true;
         this.selftarget = false;
         this.allies = true;
@@ -110,7 +110,7 @@ public class HeavyAttack : Ability
     public HeavyAttack()
     {
         this.name = "Heavy Attack";
-        this.text = "Deal 7 Damage.";
+        this.text = "Deal 7 Damage to a target";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
@@ -133,7 +133,7 @@ public class SelfHeal : Ability
     public SelfHeal()
     {
         this.name = "Self Heal";
-        this.text = "Heal 8 damage.";
+        this.text = "Heal 8 damage from user";
         this.multitarget = false;
         this.selftarget = true;
         this.allies = false;
@@ -156,7 +156,7 @@ public class Mitigate : Ability
     public Mitigate()
     {
         this.name = "Mitigate";
-        this.text = "Give ally Regeneration(3,4)";
+        this.text = "Give ally Regen (4) for 3 turns";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = true;
@@ -164,7 +164,6 @@ public class Mitigate : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        //flag
         target.applyStatus(StatusType.Health, StatusName.Regeneration, 3, 4);
     }
 
@@ -179,7 +178,7 @@ public class Scrum : Ability
     public Scrum()
     {
         this.name = "Scrum";
-        this.text = "Cure an ally of debuffs, then inflict them with Null(3)";
+        this.text = "Cure an ally of debuffs, then inflict them with Null for 3 turns";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = true;
@@ -229,7 +228,7 @@ public class Imbibe : Ability
     public Imbibe()
     {
         this.name = "Imbibe";
-        this.text = "Give self Haste(2,5) and Strung Out(2)";
+        this.text = "Give self Haste (5) and Weakened for 2 turns";//flag
         this.multitarget = false;
         this.selftarget = true;
         this.allies = false;
@@ -253,7 +252,7 @@ public class Repel : Ability
     public Repel()
     {
         this.name = "Repel";
-        this.text = "Hit all enemies for 2 damage.";
+        this.text = "Hit all enemies for 2 damage";
         this.multitarget = true;
         this.selftarget = false;
         this.allies = false;
@@ -275,7 +274,7 @@ public class Fallguy : Ability
     public Fallguy()
     {
         this.name = "Fall Guy";
-        this.text = "Give all allies Aegis(1), give self Distracted(1).";
+        this.text = "Give self Vulnerable and all allies Shielded for 1 turn.";//flag
         this.multitarget = true;
         this.selftarget = false;
         this.allies = true;
@@ -300,7 +299,7 @@ public class Crush : Ability
     public Crush()
     {
         this.name = "Crush";
-        this.text = "Deal 8 damage to a target and 4 damage to self.";
+        this.text = "Deal 8 damage to a target and 4 damage to self";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
@@ -323,7 +322,7 @@ public class Rally : Ability
     public Rally()
     {
         this.name = "Rally";
-        this.text = "Heal ally for 8 damage, while dealing 2 damage to self";
+        this.text = "Heal an ally for 9 damage and deal 3 damage to user";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = true;
@@ -331,8 +330,8 @@ public class Rally : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        target.healSelf(8);
-        source.hp = Math.Min(source.hp-2, source.maxHP);
+        source.hp = Math.Min(source.hp-3, source.maxHP);
+        target.healSelf(9);
     }
 
     public override bool requirement(Unit target, Unit source)
@@ -346,7 +345,7 @@ public class Stunnerclap : Ability
     public Stunnerclap()
     {
         this.name = "Stunner Clap";
-        this.text = "Deal 2 damage to targeted enemy and inflict Strung Out(1)";
+        this.text = "Deal 2 damage to targeted enemy and inflict Weakened for 1 turn";//flag
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
@@ -369,16 +368,18 @@ public class Soulrip : Ability
     public Soulrip()
     {
         this.name = "Soul Rip";
-        this.text = "Deal 10 damage. Accuracy -25% for each level of fatigue";
+        this.text = "Deal 10 damage. -25% Accuracy for each level of fatigue";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
     }
 
     public override void effect(Unit target, Unit source, MainLoop L)
-    {
-        L.outputQueue.Add(source.unitName+" possessed "+target.unitName);
-        if(source.fatigue <= 0 || UnityEngine.Random.Range(0,1) <= (1-.25*source.fatigue)){
+    {   double test = 1-0.25*source.fatigue;
+        float check = UnityEngine.Random.Range(0.0f,1.0f);
+        Debug.Log("Seraphim's accuracy is "+test);
+        Debug.Log("Seraphim rolled "+ check);
+        if(source.fatigue <= 0 || check <= test){
             L.outputQueue.Add(target.unitName+"'s soul was torn");
             target.takeDamage(source, 10);}
         else L.outputQueue.Add(source.unitName+" couldn't manifest");
@@ -403,9 +404,11 @@ public class Dazzle : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        if(UnityEngine.Random.Range(0,1) <= 0.35){
+        float check1 = UnityEngine.Random.Range(0.0f,1.0f);
+        float check2 = UnityEngine.Random.Range(0.0f,1.0f);
+        if(check1 <= 0.35){
             target.applyStatus(StatusType.Debuff,StatusName.Flinch, 1, 0);
-        }else if(UnityEngine.Random.Range(0,1) <= 0.35){
+        }else if(check2 <= 0.35){
             target.applyStatus(StatusType.Health, StatusName.Burn, 2, 4);
         }else L.outputQueue.Add(target.unitName+" avoided the "+this.name);
     }
@@ -421,7 +424,7 @@ public class Scry : Ability
     public Scry()
     {
         this.name = "Scry";
-        this.text = "Afflicts one targeted enemy with Distracted(2).";
+        this.text = "Afflicts one targeted enemy with Vulnerable for 2 turns.";//flag
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
@@ -443,7 +446,7 @@ public class Motivate : Ability
     public Motivate()
     {
         this.name = "Motivate";
-        this.text = "Grants Random effect (Enrage 1, Aegis 1, Haste 2,3) to an ally";
+        this.text = "Gives an ally Strengthened for 1 turn, Shielded for 1 turn, or Haste (3) for 2 turns.";//flag
         this.multitarget = false;
         this.selftarget = false;
         this.allies = true;
@@ -451,7 +454,7 @@ public class Motivate : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        float rng = UnityEngine.Random.Range(0,1);
+        float rng = UnityEngine.Random.Range(0.0f,1.0f);
         if(rng <= 0.33){
             target.applyStatus(StatusType.Buff,StatusName.Aegis, 1,0);
         }
@@ -474,7 +477,7 @@ public class Slump : Ability
     public Slump()
     {
         this.name = "Slump";
-        this.text = "Grants self Regen (1,6)";
+        this.text = "Grants user Regen (6) for 1 turn";
         this.multitarget = false;
         this.selftarget = true;
         this.allies = false;
@@ -496,7 +499,7 @@ public class Hunker : Ability
     public Hunker()
     {
         this.name = "Hunker";
-        this.text = "Grants self Aegis (2)";
+        this.text = "Grants self Shielded for 2 turns";//flag
         this.multitarget = false;
         this.selftarget = true;
         this.allies = false;
@@ -518,7 +521,7 @@ public class Temp01 : Ability
     public Temp01()
     {
         this.name = "Temp01";
-        this.text = "Inflict Target with either Burn(1,8) or Burn(5,2)";
+        this.text = "Inflict Target with either Burn (8) for 1 turn or Burn (2) for 5 turns";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
@@ -526,7 +529,7 @@ public class Temp01 : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        float rng = UnityEngine.Random.Range(0,1);
+        float rng = UnityEngine.Random.Range(0.0f,1.0f);
         if(rng < 0.5){
             target.applyStatus(StatusType.Health,StatusName.Burn,1,8);
         }else{
@@ -567,7 +570,7 @@ public class Temp03 : Ability
     public Temp03()
     {
         this.name = "Temp03";
-        this.text = "Deal 1 damage to all enemies. 50% to inflict Encumbered.";
+        this.text = "Deal 1 damage to all enemies. 50% to inflict Fatigue Up";//flag
         this.multitarget = true;
         this.selftarget = false;
         this.allies = false;
@@ -576,7 +579,7 @@ public class Temp03 : Ability
     public override void effect(Unit target, Unit source, MainLoop L)
     {
         target.takeDamage(source, 1);
-        float rng = UnityEngine.Random.Range(0,1);
+        float rng = UnityEngine.Random.Range(0.0f,1.0f);
         if(rng > 0.5)target.applyStatus(StatusType.Debuff,StatusName.Encumbered, 100, 0);
     }
 
@@ -615,7 +618,7 @@ public class Temp05 : Ability
     public Temp05()
     {
         this.name = "Temp05";
-        this.text = "50% chance give all allies Regen(5,1)";
+        this.text = "50% chance give all allies Regen (1) for 5 turns";
         this.multitarget = true;
         this.selftarget = false;
         this.allies = true;
@@ -623,8 +626,8 @@ public class Temp05 : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        float rng = UnityEngine.Random.Range(0,1);
-        if(rng>.5)target.applyStatus(StatusType.Health,StatusName.Regeneration, 5, 1);
+        float rng = UnityEngine.Random.Range(0.0f,1.0f);
+        if(rng>0.5)target.applyStatus(StatusType.Health,StatusName.Regeneration, 5, 1);
     }
 
     public override bool requirement(Unit target, Unit source)
@@ -638,7 +641,7 @@ public class Temp06 : Ability
     public Temp06()
     {
         this.name = "Temp06";
-        this.text = "Grants party Aegis(1)";
+        this.text = "Grants party Shielded for 1 turn";//flag
         this.multitarget = true;
         this.selftarget = false;
         this.allies = true;
@@ -682,7 +685,7 @@ public class Temp08 : Ability
     public Temp08()
     {
         this.name = "Temp08";
-        this.text = "Deal 2 damage to a target and inflict Strung Out(2)";
+        this.text = "Deal 2 damage to a target and inflict Weakened for 2 turns";//flag
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
@@ -705,7 +708,7 @@ public class Temp09 : Ability
     public Temp09()
     {
         this.name = "Temp09";
-        this.text = "Deal 2 damage to a target. If the target has a buff, remove the buff. If not, deal 2 more damage.";
+        this.text = "Deal 2 damage to a target. If the target has a buff, removes the buff. Otherwise deals 2 more damage.";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
@@ -757,7 +760,7 @@ public class Temp11 : Ability
     public Temp11()
     {
         this.name = "Temp11";
-        this.text = "Halve a target's health.";
+        this.text = "Halve a target's health";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
@@ -780,7 +783,7 @@ public class Temp12 : Ability
     public Temp12()
     {
         this.name = "Temp12";
-        this.text = "50% chance to inflict all enemies with Distracted(2)";
+        this.text = "50% chance to inflict all enemies with Vulnerable for 2 turns";//flag
         this.multitarget = true;
         this.selftarget = false;
         this.allies = false;
@@ -788,7 +791,7 @@ public class Temp12 : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        float rng = UnityEngine.Random.Range(0,1);
+        float rng = UnityEngine.Random.Range(0.0f,1.0f);
         if(rng > 0.5)target.applyStatus(StatusType.Debuff,StatusName.Distracted, 2, 0);
     }
 
@@ -803,7 +806,7 @@ public class Temp13 : Ability
     public Temp13()
     {
         this.name = "Temp13";
-        this.text = "Grant an ally Enrage (2)";
+        this.text = "Grant an ally Strengthened for 2 turns";//flag
         this.multitarget = false;
         this.selftarget = false;
         this.allies = true;
@@ -847,7 +850,7 @@ public class Temp15 : Ability
     public Temp15()
     {
         this.name = "Temp15";
-        this.text = "Give self Enrage(2)";
+        this.text = "Give self Strengthened for 2 turns";//flag
         this.multitarget = false;
         this.selftarget = true;
         this.allies = false;
@@ -869,7 +872,7 @@ public class Temp16 : Ability
     public Temp16()
     {
         this.name = "Temp16";
-        this.text = "Hit all enemies for 3 damage, give self Distracted(1)";
+        this.text = "Hit all enemies for 3 damage, give self Vulnerable for 1 turn";//flag
         this.multitarget = true;
         this.selftarget = false;
         this.allies = false;
@@ -892,7 +895,7 @@ public class Temp17 : Ability
     public Temp17()
     {
         this.name = "Temp17";
-        this.text = "Give target and self Burn (1,7)";
+        this.text = "Give target and self Burn (7) for 1 turn";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
@@ -915,7 +918,7 @@ public class Temp18 : Ability
     public Temp18()
     {
         this.name = "Temp18";
-        this.text = "Give an ally Regen (5,1)";
+        this.text = "Give an ally Regen (1) for 5 turns";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = true;
@@ -937,7 +940,7 @@ public class Temp19 : Ability
     public Temp19()
     {
         this.name = "Temp19";
-        this.text = "Give an ally Haste (2,2)";
+        this.text = "Give an ally Haste (2) for 2 turns";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = true;
@@ -959,7 +962,7 @@ public class Temp20 : Ability
     public Temp20()
     {
         this.name = "Temp20";
-        this.text = "Cure an ally of debuffs, then inflict them with Null(1)";
+        this.text = "Cure an ally of debuffs, then inflict them with Null for 1 turn";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = true;
@@ -987,7 +990,7 @@ public class Temp21 : Ability
     public Temp21()
     {
         this.name = "Temp21";
-        this.text = "Inflicts target with Strung Out(2)";
+        this.text = "Inflicts target with Weaken for 2 turns";//flag
         this.multitarget = false;
         this.selftarget = false;
         this.allies = true;
@@ -1009,7 +1012,7 @@ public class Temp22 : Ability
     public Temp22()
     {
         this.name = "Temp22";
-        this.text = "Inflicts target with Distracted(1)";
+        this.text = "Inflicts target with Vulnerable for 1 turn";//flag
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;

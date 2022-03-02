@@ -101,27 +101,49 @@ public class Unit : MonoBehaviour
             bool used = false;
             if(this.queuedAction.ability.allies == true)
             {
-                foreach(GameObject o in this.allies)
-                {
-                    if(!o.GetComponent<Unit>().dead && o.GetComponent<Unit>().isActive)
-                    {
-                        if(!used){
-                            gameLoop.outputQueue.Add(this.unitName + " used " + this.queuedAction.ability.name + "!");
-                            used = true;
+                if(this.tag == "Ally"){
+                    foreach(GameObject o in this.allies){
+                        if(!o.GetComponent<Unit>().dead && o.GetComponent<Unit>().isActive){
+                            if(!used){
+                                gameLoop.outputQueue.Add(this.unitName + " used " + this.queuedAction.ability.name + "!");
+                                used = true;
+                            }
+                            this.queuedAction.ability.effect(o.GetComponent<Unit>(),this, gameLoop);
                         }
-                        this.queuedAction.ability.effect(o.GetComponent<Unit>(),this, gameLoop);
+                    }
+                }else{
+                    foreach(GameObject o in this.enemies){ 
+                        if(!o.GetComponent<Unit>().dead){
+                            if(!used){
+                                gameLoop.outputQueue.Add(this.unitName + " used " + this.queuedAction.ability.name + "!");
+                                used = true;
+                            }
+                            this.queuedAction.ability.effect(o.GetComponent<Unit>(),this, gameLoop);
+                        }
                     }
                 }
             } 
             else
             {
-                foreach(GameObject o in this.enemies) { 
-                    if(!o.GetComponent<Unit>().dead){
-                        if(!used){
-                            gameLoop.outputQueue.Add(this.unitName + " used " + this.queuedAction.ability.name + "!");
-                            used = true;
+                if(this.tag == "Ally"){
+                    foreach(GameObject o in this.enemies) { 
+                        if(!o.GetComponent<Unit>().dead){
+                            if(!used){
+                                gameLoop.outputQueue.Add(this.unitName + " used " + this.queuedAction.ability.name + "!");
+                                used = true;
+                            }
+                            this.queuedAction.ability.effect(o.GetComponent<Unit>(),this, gameLoop);
                         }
-                        this.queuedAction.ability.effect(o.GetComponent<Unit>(),this, gameLoop);
+                    }
+                }else{
+                    foreach(GameObject o in this.allies){
+                        if(!o.GetComponent<Unit>().dead && o.GetComponent<Unit>().isActive){
+                            if(!used){
+                                gameLoop.outputQueue.Add(this.unitName + " used " + this.queuedAction.ability.name + "!");
+                                used = true;
+                            }
+                            this.queuedAction.ability.effect(o.GetComponent<Unit>(),this, gameLoop);
+                        }
                     }
                 }
             }
@@ -226,6 +248,7 @@ public class Unit : MonoBehaviour
                 this.statuses[(int) StatusType.Health].name = StatusName.None;
             }
             this.isActive = true;
+            Debug.Log(this.unitName + " has become active");
         }
     }
 
@@ -237,12 +260,14 @@ public class Unit : MonoBehaviour
             {
                 s.duration = 0;
                 s.name = StatusName.None;
+                s.magnitude = 0;
             }
             if(this.unitName == "Koralie")
             {
                 this.statuses[(int) StatusType.Health].name = StatusName.Regeneration;
             }
             this.isActive = false;
+            Debug.Log(this.unitName + " has become inactive");
         }
         this.fatigue = 0;
     }
@@ -250,6 +275,7 @@ public class Unit : MonoBehaviour
     public void healSelf(int amount)
     {
         this.hp = Math.Min(this.hp + amount, this.maxHP);
+        gameLoop.outputQueue.Add(this.unitName+" regained "+amount+" health");
     }
 
     public void takeDamage(Unit source, int amount)
@@ -270,10 +296,14 @@ public class Unit : MonoBehaviour
         {
             amount = (int) Math.Ceiling((double) amount / 2);
         }
-        if(this.unitName.Equals("Seraphim") && this.queuedAction.speed >= 5 && UnityEngine.Random.Range(0,1) > 0.5)
+        if(this.unitName.Equals("Seraphim") && this.queuedAction.speed >= 5)
         { //again no output queue just printing to debug log
-            gameLoop.outputQueue.Add(this.unitName + " dodged the attack");
-            return;
+            float check = UnityEngine.Random.Range(0.0f,1.0f);
+            Debug.Log("Seraphim's dodge check is" + check);
+            if(check > 0.5){
+                gameLoop.outputQueue.Add(this.unitName + " dodged the attack");
+                return;
+            }
         }
         this.hp = Math.Max(this.hp - amount, 0);
         gameLoop.outputQueue.Add(this.unitName + " took " + amount + " damage.");
@@ -308,6 +338,7 @@ public class Unit : MonoBehaviour
             this.statuses[(int) type].duration = duration;
             this.statuses[(int) type].magnitude = magnitude;
             gameLoop.outputQueue.Add(this.unitName + " has " + newStatus);
+            
         }
     }
 
