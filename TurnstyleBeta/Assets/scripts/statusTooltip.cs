@@ -31,28 +31,28 @@ public class statusTooltip : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        statusEffectDescriptions[(int)StatusName.Aegis] = "Takes 50% less damage.";
+        statusEffectDescriptions[(int)StatusName.Shielded] = "Takes 50% less damage.";
         statusEffectDescriptions[(int)StatusName.Burn] = "Takes *N* damage each turn.";
-        statusEffectDescriptions[(int)StatusName.Distracted] = "Takes 100% more damage.";
-        statusEffectDescriptions[(int)StatusName.Encumbered] = "Gains 1 extra fatigue each turn.";
-        statusEffectDescriptions[(int)StatusName.Enrage] = "Deals 100% more damage.";
+        statusEffectDescriptions[(int)StatusName.Vulnerable] = "Takes 100% more damage.";
+        statusEffectDescriptions[(int)StatusName.FatigueUP] = "Gains 1 extra fatigue each turn.";
+        statusEffectDescriptions[(int)StatusName.Strengthened] = "Deals 100% more damage.";
         statusEffectDescriptions[(int)StatusName.Flinch] = "Can't take an action this turn.";
         statusEffectDescriptions[(int)StatusName.Haste] = "Gets +*N* speed.";
         statusEffectDescriptions[(int)StatusName.Null] = "Cannot get another debuff.";
         statusEffectDescriptions[(int)StatusName.Regeneration] = "Heals *N* HP each turn.";
-        statusEffectDescriptions[(int)StatusName.StrungOut] = "Deals 50% less damage.";
+        statusEffectDescriptions[(int)StatusName.Weakened] = "Deals 50% less damage.";
         statusEffectDescriptions[(int)StatusName.None] = "";
 
-        statusStringArray[(int)StatusName.Aegis] = "Shielded"; //flag
+        statusStringArray[(int)StatusName.Shielded] = "Shielded"; //flag
         statusStringArray[(int)StatusName.Burn] = "Burn";
-        statusStringArray[(int)StatusName.Distracted] = "Vulnerable"; //flag
-        statusStringArray[(int)StatusName.Encumbered] = "Fatigue Up"; //flag
-        statusStringArray[(int)StatusName.Enrage] = "Strengthened"; //flag
+        statusStringArray[(int)StatusName.Vulnerable] = "Vulnerable"; //flag
+        statusStringArray[(int)StatusName.FatigueUP] = "Fatigue Up"; //flag
+        statusStringArray[(int)StatusName.Strengthened] = "Strengthened"; //flag
         statusStringArray[(int)StatusName.Flinch] = "Flinch";
         statusStringArray[(int)StatusName.Haste] = "Haste";
         statusStringArray[(int)StatusName.Null] = "Null";
         statusStringArray[(int)StatusName.Regeneration] = "Regeneration";
-        statusStringArray[(int)StatusName.StrungOut] = "Weakened"; //flag
+        statusStringArray[(int)StatusName.Weakened] = "Weakened"; //flag
         statusStringArray[(int)StatusName.None] = "";
 
         hide();

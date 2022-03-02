@@ -71,7 +71,7 @@ public class Enemy : Unit
             case "Red": case "Red A": case "Red B": case "Red C":
             this.hp = 20;
             this.maxHP = 20;
-            this.immunity = new StatusName[] {StatusName.Distracted};
+            this.immunity = new StatusName[] {StatusName.Vulnerable};
             this.abilities = new Ability[] { new Temp06(), new Temp07(), new Temp08() };
             a = new Color(0.5f,0.15f,0.15f,1);
             break;
@@ -87,7 +87,7 @@ public class Enemy : Unit
             case "Green": case "Green A": case "Green B": case "Green C":
             this.hp = 16;
             this.maxHP = 16;
-            this.immunity = new StatusName[] {StatusName.StrungOut};
+            this.immunity = new StatusName[] {StatusName.Weakened};
             this.abilities = new Ability[] { new Repel(), new Temp09(), new Temp10() };
             a = new Color(0.15f,0.35f,0.15f,1);
             break;

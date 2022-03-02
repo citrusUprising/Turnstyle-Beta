@@ -68,16 +68,16 @@ public class statusEffectController : MonoBehaviour, IPointerEnterHandler, IPoin
     void Start()
     {
         // yeah just filling up the array
-        statusSpriteArray[(int)StatusName.Aegis] = aegisSprite;
+        statusSpriteArray[(int)StatusName.Shielded] = aegisSprite;
         statusSpriteArray[(int)StatusName.Burn] = burnSprite;
-        statusSpriteArray[(int)StatusName.Distracted] = distractedSprite;
-        statusSpriteArray[(int)StatusName.Encumbered] = encumberedSprite;
-        statusSpriteArray[(int)StatusName.Enrage] = enragedSprite;
+        statusSpriteArray[(int)StatusName.Vulnerable] = distractedSprite;
+        statusSpriteArray[(int)StatusName.FatigueUP] = encumberedSprite;
+        statusSpriteArray[(int)StatusName.Strengthened] = enragedSprite;
         statusSpriteArray[(int)StatusName.Flinch] = flinchSprite;
         statusSpriteArray[(int)StatusName.Haste] = hasteSprite;
         statusSpriteArray[(int)StatusName.Null] = nullSprite;
         statusSpriteArray[(int)StatusName.Regeneration] = regenSprite;
-        statusSpriteArray[(int)StatusName.StrungOut] = strungOutSprite;
+        statusSpriteArray[(int)StatusName.Weakened] = strungOutSprite;
         statusSpriteArray[(int)StatusName.None] = noneSprite;
 
         // getting the correct children

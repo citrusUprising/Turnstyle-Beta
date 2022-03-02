@@ -238,7 +238,7 @@ public class Imbibe : Ability
     {
         //L.outputQueue.Add(source.unitName +" imbibed coffee");
         target.applyStatus(StatusType.Buff,StatusName.Haste, 2, 5);
-        target.applyStatus(StatusType.Debuff,StatusName.StrungOut, 2, 0);
+        target.applyStatus(StatusType.Debuff,StatusName.Weakened, 2, 0);
     }
 
     public override bool requirement(Unit target, Unit source)
@@ -283,9 +283,9 @@ public class Fallguy : Ability
     public override void effect(Unit target, Unit source, MainLoop L)
     {
     if(target.unitName != source.unitName)
-        target.applyStatus(StatusType.Buff,StatusName.Aegis, 1, 0);
+        target.applyStatus(StatusType.Buff,StatusName.Shielded, 1, 0);
     else
-    source.applyStatus(StatusType.Debuff,StatusName.Distracted, 1, 0);
+    source.applyStatus(StatusType.Debuff,StatusName.Vulnerable, 1, 0);
     }
 
     public override bool requirement(Unit target, Unit source)
@@ -354,7 +354,7 @@ public class Stunnerclap : Ability
     public override void effect(Unit target, Unit source, MainLoop L)
     {
         target.takeDamage(source,2);
-        target.applyStatus(StatusType.Debuff,StatusName.StrungOut, 1, 0);
+        target.applyStatus(StatusType.Debuff,StatusName.Weakened, 1, 0);
     }
 
     public override bool requirement(Unit target, Unit source)
@@ -368,14 +368,14 @@ public class Soulrip : Ability
     public Soulrip()
     {
         this.name = "Soul Rip";
-        this.text = "Deal 10 damage. -25% Accuracy for each level of fatigue";
+        this.text = "Deal 10 damage. -33% Accuracy for each level of fatigue";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
     }
 
     public override void effect(Unit target, Unit source, MainLoop L)
-    {   double test = 1-0.25*source.fatigue;
+    {   double test = 1-0.33*source.fatigue;
         float check = UnityEngine.Random.Range(0.0f,1.0f);
         Debug.Log("Seraphim's accuracy is "+test);
         Debug.Log("Seraphim rolled "+ check);
@@ -432,7 +432,7 @@ public class Scry : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        target.applyStatus(StatusType.Debuff,StatusName.Distracted, 2, 0);
+        target.applyStatus(StatusType.Debuff,StatusName.Vulnerable, 2, 0);
     }
 
     public override bool requirement(Unit target, Unit source)
@@ -456,10 +456,10 @@ public class Motivate : Ability
     {
         float rng = UnityEngine.Random.Range(0.0f,1.0f);
         if(rng <= 0.33){
-            target.applyStatus(StatusType.Buff,StatusName.Aegis, 1,0);
+            target.applyStatus(StatusType.Buff,StatusName.Shielded, 1,0);
         }
         else if(rng <= 0.66){
-            target.applyStatus(StatusType.Buff, StatusName.Enrage, 1,0);
+            target.applyStatus(StatusType.Buff, StatusName.Strengthened, 1,0);
         }
         else {
             target.applyStatus(StatusType.Buff, StatusName.Haste, 2,3);
@@ -507,7 +507,7 @@ public class Hunker : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        target.applyStatus(StatusType.Buff,StatusName.Aegis, 2, 0);
+        target.applyStatus(StatusType.Buff,StatusName.Shielded, 2, 0);
     }
 
     public override bool requirement(Unit target, Unit source)
@@ -580,7 +580,7 @@ public class Temp03 : Ability
     {
         target.takeDamage(source, 1);
         float rng = UnityEngine.Random.Range(0.0f,1.0f);
-        if(rng > 0.5)target.applyStatus(StatusType.Debuff,StatusName.Encumbered, 100, 0);
+        if(rng > 0.5)target.applyStatus(StatusType.Debuff,StatusName.FatigueUP, 100, 0);
     }
 
     public override bool requirement(Unit target, Unit source)
@@ -649,7 +649,7 @@ public class Temp06 : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        target.applyStatus(StatusType.Buff,StatusName.Aegis,1,0);
+        target.applyStatus(StatusType.Buff,StatusName.Shielded,1,0);
     }
 
     public override bool requirement(Unit target, Unit source)
@@ -694,7 +694,7 @@ public class Temp08 : Ability
     public override void effect(Unit target, Unit source, MainLoop L)
     {
         target.takeDamage(source,2);
-        target.applyStatus(StatusType.Debuff,StatusName.StrungOut,2,0);
+        target.applyStatus(StatusType.Debuff,StatusName.Weakened,2,0);
     }
 
     public override bool requirement(Unit target, Unit source)
@@ -792,7 +792,7 @@ public class Temp12 : Ability
     public override void effect(Unit target, Unit source, MainLoop L)
     {
         float rng = UnityEngine.Random.Range(0.0f,1.0f);
-        if(rng > 0.5)target.applyStatus(StatusType.Debuff,StatusName.Distracted, 2, 0);
+        if(rng > 0.5)target.applyStatus(StatusType.Debuff,StatusName.Vulnerable, 2, 0);
     }
 
     public override bool requirement(Unit target, Unit source)
@@ -814,7 +814,7 @@ public class Temp13 : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        target.applyStatus(StatusType.Buff,StatusName.Enrage, 2, 0);
+        target.applyStatus(StatusType.Buff,StatusName.Strengthened, 2, 0);
     }
 
     public override bool requirement(Unit target, Unit source)
@@ -858,7 +858,7 @@ public class Temp15 : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        target.applyStatus(StatusType.Buff, StatusName.Enrage, 2,0);
+        target.applyStatus(StatusType.Buff, StatusName.Strengthened, 2,0);
     }
 
     public override bool requirement(Unit target, Unit source)
@@ -881,7 +881,7 @@ public class Temp16 : Ability
     public override void effect(Unit target, Unit source, MainLoop L)
     {
         target.takeDamage(source, 3);
-        source.applyStatus(StatusType.Debuff,StatusName.Distracted,1,0);
+        source.applyStatus(StatusType.Debuff,StatusName.Vulnerable,1,0);
     }
 
     public override bool requirement(Unit target, Unit source)
@@ -998,7 +998,7 @@ public class Temp21 : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        target.applyStatus(StatusType.Debuff,StatusName.StrungOut,2,0);
+        target.applyStatus(StatusType.Debuff,StatusName.Weakened,2,0);
     }
 
     public override bool requirement(Unit target, Unit source)
@@ -1020,7 +1020,7 @@ public class Temp22 : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        target.applyStatus(StatusType.Debuff,StatusName.Distracted,1,0);
+        target.applyStatus(StatusType.Debuff,StatusName.Vulnerable,1,0);
     }
 
     public override bool requirement(Unit target, Unit source)

@@ -143,7 +143,7 @@ public class MainLoop : MonoBehaviour
     public void setPlayerAction(Unit unit, Unit target, Ability abil, int speed){
     	if(!queuedActions.Contains(unit))
     		queuedActions.Add(unit);
-    	unit.queuedAction = new QueuedAction(target, abil, speed + unit.fatigue);
+    	unit.queuedAction = new QueuedAction(target, abil, speed - unit.fatigue);
     }
 
     void debugQeuedActions()
