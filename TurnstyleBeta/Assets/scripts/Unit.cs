@@ -163,7 +163,6 @@ public class Unit : MonoBehaviour
             else
                 gameLoop.outputQueue.Add(this.unitName + "'s ability had no target!");
         }
-        Debug.Log("speed is "+this.queuedAction.speed);
         if(this.queuedAction.speed < 0){
             this.hp = Math.Max(this.hp - (this.hp/5), 0);
             gameLoop.outputQueue.Add(this.unitName + " took "+(this.hp/5)+" damage from exhaustion");
@@ -354,6 +353,7 @@ public class Unit : MonoBehaviour
             if(s.duration > 0)
             {
                 s.duration -= 1;
+                Debug.Log(s.name+" has "+s.duration+" turns left");
                 if(s.duration == 0)
                 {
                     gameLoop.outputQueue.Add(this.unitName + "'s " + s.name + " wore off");
