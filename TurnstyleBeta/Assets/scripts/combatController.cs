@@ -581,11 +581,6 @@ public class combatController : MonoBehaviour
     public void transitionToRotate()
     {
 
-        foreach (nameTag tag in nameTagArray)
-        {
-            tag.countDownOnAllStatuses();
-        }
-
         numberOfSelectedMoves = 0;
         Destroy(currentDrawnBox);
         setPreviousState();
