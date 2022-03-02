@@ -16,10 +16,10 @@ public enum StatusName
     Burn,
     Flinch,
     Haste,
-    Aegis,
-    Enrage,
-    StrungOut,
-    Distracted,
-    Encumbered,
+    Shielded,
+    Strengthened,
+    Weakened,
+    Vulnerable,
+    FatigueUP,
     Null
 }

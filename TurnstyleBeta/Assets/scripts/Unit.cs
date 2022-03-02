@@ -163,6 +163,11 @@ public class Unit : MonoBehaviour
             else
                 gameLoop.outputQueue.Add(this.unitName + "'s ability had no target!");
         }
+        Debug.Log("speed is "+this.queuedAction.speed);
+        if(this.queuedAction.speed < 0){
+            this.hp = Math.Max(this.hp - (this.hp/5), 0);
+            gameLoop.outputQueue.Add(this.unitName + " took "+(this.hp/5)+" damage from exhaustion");
+        }
         this.fatigue += 1;
         
     }
@@ -280,19 +285,19 @@ public class Unit : MonoBehaviour
 
     public void takeDamage(Unit source, int amount)
     {
-        if(this.statuses[(int) StatusType.Buff].name == StatusName.Aegis)
+        if(this.statuses[(int) StatusType.Buff].name == StatusName.Shielded)
         {
             amount = (int)Math.Ceiling((double)amount / 2);
         }
-        if(source.statuses[(int) StatusType.Buff].name == StatusName.Enrage)
+        if(source.statuses[(int) StatusType.Buff].name == StatusName.Strengthened)
         {
             amount = amount * 2;
         }
-        if(this.statuses[(int) StatusType.Debuff].name == StatusName.Distracted)
+        if(this.statuses[(int) StatusType.Debuff].name == StatusName.Vulnerable)
         {
             amount = amount * 2;
         }
-        if(source.statuses[(int) StatusType.Debuff].name == StatusName.StrungOut)
+        if(source.statuses[(int) StatusType.Debuff].name == StatusName.Weakened)
         {
             amount = (int) Math.Ceiling((double) amount / 2);
         }
