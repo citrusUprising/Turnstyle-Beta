@@ -141,9 +141,12 @@ public class MainLoop : MonoBehaviour
 
     //set player action.
     public void setPlayerAction(Unit unit, Unit target, Ability abil, int speed){
+		int hasteMod = 0;
+		if(unit.statuses[(int)StatusType.Buff].name == StatusName.Haste)
+			hasteMod = unit.statuses[(int)StatusType.Buff].magnitude;
     	if(!queuedActions.Contains(unit))
     		queuedActions.Add(unit);
-    	unit.queuedAction = new QueuedAction(target, abil, speed - unit.fatigue);
+    	unit.queuedAction = new QueuedAction(target, abil, speed - unit.fatigue + hasteMod);
     }
 
     void debugQeuedActions()

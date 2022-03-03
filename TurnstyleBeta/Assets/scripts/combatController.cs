@@ -723,6 +723,13 @@ public class combatController : MonoBehaviour
     //       3. change text of the speedSelectBox to match the current move 
     void transitionToSpeedSelect()
     {
+        /*int speedMinus = nameTagArray[0].GetComponent<nameTag>().character.GetComponent<Unit>().fatigue;
+        int speedPlus = 0;
+        //checks if Unit has haste and if so adds magnitude to speed indicator
+        if(nameTagArray[0].GetComponent<nameTag>()
+            .character.GetComponent<Unit>().statuses[(int)StatusType.Buff].name == StatusName.Haste)
+            speedPlus = nameTagArray[0].GetComponent<nameTag>().character.GetComponent<Unit>().statuses[(int)StatusType.Buff].magnitude;
+        */
         setPreviousState();
         state = "speedSelect";
         Destroy(currentDrawnBox);
