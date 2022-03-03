@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using Random = System.Random;
 using TMPro;
 public class MainLoop : MonoBehaviour
 {
-	public GameObject[] friendlies;
+    public string sceneName;
+    public GameObject[] friendlies;
 	public GameObject[] enemies;
 	//player units
 	Friendly[] playerUnits;
@@ -26,16 +28,36 @@ public class MainLoop : MonoBehaviour
     public float textSpeed;
 
     public GameObject uiController;
-
+    GameObject Stats;
     // Start is called before the first frame update
     void Start()
     {
+        Stats = GameObject.Find("CurrentStats");
+        CurrentStats currStats = Stats.GetComponent<CurrentStats>();
         rand = new Random();
         playerUnits = new Friendly[friendlies.Length];
         enemyUnits = new Enemy[enemies.Length];
         //get the scripts on units
         for (int i = 0; i < friendlies.Length; i++){
         	playerUnits[i] = friendlies[i].GetComponent<Friendly>();
+            switch (playerUnits[i].name)
+            {
+                case "Beverly":
+                    playerUnits[i].hp = currStats.BeverlyHealth;
+                    break;
+                case "Jade":
+                    playerUnits[i].hp = currStats.JadeHealth;
+                    break;
+                case "Koralie":
+                    playerUnits[i].hp = currStats.KoralieHealth;
+                    break;
+                case "Seraphim":
+                    playerUnits[i].hp = currStats.SeraphimHealth;
+                    break;
+                case "Amery":
+                    playerUnits[i].hp = currStats.AmeryHealth;
+                    break;
+            }
         }
         for (int i = 0; i < enemies.Length; i++){
         	enemyUnits[i] = enemies[i].GetComponent<Enemy>();
@@ -226,8 +248,8 @@ public class MainLoop : MonoBehaviour
    				break;
    			}
    		}
-   		//if enemyDead, win
-
+        //if enemyDead, win
+    
    		//Otherwise continue
    		if(!allDead && !enemyDead){
    			startTurn();
@@ -270,7 +292,52 @@ public class MainLoop : MonoBehaviour
             unit.Kill();
         }
         outputQueue.Clear();
-
+        bool alldead = true;
+        foreach (Unit unit in enemyUnits)
+        {
+            if (!unit.dead)
+            {
+                alldead = false;
+                break;
+            } 
+        }
+        if (alldead)
+        {
+            Stats = GameObject.Find("CurrentStats");
+            CurrentStats currStats = Stats.GetComponent<CurrentStats>();
+            foreach (Friendly friend in playerUnits)
+            {
+                switch (friend.name)
+                {
+                    case "Beverly":
+                        if (friend.hp == 0)
+                            friend.hp = 1;
+                        currStats.BeverlyHealth = friend.hp;
+                        break;
+                    case "Jade":
+                        if (friend.hp == 0)
+                            friend.hp = 1;
+                        currStats.JadeHealth = friend.hp;
+                        break;
+                    case "Koralie":
+                        if (friend.hp == 0)
+                            friend.hp = 1;
+                        currStats.KoralieHealth = friend.hp;
+                        break;
+                    case "Seraphim":
+                        if (friend.hp == 0)
+                            friend.hp = 1;
+                        currStats.SeraphimHealth = friend.hp;
+                        break;
+                    case "Amery":
+                        if (friend.hp == 0)
+                            friend.hp = 1;
+                        currStats.AmeryHealth = friend.hp;
+                        break;
+                }
+            }
+            SceneManager.UnloadSceneAsync(sceneName);
+        }
         
-   	}
+    }
 }
