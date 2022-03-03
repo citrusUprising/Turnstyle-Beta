@@ -993,7 +993,7 @@ public class Temp21 : Ability
         this.text = "Inflicts target with Weaken for 2 turns";//flag
         this.multitarget = false;
         this.selftarget = false;
-        this.allies = true;
+        this.allies = false;
     }
 
     public override void effect(Unit target, Unit source, MainLoop L)
