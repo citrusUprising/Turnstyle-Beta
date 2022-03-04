@@ -165,7 +165,7 @@ public class Unit : MonoBehaviour
         }
         if(this.queuedAction.speed < 0){
             this.hp = Math.Max(this.hp - (this.hp/5), 0);
-            gameLoop.outputQueue.Add(this.unitName + " took "+(this.hp/5)+" damage from exhaustion");
+            gameLoop.outputQueue.Add(this.unitName + " took "+(this.maxHP/5)+" damage from exhaustion");
         }
         this.fatigue += 1;
         

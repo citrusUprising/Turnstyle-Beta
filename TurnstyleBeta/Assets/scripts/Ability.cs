@@ -228,7 +228,7 @@ public class Imbibe : Ability
     public Imbibe()
     {
         this.name = "Imbibe";
-        this.text = "Give self Haste (5) and Weakened for 2 turns";//flag
+        this.text = "Give self Haste (3) and Weakened for 2 turns";//flag
         this.multitarget = false;
         this.selftarget = true;
         this.allies = false;
@@ -237,7 +237,7 @@ public class Imbibe : Ability
     public override void effect(Unit target, Unit source, MainLoop L)
     {
         //L.outputQueue.Add(source.unitName +" imbibed coffee");
-        target.applyStatus(StatusType.Buff,StatusName.Haste, 2, 5);
+        target.applyStatus(StatusType.Buff,StatusName.Haste, 2, 3);
         target.applyStatus(StatusType.Debuff,StatusName.Weakened, 2, 0);
     }
 
@@ -993,7 +993,7 @@ public class Temp21 : Ability
         this.text = "Inflicts target with Weaken for 2 turns";//flag
         this.multitarget = false;
         this.selftarget = false;
-        this.allies = true;
+        this.allies = false;
     }
 
     public override void effect(Unit target, Unit source, MainLoop L)

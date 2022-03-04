@@ -723,6 +723,13 @@ public class combatController : MonoBehaviour
     //       3. change text of the speedSelectBox to match the current move 
     void transitionToSpeedSelect()
     {
+        /*int speedMinus = nameTagArray[0].GetComponent<nameTag>().character.GetComponent<Unit>().fatigue;
+        int speedPlus = 0;
+        //checks if Unit has haste and if so adds magnitude to speed indicator
+        if(nameTagArray[0].GetComponent<nameTag>()
+            .character.GetComponent<Unit>().statuses[(int)StatusType.Buff].name == StatusName.Haste)
+            speedPlus = nameTagArray[0].GetComponent<nameTag>().character.GetComponent<Unit>().statuses[(int)StatusType.Buff].magnitude;
+        */
         setPreviousState();
         state = "speedSelect";
         Destroy(currentDrawnBox);
@@ -747,6 +754,11 @@ public class combatController : MonoBehaviour
         bottomSquare = currentDrawnBox.transform.GetChild(3).gameObject;
         speedSelectTextObject = currentDrawnBox.transform.GetChild(0).gameObject;
 
+        int hasteSpeed = 0;
+            if(nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Unit>().statuses[(int)StatusType.Buff].name == StatusName.Haste)
+            hasteSpeed = nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Unit>().statuses[(int)StatusType.Buff].magnitude;
+        int tempSpeed = hasteSpeed - nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Unit>().fatigue;;
+        speedSelectTextObject.GetComponent<TextMeshProUGUI>().text = tempSpeed.ToString();
         speedForCurrentMove = 0;
     }
 
@@ -774,7 +786,17 @@ public class combatController : MonoBehaviour
 
 
             // update the speed shown on the speedSelectBox to show the speed that is being put into the currently selected move
-            speedSelectTextObject.GetComponent<TextMeshProUGUI>().text = speedForCurrentMove.ToString();
+            //grabs magnitude of current Haste
+            int hasteSpeed = 0;
+            if(nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Unit>().statuses[(int)StatusType.Buff].name == StatusName.Haste)
+            hasteSpeed = nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Unit>().statuses[(int)StatusType.Buff].magnitude;
+
+            //creates variable, accounting for current speed, haste boost, and fatigue penalty
+            int truSpeed = speedForCurrentMove 
+            + hasteSpeed
+            - nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Unit>().fatigue;
+            
+            speedSelectTextObject.GetComponent<TextMeshProUGUI>().text = truSpeed.ToString();
 
             // changes the total speed display
             totalSpeedIndicator1.currentDisplayedSpeed = totalSpeedThisTurn;
