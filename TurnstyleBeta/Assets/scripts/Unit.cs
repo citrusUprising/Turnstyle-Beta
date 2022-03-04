@@ -341,7 +341,9 @@ public class Unit : MonoBehaviour
             this.statuses[(int) type].name = newStatus;
             this.statuses[(int) type].duration = duration;
             this.statuses[(int) type].magnitude = magnitude;
-            gameLoop.outputQueue.Add(this.unitName + " has " + newStatus);
+            String test = newStatus.ToString();
+            if(test.Contains("ed")||test == "Vulnerable")gameLoop.outputQueue.Add(this.unitName + " is " + newStatus);
+            else gameLoop.outputQueue.Add(this.unitName + " has " + newStatus);
             
         }
     }
@@ -356,7 +358,9 @@ public class Unit : MonoBehaviour
                 Debug.Log(s.name+" has "+s.duration+" turns left");
                 if(s.duration == 0)
                 {
-                    gameLoop.outputQueue.Add(this.unitName + "'s " + s.name + " wore off");
+                    String test = s.name.ToString();
+                    if(test.Contains("ed")||test == "Vulnerable")gameLoop.outputQueue.Add(this.unitName + " is no longer " + s.name);
+                    else gameLoop.outputQueue.Add(this.unitName + "'s " + s.name + " wore off");
                     s.name = StatusName.None;
                 }
             }
