@@ -60,7 +60,10 @@ public class CameraController : MonoBehaviour
             if (currentStation.hasCombat)
             {
                 //StartCoroutine(loadScene(currentStation.combatSceneName));
-                SceneManager.LoadScene(currentStation.combatSceneName, LoadSceneMode.Additive);
+                GameObject Stats = GameObject.Find("CurrentStats");
+                CurrentStats currStats = Stats.GetComponent<CurrentStats>();
+                currStats.CurrentEnemies = currentStation.Enemies;
+                SceneManager.LoadScene("combatScene", LoadSceneMode.Additive);
                 currentStation.hasCombat = false;
             }
         }

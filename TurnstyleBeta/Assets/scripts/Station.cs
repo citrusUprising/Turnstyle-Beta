@@ -7,7 +7,7 @@ public class Station : MonoBehaviour
     public Station[] destinations;
     public Color line;
     public bool hasCombat;
-    public string combatSceneName;
+    public string[] Enemies;
 
     // Start is called before the first frame update
     void Start()

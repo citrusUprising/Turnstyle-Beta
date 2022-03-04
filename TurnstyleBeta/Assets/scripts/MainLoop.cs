@@ -29,8 +29,7 @@ public class MainLoop : MonoBehaviour
 
     public GameObject uiController;
     GameObject Stats;
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         Stats = GameObject.Find("CurrentStats");
         CurrentStats currStats = Stats.GetComponent<CurrentStats>();
@@ -38,8 +37,9 @@ public class MainLoop : MonoBehaviour
         playerUnits = new Friendly[friendlies.Length];
         enemyUnits = new Enemy[enemies.Length];
         //get the scripts on units
-        for (int i = 0; i < friendlies.Length; i++){
-        	playerUnits[i] = friendlies[i].GetComponent<Friendly>();
+        for (int i = 0; i < friendlies.Length; i++)
+        {
+            playerUnits[i] = friendlies[i].GetComponent<Friendly>();
             switch (playerUnits[i].name)
             {
                 case "Beverly":
@@ -59,8 +59,10 @@ public class MainLoop : MonoBehaviour
                     break;
             }
         }
-        for (int i = 0; i < enemies.Length; i++){
-        	enemyUnits[i] = enemies[i].GetComponent<Enemy>();
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            enemyUnits[i] = enemies[i].GetComponent<Enemy>();
+            enemyUnits[i].unitName = currStats.CurrentEnemies[i];
         }
         //Put the first 3 units into activeUnits, remainder in bench
         //Code is a bit awkward but could be worse
@@ -76,6 +78,11 @@ public class MainLoop : MonoBehaviour
         queuedActions = new List<Unit>();
         speedTotal = 12;
         outputQueue = new List<string>();
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
+        
     }
 
     // Update is called once per frame
