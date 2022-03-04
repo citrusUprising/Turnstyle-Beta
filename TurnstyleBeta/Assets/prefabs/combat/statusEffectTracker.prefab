@@ -299,18 +299,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6f763458b7dc2046baa188b5362848d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aegisSprite: {fileID: 21300000, guid: b69d5c50cfa949644b8fab84926935ca, type: 3}
+  aegisSprite: {fileID: 21300000, guid: ee59db074582b5e4e9504462f3f6fe43, type: 3}
   burnSprite: {fileID: 21300000, guid: e9e2809277eff5b4c811d8d50e51ec8e, type: 3}
-  distractedSprite: {fileID: 21300000, guid: 88e06b0c01d397042a5014aa38e94d1e, type: 3}
-  encumberedSprite: {fileID: 21300000, guid: 1d933531196b9494db42a55b398967f0, type: 3}
-  enragedSprite: {fileID: 21300000, guid: ac3abaabdbfa3594494a8cf8d008539b, type: 3}
+  distractedSprite: {fileID: 21300000, guid: 9b954d3d47cec6f4aa5eae05c855c334, type: 3}
+  encumberedSprite: {fileID: 21300000, guid: 5998c2aa525f842458c837e73b4faa03, type: 3}
+  enragedSprite: {fileID: 21300000, guid: 802db0b0ca08ef04fa0bdfe5082f9301, type: 3}
   flinchSprite: {fileID: 21300000, guid: f384d641a58ec0a469b4b3571b3740c2, type: 3}
   hasteSprite: {fileID: 21300000, guid: 92f25dbe33599ad41b16a56fc887fb88, type: 3}
   nullSprite: {fileID: 21300000, guid: 2add112afde33414abb6ba291614e1e0, type: 3}
   regenSprite: {fileID: 21300000, guid: d879b54fb9ad80c4fa54639d639fac0b, type: 3}
-  strungOutSprite: {fileID: 21300000, guid: e7f7c4ee9e0096344ad3af9b111effc6, type: 3}
+  strungOutSprite: {fileID: 21300000, guid: ff5e2d2b9ad1a3146aac220172d512f0, type: 3}
   noneSprite: {fileID: 21300000, guid: 21278ba09065b5a4db52029cdd4e0b7c, type: 3}
-  currentStatus: none
+  currentStatus: 0
   turnsLeft: 0
+  magnitude: 0
   kindOfStatus: 
   friendOrFoe: friend
+  tooltip: {fileID: 0}
+  nameTag: {fileID: 0}
