@@ -1170,8 +1170,8 @@ MonoBehaviour:
       Data4: 1461764757
     Path: event:/Music/MapTheme
   Event: 
-  PlayEvent: 1
-  StopEvent: 2
+  PlayEvent: 11
+  StopEvent: 12
   AllowFadeout: 1
   TriggerOnce: 0
   Preload: 0
@@ -1227,6 +1227,7 @@ MonoBehaviour:
   KoralieHealth: 20
   SeraphimHealth: 10
   AmeryHealth: 12
+  CurrentEnemies: []
 --- !u!4 &533350017
 Transform:
   m_ObjectHideFlags: 0
@@ -1379,6 +1380,22 @@ PrefabInstance:
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: combatSceneName
       value: combatScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: Enemies.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: Enemies.Array.data[0]
+      value: Pink
+      objectReference: {fileID: 0}
+    - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: Enemies.Array.data[1]
+      value: Red
+      objectReference: {fileID: 0}
+    - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: Enemies.Array.data[2]
+      value: Yellow
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: destinations.Array.size
@@ -2700,6 +2717,7 @@ MonoBehaviour:
   scale: {x: 2, y: 2, z: 2}
   transitionTime: 0.5
   transitionAnimator: {fileID: 343473117}
+  Music: {fileID: 490167745}
 --- !u!224 &1113270148 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9017956464396516356, guid: a3342c13ef0122547a47ee636bc14559, type: 3}
