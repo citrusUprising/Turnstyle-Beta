@@ -287,6 +287,13 @@ public class combatController : MonoBehaviour
                 else if (Input.GetKeyDown(KeyCode.Z))
                 {
                     //menuBack.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
+                    if(numberOfSelectedMoves == 0){
+                        transitionToRotate();
+                    }
+                    else{
+                        numberOfSelectedMoves--;
+                        transitionToMoveSelect();
+                    }
                 }
             }
 
@@ -314,6 +321,12 @@ public class combatController : MonoBehaviour
                     menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                     targetPointer.GetComponent<CanvasRenderer>().SetAlpha(0);
                     transitionToSpeedSelect();
+                }
+                else if (Input.GetKeyDown(KeyCode.Z))
+                {
+                    // possibly hide cursor here
+                    targetPointer.GetComponent<CanvasRenderer>().SetAlpha(0);
+                    transitionToMoveSelect();
                 }
             }
 
@@ -356,7 +369,8 @@ public class combatController : MonoBehaviour
                 // should go back to the target select and reset the speed that was set for that move
                 else if (Input.GetKeyDown(KeyCode.Z))
                 {
-
+                    selectedSpeeds[numberOfSelectedMoves] = 0;
+                    transitionToTargetSelect();
                 }
 
                 // changes the speed of the selected move up by one
