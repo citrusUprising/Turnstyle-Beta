@@ -15,6 +15,7 @@ public class CameraController : MonoBehaviour
     public Vector3 scale;
     public float transitionTime = .5f;
     public Animator transitionAnimator;
+    public GameObject Music;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +29,7 @@ public class CameraController : MonoBehaviour
         //Debug.Log("Actice Scene Count: " + SceneManager.sceneCount);
         if (SceneManager.sceneCount == 1) 
         {
+            Music.SetActive(true);
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 currentStation.destinations[currentLine].transform.localScale = new Vector3(1, 1, 1);
@@ -65,6 +67,7 @@ public class CameraController : MonoBehaviour
                 currStats.CurrentEnemies = currentStation.Enemies;
                 SceneManager.LoadScene("combatScene", LoadSceneMode.Additive);
                 currentStation.hasCombat = false;
+                Music.SetActive(false);
             }
         }
     }

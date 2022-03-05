@@ -93,7 +93,7 @@ public class titleScreen : MonoBehaviour
 
             if (selectedOption == 0)
             {
-                StartCoroutine(loadScene(1));
+                StartCoroutine(loadScene(2));
             }
 
             else if (selectedOption == 2)
@@ -104,7 +104,7 @@ public class titleScreen : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.N))
         {
-            StartCoroutine(loadScene(2));
+            StartCoroutine(loadScene(1));
         }
 
         pointer.transform.localPosition = new Vector3(
