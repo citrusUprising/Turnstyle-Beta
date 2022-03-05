@@ -199,7 +199,7 @@ public class Unit : MonoBehaviour
             gameLoop.outputQueue.Add(this.unitName + " died!");
             
         }
-        if(this.unitName.Equals("Jade")&&this.fatigue < 2&&this.isActive&& !this.dead){
+        if(this.unitName.Equals("Jade")&&this.fatigue < 1&&this.isActive&& !this.dead){
             foreach(GameObject o in this.allies){
                 Unit temp = o.GetComponent<Unit>();
                 if(temp.statuses[(int)StatusType.Debuff].name != StatusName.None &&
@@ -212,33 +212,39 @@ public class Unit : MonoBehaviour
             }
         }
         if(this.unitName.Equals("Amery")&&this.isActive&& !this.dead){
-            gameLoop.outputQueue.Add("This ability is under construction"); //flag
-            /*bool fullHealth = true;
+            gameLoop.outputQueue.Add("Amery delegated health");
+            bool fullHealth = true;
             Unit highest;
             int highestHP = 0;
             Unit lowest;
             int lowestHP = 21;
 
             foreach(GameObject o in this.allies){
-                if (o.hp < o.maxHP){
+                Unit u = o.GetComponent<Unit>();
+                if (u.hp < u.maxHP&&u.isActive){
                     fullHealth = false;
                     break;
                     }
                 }
-            if (!fullHealth){
+            if (!fullHealth){//flag
+                lowest = new Unit("null",new StatusName[0],new Ability[0], 0);
+                highest = new Unit("null",new StatusName[0],new Ability[0], 0);
                 foreach(GameObject o in this.allies){
-                    if(o.hp > highestHP){
-                        highest = o;
-                        highestHP = o.hp;
+                    Unit u = o.GetComponent<Unit>();
+                    if(u.hp > highestHP&&u.isActive){
+                        highest = u;
+                        highestHP = u.hp;
                         }
-                    if(o.hp < lowestHP){
-                        lowest = o;
-                        lowestHP = o.hp;
+                    if(u.hp < lowestHP&&u.isActive){
+                        lowest = u;
+                        lowestHP = u.hp;
                         }
                     }
-                lowest.healSelf(4);
-                highest.hp = Math.Min(highest.hp-4, highest.maxHP);
-                }*/
+                        int transfer = Math.Min(4, lowest.maxHP-lowest.hp);
+                        highest.hp = Math.Max(highest.hp-transfer, 0);
+                        gameLoop.outputQueue.Add(highest.unitName+" gave "+transfer+" health");
+                        lowest.healSelf(transfer);
+                }
             }
         
     }
