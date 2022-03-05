@@ -2,9 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Enemy : Unit
 {
+
+    private float hpPercent;
+
+    public GameObject healthBar;
+
     public Enemy(string name, StatusName[] immunity, Ability[] abilities, int hp) : base(name, immunity, abilities, hp)
     {
         
@@ -118,7 +124,9 @@ public class Enemy : Unit
     // Update is called once per frame
     void Update()
     {
+        hpPercent = (float)hp / (float)maxHP;
 
+        healthBar.GetComponent<Image>().fillAmount = hpPercent;
     }
 
 
