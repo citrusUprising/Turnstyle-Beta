@@ -212,12 +212,7 @@ public class Unit : MonoBehaviour
             }
         }
         if(this.unitName.Equals("Amery")&&this.isActive&& !this.dead){
-            gameLoop.outputQueue.Add("Amery delegated health");
             bool fullHealth = true;
-            Unit highest;
-            int highestHP = 0;
-            Unit lowest;
-            int lowestHP = 21;
 
             foreach(GameObject o in this.allies){
                 Unit u = o.GetComponent<Unit>();
@@ -227,8 +222,11 @@ public class Unit : MonoBehaviour
                     }
                 }
             if (!fullHealth){//flag
-                lowest = new Unit("null",new StatusName[0],new Ability[0], 0);
-                highest = new Unit("null",new StatusName[0],new Ability[0], 0);
+                gameLoop.outputQueue.Add("Amery delegated health");
+                Unit highest = new Unit("null",new StatusName[0],new Ability[0], 0);
+                int highestHP = 0;
+                Unit lowest = new Unit("null",new StatusName[0],new Ability[0], 0);
+                int lowestHP = 21;
                 foreach(GameObject o in this.allies){
                     Unit u = o.GetComponent<Unit>();
                     if(u.hp > highestHP&&u.isActive){
