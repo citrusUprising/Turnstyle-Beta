@@ -156,7 +156,7 @@ public class Mitigate : Ability
     public Mitigate()
     {
         this.name = "Mitigate";
-        this.text = "Give ally Regen (4) for 3 turns";
+        this.text = "Give ally Regen (4) for 2 turns";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = true;
@@ -164,7 +164,7 @@ public class Mitigate : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        target.applyStatus(StatusType.Health, StatusName.Regeneration, 3, 4);
+        target.applyStatus(StatusType.Health, StatusName.Regeneration, 2, 4);
     }
 
     public override bool requirement(Unit target, Unit source)
@@ -322,7 +322,7 @@ public class Rally : Ability
     public Rally()
     {
         this.name = "Rally";
-        this.text = "Heal an ally for 9 damage and deal 3 damage to user";
+        this.text = "Heal an ally for 8 damage and deal 4 damage to user";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = true;
@@ -330,8 +330,9 @@ public class Rally : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        source.hp = Math.Min(source.hp-3, source.maxHP);
-        target.healSelf(9);
+        source.hp = Math.Min(source.hp-4, source.maxHP);
+        L.outputQueue.Add(source.unitName+" sacrificed 4 health");
+        target.healSelf(8);
     }
 
     public override bool requirement(Unit target, Unit source)
@@ -516,11 +517,11 @@ public class Hunker : Ability
     }
 }
 
-public class Temp01 : Ability
+public class FlamingRing : Ability
 {
-    public Temp01()
+    public FlamingRing()
     {
-        this.name = "Temp01";
+        this.name = "Flaming Ring";
         this.text = "Inflict Target with either Burn (8) for 1 turn or Burn (2) for 5 turns";
         this.multitarget = false;
         this.selftarget = false;
@@ -543,11 +544,11 @@ public class Temp01 : Ability
     }
 }
 
-public class Temp02 : Ability
+public class Tackle : Ability
 {
-    public Temp02()
+    public Tackle()
     {
-        this.name = "Temp02";
+        this.name = "Tackle";
         this.text = "Deal 6 damage to a target";
         this.multitarget = false;
         this.selftarget = false;
@@ -565,11 +566,11 @@ public class Temp02 : Ability
     }
 }
 
-public class Temp03 : Ability
+public class PollenCloud : Ability
 {
-    public Temp03()
+    public PollenCloud()
     {
-        this.name = "Temp03";
+        this.name = "Pollen Cloud";
         this.text = "Deal 1 damage to all enemies. 50% to inflict Fatigue Up";//flag
         this.multitarget = true;
         this.selftarget = false;
@@ -589,11 +590,11 @@ public class Temp03 : Ability
     }
 }
 
-public class Temp04 : Ability
+public class Reflect : Ability
 {
-    public Temp04()
+    public Reflect()
     {
-        this.name = "Temp04";
+        this.name = "Reflect";
         this.text = "Deals damage to a target equal to half the user's accrued damage.";
         this.multitarget = false;
         this.selftarget = false;
@@ -613,11 +614,11 @@ public class Temp04 : Ability
     }
 }
 
-public class Temp05 : Ability
+public class Ingrain : Ability
 {
-    public Temp05()
+    public Ingrain()
     {
-        this.name = "Temp05";
+        this.name = "Ingrain";
         this.text = "50% chance give all allies Regen (1) for 5 turns";
         this.multitarget = true;
         this.selftarget = false;
@@ -636,11 +637,11 @@ public class Temp05 : Ability
     }
 }
 
-public class Temp06 : Ability
+public class Unionize : Ability
 {
-    public Temp06()
+    public Unionize()
     {
-        this.name = "Temp06";
+        this.name = "Unionize";
         this.text = "Grants party Shielded for 1 turn";//flag
         this.multitarget = true;
         this.selftarget = false;
@@ -658,11 +659,11 @@ public class Temp06 : Ability
     }
 }
 
-public class Temp07 : Ability
+public class Penetrate : Ability
 {
-    public Temp07()
+    public Penetrate()
     {
-        this.name = "Temp07";
+        this.name = "Penetrate";
         this.text = "Deal 6 damage to a target, ignoring Buffs and Debuffs. This cannot miss.";
         this.multitarget = false;
         this.selftarget = false;
@@ -680,11 +681,11 @@ public class Temp07 : Ability
     }
 }
 
-public class Temp08 : Ability
+public class Ridicule : Ability
 {
-    public Temp08()
+    public Ridicule()
     {
-        this.name = "Temp08";
+        this.name = "Ridicule";
         this.text = "Deal 2 damage to a target and inflict Weakened for 2 turns";//flag
         this.multitarget = false;
         this.selftarget = false;
@@ -703,11 +704,11 @@ public class Temp08 : Ability
     }
 }
 
-public class Temp09 : Ability
+public class Flagellate : Ability
 {
-    public Temp09()
+    public Flagellate()
     {
-        this.name = "Temp09";
+        this.name = "Flagellate";
         this.text = "Deal 2 damage to a target. If the target has a buff, removes the buff. Otherwise deals 2 more damage.";
         this.multitarget = false;
         this.selftarget = false;
@@ -733,11 +734,11 @@ public class Temp09 : Ability
     }
 }
 
-public class Temp10 : Ability
+public class Withhold : Ability
 {
-    public Temp10()
+    public Withhold()
     {
-        this.name = "Temp10";
+        this.name = "Withhold";
         this.text = "Inflict a target with Flinch";
         this.multitarget = false;
         this.selftarget = false;
@@ -755,11 +756,11 @@ public class Temp10 : Ability
     }
 }
 
-public class Temp11 : Ability
+public class Cleave : Ability
 {
-    public Temp11()
+    public Cleave()
     {
-        this.name = "Temp11";
+        this.name = "Cleave";
         this.text = "Halve a target's health";
         this.multitarget = false;
         this.selftarget = false;
@@ -778,11 +779,11 @@ public class Temp11 : Ability
     }
 }
 
-public class Temp12 : Ability
+public class Startle : Ability
 {
-    public Temp12()
+    public Startle()
     {
-        this.name = "Temp12";
+        this.name = "Startle";
         this.text = "50% chance to inflict all enemies with Vulnerable for 2 turns";//flag
         this.multitarget = true;
         this.selftarget = false;
@@ -801,11 +802,11 @@ public class Temp12 : Ability
     }
 }
 
-public class Temp13 : Ability
+public class Enrage : Ability
 {
-    public Temp13()
+    public Enrage()
     {
-        this.name = "Temp13";
+        this.name = "Enrage";
         this.text = "Grant an ally Strengthened for 2 turns";//flag
         this.multitarget = false;
         this.selftarget = false;
@@ -823,11 +824,11 @@ public class Temp13 : Ability
     }
 }
 
-public class Temp14 : Ability
+public class SweepingStrike : Ability
 {
-    public Temp14()
+    public SweepingStrike()
     {
-        this.name = "Temp14";
+        this.name = "Sweeping Strike";
         this.text = "Deal 1 damage to all enemies";
         this.multitarget = true;
         this.selftarget = false;
@@ -845,11 +846,11 @@ public class Temp14 : Ability
     }
 }
 
-public class Temp15 : Ability
+public class Embolden : Ability
 {
-    public Temp15()
+    public Embolden()
     {
-        this.name = "Temp15";
+        this.name = "Embolden";
         this.text = "Give self Strengthened for 2 turns";//flag
         this.multitarget = false;
         this.selftarget = true;
@@ -867,11 +868,11 @@ public class Temp15 : Ability
     }
 }
 
-public class Temp16 : Ability
+public class OverExtend : Ability
 {
-    public Temp16()
+    public OverExtend()
     {
-        this.name = "Temp16";
+        this.name = "Over-Extend";
         this.text = "Hit all enemies for 3 damage, give self Vulnerable for 1 turn";//flag
         this.multitarget = true;
         this.selftarget = false;
@@ -890,11 +891,11 @@ public class Temp16 : Ability
     }
 }
 
-public class Temp17 : Ability
+public class SelfDestruct : Ability
 {
-    public Temp17()
+    public SelfDestruct()
     {
-        this.name = "Temp17";
+        this.name = "Self-Destruct";
         this.text = "Give target and self Burn (7) for 1 turn";
         this.multitarget = false;
         this.selftarget = false;
@@ -913,11 +914,11 @@ public class Temp17 : Ability
     }
 }
 
-public class Temp18 : Ability
+public class Reinforce : Ability
 {
-    public Temp18()
+    public Reinforce()
     {
-        this.name = "Temp18";
+        this.name = "Reinforce";
         this.text = "Give an ally Regen (1) for 5 turns";
         this.multitarget = false;
         this.selftarget = false;
@@ -935,11 +936,11 @@ public class Temp18 : Ability
     }
 }
 
-public class Temp19 : Ability
+public class Accelerate : Ability
 {
-    public Temp19()
+    public Accelerate()
     {
-        this.name = "Temp19";
+        this.name = "Accelerate";
         this.text = "Give an ally Haste (2) for 2 turns";
         this.multitarget = false;
         this.selftarget = false;
@@ -957,11 +958,11 @@ public class Temp19 : Ability
     }
 }
 
-public class Temp20 : Ability
+public class Habituate : Ability
 {
-    public Temp20()
+    public Habituate()
     {
-        this.name = "Temp20";
+        this.name = "Habituate";
         this.text = "Cure an ally of debuffs, then inflict them with Null for 1 turn";
         this.multitarget = false;
         this.selftarget = false;
@@ -985,11 +986,11 @@ public class Temp20 : Ability
     }
 }
 
-public class Temp21 : Ability
+public class Inhibit : Ability
 {
-    public Temp21()
+    public Inhibit()
     {
-        this.name = "Temp21";
+        this.name = "Inhibit";
         this.text = "Inflicts target with Weaken for 2 turns";//flag
         this.multitarget = false;
         this.selftarget = false;
@@ -1007,11 +1008,11 @@ public class Temp21 : Ability
     }
 }
 
-public class Temp22 : Ability
+public class Venom : Ability
 {
-    public Temp22()
+    public Venom()
     {
-        this.name = "Temp22";
+        this.name = "Venom";
         this.text = "Inflicts target with Vulnerable for 1 turn";//flag
         this.multitarget = false;
         this.selftarget = false;

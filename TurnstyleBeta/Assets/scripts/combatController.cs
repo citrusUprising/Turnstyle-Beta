@@ -183,7 +183,7 @@ public class combatController : MonoBehaviour
 
         // init each player's moves here ⬇ this code is ugly but it works
         nameTagArray[0].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Smolder(), new Dazzle(), new Imbibe()}; 
-        nameTagArray[1].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Mitigate(), new Fallguy(), new Scrum()};
+        nameTagArray[1].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Mitigate(), new Unionize(), new Scrum()};
         nameTagArray[2].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Repel(), new Hunker(), new Crush()};
         nameTagArray[3].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Stunnerclap(), new Rally(), new Motivate()};
         nameTagArray[4].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Soulrip(), new Scry(), new Slump()};

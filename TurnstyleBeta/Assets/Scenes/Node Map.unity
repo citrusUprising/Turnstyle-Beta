@@ -421,15 +421,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.data[0]
-      value: Green
+      value: Sacrifice
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.data[1]
-      value: Support A
+      value: Enabling A
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.data[2]
-      value: Support B
+      value: Enabling B
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: destinations.Array.size
@@ -718,15 +718,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.data[0]
-      value: Support
+      value: Enabling
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.data[1]
-      value: Trickster
+      value: Doubt
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.data[2]
-      value: Beefy
+      value: Refusal
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: destinations.Array.size
@@ -1047,11 +1047,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.data[0]
-      value: Beefy
+      value: Refusal
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.data[1]
-      value: Pink
+      value: Panic
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.data[2]
@@ -1176,15 +1176,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.data[0]
-      value: Green
+      value: Sacrifice
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.data[1]
-      value: Fragile
+      value: Frailty
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.data[2]
-      value: Basic
+      value: Lethargy
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: destinations.Array.size
@@ -1459,11 +1459,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.data[0]
-      value: Yellow A
+      value: Appeasement A
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.data[1]
-      value: Yellow B
+      value: Appeasement B
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.data[2]
@@ -3607,15 +3607,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.data[0]
-      value: Blue
+      value: Reflection
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.data[1]
-      value: Fragile A
+      value: Frailty A
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.data[2]
-      value: Fragile B
+      value: Frailty B
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: destinations.Array.size
@@ -3978,15 +3978,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.data[0]
-      value: Red
+      value: Spite
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.data[1]
-      value: Trickster
+      value: Doubt
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.data[2]
-      value: Beefy
+      value: Refusal
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: destinations.Array.size
@@ -4277,11 +4277,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.data[0]
-      value: Basic A
+      value: Lethargy A
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.data[1]
-      value: Basic B
+      value: Lethargy B
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.data[2]
@@ -4983,11 +4983,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.data[0]
-      value: Blue
+      value: Reflection
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.data[1]
-      value: Trickster
+      value: Doubt
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.data[2]
@@ -5348,15 +5348,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.data[0]
-      value: Pink
+      value: Panic
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.data[1]
-      value: Basic A
+      value: Lethargy A
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.data[2]
-      value: Basic B
+      value: Lethargy B
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: destinations.Array.size
@@ -5497,15 +5497,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.data[0]
-      value: Beefy
+      value: Refusal
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.data[1]
-      value: Fragile A
+      value: Frailty A
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.data[2]
-      value: Fragile B
+      value: Frailty B
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: destinations.Array.size
@@ -5756,15 +5756,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.data[0]
-      value: Yellow
+      value: Appeasement
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.data[1]
-      value: Red
+      value: Spite
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.data[2]
-      value: Fragile
+      value: Frailty
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: destinations.Array.size

@@ -173,6 +173,23 @@ public class Unit : MonoBehaviour
 
     public void turnEnd()
     {
+        if(this.tag == "Enemy"){
+            foreach(Status s in this.statuses)
+            {
+                if(s.duration > 0)
+                {
+                    s.duration -= 1;
+                    Debug.Log(s.name+" has "+s.duration+" turns left");
+                    if(s.duration == 0)
+                    {
+                        String test = s.name.ToString();
+                        if(test.Contains("ed")||test == "Vulnerable")gameLoop.outputQueue.Add(this.unitName + " is no longer " + s.name);
+                        else gameLoop.outputQueue.Add(this.unitName + "'s " + s.name + " wore off");
+                        s.name = StatusName.None;
+                    }
+                }
+            }
+        }
         //gameLoop.outputQueue.Add(this.unitName + " has ended their turn");
         Debug.Log(this.unitName + " has ended their turn");
         //Debug.Log("queuedAction.ability.name: " + this.queuedAction.ability.name);
@@ -187,10 +204,12 @@ public class Unit : MonoBehaviour
         if(this.statuses[(int) StatusType.Health].name == StatusName.Regeneration)
         {
             this.hp = Math.Min(this.hp + this.statuses[(int) StatusType.Health].magnitude, this.maxHP);
+            gameLoop.outputQueue.Add(this.unitName+" regenerated health");
         }
         if(this.statuses[(int) StatusType.Health].name == StatusName.Burn)
         {
             this.hp = Math.Max(0, this.hp - this.statuses[(int) StatusType.Health].magnitude);
+            gameLoop.outputQueue.Add(this.unitName+" was hurt by their "+StatusName.Burn);
         }
         if(this.hp <= 0 && !this.dead)
         { //I have replaced the queue with just printing to the debug log for the moment
@@ -222,7 +241,6 @@ public class Unit : MonoBehaviour
                     }
                 }
             if (!fullHealth){//flag
-                gameLoop.outputQueue.Add("Amery delegated health");
                 Unit highest = new Unit("null",new StatusName[0],new Ability[0], 0);
                 int highestHP = 0;
                 Unit lowest = new Unit("null",new StatusName[0],new Ability[0], 0);
@@ -239,9 +257,12 @@ public class Unit : MonoBehaviour
                         }
                     }
                         int transfer = Math.Min(4, lowest.maxHP-lowest.hp);
-                        highest.hp = Math.Max(highest.hp-transfer, 0);
-                        gameLoop.outputQueue.Add(highest.unitName+" gave "+transfer+" health");
-                        lowest.healSelf(transfer);
+                        if(transfer >0){
+                            gameLoop.outputQueue.Add("Amery delegated health");
+                            highest.hp = Math.Max(highest.hp-transfer, 0);
+                            gameLoop.outputQueue.Add(highest.unitName+" gave "+transfer+" health");
+                            lowest.healSelf(transfer);
+                        }
                 }
             }
         
@@ -254,6 +275,7 @@ public class Unit : MonoBehaviour
             if(this.unitName.Equals("Koralie"))
             {
                 this.statuses[(int) StatusType.Health].name = StatusName.None;
+                this.statuses[(int)StatusType.Health].magnitude = 0;
             }
             this.isActive = true;
             Debug.Log(this.unitName + " has become active");
@@ -273,6 +295,7 @@ public class Unit : MonoBehaviour
             if(this.unitName == "Koralie")
             {
                 this.statuses[(int) StatusType.Health].name = StatusName.Regeneration;
+                this.statuses[(int)StatusType.Health].magnitude = 3;
             }
             this.isActive = false;
             Debug.Log(this.unitName + " has become inactive");
