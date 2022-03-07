@@ -30,7 +30,9 @@ public class LineDrawer : MonoBehaviour
         render.positionCount = stations.Length;
         for(int i = 0; i < stations.Length; i++)
         {
-            render.SetPosition(i, stations[i].transform.position + offset);
+            Debug.Log(lineColor + " Station " + i + ": " + stations[i].transform.position);
+            Vector3 vector = stations[i].transform.position + offset;
+            render.SetPosition(i, vector);
         }
     }
     // Update is called once per frame
