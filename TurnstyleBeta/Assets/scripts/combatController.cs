@@ -643,7 +643,7 @@ public class combatController : MonoBehaviour
         }
         
         selectedUnit = nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>();
-        actions[numberOfSelectedMoves] += selectedUnit.name+ ": ";
+        actions[numberOfSelectedMoves] += selectedUnit.name+ ": ";//flag
 
         // this needs to be put back in once the friendly objects are properly put into the nameTags
         //gameLoop.setActiveUnits(rotationState);
