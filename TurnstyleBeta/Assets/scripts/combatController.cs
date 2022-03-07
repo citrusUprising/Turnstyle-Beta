@@ -621,7 +621,8 @@ public class combatController : MonoBehaviour
             numberOfSelectedMoves++;
             if (numberOfSelectedMoves == 3)
             {
-                break;
+                transitionToConfirm();
+                return;
             }
         }
         // 🎨 setting draw box color & move names 
