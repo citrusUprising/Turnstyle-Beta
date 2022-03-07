@@ -168,6 +168,7 @@ public class Unit : MonoBehaviour
             gameLoop.outputQueue.Add(this.unitName + " took "+(this.maxHP/5)+" damage from exhaustion");
         }
         this.fatigue += 1;
+        if(this.statuses[(int)StatusType.Debuff].name == StatusName.FatigueUP) this.fatigue += 1;
         
     }
 

@@ -73,13 +73,17 @@ public class statusTooltip : MonoBehaviour
 
             gameObject.SetActive(true);
 
-            if (turnsLeft > 1)
-            {
-                turnsLeftText = turnsLeft.ToString() + " Turns";
-            }
-            else
-            {
-                turnsLeftText = turnsLeft.ToString() + " Turn";
+            if(statusEffect != (int)StatusName.FatigueUP){
+                if (turnsLeft > 1)
+                {
+                    turnsLeftText = turnsLeft.ToString() + " Turns";
+                }
+                else
+                {
+                    turnsLeftText = turnsLeft.ToString() + " Turn";
+                }
+            }else{
+                turnsLeftText = "";
             }
 
             text =
