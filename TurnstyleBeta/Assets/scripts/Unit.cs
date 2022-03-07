@@ -156,7 +156,7 @@ public class Unit : MonoBehaviour
         }
         else
         {
-            if(!this.queuedAction.target.dead){
+            if(!this.queuedAction.target.dead || this.queuedAction.ability.name == "Rally" || this.queuedAction.ability.name == "Mitigate"){
                 gameLoop.outputQueue.Add(this.unitName + " used " + this.queuedAction.ability.name + "!");
                 this.queuedAction.ability.effect(this.queuedAction.target, this, gameLoop);
             }
