@@ -1454,6 +1454,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: cutscene
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: standard
       value: 
       objectReference: {fileID: 21300000, guid: 6172e0aba30c2d04aa67f2f41d0d1d8d, type: 3}
@@ -2760,6 +2764,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: line.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: cutscene
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}

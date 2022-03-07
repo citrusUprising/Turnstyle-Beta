@@ -14,6 +14,7 @@ public class Station : MonoBehaviour
     public Sprite standard;
     public Sprite encounter;
     public Sprite hardEncounter;
+    public int cutscene = 0;
 
     // Start is called before the first frame update
     void Start()
