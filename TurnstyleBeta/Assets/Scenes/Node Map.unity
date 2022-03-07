@@ -416,6 +416,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: hasHardMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -1168,6 +1172,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: line.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: hasHardMode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
@@ -3614,6 +3622,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: hasHardMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -3982,6 +3994,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: line.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: hasHardMode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
@@ -5355,6 +5371,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: hasCombat
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: hasHardMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -5760,6 +5784,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: line.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: hasCombat
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: hasHardMode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}

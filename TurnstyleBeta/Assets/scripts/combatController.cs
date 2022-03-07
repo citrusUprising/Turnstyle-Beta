@@ -316,11 +316,14 @@ public class combatController : MonoBehaviour
                     changeSelectedTarget(1, selectedAbility.allies);
                 }
                 // when the X key is pressed, we need to go to selecting speed
-                if (Input.GetKeyDown(KeyCode.X))
+                if (Input.GetKeyDown(KeyCode.X)&&!selectedTarget.dead)
                 {
                     menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                     targetPointer.GetComponent<CanvasRenderer>().SetAlpha(0);
                     transitionToSpeedSelect();
+                }
+                else if(Input.GetKeyDown(KeyCode.X)){
+                    speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX //flag
                 }
                 else if (Input.GetKeyDown(KeyCode.Z))
                 {
