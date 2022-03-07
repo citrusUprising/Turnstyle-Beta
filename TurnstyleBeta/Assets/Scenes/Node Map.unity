@@ -302,6 +302,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Blue Station 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_TagString
+      value: Station
+      objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: line.b
       value: 1
@@ -411,8 +415,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Red Station 4
       objectReference: {fileID: 0}
+    - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_TagString
+      value: Station
+      objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: line.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: hasHardMode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
@@ -703,6 +715,10 @@ PrefabInstance:
     - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: m_Name
       value: Green Station 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_TagString
+      value: Station
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: line.b
@@ -1033,6 +1049,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Green Station 6
       objectReference: {fileID: 0}
+    - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_TagString
+      value: Station
+      objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: line.b
       value: 1
@@ -1166,8 +1186,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pink Station 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_TagString
+      value: Station
+      objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: line.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: hasHardMode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
@@ -1441,6 +1469,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange Station 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_TagString
+      value: Station
+      objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: line.b
       value: 1
@@ -1573,6 +1605,10 @@ PrefabInstance:
     - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: m_Name
       value: Green Station 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_TagString
+      value: Station
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: line.b
@@ -1724,6 +1760,10 @@ PrefabInstance:
     - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: m_Name
       value: Pink Station 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_TagString
+      value: Station
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: line.b
@@ -2023,6 +2063,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pink Station 4
       objectReference: {fileID: 0}
+    - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_TagString
+      value: Station
+      objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: line.b
       value: 1
@@ -2136,6 +2180,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Yellow Station 5
       objectReference: {fileID: 0}
+    - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_TagString
+      value: Station
+      objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: line.b
       value: 1
@@ -2244,6 +2292,10 @@ PrefabInstance:
     - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: m_Name
       value: Green Station 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_TagString
+      value: Station
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: line.b
@@ -2742,6 +2794,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Yellow Station 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_TagString
+      value: Station
+      objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: line.b
       value: 1
@@ -2890,6 +2946,7 @@ MonoBehaviour:
   transitionTime: 0.5
   transitionAnimator: {fileID: 343473117}
   Music: {fileID: 490167745}
+  hardModeOn: 0
 --- !u!224 &1113270148 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9017956464396516356, guid: a3342c13ef0122547a47ee636bc14559, type: 3}
@@ -2989,6 +3046,10 @@ PrefabInstance:
     - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: m_Name
       value: Green Station 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_TagString
+      value: Station
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: line.b
@@ -3135,6 +3196,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Red Station 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_TagString
+      value: Station
+      objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: line.b
       value: 1
@@ -3255,6 +3320,10 @@ PrefabInstance:
     - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: m_Name
       value: Pink Station 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_TagString
+      value: Station
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: line.b
@@ -3468,6 +3537,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Red Station 5
       objectReference: {fileID: 0}
+    - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_TagString
+      value: Station
+      objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: line.b
       value: 1
@@ -3593,6 +3666,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Green Station 5
       objectReference: {fileID: 0}
+    - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_TagString
+      value: Station
+      objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: line.b
       value: 1
@@ -3600,6 +3677,10 @@ PrefabInstance:
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: hasCombat
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: hasHardMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: Enemies.Array.size
@@ -3799,6 +3880,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Green Station 9
       objectReference: {fileID: 0}
+    - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_TagString
+      value: Station
+      objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: line.b
       value: 1
@@ -3968,8 +4053,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Yellow Station 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_TagString
+      value: Station
+      objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: line.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: hasHardMode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
@@ -4263,6 +4356,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Green Station 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_TagString
+      value: Station
+      objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: line.b
       value: 1
@@ -4399,6 +4496,10 @@ PrefabInstance:
     - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: m_Name
       value: Blue Station 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_TagString
+      value: Station
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: line.b
@@ -4544,6 +4645,10 @@ PrefabInstance:
     - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: m_Name
       value: Yellow Station 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_TagString
+      value: Station
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: line.b
@@ -4844,6 +4949,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Blue Station 4
       objectReference: {fileID: 0}
+    - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_TagString
+      value: Station
+      objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: line.b
       value: 1
@@ -4968,6 +5077,10 @@ PrefabInstance:
     - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: m_Name
       value: Pink Station 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_TagString
+      value: Station
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: line.b
@@ -5338,8 +5451,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Yellow Station 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_TagString
+      value: Station
+      objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: line.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: hasHardMode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
@@ -5482,6 +5603,10 @@ PrefabInstance:
     - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: m_Name
       value: Red Station 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_TagString
+      value: Station
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: line.b
@@ -5746,8 +5871,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Green Station 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_TagString
+      value: Station
+      objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: line.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: hasHardMode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
@@ -5899,6 +6032,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Red Station 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_TagString
+      value: Station
+      objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: line.b
       value: 1
@@ -6011,6 +6148,10 @@ PrefabInstance:
     - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: m_Name
       value: Blue Station 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_TagString
+      value: Station
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: line.b
@@ -6165,6 +6306,10 @@ PrefabInstance:
     - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: m_Name
       value: Pink Station 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_TagString
+      value: Station
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: line.b

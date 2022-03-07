@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ally
   - Enemy
+  - Station
   layers:
   - Default
   - TransparentFX

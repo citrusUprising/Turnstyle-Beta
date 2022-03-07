@@ -16,6 +16,7 @@ public class CameraController : MonoBehaviour
     public float transitionTime = .5f;
     public Animator transitionAnimator;
     public GameObject Music;
+    public bool hardModeOn;
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +31,7 @@ public class CameraController : MonoBehaviour
         if (SceneManager.sceneCount == 1) 
         {
             Music.SetActive(true);
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            if (Input.GetKeyDown(KeyCode.UpArrow)||Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 currentStation.destinations[currentLine].transform.localScale = new Vector3(1, 1, 1);
                 currentLine++;
@@ -40,7 +41,7 @@ public class CameraController : MonoBehaviour
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.DownArrow))
+            if (Input.GetKeyDown(KeyCode.DownArrow)||Input.GetKeyDown(KeyCode.RightArrow))
             {
                 currentStation.destinations[currentLine].transform.localScale = new Vector3(1, 1, 1);
                 currentLine = currentLine - 1;
@@ -50,7 +51,7 @@ public class CameraController : MonoBehaviour
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            if (Input.GetKeyDown(KeyCode.X))
             {
                 currentStation.transform.localScale = new Vector3(1, 1, 1);
                 moveToStation(currentLine);
@@ -66,7 +67,7 @@ public class CameraController : MonoBehaviour
                 CurrentStats currStats = Stats.GetComponent<CurrentStats>();
                 currStats.CurrentEnemies = currentStation.Enemies;
                 SceneManager.LoadScene("combatScene", LoadSceneMode.Additive);
-                currentStation.hasCombat = false;
+                currentStation.endCombat();
                 Music.SetActive(false);
             }
         }
