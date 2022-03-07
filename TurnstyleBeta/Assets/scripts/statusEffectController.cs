@@ -194,7 +194,7 @@ public class statusEffectController : MonoBehaviour, IPointerEnterHandler, IPoin
         turnsLeftString = turnsLeft.ToString();
 
         // but if it's 0, instead we change turnsLeftString to ""
-        if (turnsLeft == 0)
+        if (turnsLeft == 0||currentStatus==(int)StatusName.FatigueUP)
         {
             turnsLeftString = "";
         }
