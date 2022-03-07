@@ -616,9 +616,10 @@ public class combatController : MonoBehaviour
         while (nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>().dead)
         {
             numberOfSelectedMoves++;
-            if (numberOfSelectedMoves == 3)
+            if (numberOfSelectedMoves >= 3)
             {
-                break;
+                transitionToConfirm();
+                // break;
             }
         }
         // 🎨 setting draw box color & move names 
