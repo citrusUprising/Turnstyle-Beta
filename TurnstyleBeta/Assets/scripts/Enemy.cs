@@ -10,6 +10,9 @@ public class Enemy : Unit
     private float hpPercent;
 
     public GameObject healthBar;
+    public GameObject healthBarContainer;
+
+    private Color transparentColor = new Color(0, 0, 0, 0);
 
     public Enemy(string name, StatusName[] immunity, Ability[] abilities, int hp) : base(name, immunity, abilities, hp)
     {
@@ -127,6 +130,18 @@ public class Enemy : Unit
         hpPercent = (float)hp / (float)maxHP;
 
         healthBar.GetComponent<Image>().fillAmount = hpPercent;
+
+        if (gameObject.GetComponent<CanvasRenderer>().GetAlpha() == 0)
+        {
+            healthBar.GetComponent<Image>().color = transparentColor;
+            healthBarContainer.GetComponent<Image>().color = transparentColor;
+        }
+
+        if (gameObject.GetComponent<Image>().color.a == 0)
+        {
+            healthBar.GetComponent<Image>().color = transparentColor;
+            healthBarContainer.GetComponent<Image>().color = transparentColor;
+        }
     }
 
 

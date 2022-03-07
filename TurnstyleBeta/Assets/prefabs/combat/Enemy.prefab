@@ -177,6 +177,7 @@ MonoBehaviour:
   isActive: 0
   gameLoop: {fileID: 0}
   healthBar: {fileID: 8769341245738155199}
+  healthBarContainer: {fileID: 1355964312451314218}
 --- !u!1 &8769341245738155199
 GameObject:
   m_ObjectHideFlags: 0

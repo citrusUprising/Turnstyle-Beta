@@ -16,6 +16,8 @@ public class CameraController : MonoBehaviour
     public float transitionTime = .5f;
     public Animator transitionAnimator;
     public GameObject Music;
+    //determines which cutscene node is active
+    private int currentCutScene =1;
 
     // Start is called before the first frame update
     void Start()
@@ -58,6 +60,12 @@ public class CameraController : MonoBehaviour
             currentStation.destinations[currentLine].transform.localScale = scale;
             moveToPosition = currentStation.transform.position + new Vector3(0, 0, height);
             transform.position = Vector3.Lerp(transform.position, moveToPosition, speed);
+
+            if (currentStation.cutscene == currentCutScene){
+                //open cutscene
+                Debug.Log("Opening Cutscene #"+currentCutScene);
+                currentCutScene ++;
+            }
 
             if (currentStation.hasCombat)
             {
