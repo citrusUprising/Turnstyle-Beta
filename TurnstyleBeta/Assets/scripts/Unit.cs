@@ -219,7 +219,7 @@ public class Unit : MonoBehaviour
             gameLoop.outputQueue.Add(this.unitName + " died!");
             
         }
-        if(this.unitName.Equals("Jade")&&this.fatigue < 1&&this.isActive&& !this.dead){
+        if(this.unitName.Equals("Jade")&&this.fatigue < 2&&this.isActive&& !this.dead){
             foreach(GameObject o in this.allies){
                 Unit temp = o.GetComponent<Unit>();
                 if(temp.statuses[(int)StatusType.Debuff].name != StatusName.None &&

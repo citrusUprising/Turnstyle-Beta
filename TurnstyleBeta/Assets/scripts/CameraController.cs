@@ -12,6 +12,9 @@ public class CameraController : MonoBehaviour
     Vector3 moveToPosition; 
     public float speed = 2f;
     int currentLine = 0;
+    //lists possible lines the player could be on, for money purposes
+    private bool[] onLine;
+    public Station[] allStations;
     public float height;
     public Vector3 scale;
     public float transitionTime = .5f;
@@ -27,6 +30,7 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         transform.position = currentStation.transform.position + new Vector3(0,0, height);
+        onLine = new bool[]{false,false,false,false,false,false};
     }
 
     // Update is called once per frame
@@ -35,7 +39,7 @@ public class CameraController : MonoBehaviour
         //Debug.Log("Actice Scene Count: " + SceneManager.sceneCount);
         if (SceneManager.sceneCount == 1) 
         {
-            Music.SetActive(true);
+            if(money >=0)Music.SetActive(true);
             if (Input.GetKeyDown(KeyCode.UpArrow)||Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 currentStation.destinations[currentLine].transform.localScale = new Vector3(1, 1, 1);
@@ -66,6 +70,7 @@ public class CameraController : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, moveToPosition, speed);
 
             if (currentStation.cutscene == currentCutScene){
+                onLine = new bool[]{false,false,false,false,false,false};
                 //open cutscene
                 Debug.Log("Opening Cutscene #"+currentCutScene);
                 currentCutScene ++;
@@ -86,10 +91,41 @@ public class CameraController : MonoBehaviour
 
     void moveToStation(int s)
     {
-        if(currentStation.transform.parent.gameObject != currentStation.destinations[s].transform.parent.gameObject){
+
+        bool stayLine = false;
+        for(int l =0;l<6;l++){
+            if(this.onLine[l]&&this.onLine[l]==currentStation.destinations[s].lines[l]){
+                stayLine = true;
+                l=6;
+            }
+        }
+
+        //if(currentStation.transform.parent.gameObject != currentStation.destinations[s].transform.parent.gameObject){//flag
+        if(stayLine){
+            for(int l =0;l<6;l++){
+                if(this.onLine[l]&&!currentStation.destinations[s].lines[l]){
+                    this.onLine[l] = false;
+                }
+            }
+        }
+        else{
+            for(int f =0;f<6;f++){
+                if(currentStation.lines[f]&&currentStation.destinations[s].lines[f]){
+                    this.onLine[f] = true;
+                }else{
+                    this.onLine[f] = false;
+                }
+            }
             money--;
             Debug.Log("Changed lines");
+            if (money >= 0)
             moneyTxt.GetComponent<TextMeshProUGUI>().text = "$" + money + "<size=54.4><sup><u>00";
+            if(money == -1){
+                Music.SetActive(false);
+                foreach(Station h in this.allStations){
+                    h.EnableHardMode(); //flag
+                }
+            }
 
         }
         currentStation = currentStation.destinations[s];

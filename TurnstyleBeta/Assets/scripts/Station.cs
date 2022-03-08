@@ -10,6 +10,14 @@ public class Station : MonoBehaviour
     public bool hasCombat;
     public bool hasHardMode;
     public string[] Enemies;
+    //All lines that connect to that station
+    public bool yellow;
+    public bool orange;
+    public bool blue;
+    public bool pink;
+    public bool green;
+    public bool red;
+    public bool[] lines;
     private GameObject imageObject;
     public Sprite standard;
     public Sprite encounter;
@@ -24,6 +32,7 @@ public class Station : MonoBehaviour
         }else{
             this.GetComponent<Image>().sprite = standard;
         }
+        lines = new bool[] {yellow, orange, blue, pink, green, red};
     }
 
     // Update is called once per frame
@@ -33,8 +42,10 @@ public class Station : MonoBehaviour
     }
 
     public void EnableHardMode(){
-        if(hasHardMode && !hasCombat) hasCombat = true;
-        this.GetComponent<Image>().sprite = hardEncounter;
+        if(hasHardMode && !hasCombat){
+            hasCombat = true;
+            this.GetComponent<Image>().sprite = hardEncounter;
+        }
     }
 
     public void endCombat(){
