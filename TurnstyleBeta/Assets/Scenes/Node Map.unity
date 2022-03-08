@@ -3158,6 +3158,7 @@ MonoBehaviour:
   transitionTime: 0.5
   transitionAnimator: {fileID: 343473117}
   Music: {fileID: 490167745}
+  moneyTxt: {fileID: 1545491297}
 --- !u!224 &1113270148 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9017956464396516356, guid: a3342c13ef0122547a47ee636bc14559, type: 3}
@@ -4111,7 +4112,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: $2<size=54.4><sup><u>00
+  m_text: $10<size=54.4><sup><u>00
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 63966710d2c481544a494dd77bc1cc79, type: 2}
   m_sharedMaterial: {fileID: -888945008187845637, guid: 63966710d2c481544a494dd77bc1cc79, type: 2}

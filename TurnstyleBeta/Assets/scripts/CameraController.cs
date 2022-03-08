@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class CameraController : MonoBehaviour
 {
@@ -19,6 +20,9 @@ public class CameraController : MonoBehaviour
     //determines which cutscene node is active
     private int currentCutScene =1;
 
+    public GameObject moneyTxt;
+
+    int money = 10;
     // Start is called before the first frame update
     void Start()
     {
@@ -82,6 +86,12 @@ public class CameraController : MonoBehaviour
 
     void moveToStation(int s)
     {
+        if(currentStation.transform.parent.gameObject != currentStation.destinations[s].transform.parent.gameObject){
+            money--;
+            Debug.Log("Changed lines");
+            moneyTxt.GetComponent<TextMeshProUGUI>().text = "$" + money + "<size=54.4><sup><u>00";
+
+        }
         currentStation = currentStation.destinations[s];
         currentLine = 0;
     }
