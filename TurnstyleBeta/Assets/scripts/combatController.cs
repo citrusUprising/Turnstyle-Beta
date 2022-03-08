@@ -165,7 +165,7 @@ public class combatController : MonoBehaviour
     public GameObject menuBack;
     public GameObject menuScroll;
     public GameObject speedScroll;
-
+    public GameObject selectSound;
 
 
     // Start is called before the first frame update
@@ -211,6 +211,9 @@ public class combatController : MonoBehaviour
         transitionToRotate();
 
         glossaryObject = Instantiate(glossary, glossaryCanvas.transform);
+
+        glossaryObject.GetComponent<glossaryScript>().nextSFX = menuForward;
+        glossaryObject.GetComponent<glossaryScript>().prevSFX = menuBack;
     }
 
     // Update is called once per frame
@@ -452,11 +455,13 @@ public class combatController : MonoBehaviour
             {
                 if (glossaryObject.GetComponent<glossaryScript>().isShowing)
                 {
+                    speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
 
                     glossaryObject.GetComponent<glossaryScript>().hide();
                 }
                 else if (glossaryObject.GetComponent<glossaryScript>().isShowing == false)
                 {
+                    speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
 
                     glossaryObject.GetComponent<glossaryScript>().show();
                 }
@@ -464,7 +469,11 @@ public class combatController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Z))
             {
-                glossaryObject.GetComponent<glossaryScript>().hide();
+                if (glossaryObject.GetComponent<glossaryScript>().isShowing)
+                {
+                    speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+                    glossaryObject.GetComponent<glossaryScript>().hide();
+                }
             }
         }
         

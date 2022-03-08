@@ -32,6 +32,9 @@ public class glossaryScript : MonoBehaviour
 
     private float keyPromptFlickerTime = .25f;
 
+    public GameObject nextSFX;
+    public GameObject prevSFX;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -99,12 +102,15 @@ public class glossaryScript : MonoBehaviour
 
     void nextPage(int direction)
     {
+
         isAnimating = true;
 
         t = 0.0f;
 
         if (direction > 0)
         {
+            nextSFX.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+
             nextPageIndex++;
 
             animateDirection = "right";
@@ -116,6 +122,8 @@ public class glossaryScript : MonoBehaviour
         }
         else if (direction < 0)
         {
+            prevSFX.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+
             nextPageIndex--;
 
             animateDirection = "left";
