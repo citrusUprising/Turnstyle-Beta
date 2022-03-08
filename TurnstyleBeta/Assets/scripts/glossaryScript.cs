@@ -27,8 +27,8 @@ public class glossaryScript : MonoBehaviour
     private Vector3 center = new Vector3(0, 0, 0);
     private float t = 0f;
 
-    private Vector3 keyPromptOnScreen = new Vector3(16, 32, 0);
-    private Vector3 keyPromptOffScreen = new Vector3(16, -160, 0);
+    private Vector3 keyPromptOnScreen = new Vector3(Screen.width - 176 - 65, 32, 0);
+    private Vector3 keyPromptOffScreen = new Vector3(Screen.width - 176 - 65, -160, 0);
 
     private float keyPromptFlickerTime = .25f;
 
@@ -94,11 +94,6 @@ public class glossaryScript : MonoBehaviour
             {
                 nextPage(1);
             }
-        }
-
-        if (Input.GetKeyDown(KeyCode.G) || Input.GetKeyDown(KeyCode.Escape)) 
-        {
-            Destroy(keyPrompt);
         }
     }
 
@@ -178,6 +173,7 @@ public class glossaryScript : MonoBehaviour
     {
 
         StartCoroutine(lerpKeyPromptPosition());
+        yield return new WaitForSeconds(keyPromptFlickerTime * 2);
 
         StartCoroutine(lerpKeyPromptAlpha(0f));
         yield return new WaitForSeconds(keyPromptFlickerTime);
@@ -216,7 +212,7 @@ public class glossaryScript : MonoBehaviour
         {
 
             float time = 0f;
-            float duration = keyPromptFlickerTime;
+            float duration = keyPromptFlickerTime * 2;
             var color = keyPrompt.GetComponent<Image>().color;
             float oldAlpha = color.a;
             var currentAlpha = oldAlpha;
@@ -262,7 +258,7 @@ public class glossaryScript : MonoBehaviour
 
                 if (keyPrompt != null)
                 {
-                    keyPrompt.transform.position = Vector3.Lerp(keyPromptOffScreen, keyPromptOnScreen, time);
+                    keyPrompt.transform.localPosition = Vector3.Lerp(keyPromptOffScreen, keyPromptOnScreen, time/duration);
                 }
 
                 time += Time.deltaTime;
