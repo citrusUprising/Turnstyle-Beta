@@ -174,6 +174,7 @@ public class Unit : MonoBehaviour
 
     public void turnEnd()
     {
+        if(!this.isActive)this.fatigue = 0;
         if(this.tag == "Enemy"){
             foreach(Status s in this.statuses)
             {
@@ -241,7 +242,7 @@ public class Unit : MonoBehaviour
                     break;
                     }
                 }
-            if (!fullHealth){//flag
+            if (!fullHealth){
                 Unit highest = new Unit("null",new StatusName[0],new Ability[0], 0);
                 int highestHP = 0;
                 Unit lowest = new Unit("null",new StatusName[0],new Ability[0], 0);
@@ -301,7 +302,6 @@ public class Unit : MonoBehaviour
             this.isActive = false;
             Debug.Log(this.unitName + " has become inactive");
         }
-        this.fatigue = 0;
     }
 
     public void healSelf(int amount)

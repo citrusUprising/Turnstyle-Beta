@@ -231,6 +231,9 @@ public class combatController : MonoBehaviour
                     menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                     gameLoop.setActiveUnits(nameTagArray);
                     Debug.Log("Setting Active Units");
+                    Color temp = this.pentagonSprite.GetComponent<Image>().color;
+                    temp.a = 0.0f;
+                    this.pentagonSprite.GetComponent<Image>().color = temp;
                     transitionToMoveSelect();
                 }
                 if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
@@ -606,6 +609,9 @@ public class combatController : MonoBehaviour
 
     public void transitionToRotate()
     {
+        Color temp = this.pentagonSprite.GetComponent<Image>().color;
+        temp.a = 1.0f;
+        this.pentagonSprite.GetComponent<Image>().color = temp;
 
         numberOfSelectedMoves = 0;
         Destroy(currentDrawnBox);
