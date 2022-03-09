@@ -21,7 +21,7 @@ public class CameraController : MonoBehaviour
     public Animator transitionAnimator;
     public GameObject Music;
     //determines which cutscene node is active
-    private int currentCutScene =1;
+    public int currentCutScene =1;
 
     public GameObject moneyTxt;
 
