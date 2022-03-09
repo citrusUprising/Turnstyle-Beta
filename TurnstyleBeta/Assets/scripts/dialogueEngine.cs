@@ -71,10 +71,20 @@ public class dialogueEngine : MonoBehaviour
         	}
         	else{
         		if(chosenDialogue.lines[currentLine].speaker){
-        			//left sprite on right sprite off
+					Color tempL = leftSprite.GetComponent<Image>().color;
+					tempL = new Color (0.5f,0.5f,0.5f);
+					leftSprite.GetComponent<Image>().color =tempL;
+					Color tempR = rightSprite.GetComponent<Image>().color;
+					tempR = new Color (1f,1f,1f);
+					rightSprite.GetComponent<Image>().color =tempR;
         		}
         		else{
-        			//right sprite off left sprite on
+        			Color tempL = leftSprite.GetComponent<Image>().color;
+					tempL = new Color (1f,1f,1f);
+					leftSprite.GetComponent<Image>().color =tempL;
+					Color tempR = rightSprite.GetComponent<Image>().color;
+					tempR = new Color (0.5f,0.5f,0.5f);
+					rightSprite.GetComponent<Image>().color =tempR;
         		}
         		StartCoroutine("WriteLine");
         	}
