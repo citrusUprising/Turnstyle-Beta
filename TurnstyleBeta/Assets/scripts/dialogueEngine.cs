@@ -37,6 +37,7 @@ public class dialogueEngine : MonoBehaviour
 	public GameObject leftSprite;
 	public GameObject leftName;
 	public GameObject rightName;
+	public int currentBackground;
 	TextMeshProUGUI mainBoxText;
 	overallDialogue[] dialogueVarieties;
 	bool writing;
