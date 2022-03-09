@@ -73,6 +73,10 @@ public class CameraController : MonoBehaviour
                 onLine = new bool[]{false,false,false,false,false,false};
                 //open cutscene
                 Debug.Log("Opening Cutscene #"+currentCutScene);
+                if(currentCutScene == 3){
+                    Music.SetActive(false);
+                    StartCoroutine(loadScene("mainMenuScene"));
+                }
                 currentCutScene ++;
             }
 
