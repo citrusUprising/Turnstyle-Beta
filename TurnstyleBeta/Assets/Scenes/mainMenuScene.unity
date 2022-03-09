@@ -313,6 +313,8 @@ MonoBehaviour:
   transitionObject: {fileID: 1884521307}
   transitionAnimator: {fileID: 1884521309}
   transitionTime: 0.5
+  credits: {fileID: 5407847331095768231, guid: fd85f5f0c4e5f454dbd02fa4933a2b52, type: 3}
+  canvas: {fileID: 536424004}
   menuScroll: {fileID: 1105259042}
   selectSound: {fileID: 831049674}
 --- !u!114 &295674154

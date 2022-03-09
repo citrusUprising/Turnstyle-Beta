@@ -165,7 +165,7 @@ public class combatController : MonoBehaviour
     public GameObject menuBack;
     public GameObject menuScroll;
     public GameObject speedScroll;
-
+    public GameObject selectSound;
 
 
     // Start is called before the first frame update
@@ -183,7 +183,7 @@ public class combatController : MonoBehaviour
 
         // init each player's moves here ⬇ this code is ugly but it works
         nameTagArray[0].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Smolder(), new Dazzle(), new Imbibe()}; 
-        nameTagArray[1].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Mitigate(), new Fallguy(), new Scrum()};
+        nameTagArray[1].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Mitigate(), new Unionize(), new Scrum()};
         nameTagArray[2].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Repel(), new Hunker(), new Crush()};
         nameTagArray[3].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Stunnerclap(), new Rally(), new Motivate()};
         nameTagArray[4].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Soulrip(), new Scry(), new Slump()};
@@ -211,6 +211,9 @@ public class combatController : MonoBehaviour
         transitionToRotate();
 
         glossaryObject = Instantiate(glossary, glossaryCanvas.transform);
+
+        glossaryObject.GetComponent<glossaryScript>().nextSFX = menuForward;
+        glossaryObject.GetComponent<glossaryScript>().prevSFX = menuBack;
     }
 
     // Update is called once per frame
@@ -228,6 +231,9 @@ public class combatController : MonoBehaviour
                     menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                     gameLoop.setActiveUnits(nameTagArray);
                     Debug.Log("Setting Active Units");
+                    Color temp = this.pentagonSprite.GetComponent<Image>().color;
+                    temp.a = 0.0f;
+                    this.pentagonSprite.GetComponent<Image>().color = temp;
                     transitionToMoveSelect();
                 }
                 if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
@@ -287,6 +293,13 @@ public class combatController : MonoBehaviour
                 else if (Input.GetKeyDown(KeyCode.Z))
                 {
                     //menuBack.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
+                    if(numberOfSelectedMoves == 0){
+                        transitionToRotate();
+                    }
+                    else{
+                        numberOfSelectedMoves--;
+                        transitionToMoveSelect();
+                    }
                 }
             }
 
@@ -309,11 +322,20 @@ public class combatController : MonoBehaviour
                     changeSelectedTarget(1, selectedAbility.allies);
                 }
                 // when the X key is pressed, we need to go to selecting speed
-                if (Input.GetKeyDown(KeyCode.X))
+                if (Input.GetKeyDown(KeyCode.X)&&!selectedTarget.dead)
                 {
                     menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                     targetPointer.GetComponent<CanvasRenderer>().SetAlpha(0);
                     transitionToSpeedSelect();
+                }
+                else if(Input.GetKeyDown(KeyCode.X)){
+                    speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX //flag
+                }
+                else if (Input.GetKeyDown(KeyCode.Z))
+                {
+                    // possibly hide cursor here
+                    targetPointer.GetComponent<CanvasRenderer>().SetAlpha(0);
+                    transitionToMoveSelect();
                 }
             }
 
@@ -356,7 +378,8 @@ public class combatController : MonoBehaviour
                 // should go back to the target select and reset the speed that was set for that move
                 else if (Input.GetKeyDown(KeyCode.Z))
                 {
-
+                    selectedSpeeds[numberOfSelectedMoves] = 0;
+                    transitionToTargetSelect();
                 }
 
                 // changes the speed of the selected move up by one
@@ -435,11 +458,13 @@ public class combatController : MonoBehaviour
             {
                 if (glossaryObject.GetComponent<glossaryScript>().isShowing)
                 {
+                    speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
 
                     glossaryObject.GetComponent<glossaryScript>().hide();
                 }
                 else if (glossaryObject.GetComponent<glossaryScript>().isShowing == false)
                 {
+                    speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
 
                     glossaryObject.GetComponent<glossaryScript>().show();
                 }
@@ -447,7 +472,11 @@ public class combatController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Z))
             {
-                glossaryObject.GetComponent<glossaryScript>().hide();
+                if (glossaryObject.GetComponent<glossaryScript>().isShowing)
+                {
+                    speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+                    glossaryObject.GetComponent<glossaryScript>().hide();
+                }
             }
         }
         
@@ -580,6 +609,9 @@ public class combatController : MonoBehaviour
 
     public void transitionToRotate()
     {
+        Color temp = this.pentagonSprite.GetComponent<Image>().color;
+        temp.a = 1.0f;
+        this.pentagonSprite.GetComponent<Image>().color = temp;
 
         numberOfSelectedMoves = 0;
         Destroy(currentDrawnBox);
@@ -604,7 +636,8 @@ public class combatController : MonoBehaviour
             numberOfSelectedMoves++;
             if (numberOfSelectedMoves == 3)
             {
-                break;
+                transitionToConfirm();
+                return;
             }
         }
         // 🎨 setting draw box color & move names 
@@ -626,7 +659,7 @@ public class combatController : MonoBehaviour
         }
         
         selectedUnit = nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>();
-        actions[numberOfSelectedMoves] += selectedUnit.name+ ": ";
+        actions[numberOfSelectedMoves] += selectedUnit.name+ ": ";//flag
 
         // this needs to be put back in once the friendly objects are properly put into the nameTags
         //gameLoop.setActiveUnits(rotationState);

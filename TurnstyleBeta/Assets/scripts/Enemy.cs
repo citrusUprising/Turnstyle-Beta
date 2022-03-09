@@ -2,9 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Enemy : Unit
 {
+
+    private float hpPercent;
+
+    public GameObject healthBar;
+    public GameObject healthBarContainer;
+
+    private Color transparentColor = new Color(0, 0, 0, 0);
+
     public Enemy(string name, StatusName[] immunity, Ability[] abilities, int hp) : base(name, immunity, abilities, hp)
     {
         
@@ -26,76 +35,76 @@ public class Enemy : Unit
         
         switch (this.unitName){
 
-            case "Basic": case "Basic A": case "Basic B": case "Basic C":
+            case "Lethargy": case "Lethargy A": case "Lethargy B": case "Lethargy C": //Basic
             this.hp = 15;
             this.maxHP = 15;
-            this.abilities = new Ability[] { new BasicAttack(), new Temp14(), new Crush() };
+            this.abilities = new Ability[] { new BasicAttack(), new SweepingStrike(), new Crush() };
             a = new Color(0.95f,1f,0.5f,1);
             break;
 
-            case "Fragile": case "Fragile A": case "Fragile B": case "Fragile C":
+            case "Frailty": case "Frailty A": case "Frailty B": case "Frailty C": //Fragile
             this.hp = 7;
             this.maxHP = 7;
-            this.abilities = new Ability[] { new Temp15(), new Temp16(), new Temp17() };
+            this.abilities = new Ability[] { new Embolden(), new OverExtend(), new SelfDestruct() };
             a = new Color(0.5f,0.8f,1,1);
             break;
 
-            case "Beefy": case "Beefy A": case "Beefy B": case "Beefy C":
+            case "Refusal": case "Refusal A": case "Refusal B": case "Refusal C": //Beefy
             this.hp = 20;
             this.maxHP = 20;
-            this.abilities = new Ability[] { new Hunker(), new Temp14(), new Slump() };
+            this.abilities = new Ability[] { new Hunker(), new SweepingStrike(), new Slump() };
             a = new Color(1,0.5f,0.4f,1);
             break;
 
-            case "Support": case "Support A": case "Support B": case "Support C":
+            case "Enabling": case "Enabling A": case "Enabling B": case "Enabling C": //Support
             this.hp = 10;
             this.maxHP = 10;
-            this.abilities = new Ability[] { new Temp18(), new Temp19(), new Temp20() };
+            this.abilities = new Ability[] { new Reinforce(), new Accelerate(), new Habituate() };
             a = new Color(1,0.6f,0.8f,1);
             break;
 
-            case "Trickster": case "Trickster A": case "Trickster B": case "Trickster C":
+            case "Doubt": case "Doubt A": case "Doubt B": case "Doubt C": //Trickster
             this.hp = 12;
             this.maxHP = 12;
-            this.abilities = new Ability[] { new Temp21(), new Temp22(), new Temp10() };
+            this.abilities = new Ability[] { new Inhibit(), new Venom(), new Withhold() };
             a = new Color(0.4f,0.9f,0.5f,1);
             break;
 
-            case "Yellow": case "Yellow A": case "Yellow B": case "Yellow C":
+            case "Appeasement": case "Appeasement A": case "Appeasement B": case "Appeasement C": //Yellow
             this.hp = 15;
             this.maxHP = 15;
-            this.abilities = new Ability[] { new Temp01(), new Temp02(), new Repel() };
+            this.abilities = new Ability[] { new FlamingRing(), new Tackle(), new Repel() };
             a = new Color(0.7f,0.8f,0.1f,1);
             break;
 
-            case "Red": case "Red A": case "Red B": case "Red C":
+            case "Spite": case "Spite A": case "Spite B": case "Spite C": //Red
             this.hp = 20;
             this.maxHP = 20;
             this.immunity = new StatusName[] {StatusName.Vulnerable};
-            this.abilities = new Ability[] { new Temp06(), new Temp07(), new Temp08() };
+            this.abilities = new Ability[] { new Unionize(), new Penetrate(), new Ridicule() };
             a = new Color(0.5f,0.15f,0.15f,1);
             break;
 
-            case "Blue": case "Blue A": case "Blue B": case "Blue C":
+            case "Reflection": case "Reflection A": case "Reflection B": case "Reflection C": //Blue
             this.hp = 25;
             this.maxHP = 25;
             this.immunity = new StatusName[] {StatusName.Flinch};
-            this.abilities = new Ability[] { new Temp03(), new Temp04(), new Temp05() };
+            this.abilities = new Ability[] { new PollenCloud(), new Reflect(), new Ingrain() };
             a = new Color(0,0.3f,0.4f,1);
             break;
 
-            case "Green": case "Green A": case "Green B": case "Green C":
+            case "Sacrifice": case "Sacrifice A": case "Sacrifice B": case "Sacrifice C": //Green
             this.hp = 16;
             this.maxHP = 16;
             this.immunity = new StatusName[] {StatusName.Weakened};
-            this.abilities = new Ability[] { new Repel(), new Temp09(), new Temp10() };
+            this.abilities = new Ability[] { new Repel(), new Flagellate(), new Withhold() };
             a = new Color(0.15f,0.35f,0.15f,1);
             break;
 
-            case "Pink": case "Pink A": case "Pink B": case "Pink C":
+            case "Panic": case "Panic A": case "Panic B": case "Panic C": //Pink
             this.hp = 19;
             this.maxHP = 19;
-            this.abilities = new Ability[] { new Temp11(), new Temp12(), new Temp13() };
+            this.abilities = new Ability[] { new Cleave(), new Startle(), new Enrage() };
             a = new Color(0.7f,0.1f,0.4f);
             break;
 
@@ -118,7 +127,21 @@ public class Enemy : Unit
     // Update is called once per frame
     void Update()
     {
+        hpPercent = (float)hp / (float)maxHP;
 
+        healthBar.GetComponent<Image>().fillAmount = hpPercent;
+
+        if (gameObject.GetComponent<CanvasRenderer>().GetAlpha() == 0)
+        {
+            healthBar.GetComponent<Image>().color = transparentColor;
+            healthBarContainer.GetComponent<Image>().color = transparentColor;
+        }
+
+        if (gameObject.GetComponent<Image>().color.a == 0)
+        {
+            healthBar.GetComponent<Image>().color = transparentColor;
+            healthBarContainer.GetComponent<Image>().color = transparentColor;
+        }
     }
 
 

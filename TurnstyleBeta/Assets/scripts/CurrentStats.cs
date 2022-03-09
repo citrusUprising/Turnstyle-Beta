@@ -9,6 +9,7 @@ public class CurrentStats : MonoBehaviour
     public int KoralieHealth;
     public int SeraphimHealth;
     public int AmeryHealth;
+    public string[] CurrentEnemies;
     // Start is called before the first frame update
     void Start()
     {

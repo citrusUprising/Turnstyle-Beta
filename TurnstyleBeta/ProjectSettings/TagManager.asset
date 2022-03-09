@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ally
   - Enemy
+  - Station
   layers:
   - Default
   - TransparentFX
@@ -42,4 +43,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Battle Sprites
+    uniqueID: 390212047
     locked: 0
