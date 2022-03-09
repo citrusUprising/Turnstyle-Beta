@@ -361,6 +361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49247aab715bfbf49947ea9d0c08d7de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneName: DialogueScene
   mainBox: {fileID: 1676147873}
   rightSprite: {fileID: 1944611562}
   leftSprite: {fileID: 219170912}
