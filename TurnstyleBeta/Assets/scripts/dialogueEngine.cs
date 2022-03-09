@@ -32,6 +32,8 @@ public class dialogueEngine : MonoBehaviour
 	public GameObject mainBox;
 	public GameObject rightSprite;
 	public GameObject leftSprite;
+	public GameObject leftName;
+	public GameObject rightName;
 	TextMeshProUGUI mainBoxText;
 	overallDialogue[] dialogueVarieties;
 	bool writing;
@@ -39,12 +41,14 @@ public class dialogueEngine : MonoBehaviour
     void Start()
     {
     	dialogueVarieties = new overallDialogue[1];
-    	dialogueVarieties[0] = new overallDialogue("test", "test", new dialogueEntry[]{new dialogueEntry("this is the first line", false),
+    	dialogueVarieties[0] = new overallDialogue("test", "seraphim", new dialogueEntry[]{new dialogueEntry("this is the first line", false),
     		 new dialogueEntry("this is the second line", true), new dialogueEntry("this is the third line", false)});
         mainBoxText = mainBox.GetComponent<TextMeshProUGUI>();
         //Need to figure out how to take input
         int dialogueChoice = 0;
         chosenDialogue = dialogueVarieties[dialogueChoice];
+        leftName.GetComponent<TextMeshProUGUI>().text = chosenDialogue.speakerA;
+        rightName.GetComponent<TextMeshProUGUI>().text = chosenDialogue.speakerB;
     }
 
     // Update is called once per frame
