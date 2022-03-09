@@ -71,8 +71,8 @@ public class CameraController : MonoBehaviour
 
             if (currentStation.cutscene == currentCutScene){
                 onLine = new bool[]{false,false,false,false,false,false};
-                //open cutscene
                 Debug.Log("Opening Cutscene #"+currentCutScene);
+                SceneManager.LoadScene("DialogueScene", LoadSceneMode.Additive);
                 if(currentCutScene == 3){
                     Music.SetActive(false);
                     StartCoroutine(loadScene("mainMenuScene"));

@@ -1815,6 +1815,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 6172e0aba30c2d04aa67f2f41d0d1d8d, type: 3}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: hasCombat
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: destinations.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -3293,6 +3297,7 @@ MonoBehaviour:
   transitionTime: 0.5
   transitionAnimator: {fileID: 343473117}
   Music: {fileID: 490167745}
+  currentCutScene: 1
   moneyTxt: {fileID: 1545491297}
 --- !u!224 &1113270148 stripped
 RectTransform:

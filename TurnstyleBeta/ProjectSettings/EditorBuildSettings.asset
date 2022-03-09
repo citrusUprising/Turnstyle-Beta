@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Node Map.unity
     guid: 80d70b0c0a83b894abd07edfa3052524
+  - enabled: 1
+    path: Assets/Scenes/DialogueScene.unity
+    guid: 08124e35fc0b8f54bbe64a493f944b1e
   m_configObjects: {}

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class dialogueEntry{
@@ -27,6 +29,7 @@ public class overallDialogue{
 
 public class dialogueEngine : MonoBehaviour
 {
+	public string sceneName;
 	int currentLine;
 	overallDialogue chosenDialogue;
 	public GameObject mainBox;
@@ -64,7 +67,7 @@ public class dialogueEngine : MonoBehaviour
         		writing = false;
         	}
         	else if(currentLine == chosenDialogue.lines.Length && !writing){
-        		//return to proper scene
+        		SceneManager.UnloadSceneAsync(sceneName);
         	}
         	else{
         		if(chosenDialogue.lines[currentLine].speaker){
