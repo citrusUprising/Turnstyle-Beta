@@ -25,7 +25,7 @@ public class CameraController : MonoBehaviour
 
     public GameObject moneyTxt;
 
-    int money = 10;
+    int money = 5;
     // Start is called before the first frame update
     void Start()
     {
