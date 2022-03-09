@@ -175,23 +175,6 @@ public class Unit : MonoBehaviour
     public void turnEnd()
     {
         if(!this.isActive)this.fatigue = 0;
-        if(this.tag == "Enemy"){
-            foreach(Status s in this.statuses)
-            {
-                if(s.duration > 0)
-                {
-                    s.duration -= 1;
-                    Debug.Log(s.name+" has "+s.duration+" turns left");
-                    if(s.duration == 0)
-                    {
-                        String test = s.name.ToString();
-                        if(test.Contains("ed")||test == "Vulnerable")gameLoop.outputQueue.Add(this.unitName + " is no longer " + s.name);
-                        else gameLoop.outputQueue.Add(this.unitName + "'s " + s.name + " wore off");
-                        s.name = StatusName.None;
-                    }
-                }
-            }
-        }
         //gameLoop.outputQueue.Add(this.unitName + " has ended their turn");
         Debug.Log(this.unitName + " has ended their turn");
         //Debug.Log("queuedAction.ability.name: " + this.queuedAction.ability.name);
@@ -212,6 +195,23 @@ public class Unit : MonoBehaviour
         {
             this.hp = Math.Max(0, this.hp - this.statuses[(int) StatusType.Health].magnitude);
             gameLoop.outputQueue.Add(this.unitName+" was hurt by their "+StatusName.Burn);
+        }
+        if(this.tag == "Enemy"){
+            foreach(Status s in this.statuses)
+            {
+                if(s.duration > 0)
+                {
+                    s.duration -= 1;
+                    Debug.Log(s.name+" has "+s.duration+" turns left");
+                    if(s.duration == 0)
+                    {
+                        String test = s.name.ToString();
+                        if(test.Contains("ed")||test == "Vulnerable")gameLoop.outputQueue.Add(this.unitName + " is no longer " + s.name);
+                        else gameLoop.outputQueue.Add(this.unitName + "'s " + s.name + " wore off");
+                        s.name = StatusName.None;
+                    }
+                }
+            }
         }
         if(this.hp <= 0 && !this.dead)
         { //I have replaced the queue with just printing to the debug log for the moment
