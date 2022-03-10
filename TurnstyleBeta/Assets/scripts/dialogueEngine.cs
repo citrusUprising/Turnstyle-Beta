@@ -36,12 +36,13 @@ public class dialogueEngine : MonoBehaviour
 {
 	public string sceneName;
 	int currentLine = 0;
-	overallDialogue chosenDialogue;
+	private overallDialogue chosenDialogue;
 	public GameObject mainBox;
 	public GameObject rightSprite;
 	public GameObject leftSprite;
 	public GameObject leftName;
 	public GameObject rightName;
+	public GameObject backGround;
 	TextMeshProUGUI mainBoxText;
 	overallDialogue[] dialogueVarieties;
 	public GameObject PlayScripts;
@@ -56,7 +57,7 @@ public class dialogueEngine : MonoBehaviour
         //Need to figure out how to take input
         */
 		mainBoxText = mainBox.GetComponent<TextMeshProUGUI>();
-		switch(GameObject.Find("Node Map Camera").GetComponent<CameraController>().currentCutScene){
+		switch(GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentCutScene){
 			case 0: default:
 			dialogueVarieties = PlayScripts.GetComponent<Script1a>().script;
 			break;
@@ -88,11 +89,31 @@ public class dialogueEngine : MonoBehaviour
         		writing = false;
         	}
         	else if(currentLine == chosenDialogue.lines.Length && !writing && dialogueChoice != dialogueVarieties.Length){
-        		dialogueChoice++;
-				chosenDialogue = dialogueVarieties[dialogueChoice];
-				StartCoroutine("WriteLine");
+				dialogueChoice++;
+				
+				//change characters
+				if(chosenDialogue.speakerA!= dialogueVarieties[dialogueChoice].speakerA)
+				this.leftSprite.name = //flag
+				this.leftSprite.GetComponent<talkSpriteHandler>().changeCharacter(dialogueVarieties[dialogueChoice].speakerA);
+				if(chosenDialogue.speakerB!= dialogueVarieties[dialogueChoice].speakerB)
+				this.rightSprite.name = //flag
+				this.rightSprite.GetComponent<talkSpriteHandler>().changeCharacter(dialogueVarieties[dialogueChoice].speakerA);
+				
+				//change background
+				if(chosenDialogue.background != dialogueVarieties[dialogueChoice].background)
+				this.backGround.name = //flag
+				this.backGround.GetComponent<backGroundHandler>().changeBackground(dialogueVarieties[dialogueChoice].background);
+				
+				//plays sound effects
 				if(chosenDialogue.lines[currentLine].music != "null")
 				this.playMusic(chosenDialogue.lines[currentLine].music);
+
+				chosenDialogue = dialogueVarieties[dialogueChoice];
+
+				leftName.GetComponent<TextMeshProUGUI>().text = chosenDialogue.speakerA;
+        		rightName.GetComponent<TextMeshProUGUI>().text = chosenDialogue.speakerB;
+
+				StartCoroutine("WriteLine");
         	}
 			else if(dialogueChoice == dialogueVarieties.Length){
 				SceneManager.UnloadSceneAsync(sceneName);
