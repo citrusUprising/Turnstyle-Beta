@@ -74,10 +74,9 @@ public class dialogueEngine : MonoBehaviour
 		}
 		dialogueVarieties = PlayScripts.GetComponent<Script1a>().script;
         chosenDialogue = dialogueVarieties[dialogueChoice];//flag
-		this.leftSprite.name = 
-				this.leftSprite.GetComponent<talkSpriteHandler>().changeCharacter(chosenDialogue.speakerA);
-		this.rightSprite.name = 
-				this.rightSprite.GetComponent<talkSpriteHandler>().changeCharacter(chosenDialogue.speakerB);
+
+		this.leftSprite.GetComponent<talkSpriteHandler>().changeCharacter(chosenDialogue.speakerA);
+		this.rightSprite.GetComponent<talkSpriteHandler>().changeCharacter(chosenDialogue.speakerB);
         leftName.GetComponent<TextMeshProUGUI>().text = chosenDialogue.speakerA;
         rightName.GetComponent<TextMeshProUGUI>().text = chosenDialogue.speakerB;
     }
@@ -94,15 +93,21 @@ public class dialogueEngine : MonoBehaviour
         		currentLine += 1;
         		writing = false;
         	}
-        	else if(currentLine == chosenDialogue.lines.Length && !writing && dialogueChoice != dialogueVarieties.Length){
+        	else if(currentLine == chosenDialogue.lines.Length && !writing && dialogueChoice < dialogueVarieties.Length){
+				Debug.Log("dialogueChoice at start is "+dialogueChoice);
+				Debug.Log("dialogueVarieties.Length at start is "+dialogueVarieties.Length);
 				dialogueChoice++;
+
+				//catch if at end of cutscene
+				if(dialogueChoice >= dialogueVarieties.Length){
+					GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentCutScene++;
+					SceneManager.UnloadSceneAsync(sceneName);
+				}else{
 				
 				//change characters
 				if(chosenDialogue.speakerA!= dialogueVarieties[dialogueChoice].speakerA)
-				this.leftSprite.name = //flag
 				this.leftSprite.GetComponent<talkSpriteHandler>().changeCharacter(dialogueVarieties[dialogueChoice].speakerA);
 				if(chosenDialogue.speakerB!= dialogueVarieties[dialogueChoice].speakerB)
-				this.rightSprite.name = //flag
 				this.rightSprite.GetComponent<talkSpriteHandler>().changeCharacter(dialogueVarieties[dialogueChoice].speakerA);
 				
 				//change background
@@ -111,34 +116,23 @@ public class dialogueEngine : MonoBehaviour
 				this.backGround.GetComponent<backGroundHandler>().changeBackground(dialogueVarieties[dialogueChoice].background);
 				
 				//plays sound effects
-				if(chosenDialogue.lines[currentLine].music != "null")
-				this.playMusic(chosenDialogue.lines[currentLine].music);
+				//if(chosenDialogue.lines[currentLine].music != "null")
+				//this.playMusic(chosenDialogue.lines[currentLine].music);
 
 				chosenDialogue = dialogueVarieties[dialogueChoice];
-
+				currentLine = 0;
+				
+				this.swapAndSound();
 				leftName.GetComponent<TextMeshProUGUI>().text = chosenDialogue.speakerA;
         		rightName.GetComponent<TextMeshProUGUI>().text = chosenDialogue.speakerB;
 
-				currentLine = 0;
-
+				Debug.Log("dialogueChoice at end is "+dialogueChoice);
+				Debug.Log("dialogueVarieties.Length at end is "+dialogueVarieties.Length);
 				StartCoroutine("WriteLine");
-        	}
-			else if(dialogueChoice == dialogueVarieties.Length){
-				GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentCutScene++;
-				SceneManager.UnloadSceneAsync(sceneName);
-			}
+        	}}
         	else{
-        		if(chosenDialogue.lines[currentLine].speaker){
-					leftSprite.GetComponent<talkSpriteHandler>().makeIdle();
-					rightSprite.GetComponent<talkSpriteHandler>().makeActive();
-        		}
-        		else{
-					rightSprite.GetComponent<talkSpriteHandler>().makeIdle();
-					leftSprite.GetComponent<talkSpriteHandler>().makeActive();
-        		}
+				this.swapAndSound();
         		StartCoroutine("WriteLine");
-				if(chosenDialogue.lines[currentLine].music != "null")
-				this.playMusic(chosenDialogue.lines[currentLine].music);
         	}
         }
     }
@@ -160,5 +154,18 @@ public class dialogueEngine : MonoBehaviour
 
 		sfxInstance = RuntimeManager.CreateInstance("event:/ui/Dialogue/"+path); 
 		sfxInstance.start();
+	}
+
+	private void swapAndSound(){
+		if(chosenDialogue.lines[currentLine].speaker){
+					leftSprite.GetComponent<talkSpriteHandler>().makeIdle();
+					rightSprite.GetComponent<talkSpriteHandler>().makeActive();
+        		}
+        		else{
+					rightSprite.GetComponent<talkSpriteHandler>().makeIdle();
+					leftSprite.GetComponent<talkSpriteHandler>().makeActive();
+        		}
+				if(chosenDialogue.lines[currentLine].music != "null")
+				this.playMusic(chosenDialogue.lines[currentLine].music);
 	}
 }
