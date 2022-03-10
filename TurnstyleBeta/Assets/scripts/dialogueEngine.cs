@@ -63,7 +63,6 @@ public class dialogueEngine : MonoBehaviour
 			break;
 			case 1:
 			dialogueVarieties = PlayScripts.GetComponent<Script1b>().script;
-			Debug.Log("Choice 1");
 			break;
 			case 2:
 			dialogueVarieties = PlayScripts.GetComponent<Script1c>().script;
@@ -72,7 +71,6 @@ public class dialogueEngine : MonoBehaviour
 			dialogueVarieties = PlayScripts.GetComponent<Script1d>().script;
 			break; 
 		}
-		dialogueVarieties = PlayScripts.GetComponent<Script1a>().script;
         chosenDialogue = dialogueVarieties[dialogueChoice];//flag
 
 		this.leftSprite.GetComponent<talkSpriteHandler>().changeCharacter(chosenDialogue.speakerA);
@@ -101,6 +99,7 @@ public class dialogueEngine : MonoBehaviour
 				//catch if at end of cutscene
 				if(dialogueChoice >= dialogueVarieties.Length){
 					GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentCutScene++;
+					dialogueChoice = 0;
 					SceneManager.UnloadSceneAsync(sceneName);
 				}else{
 				
