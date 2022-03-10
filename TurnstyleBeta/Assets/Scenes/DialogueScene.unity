@@ -739,7 +739,7 @@ MonoBehaviour:
   leftSprite: {fileID: 219170912}
   leftName: {fileID: 2141813252}
   rightName: {fileID: 246977345}
-  backGround: {fileID: 0}
+  backGround: {fileID: 358489583}
   PlayScripts: {fileID: 961661887}
 --- !u!1 &1417880962
 GameObject:
