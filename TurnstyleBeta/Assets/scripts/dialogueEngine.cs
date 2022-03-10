@@ -3,26 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using FMODUnity;
 using TMPro;
 
 public class dialogueEntry{
 	public string line;
 	public bool speaker; // = false if left speaker, true if right
+	public string music;
 
-	public dialogueEntry(string line, bool speaker){
+	public dialogueEntry(string line, bool speaker, string music){
 		this.line = line;
 		this.speaker = speaker;
+		this.music = music;
 	}
 }
 
 public class overallDialogue{
 	public string speakerA;
 	public string speakerB;
+	public string background;
 	public dialogueEntry[] lines;
 
-	public overallDialogue(string speakerA, string speakerB, dialogueEntry[] lines){
+	public overallDialogue(string speakerA, string speakerB, string background, dialogueEntry[] lines){
 		this.speakerA = speakerA;
 		this.speakerB = speakerB;
+		this.background = background;
 		this.lines = lines;
 	}
 }
@@ -30,26 +35,41 @@ public class overallDialogue{
 public class dialogueEngine : MonoBehaviour
 {
 	public string sceneName;
-	int currentLine;
+	int currentLine = 0;
 	overallDialogue chosenDialogue;
 	public GameObject mainBox;
 	public GameObject rightSprite;
 	public GameObject leftSprite;
 	public GameObject leftName;
 	public GameObject rightName;
-	public int currentBackground;
 	TextMeshProUGUI mainBoxText;
 	overallDialogue[] dialogueVarieties;
+	public GameObject PlayScripts;
 	bool writing;
+	private int dialogueChoice = 0;
     // Start is called before the first frame update
     void Start()
     {
-    	dialogueVarieties = new overallDialogue[1];
+    	/*dialogueVarieties = new overallDialogue[1];
     	dialogueVarieties[0] = new overallDialogue("test", "seraphim", new dialogueEntry[]{new dialogueEntry("this is the first line", false),
     		 new dialogueEntry("this is the second line", true), new dialogueEntry("this is the third line", false)});
-        mainBoxText = mainBox.GetComponent<TextMeshProUGUI>();
         //Need to figure out how to take input
-        int dialogueChoice = 0;
+        */
+		mainBoxText = mainBox.GetComponent<TextMeshProUGUI>();
+		switch(GameObject.Find("Node Map Camera").GetComponent<CameraController>().currentCutScene){
+			case 0: default:
+			dialogueVarieties = PlayScripts.GetComponent<Script1a>().script;
+			break;
+			case 1:
+			dialogueVarieties = PlayScripts.GetComponent<Script1b>().script;
+			break;
+			case 2:
+			dialogueVarieties = PlayScripts.GetComponent<Script1c>().script;
+			break;
+			case 3:
+			dialogueVarieties = PlayScripts.GetComponent<Script1d>().script;
+			break; 
+		}
         chosenDialogue = dialogueVarieties[dialogueChoice];
         leftName.GetComponent<TextMeshProUGUI>().text = chosenDialogue.speakerA;
         rightName.GetComponent<TextMeshProUGUI>().text = chosenDialogue.speakerB;
@@ -67,27 +87,28 @@ public class dialogueEngine : MonoBehaviour
         		currentLine += 1;
         		writing = false;
         	}
-        	else if(currentLine == chosenDialogue.lines.Length && !writing){
-        		SceneManager.UnloadSceneAsync(sceneName);
+        	else if(currentLine == chosenDialogue.lines.Length && !writing && dialogueChoice != dialogueVarieties.Length){
+        		dialogueChoice++;
+				chosenDialogue = dialogueVarieties[dialogueChoice];
+				StartCoroutine("WriteLine");
+				if(chosenDialogue.lines[currentLine].music != "null")
+				this.playMusic(chosenDialogue.lines[currentLine].music);
         	}
+			else if(dialogueChoice == dialogueVarieties.Length){
+				SceneManager.UnloadSceneAsync(sceneName);
+			}
         	else{
         		if(chosenDialogue.lines[currentLine].speaker){
-					Color tempL = leftSprite.GetComponent<Image>().color;
-					tempL = new Color (0.5f,0.5f,0.5f);
-					leftSprite.GetComponent<Image>().color =tempL;
-					Color tempR = rightSprite.GetComponent<Image>().color;
-					tempR = new Color (1f,1f,1f);
-					rightSprite.GetComponent<Image>().color =tempR;
+					leftSprite.GetComponent<talkSpriteHandler>().makeIdle();
+					rightSprite.GetComponent<talkSpriteHandler>().makeActive();
         		}
         		else{
-        			Color tempL = leftSprite.GetComponent<Image>().color;
-					tempL = new Color (1f,1f,1f);
-					leftSprite.GetComponent<Image>().color =tempL;
-					Color tempR = rightSprite.GetComponent<Image>().color;
-					tempR = new Color (0.5f,0.5f,0.5f);
-					rightSprite.GetComponent<Image>().color =tempR;
+					rightSprite.GetComponent<talkSpriteHandler>().makeIdle();
+					leftSprite.GetComponent<talkSpriteHandler>().makeActive();
         		}
         		StartCoroutine("WriteLine");
+				if(chosenDialogue.lines[currentLine].music != "null")
+				this.playMusic(chosenDialogue.lines[currentLine].music);
         	}
         }
     }
@@ -103,4 +124,11 @@ public class dialogueEngine : MonoBehaviour
     	currentLine += 1;
     	writing = false;
     }
+
+	private void playMusic(string path){
+		FMOD.Studio.EventInstance sfxInstance;
+
+		sfxInstance = RuntimeManager.CreateInstance("event:/ui/Dialogue/"+path); 
+		sfxInstance.start();
+	}
 }
