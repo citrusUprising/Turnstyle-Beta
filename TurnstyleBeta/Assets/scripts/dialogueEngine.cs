@@ -107,7 +107,7 @@ public class dialogueEngine : MonoBehaviour
 				if(chosenDialogue.speakerA!= dialogueVarieties[dialogueChoice].speakerA)
 				this.leftSprite.GetComponent<talkSpriteHandler>().changeCharacter(dialogueVarieties[dialogueChoice].speakerA);
 				if(chosenDialogue.speakerB!= dialogueVarieties[dialogueChoice].speakerB)
-				this.rightSprite.GetComponent<talkSpriteHandler>().changeCharacter(dialogueVarieties[dialogueChoice].speakerA);
+				this.rightSprite.GetComponent<talkSpriteHandler>().changeCharacter(dialogueVarieties[dialogueChoice].speakerB);
 				
 				//change background
 				if(chosenDialogue.background != dialogueVarieties[dialogueChoice].background)

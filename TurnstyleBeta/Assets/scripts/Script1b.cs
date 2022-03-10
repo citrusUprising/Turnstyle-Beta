@@ -26,7 +26,16 @@ public class Script1b : MonoBehaviour
             new dialogueEntry("And waking all of us up unannounced isn’t even the end of it. If Amery's interview drags on any longer, I’m gonna be late for class!",false,"null"),
             new dialogueEntry("I’ll admit that I feel the same way. Amery is my friend and all, but I cannot bear to miss the game design club meeting today!",true,"null"),
             new dialogueEntry("We’re voting on club t-shirt designs today and their mascot is ever so cute…",true,"null"),
-            new dialogueEntry("We’re voting on club t-shirt designs today and their mascot is ever so cute…",true,"null"),
+            new dialogueEntry("Oh! I’ve come up with an absolutely GENIUS solution!",true,"null"),
+            new dialogueEntry(" Let’s simply tell Amery to pay for the premium subway without monsters! That way we can all get on with our days and head to campus!",true,"null")
+            }
+
+        ));
+        dialogueVarietyCount++;
+
+        temp[dialogueVarietyCount]=(new overallDialogue("Seraphim","Koralie","Station", 
+        new dialogueEntry[]{
+            new dialogueEntry("Tsk. Really?",false,"null")
             }
 
         ));
@@ -46,23 +55,6 @@ public class Script1b : MonoBehaviour
 }
 
 /*
-– Fades into subway station background –
-
-(*subway ambience sfx*)
-
-Intro text: Having defeated the monsters and arrived at their destination, the team waits at the subway station for Amery to finish his interview.
-
-Jade: Can’t believe Amery did that…sometimes I really think he doesn’t care about anyone other than himself. 
-
-Jade: And waking all of us up unannounced isn’t even the end of it. If Amery's interview drags on any longer, I’m gonna be late for class!
-
-Koralie: I’ll admit that I feel the same way. Amery is my friend and all, but I cannot bear to miss the game design club meeting today! 
-
-Koralie: We’re voting on club t-shirt designs today and their mascot is ever so cute…
-
-Koralie: Oh! I’ve come up with an absolutely GENIUS solution! 
-
-Koralie: Let’s simply tell Amery to pay for the premium subway without monsters! That way we can all get on with our days and head to campus!
 
 Seraphim: Tsk. Really?
 
