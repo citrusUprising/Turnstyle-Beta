@@ -49,7 +49,7 @@ public class dialogueEngine : MonoBehaviour
 	bool writing;
 	private int dialogueChoice = 0;
     // Start is called before the first frame update
-    void Start()
+	void Start()
     {
     	/*dialogueVarieties = new overallDialogue[1];
     	dialogueVarieties[0] = new overallDialogue("test", "seraphim", new dialogueEntry[]{new dialogueEntry("this is the first line", false),
@@ -71,7 +71,13 @@ public class dialogueEngine : MonoBehaviour
 			dialogueVarieties = PlayScripts.GetComponent<Script1d>().script;
 			break; 
 		}
-        chosenDialogue = dialogueVarieties[dialogueChoice];
+        chosenDialogue = dialogueVarieties[dialogueChoice];//flag
+		//chosenDialogue broken
+
+		this.leftSprite.name = 
+				this.leftSprite.GetComponent<talkSpriteHandler>().changeCharacter(chosenDialogue.speakerA);
+		this.rightSprite.name = 
+				this.rightSprite.GetComponent<talkSpriteHandler>().changeCharacter(chosenDialogue.speakerB);
         leftName.GetComponent<TextMeshProUGUI>().text = chosenDialogue.speakerA;
         rightName.GetComponent<TextMeshProUGUI>().text = chosenDialogue.speakerB;
     }
@@ -80,7 +86,7 @@ public class dialogueEngine : MonoBehaviour
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.X)){
-        	
+
         	if(writing){
         		//if they hit the button again while text is writing, write all of it
         		StopCoroutine("WriteLine");
@@ -112,6 +118,8 @@ public class dialogueEngine : MonoBehaviour
 
 				leftName.GetComponent<TextMeshProUGUI>().text = chosenDialogue.speakerA;
         		rightName.GetComponent<TextMeshProUGUI>().text = chosenDialogue.speakerB;
+
+				currentLine = 0;
 
 				StartCoroutine("WriteLine");
         	}

@@ -11,7 +11,9 @@ public class Script1d : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        script[dialogueVarietyCount]=(new overallDialogue("","","", 
+        overallDialogue[] temp = new overallDialogue [100];
+
+        temp[dialogueVarietyCount]=(new overallDialogue("","","", 
         new dialogueEntry[]{
             new dialogueEntry("",false,"null"),
             new dialogueEntry("",false,"null"),
@@ -20,6 +22,11 @@ public class Script1d : MonoBehaviour
 
         ));
         dialogueVarietyCount++;
+
+        script= new overallDialogue[dialogueVarietyCount];
+        for(int i =0; i<dialogueVarietyCount;i++){
+            temp[i] = script[i];
+        }
     }
 
     // Update is called once per frame
