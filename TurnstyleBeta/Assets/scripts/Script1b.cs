@@ -35,7 +35,25 @@ public class Script1b : MonoBehaviour
 
         temp[dialogueVarietyCount]=(new overallDialogue("Seraphim","Koralie","Station", 
         new dialogueEntry[]{
-            new dialogueEntry("Tsk. Really?",false,"null")
+            new dialogueEntry("Tsk. Really?",false,"null"),
+            new dialogueEntry("Hm…? What’s wrong?",true,"null")
+            }
+
+        ));
+        dialogueVarietyCount++;
+
+        temp[dialogueVarietyCount]=(new overallDialogue("Jade","Koralie","Station", 
+        new dialogueEntry[]{
+            new dialogueEntry("You gotta remember, Koralie, not everyone has the privilege of being able to afford that.",false,"null"),
+            new dialogueEntry("Oh…right. Of course. Forgot about that.",true,"null")
+            }
+
+        ));
+        dialogueVarietyCount++;
+
+        temp[dialogueVarietyCount]=(new overallDialogue("Seraphim","Koralie","Station", 
+        new dialogueEntry[]{
+            new dialogueEntry("Imagine having the luxury of being able to forget something like that…",false,"null")
             }
 
         ));
@@ -56,15 +74,6 @@ public class Script1b : MonoBehaviour
 
 /*
 
-Seraphim: Tsk. Really?
-
-Koralie: Hm…? What’s wrong?
-
-Jade: You gotta remember, Koralie, not everyone has the privilege of being able to afford that.
-
-Koralie: Oh…right. Of course. Forgot about that.
-
-Seraphim: Imagine having the luxury of being able to forget something like that…
 
 (*approaching footsteps sfx*)
 
