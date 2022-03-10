@@ -79,7 +79,7 @@ public class CameraController : MonoBehaviour
                     Music.SetActive(false);
                     StartCoroutine(loadScene("mainMenuScene"));
                 }
-                currentCutScene ++;
+                //currentCutScene ++;
             }
 
             if (currentStation.hasCombat)

@@ -24,7 +24,7 @@ public class Script1b : MonoBehaviour
 
         script= new overallDialogue[dialogueVarietyCount];
         for(int i =0; i<dialogueVarietyCount;i++){
-            temp[i] = script[i];
+            script[i] = temp[i];
         }
     }
 
