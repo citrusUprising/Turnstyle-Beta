@@ -33,6 +33,9 @@ public class nameTag : MonoBehaviour
     public GameObject buffStatusTracker;
     public GameObject debuffStatusTracker;
 
+    public Sprite speedSelectImage;
+    public Sprite totalSpeedImage;
+
     // Start is called before the first frame update
     void Start()
     {

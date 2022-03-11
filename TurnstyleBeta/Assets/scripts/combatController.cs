@@ -767,8 +767,10 @@ public class combatController : MonoBehaviour
         setPreviousState();
         state = "speedSelect";
         Destroy(currentDrawnBox);
+        speedSelectBox.GetComponent<Image>().sprite = nameTagArray[numberOfSelectedMoves].speedSelectImage;
         currentDrawnBox = Instantiate(speedSelectBox, canvas.transform);
 
+        totalSpeedPrefab.GetComponent<Image>().sprite = nameTagArray[numberOfSelectedMoves].totalSpeedImage;
         // this is the second speed indicator that appears in the top left 
         totalSpeedIndicator2 = Instantiate(totalSpeedPrefab, canvas.transform);
         
