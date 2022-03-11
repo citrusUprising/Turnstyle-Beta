@@ -31,7 +31,8 @@ public class Enemy : Unit
         Status debuff = new Status(StatusType.Debuff, StatusName.None, 0, 0);
         this.statuses = new Status[] { health, buff, debuff };
         var rend = this.GetComponent<Image>();
-        Color a;
+        Color a = new Color(1f,1f,1f,1f);
+        Sprite icon;
         
         switch (this.unitName){
 
@@ -39,42 +40,48 @@ public class Enemy : Unit
             this.hp = 15;
             this.maxHP = 15;
             this.abilities = new Ability[] { new BasicAttack(), new SweepingStrike(), new Crush() };
-            a = new Color(0.95f,1f,0.5f,1);
+            icon = Resources.Load<Sprite>("MonsterSprites/Basic");
+            rend.sprite=icon;
             break;
 
             case "Frailty": case "Frailty A": case "Frailty B": case "Frailty C": //Fragile
             this.hp = 7;
             this.maxHP = 7;
             this.abilities = new Ability[] { new Embolden(), new OverExtend(), new SelfDestruct() };
-            a = new Color(0.5f,0.8f,1,1);
+            icon = Resources.Load<Sprite>("MonsterSprites/Fragile");
+            rend.sprite=icon;
             break;
 
             case "Refusal": case "Refusal A": case "Refusal B": case "Refusal C": //Beefy
             this.hp = 20;
             this.maxHP = 20;
             this.abilities = new Ability[] { new Hunker(), new SweepingStrike(), new Slump() };
-            a = new Color(1,0.5f,0.4f,1);
+            icon = Resources.Load<Sprite>("MonsterSprites/Beefy");
+            rend.sprite=icon;
             break;
 
             case "Enabling": case "Enabling A": case "Enabling B": case "Enabling C": //Support
             this.hp = 10;
             this.maxHP = 10;
             this.abilities = new Ability[] { new Reinforce(), new Accelerate(), new Habituate() };
-            a = new Color(1,0.6f,0.8f,1);
+            icon = Resources.Load<Sprite>("MonsterSprites/Support");
+            rend.sprite=icon;
             break;
 
             case "Doubt": case "Doubt A": case "Doubt B": case "Doubt C": //Trickster
             this.hp = 12;
             this.maxHP = 12;
             this.abilities = new Ability[] { new Inhibit(), new Venom(), new Withhold() };
-            a = new Color(0.4f,0.9f,0.5f,1);
+            icon = Resources.Load<Sprite>("MonsterSprites/Trickster");
+            rend.sprite=icon;
             break;
 
             case "Appeasement": case "Appeasement A": case "Appeasement B": case "Appeasement C": //Yellow
             this.hp = 15;
             this.maxHP = 15;
             this.abilities = new Ability[] { new FlamingRing(), new Tackle(), new Repel() };
-            a = new Color(0.7f,0.8f,0.1f,1);
+            icon = Resources.Load<Sprite>("MonsterSprites/Yellow");
+            rend.sprite=icon;
             break;
 
             case "Spite": case "Spite A": case "Spite B": case "Spite C": //Red
@@ -82,7 +89,8 @@ public class Enemy : Unit
             this.maxHP = 20;
             this.immunity = new StatusName[] {StatusName.Vulnerable};
             this.abilities = new Ability[] { new Unionize(), new Penetrate(), new Ridicule() };
-            a = new Color(0.5f,0.15f,0.15f,1);
+            icon = Resources.Load<Sprite>("MonsterSprites/Red");
+            rend.sprite=icon;
             break;
 
             case "Reflection": case "Reflection A": case "Reflection B": case "Reflection C": //Blue
@@ -90,7 +98,8 @@ public class Enemy : Unit
             this.maxHP = 25;
             this.immunity = new StatusName[] {StatusName.Flinch};
             this.abilities = new Ability[] { new PollenCloud(), new Reflect(), new Ingrain() };
-            a = new Color(0,0.3f,0.4f,1);
+            icon = Resources.Load<Sprite>("MonsterSprites/Blue");
+            rend.sprite=icon;
             break;
 
             case "Sacrifice": case "Sacrifice A": case "Sacrifice B": case "Sacrifice C": //Green
@@ -98,14 +107,16 @@ public class Enemy : Unit
             this.maxHP = 16;
             this.immunity = new StatusName[] {StatusName.Weakened};
             this.abilities = new Ability[] { new Repel(), new Flagellate(), new Withhold() };
-            a = new Color(0.15f,0.35f,0.15f,1);
+            icon = Resources.Load<Sprite>("MonsterSprites/Green");
+            rend.sprite=icon;
             break;
 
             case "Panic": case "Panic A": case "Panic B": case "Panic C": //Pink
             this.hp = 19;
             this.maxHP = 19;
             this.abilities = new Ability[] { new Cleave(), new Startle(), new Enrage() };
-            a = new Color(0.7f,0.1f,0.4f);
+            icon = Resources.Load<Sprite>("MonsterSprites/Pink");
+            rend.sprite=icon;
             break;
 
             case "Null":
