@@ -89,6 +89,13 @@ public class dialogueEngine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		//skip dialogue (Debugging)
+		if(Input.GetKeyDown(KeyCode.S)){
+			GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentCutScene++;
+			dialogueChoice = 0;
+			SceneManager.UnloadSceneAsync(sceneName);
+		}
+
         if(Input.GetKeyDown(KeyCode.X)){
 
         	if(writing){
