@@ -10,6 +10,8 @@ public class BattleSpriteHandler : MonoBehaviour
     private Color shade;
     public GameObject controller;
 
+    private float outAlpha = .5f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +32,8 @@ public class BattleSpriteHandler : MonoBehaviour
         rot = new Vector3 (0.0f,0.0f,0.0f);
         trans.rotation = Quaternion.Euler(rot);
 
+        // trans.scale = new Vector3(1.5f, 1.5f, 1.5f);
+
         //changes layer and color based on location on pentagon 
         nameTag[] players = controller.GetComponent<combatController>().nameTagArray;
         if(players[2].name == profile.name){
@@ -37,7 +41,7 @@ public class BattleSpriteHandler : MonoBehaviour
             shade.a = 1;
         }else if(players[3].name == profile.name){
             this.GetComponent<Canvas>().sortingOrder = 2;
-            shade.a = 0.5f;
+            shade.a = outAlpha;
         }else if(players[1].name == profile.name){
             this.GetComponent<Canvas>().sortingOrder = 2;
             shade.a = 1.0f;
@@ -46,7 +50,7 @@ public class BattleSpriteHandler : MonoBehaviour
             shade.a = 1.0f;
         }else{
             this.GetComponent<Canvas>().sortingOrder = 1;
-            shade.a = 0.5f;
+            shade.a = outAlpha;
         }
 
         this.GetComponent<Image>().color = shade;
