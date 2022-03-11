@@ -18,10 +18,9 @@ public class backGroundHandler : MonoBehaviour
         
     }
 
-    public string changeBackground(string name){
+    public void changeBackground(string name){
         this.currentBackground = name;
         Sprite temp = Resources.Load<Sprite>("Backgrounds/"+name);
         this.GetComponent<Image>().sprite = temp;
-        return name;
     }
 }

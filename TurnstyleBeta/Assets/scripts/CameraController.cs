@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using TMPro;
@@ -25,21 +26,34 @@ public class CameraController : MonoBehaviour
 
     public GameObject moneyTxt;
 
-    int money = 5;
+    int money = 8;
     // Start is called before the first frame update
     void Start()
     {
         transform.position = currentStation.transform.position + new Vector3(0,0, height);
         onLine = new bool[]{false,false,false,false,false,false};
+        
+        Color temp = currentStation.GetComponent<Image>().color;
+        temp = new Color (0.5f,0.43f,0.56f);
+        currentStation.GetComponent<Image>().color = temp;
+
+        SceneManager.LoadScene("DialogueScene", LoadSceneMode.Additive);
     }
 
     // Update is called once per frame
     void Update()
     {
+        //cancels out of game after final cutscene
+        if(currentCutScene == 4){
+                    Music.SetActive(false);
+                    StartCoroutine(loadScene("mainMenuScene"));
+                }
+        
         //Debug.Log("Actice Scene Count: " + SceneManager.sceneCount);
         if (SceneManager.sceneCount == 1) 
         {
             if(money >=0)Music.SetActive(true);
+
             if (Input.GetKeyDown(KeyCode.UpArrow)||Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 currentStation.destinations[currentLine].transform.localScale = new Vector3(1, 1, 1);
@@ -74,15 +88,9 @@ public class CameraController : MonoBehaviour
                 Debug.Log("Opening Cutscene #"+currentCutScene);
                 //Music.SetActive(false);
                 SceneManager.LoadScene("DialogueScene", LoadSceneMode.Additive);
-                //if(currentCutScene == 0) currentStation.cutscene = 3;
-                if(currentCutScene == 3){
-                    Music.SetActive(false);
-                    StartCoroutine(loadScene("mainMenuScene"));
-                }
-                //currentCutScene ++;
             }
 
-            if (currentStation.hasCombat)
+            if (currentStation.hasCombat&&currentCutScene!=currentStation.cutscene)
             {
                 //StartCoroutine(loadScene(currentStation.combatSceneName));
                 GameObject Stats = GameObject.Find("CurrentStats");
@@ -97,6 +105,10 @@ public class CameraController : MonoBehaviour
 
     void moveToStation(int s)
     {
+        //change color back to default
+        Color temp1 = currentStation.GetComponent<Image>().color;
+        temp1 = new Color (1f,1f,1f);
+        currentStation.GetComponent<Image>().color = temp1;
 
         bool stayLine = false;
         for(int l =0;l<6;l++){
@@ -136,6 +148,10 @@ public class CameraController : MonoBehaviour
         }
         currentStation = currentStation.destinations[s];
         currentLine = 0;
+
+        Color temp2 = currentStation.GetComponent<Image>().color;
+        temp2 = new Color (0.5f,0.43f,0.56f);
+        currentStation.GetComponent<Image>().color = temp2;
     }
 
     IEnumerator loadScene(string Scene)
