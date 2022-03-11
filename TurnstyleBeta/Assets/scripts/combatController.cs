@@ -899,7 +899,7 @@ public class combatController : MonoBehaviour
     {
         setPreviousState();
         state = "paused";
-        pauseMenuInstance = Instantiate(pauseMenu, canvas.transform);
+        pauseMenuInstance = Instantiate(pauseMenu, glossaryCanvas.transform);
     }
 
     void transitionFromPause()

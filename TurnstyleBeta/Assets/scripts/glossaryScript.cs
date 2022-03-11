@@ -22,8 +22,8 @@ public class glossaryScript : MonoBehaviour
     private bool isAnimating = false;
     private string animateDirection = "left";
 
-    private Vector3 offScreenLeft = new Vector3(-Screen.width, 0, 0);
-    private Vector3 offScreenRight = new Vector3(Screen.width, 0, 0);
+    private Vector3 offScreenLeft = new Vector3(-Screen.width*2, 0, 0);
+    private Vector3 offScreenRight = new Vector3(Screen.width*2, 0, 0);
     private Vector3 center = new Vector3(0, 0, 0);
     private float t = 0f;
 
@@ -89,7 +89,7 @@ public class glossaryScript : MonoBehaviour
 
             }
         }
-        else if (isAnimating == false)
+        else if (isAnimating == false && isShowing == true)
         {
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
@@ -149,6 +149,11 @@ public class glossaryScript : MonoBehaviour
 
         pages[currentPageIndex].transform.localPosition = new Vector3(0, 0, 0);
 
+        for (int i = 0; i < pages.Length; i++)
+        {
+            pages[i].GetComponent<CanvasRenderer>().SetAlpha(1f);
+        }
+
         changeArrowAlpha(1);
 
         whiteRectangle.GetComponent<CanvasRenderer>().SetAlpha(.5f);
@@ -161,7 +166,7 @@ public class glossaryScript : MonoBehaviour
 
         for (int i = 0; i < pages.Length; i++)
         {
-            pages[i].transform.localPosition = new Vector3(0, Screen.height, 0);
+            pages[i].GetComponent<CanvasRenderer>().SetAlpha(0f);
         }
 
         changeArrowAlpha(0);
