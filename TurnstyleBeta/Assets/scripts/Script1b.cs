@@ -59,6 +59,31 @@ public class Script1b : MonoBehaviour
         ));
         dialogueVarietyCount++;
 
+        temp[dialogueVarietyCount]=(new overallDialogue("Seraphim","","Station", 
+        new dialogueEntry[]{
+            new dialogueEntry("*footsteps*",true,"Cutscene/footsteps")
+            }
+
+        ));
+        dialogueVarietyCount++;
+
+        temp[dialogueVarietyCount]=(new overallDialogue("Seraphim","Amery","Station", 
+        new dialogueEntry[]{
+            new dialogueEntry("Complaining as usual, are we, Seraphim?",true,"null"),
+            new dialogueEntry("I…uhm…",false,"null"),
+            new dialogueEntry("Well, no matter, hello everyone! We meet again!",true,"null"),
+            new dialogueEntry("The internship interview was a complete success! I have the utmost confidence that I’ll be accepted!",true,"null"),
+            new dialogueEntry("You say that after all your interviews and those never worked out so…",false,"null"),
+            new dialogueEntry("Oh? Care to speak up, Seraphim?",true,"null"),
+            new dialogueEntry("I uh…I didn’t say anything.",false,"null"),
+            new dialogueEntry("I heard you muttering something. What. Did. You. Say?",true,"null"),
+            new dialogueEntry("I…uhm…",false,"null"),
+            new dialogueEntry("I…uhm…",true,"null")
+            }
+
+        ));
+        dialogueVarietyCount++;
+
         script= new overallDialogue[dialogueVarietyCount];
         for(int i =0; i<dialogueVarietyCount;i++){
             script[i] = temp[i];

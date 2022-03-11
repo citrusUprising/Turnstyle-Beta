@@ -17,7 +17,7 @@ public class Script1a : MonoBehaviour
             new dialogueEntry("It’s bright and early, the sun softly shining through the apartment curtains.",false,"null"),
             new dialogueEntry("It is calm and quiet, four college students sleeping soundly. A rare moment in an otherwise loud, often arguing household of five",false,"null"),
             new dialogueEntry("…it’d be a shame if someone were to disturb this peacef—",false,"null"),
-            new dialogueEntry("*alarm clock ringing*",false,"null"), //alarm
+            new dialogueEntry("*alarm clock ringing*",false,"Cutscene/alarm"), //alarm
             }
         );
         dialogueVarietyCount++;

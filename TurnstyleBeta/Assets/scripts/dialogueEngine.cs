@@ -160,9 +160,16 @@ public class dialogueEngine : MonoBehaviour
 	private void playMusic(string path){
 		FMOD.Studio.EventInstance sfxInstance;
 
-		sfxInstance = RuntimeManager.CreateInstance("event:/ui/Dialogue/"+path); 
+		sfxInstance = RuntimeManager.CreateInstance("event:/"+path); 
 		sfxInstance.start();
 	}
+
+	/* All cutscene sounds
+	Damage = Battle/damage
+	Buff = Battle/buff
+	Alarm clock = Cutscene/alarm
+	Footsteps = Cutscene/footsteps
+	*/
 
 	private void swapAndSound(){
 		if(chosenDialogue.lines[currentLine].speaker){
