@@ -173,6 +173,7 @@ public class combatController : MonoBehaviour
     {
 
         totalSpeedIndicator1 = Instantiate(totalSpeedPrefab, canvas.transform);
+        totalSpeedIndicator1.GetComponent<Transform>().position = new Vector3(224, 310, 0);
 
         // 3 and 4 are inactive, 0, 1, and 2 are active
         nameTagArray[0] = nameTagBeverly;

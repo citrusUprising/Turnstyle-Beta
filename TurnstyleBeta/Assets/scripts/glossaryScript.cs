@@ -35,6 +35,8 @@ public class glossaryScript : MonoBehaviour
     public GameObject nextSFX;
     public GameObject prevSFX;
 
+    public GameObject whiteRectangle;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -109,8 +111,11 @@ public class glossaryScript : MonoBehaviour
 
         if (direction > 0)
         {
-            nextSFX.GetComponent<FMODUnity.StudioEventEmitter>().Play();
-
+            if (isShowing)
+            {
+                nextSFX.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+            }
+            
             nextPageIndex++;
 
             animateDirection = "right";
@@ -122,7 +127,10 @@ public class glossaryScript : MonoBehaviour
         }
         else if (direction < 0)
         {
-            prevSFX.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+            if (isShowing)
+            {
+                prevSFX.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+            }
 
             nextPageIndex--;
 
@@ -142,6 +150,8 @@ public class glossaryScript : MonoBehaviour
         pages[currentPageIndex].transform.localPosition = new Vector3(0, 0, 0);
 
         changeArrowAlpha(1);
+
+        whiteRectangle.GetComponent<CanvasRenderer>().SetAlpha(.5f);
  
     }
 
@@ -155,6 +165,8 @@ public class glossaryScript : MonoBehaviour
         }
 
         changeArrowAlpha(0);
+
+        whiteRectangle.GetComponent<CanvasRenderer>().SetAlpha(0f);
     }
 
     void animatePages()
