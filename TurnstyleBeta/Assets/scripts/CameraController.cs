@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using TMPro;
@@ -31,6 +32,10 @@ public class CameraController : MonoBehaviour
     {
         transform.position = currentStation.transform.position + new Vector3(0,0, height);
         onLine = new bool[]{false,false,false,false,false,false};
+        
+        Color temp = currentStation.GetComponent<Image>().color;
+        temp = new Color (0.5f,0.43f,0.56f);
+        currentStation.GetComponent<Image>().color = temp;
     }
 
     // Update is called once per frame
@@ -40,6 +45,7 @@ public class CameraController : MonoBehaviour
         if (SceneManager.sceneCount == 1) 
         {
             if(money >=0)Music.SetActive(true);
+
             if (Input.GetKeyDown(KeyCode.UpArrow)||Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 currentStation.destinations[currentLine].transform.localScale = new Vector3(1, 1, 1);
@@ -97,6 +103,10 @@ public class CameraController : MonoBehaviour
 
     void moveToStation(int s)
     {
+        //change color back to default
+        Color temp1 = currentStation.GetComponent<Image>().color;
+        temp1 = new Color (1f,1f,1f);
+        currentStation.GetComponent<Image>().color = temp1;
 
         bool stayLine = false;
         for(int l =0;l<6;l++){
@@ -136,6 +146,10 @@ public class CameraController : MonoBehaviour
         }
         currentStation = currentStation.destinations[s];
         currentLine = 0;
+
+        Color temp2 = currentStation.GetComponent<Image>().color;
+        temp2 = new Color (0.5f,0.43f,0.56f);
+        currentStation.GetComponent<Image>().color = temp2;
     }
 
     IEnumerator loadScene(string Scene)
