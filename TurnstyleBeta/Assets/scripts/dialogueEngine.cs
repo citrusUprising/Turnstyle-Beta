@@ -81,6 +81,7 @@ public class dialogueEngine : MonoBehaviour
 
 		this.leftSprite.GetComponent<talkSpriteHandler>().changeCharacter(chosenDialogue.speakerA);
 		this.rightSprite.GetComponent<talkSpriteHandler>().changeCharacter(chosenDialogue.speakerB);
+		this.backGround.GetComponent<backGroundHandler>().changeBackground(chosenDialogue.background);
         leftName.GetComponent<TextMeshProUGUI>().text = chosenDialogue.speakerA;
         rightName.GetComponent<TextMeshProUGUI>().text = chosenDialogue.speakerB;
     }
@@ -117,12 +118,7 @@ public class dialogueEngine : MonoBehaviour
 				
 				//change background
 				if(chosenDialogue.background != dialogueVarieties[dialogueChoice].background)
-				this.backGround.name = //flag
 				this.backGround.GetComponent<backGroundHandler>().changeBackground(dialogueVarieties[dialogueChoice].background);
-				
-				//plays sound effects
-				//if(chosenDialogue.lines[currentLine].music != "null")
-				//this.playMusic(chosenDialogue.lines[currentLine].music);
 
 				chosenDialogue = dialogueVarieties[dialogueChoice];
 				currentLine = 0;
