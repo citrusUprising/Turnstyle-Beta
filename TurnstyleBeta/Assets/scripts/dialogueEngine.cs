@@ -51,6 +51,11 @@ public class dialogueEngine : MonoBehaviour
 
 	private float textSpeed;
 
+	public GameObject pauseMenu;
+	private GameObject pauseMenuObject;
+
+	public Canvas canvas;
+
     // Start is called before the first frame update
 	void Start()
     {
@@ -89,60 +94,77 @@ public class dialogueEngine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		//skip dialogue (Debugging)
-		if(Input.GetKeyDown(KeyCode.S)){
-			GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentCutScene++;
-			dialogueChoice = 0;
-			SceneManager.UnloadSceneAsync(sceneName);
+		if (pauseMenuObject == null)
+        {
+			//skip dialogue (Debugging)
+			if (Input.GetKeyDown(KeyCode.S))
+			{
+				GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentCutScene++;
+				dialogueChoice = 0;
+				SceneManager.UnloadSceneAsync(sceneName);
+			}
+
+			if (Input.GetKeyDown(KeyCode.X))
+			{
+
+				if (writing)
+				{
+					//if they hit the button again while text is writing, write all of it
+					StopCoroutine("WriteLine");
+					mainBoxText.text = chosenDialogue.lines[currentLine].line;
+					currentLine += 1;
+					writing = false;
+				}
+				else if (currentLine == chosenDialogue.lines.Length && !writing && dialogueChoice < dialogueVarieties.Length)
+				{
+					Debug.Log("dialogueChoice at start is " + dialogueChoice);
+					Debug.Log("dialogueVarieties.Length at start is " + dialogueVarieties.Length);
+					dialogueChoice++;
+
+					//catch if at end of cutscene
+					if (dialogueChoice >= dialogueVarieties.Length)
+					{
+						GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentCutScene++;
+						dialogueChoice = 0;
+						SceneManager.UnloadSceneAsync(sceneName);
+					}
+					else
+					{
+
+						//change characters
+						if (chosenDialogue.speakerA != dialogueVarieties[dialogueChoice].speakerA)
+							this.leftSprite.GetComponent<talkSpriteHandler>().changeCharacter(dialogueVarieties[dialogueChoice].speakerA);
+						if (chosenDialogue.speakerB != dialogueVarieties[dialogueChoice].speakerB)
+							this.rightSprite.GetComponent<talkSpriteHandler>().changeCharacter(dialogueVarieties[dialogueChoice].speakerB);
+
+						//change background
+						if (chosenDialogue.background != dialogueVarieties[dialogueChoice].background)
+							this.backGround.GetComponent<backGroundHandler>().changeBackground(dialogueVarieties[dialogueChoice].background);
+
+						chosenDialogue = dialogueVarieties[dialogueChoice];
+						currentLine = 0;
+
+						this.swapAndSound();
+						leftName.GetComponent<TextMeshProUGUI>().text = chosenDialogue.speakerA;
+						rightName.GetComponent<TextMeshProUGUI>().text = chosenDialogue.speakerB;
+
+						Debug.Log("dialogueChoice at end is " + dialogueChoice);
+						Debug.Log("dialogueVarieties.Length at end is " + dialogueVarieties.Length);
+						StartCoroutine("WriteLine");
+					}
+				}
+				else
+				{
+					this.swapAndSound();
+					StartCoroutine("WriteLine");
+				}
+			}
+
+			if (Input.GetKeyDown(KeyCode.Escape))
+            {
+				pauseMenuObject = Instantiate(pauseMenu, canvas.transform);
+            }
 		}
-
-        if(Input.GetKeyDown(KeyCode.X)){
-
-        	if(writing){
-        		//if they hit the button again while text is writing, write all of it
-        		StopCoroutine("WriteLine");
-        		mainBoxText.text = chosenDialogue.lines[currentLine].line;
-        		currentLine += 1;
-        		writing = false;
-        	}
-        	else if(currentLine == chosenDialogue.lines.Length && !writing && dialogueChoice < dialogueVarieties.Length){
-				Debug.Log("dialogueChoice at start is "+dialogueChoice);
-				Debug.Log("dialogueVarieties.Length at start is "+dialogueVarieties.Length);
-				dialogueChoice++;
-
-				//catch if at end of cutscene
-				if(dialogueChoice >= dialogueVarieties.Length){
-					GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentCutScene++;
-					dialogueChoice = 0;
-					SceneManager.UnloadSceneAsync(sceneName);
-				}else{
-				
-				//change characters
-				if(chosenDialogue.speakerA!= dialogueVarieties[dialogueChoice].speakerA)
-				this.leftSprite.GetComponent<talkSpriteHandler>().changeCharacter(dialogueVarieties[dialogueChoice].speakerA);
-				if(chosenDialogue.speakerB!= dialogueVarieties[dialogueChoice].speakerB)
-				this.rightSprite.GetComponent<talkSpriteHandler>().changeCharacter(dialogueVarieties[dialogueChoice].speakerB);
-				
-				//change background
-				if(chosenDialogue.background != dialogueVarieties[dialogueChoice].background)
-				this.backGround.GetComponent<backGroundHandler>().changeBackground(dialogueVarieties[dialogueChoice].background);
-
-				chosenDialogue = dialogueVarieties[dialogueChoice];
-				currentLine = 0;
-				
-				this.swapAndSound();
-				leftName.GetComponent<TextMeshProUGUI>().text = chosenDialogue.speakerA;
-        		rightName.GetComponent<TextMeshProUGUI>().text = chosenDialogue.speakerB;
-
-				Debug.Log("dialogueChoice at end is "+dialogueChoice);
-				Debug.Log("dialogueVarieties.Length at end is "+dialogueVarieties.Length);
-				StartCoroutine("WriteLine");
-        	}}
-        	else{
-				this.swapAndSound();
-        		StartCoroutine("WriteLine");
-        	}
-        }
     }
 
     public IEnumerator WriteLine(){

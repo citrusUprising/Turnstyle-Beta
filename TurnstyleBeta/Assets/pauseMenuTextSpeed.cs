@@ -19,8 +19,6 @@ public class pauseMenuTextSpeed : MonoBehaviour
 
     private GameObject selectedLabel;
 
-    private int pointerMargin = 96;
-
     public float combatTextSpeed;
     public float combatTextSpeedPercent;
 
@@ -105,9 +103,12 @@ public class pauseMenuTextSpeed : MonoBehaviour
         {
             sliderDialogue.GetComponent<Image>().fillAmount += change;
             dialogueTextSpeedPercent = sliderDialogue.GetComponent<Image>().fillAmount;
+            dialogueTextSpeed = getDialogueTextSpeed();
 
             PlayerPrefs.SetFloat("dialogueTextSpeedPercent", dialogueTextSpeedPercent);
             PlayerPrefs.SetFloat("dialogueTextSpeed", dialogueTextSpeed);
+
+            Debug.Log(dialogueTextSpeed);
         }
     }
 
@@ -115,7 +116,9 @@ public class pauseMenuTextSpeed : MonoBehaviour
     {
         Vector3 pointerPos = selectedLabel.GetComponent<RectTransform>().position;
 
-        pointerPos[0] -= pointerMargin;
+        var rect = gameObject.GetComponent<RectTransform>().rect;
+
+        pointerPos[0] += (float) rect.left;
 
         pointer.GetComponent<RectTransform>().position = pointerPos;
     }
@@ -129,11 +132,11 @@ public class pauseMenuTextSpeed : MonoBehaviour
 
     float getCombatTextSpeed()
     {
-        return Mathf.Lerp(combatTextSpeedMinValue, combatTextSpeedMaxValue, combatTextSpeedPercent);
+        return Mathf.Lerp(combatTextSpeedMinValue, combatTextSpeedMaxValue, 1 - combatTextSpeedPercent);
     }
 
     float getDialogueTextSpeed()
     {
-        return Mathf.Lerp(dialogueTextSpeedMinValue, dialogueTextSpeedMaxValue, dialogueTextSpeedPercent);
+        return Mathf.Lerp(dialogueTextSpeedMinValue, dialogueTextSpeedMaxValue, 1 - dialogueTextSpeedPercent);
     }
 }

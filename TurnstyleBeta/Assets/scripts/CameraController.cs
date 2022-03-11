@@ -26,6 +26,10 @@ public class CameraController : MonoBehaviour
 
     public GameObject moneyTxt;
 
+    public GameObject pauseMenu;
+    private GameObject pauseMenuObject;
+    public Canvas canvas;
+
     int money = 8;
     // Start is called before the first frame update
     void Start()
@@ -54,31 +58,40 @@ public class CameraController : MonoBehaviour
         {
             if(money >=0)Music.SetActive(true);
 
-            if (Input.GetKeyDown(KeyCode.UpArrow)||Input.GetKeyDown(KeyCode.LeftArrow))
+            if (pauseMenuObject == null)
             {
-                currentStation.destinations[currentLine].transform.localScale = new Vector3(1, 1, 1);
-                currentLine++;
-                if (currentLine == currentStation.destinations.Length)
+                if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
                 {
-                    currentLine = 0;
+                    currentStation.destinations[currentLine].transform.localScale = new Vector3(1, 1, 1);
+                    currentLine++;
+                    if (currentLine == currentStation.destinations.Length)
+                    {
+                        currentLine = 0;
+                    }
+                }
+
+                if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.RightArrow))
+                {
+                    currentStation.destinations[currentLine].transform.localScale = new Vector3(1, 1, 1);
+                    currentLine = currentLine - 1;
+                    if (currentLine == -1)
+                    {
+                        currentLine = currentStation.destinations.Length - 1;
+                    }
+                }
+
+                if (Input.GetKeyDown(KeyCode.X))
+                {
+                    currentStation.transform.localScale = new Vector3(1, 1, 1);
+                    moveToStation(currentLine);
+                }
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    pauseMenuObject = Instantiate(pauseMenu, canvas.transform);
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.DownArrow)||Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                currentStation.destinations[currentLine].transform.localScale = new Vector3(1, 1, 1);
-                currentLine = currentLine - 1;
-                if (currentLine == -1)
-                {
-                    currentLine = currentStation.destinations.Length - 1;
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                currentStation.transform.localScale = new Vector3(1, 1, 1);
-                moveToStation(currentLine);
-            }
+            
             currentStation.destinations[currentLine].transform.localScale = scale;
             moveToPosition = currentStation.transform.position + new Vector3(0, 0, height);
             transform.position = Vector3.Lerp(transform.position, moveToPosition, speed);

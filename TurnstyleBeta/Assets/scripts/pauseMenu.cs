@@ -81,6 +81,11 @@ public class pauseMenu : MonoBehaviour
                 StartCoroutine(lerpCurrentSelectedItemLeft());
             }
 
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Z))
+            {
+                Destroy(gameObject);
+            }
+
         }
         else if (Input.GetKeyDown(KeyCode.Z) && isItemSelectionAnimating == false)
         {

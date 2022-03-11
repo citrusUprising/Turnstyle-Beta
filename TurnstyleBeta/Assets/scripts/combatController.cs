@@ -437,7 +437,7 @@ public class combatController : MonoBehaviour
 
             else if (state == "paused")
             {
-                if (Input.GetKeyDown(KeyCode.Escape))
+                if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Z))
                 {
                     transitionFromPause();
                 }

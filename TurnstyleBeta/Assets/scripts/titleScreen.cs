@@ -135,14 +135,9 @@ public class titleScreen : MonoBehaviour
             StartCoroutine(lerpCreditsOffScreen());
         }
 
-        else if (pauseMenuObject != null && Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
         {
-            Destroy(pauseMenuObject);
-        }
-
-            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            if (Random.Range(0f, 1f) >= .9)
+        if (Random.Range(0f, 1f) >= .9)
             {
                 randomizeRotateDirection();
             }
