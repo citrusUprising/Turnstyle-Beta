@@ -77,8 +77,53 @@ public class Script1b : MonoBehaviour
             new dialogueEntry("Oh? Care to speak up, Seraphim?",true,"null"),
             new dialogueEntry("I uh…I didn’t say anything.",false,"null"),
             new dialogueEntry("I heard you muttering something. What. Did. You. Say?",true,"null"),
-            new dialogueEntry("I…uhm…",false,"null"),
-            new dialogueEntry("I…uhm…",true,"null")
+            new dialogueEntry("Nothing, just let it go! We all gotta head to campus now, you’ve made us late enough already…",false,"null"),
+            new dialogueEntry("Don’t just walk away from me! I won’t just let you get away wi—",true,"null")
+            }
+
+        ));
+        dialogueVarietyCount++;
+
+        temp[dialogueVarietyCount]=(new overallDialogue("Beverly","Amery","Station", 
+        new dialogueEntry[]{
+            new dialogueEntry("Ok you two, just stop! You’ve been at each other’s throats since we first woke up!",false,"null"),
+            }
+
+        ));
+        dialogueVarietyCount++;
+
+        temp[dialogueVarietyCount]=(new overallDialogue("Beverly","Seraphim","Station", 
+        new dialogueEntry[]{
+            new dialogueEntry("But I just—",true,"null"),
+            new dialogueEntry("No buts! This is something we can all work through together at home. I’m tired of hearing you tear each other down like you’ve been doing all day!",false,"null"),
+            new dialogueEntry("I get you, Bev…sorry.",true,"null")
+            }
+
+        ));
+        dialogueVarietyCount++;
+
+        temp[dialogueVarietyCount]=(new overallDialogue("Beverly","Amery","Station", 
+        new dialogueEntry[]{
+            new dialogueEntry("Ha, she showed you.",true,"null"),
+            new dialogueEntry("That wasn’t meant for just them, Amery. You too. There’s no need to say all that mean stuff to them. They’re trying their best, you know.",false,"null"),
+            new dialogueEntry("Alright, alright. …I understand.",true,"null"),
+            new dialogueEntry("Good. Well then, let’s get going everyone!",false,"null")
+            }
+
+        ));
+        dialogueVarietyCount++;
+
+        temp[dialogueVarietyCount]=(new overallDialogue("Beverly","Koralie","Station", 
+        new dialogueEntry[]{
+            new dialogueEntry("Sounds good to me!",true,"null")
+            }
+
+        ));
+        dialogueVarietyCount++;
+
+        temp[dialogueVarietyCount]=(new overallDialogue("Beverly","Jade","Station", 
+        new dialogueEntry[]{
+            new dialogueEntry("Way ahead of you.",true,"null")
             }
 
         ));
@@ -96,49 +141,3 @@ public class Script1b : MonoBehaviour
         
     }
 }
-
-/*
-
-
-(*approaching footsteps sfx*)
-
-Amery: Complaining as usual, are we, Seraphim?
-
-Seraphim: I…uhm…
-
-Amery: Well, no matter, hello everyone! We meet again!
-
-Amery: The internship interview was a complete success! I have the utmost confidence that I’ll be accepted!
-
-Seraphim: You say that after all your interviews and those never worked out so…
-
-Amery: Oh? Care to speak up, Seraphim?
-
-Seraphim: I uh…I didn’t say anything.
-
-Amery: I heard you muttering something. What. Did. You. Say?
-
-Seraphim: Nothing, just let it go! We all gotta head to campus now, you’ve made us late enough already…
-
-Amery: Don’t just walk away from me! I won’t just let you get away wi—
-
-Beverly: Ok you two, just stop! You’ve been at each other’s throats since we first woke up!
-
-Seraphim: But I just—
-
-Beverly: No buts! This is something we can all work through together at home. I’m tired of hearing you tear each other down like you’ve been doing all day!
-
-Seraphim: I get you, Bev…sorry. 
-
-Amery: Ha, she showed you.
-
-Beverly: That wasn’t meant for just them, Amery. You too. There’s no need to say all that mean stuff to them. They’re trying their best, you know.
-
-Amery: Alright, alright. …I understand.
-
-Beverly: Good. Well then, let’s get going everyone!
-
-Koralie: Sounds good to me!
-
-Jade: Way ahead of you.
-*/
