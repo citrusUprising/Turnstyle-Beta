@@ -48,10 +48,16 @@ public class dialogueEngine : MonoBehaviour
 	public GameObject PlayScripts;
 	bool writing;
 	private int dialogueChoice = 0;
+
+	private float textSpeed;
+
     // Start is called before the first frame update
 	void Start()
     {
-    	/*dialogueVarieties = new overallDialogue[1];
+
+		textSpeed = PlayerPrefs.GetFloat("dialogueTextSpeed", .055f);
+
+		/*dialogueVarieties = new overallDialogue[1];
     	dialogueVarieties[0] = new overallDialogue("test", "seraphim", new dialogueEntry[]{new dialogueEntry("this is the first line", false),
     		 new dialogueEntry("this is the second line", true), new dialogueEntry("this is the third line", false)});
         //Need to figure out how to take input
@@ -141,7 +147,7 @@ public class dialogueEngine : MonoBehaviour
     	dialogueEntry currentEntry = chosenDialogue.lines[currentLine];
     	for(int i = 1; i < currentEntry.line.Length; i++){
     		mainBoxText.text = currentEntry.line.Remove(i);
-    		yield return new WaitForSeconds(.1f);
+    		yield return new WaitForSeconds(textSpeed);
     	}
     	mainBoxText.text = currentEntry.line;
     	currentLine += 1;

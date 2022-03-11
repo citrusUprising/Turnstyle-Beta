@@ -82,7 +82,7 @@ public class MainLoop : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        textSpeed = PlayerPrefs.GetFloat("combatTextSpeed", 1.125f);
     }
 
     // Update is called once per frame

@@ -69,6 +69,10 @@ public class pauseMenuTextSpeed : MonoBehaviour
             }
 
             realignPointer();
+        } 
+        else
+        {
+            movePointerOffscreen();
         }
         
         
@@ -105,12 +109,6 @@ public class pauseMenuTextSpeed : MonoBehaviour
             PlayerPrefs.SetFloat("dialogueTextSpeedPercent", dialogueTextSpeedPercent);
             PlayerPrefs.SetFloat("dialogueTextSpeed", dialogueTextSpeed);
         }
-
-        Debug.Log("combat speed percent: " + combatTextSpeedPercent);
-        Debug.Log("combat speed: " + combatTextSpeed);
-
-        Debug.Log("dialogue speed percent: " + dialogueTextSpeedPercent);
-        Debug.Log("dialogue speed: " + dialogueTextSpeed);
     }
 
     void realignPointer()
