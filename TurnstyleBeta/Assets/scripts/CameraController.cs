@@ -36,11 +36,19 @@ public class CameraController : MonoBehaviour
         Color temp = currentStation.GetComponent<Image>().color;
         temp = new Color (0.5f,0.43f,0.56f);
         currentStation.GetComponent<Image>().color = temp;
+
+        SceneManager.LoadScene("DialogueScene", LoadSceneMode.Additive);
     }
 
     // Update is called once per frame
     void Update()
     {
+        //cancels out of game after final cutscene
+        if(currentCutScene == 4){
+                    Music.SetActive(false);
+                    StartCoroutine(loadScene("mainMenuScene"));
+                }
+        
         //Debug.Log("Actice Scene Count: " + SceneManager.sceneCount);
         if (SceneManager.sceneCount == 1) 
         {
@@ -80,12 +88,6 @@ public class CameraController : MonoBehaviour
                 Debug.Log("Opening Cutscene #"+currentCutScene);
                 //Music.SetActive(false);
                 SceneManager.LoadScene("DialogueScene", LoadSceneMode.Additive);
-                //if(currentCutScene == 0) currentStation.cutscene = 3;
-                if(currentCutScene == 3){
-                    Music.SetActive(false);
-                    StartCoroutine(loadScene("mainMenuScene"));
-                }
-                //currentCutScene ++;
             }
 
             if (currentStation.hasCombat)
