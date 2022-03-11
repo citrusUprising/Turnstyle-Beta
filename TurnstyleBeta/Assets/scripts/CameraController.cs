@@ -90,7 +90,7 @@ public class CameraController : MonoBehaviour
                 SceneManager.LoadScene("DialogueScene", LoadSceneMode.Additive);
             }
 
-            if (currentStation.hasCombat)
+            if (currentStation.hasCombat&&currentCutScene!=currentStation.cutscene)
             {
                 //StartCoroutine(loadScene(currentStation.combatSceneName));
                 GameObject Stats = GameObject.Find("CurrentStats");
