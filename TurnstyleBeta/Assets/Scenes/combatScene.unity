@@ -3508,8 +3508,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8084932009237154912, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
       propertyPath: m_text
-      value: 'Dodge: <font="Roboto-Regular SDF">If their Speed is greater than 5,
-        Seraphim gets a 50% chance to dodge incoming attacks.</font>'
+      value: 'Dodge: <font="Roboto-Regular SDF">If Seraphim''s Speed is greater than
+        5, they gets a 50% chance to dodge incoming attacks.</font>'
       objectReference: {fileID: 0}
     - target: {fileID: 8335385524166467868, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
       propertyPath: m_SizeDelta.x
@@ -4612,8 +4612,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8084932009237154912, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
       propertyPath: m_text
-      value: 'Support: <font="Roboto-Regular SDF">If he''s at less than 2 Fatigue
-        at the end of the turn, Jade cures all ally Debufs.</font>'
+      value: 'Support: <font="Roboto-Regular SDF">If Jade''s at less than 2 Fatigue
+        at the end of the turn, he cures all ally Debufs.</font>'
       objectReference: {fileID: 0}
     - target: {fileID: 8335385524166467868, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
       propertyPath: m_SizeDelta.x
