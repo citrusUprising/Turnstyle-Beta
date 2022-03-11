@@ -21,7 +21,7 @@ public class CameraController : MonoBehaviour
     public Animator transitionAnimator;
     public GameObject Music;
     //determines which cutscene node is active
-    public int currentCutScene =1;
+    public int currentCutScene =0;
 
     public GameObject moneyTxt;
 
@@ -72,12 +72,14 @@ public class CameraController : MonoBehaviour
             if (currentStation.cutscene == currentCutScene){
                 onLine = new bool[]{false,false,false,false,false,false};
                 Debug.Log("Opening Cutscene #"+currentCutScene);
+                //Music.SetActive(false);
                 SceneManager.LoadScene("DialogueScene", LoadSceneMode.Additive);
+                //if(currentCutScene == 0) currentStation.cutscene = 3;
                 if(currentCutScene == 3){
                     Music.SetActive(false);
                     StartCoroutine(loadScene("mainMenuScene"));
                 }
-                currentCutScene ++;
+                //currentCutScene ++;
             }
 
             if (currentStation.hasCombat)

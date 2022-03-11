@@ -3169,7 +3169,7 @@ GameObject:
   - component: {fileID: 1112358698}
   - component: {fileID: 1112358695}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: NodeMapCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3297,7 +3297,7 @@ MonoBehaviour:
   transitionTime: 0.5
   transitionAnimator: {fileID: 343473117}
   Music: {fileID: 490167745}
-  currentCutScene: 1
+  currentCutScene: 0
   moneyTxt: {fileID: 1545491297}
 --- !u!224 &1113270148 stripped
 RectTransform:
