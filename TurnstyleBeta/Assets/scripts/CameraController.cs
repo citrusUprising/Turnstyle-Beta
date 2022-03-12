@@ -30,6 +30,8 @@ public class CameraController : MonoBehaviour
     private GameObject pauseMenuObject;
     public Canvas canvas;
 
+    private bool loading = false;
+
     int money = 8;
     // Start is called before the first frame update
     void Start()
@@ -41,7 +43,7 @@ public class CameraController : MonoBehaviour
         temp = new Color (0.5f,0.43f,0.56f);
         currentStation.GetComponent<Image>().color = temp;
 
-        SceneManager.LoadScene("DialogueScene", LoadSceneMode.Additive);
+        StartCoroutine(loadScene("DialogueScene"));
     }
 
     // Update is called once per frame
@@ -50,11 +52,11 @@ public class CameraController : MonoBehaviour
         //cancels out of game after final cutscene
         if(currentCutScene == 4){
                     Music.SetActive(false);
-                    StartCoroutine(loadScene("mainMenuScene"));
+                    SceneManager.LoadScene("mainMenuScene",LoadSceneMode.Single);
                 }
         
         //Debug.Log("Actice Scene Count: " + SceneManager.sceneCount);
-        if (SceneManager.sceneCount == 1) 
+        if (SceneManager.sceneCount == 1&&!loading) 
         {
             if(money >=0)Music.SetActive(true);
 
@@ -100,7 +102,7 @@ public class CameraController : MonoBehaviour
                 onLine = new bool[]{false,false,false,false,false,false};
                 Debug.Log("Opening Cutscene #"+currentCutScene);
                 //Music.SetActive(false);
-                SceneManager.LoadScene("DialogueScene", LoadSceneMode.Additive);
+               StartCoroutine(loadScene("DialogueScene"));
             }
 
             if (currentStation.hasCombat&&currentCutScene!=currentStation.cutscene)
@@ -109,7 +111,7 @@ public class CameraController : MonoBehaviour
                 GameObject Stats = GameObject.Find("CurrentStats");
                 CurrentStats currStats = Stats.GetComponent<CurrentStats>();
                 currStats.CurrentEnemies = currentStation.Enemies;
-                SceneManager.LoadScene("combatScene", LoadSceneMode.Additive);
+                StartCoroutine(loadScene("combatScene"));
                 Music.SetActive(false);
                 currentStation.endCombat();
             }
@@ -169,10 +171,12 @@ public class CameraController : MonoBehaviour
 
     IEnumerator loadScene(string Scene)
     {
+        loading =true;
         transitionAnimator.SetTrigger("toBlack");
 
         yield return new WaitForSeconds(transitionTime);
 
         SceneManager.LoadScene(Scene, LoadSceneMode.Additive);
+        loading = false;
     }
 }
