@@ -11,13 +11,15 @@ public class titleScreen : MonoBehaviour
     public GameObject transitionObject;
     public Animator transitionAnimator;
     public float transitionTime = .5f;
-    private GameObject start;
-    private GameObject creditsText;
-    private GameObject settings;
-    private GameObject exit;
-    private GameObject pointer;
+    
+    public GameObject controlsText;
+    public GameObject creditsText;
+    public GameObject exit;
+    public GameObject settings;
+    public GameObject start;
+
     private int selectedOption = 0;
-    private GameObject[] options = new GameObject[4];
+    public GameObject[] options;
 
     private float rotateDirection;
 
@@ -27,29 +29,22 @@ public class titleScreen : MonoBehaviour
     public GameObject pauseMenu;
     private GameObject pauseMenuObject;
 
+    public GameObject controls;
+    private GameObject controlsObject;
+
     public Canvas canvas;
 
     // GameObjects that hold FMOD Studio Event Emitters for playing SFX
     public GameObject menuScroll;
     public GameObject selectSound;
 
-    public 
+    public GameObject pointer;
+
+    private bool isLerping = false;
 
     // Start is called before the first frame update
     void Start()
     {
-   
-        start = logo.transform.GetChild(1).gameObject;
-        creditsText = logo.transform.GetChild(2).gameObject;
-        settings = logo.transform.GetChild(3).gameObject;
-        exit = logo.transform.GetChild(4).gameObject;
-        pointer = logo.transform.GetChild(5).gameObject;
-
-        options[0] = start;
-        options[1] = creditsText;
-        options[2] = settings;
-        options[3] = exit;
-
         randomizeRotateDirection();
 
         gameObject.transform.Rotate(0, 0, Random.Range(0, 5) * 72);
@@ -60,7 +55,7 @@ public class titleScreen : MonoBehaviour
     {
         gameObject.transform.Rotate(0, 0, .25f*rotateDirection);
 
-        if (creditsObject == null && pauseMenuObject == null)
+        if (creditsObject == null && controlsObject == null && pauseMenuObject == null)
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
@@ -70,7 +65,7 @@ public class titleScreen : MonoBehaviour
                 selectedOption--;
                 if (selectedOption == -1)
                 {
-                    selectedOption = 2;
+                    selectedOption = options.Length - 1;
                 }
             }
 
@@ -80,7 +75,7 @@ public class titleScreen : MonoBehaviour
                 menuScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
 
                 selectedOption++;
-                if (selectedOption == 3)
+                if (selectedOption == options.Length)
                 {
                     selectedOption = 0;
                 }
@@ -91,34 +86,34 @@ public class titleScreen : MonoBehaviour
                 Application.Quit();
             }
 
-            if (Input.GetKeyDown(KeyCode.X))
+            if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
             {
                 // Play select sound sfx
                 selectSound.GetComponent<FMODUnity.StudioEventEmitter>().Play();
 
-                if (selectedOption == 0)
+                if (options[selectedOption] == start)
                 {
                     StartCoroutine(loadScene(2));
                 }
 
-                else if (selectedOption == 1)
+                else if (options[selectedOption] == controlsText)
                 {
-                    if (creditsObject == null)
-                    {
-                        creditsObject = Instantiate(credits, canvas.transform);
-                        StartCoroutine(lerpCreditsOnScreen());
-                    }
+                    controlsObject = Instantiate(controls, canvas.transform);
+                    StartCoroutine(lerpObjectOnScreen(controlsObject));
                 }
 
-                else if (selectedOption == 2)
+                else if (options[selectedOption] == settings)
                 {
-                    if (pauseMenuObject == null)
-                    {
-                        pauseMenuObject = Instantiate(pauseMenu, canvas.transform);
-                    }
+                    pauseMenuObject = Instantiate(pauseMenu, canvas.transform);
                 }
 
-                else if (selectedOption == 3)
+                else if (options[selectedOption] == creditsText)
+                {
+                    creditsObject = Instantiate(credits, canvas.transform);
+                    StartCoroutine(lerpObjectOnScreen(creditsObject));
+                }
+
+                else if (options[selectedOption] == exit)
                 {
                     Application.Quit();
                 }
@@ -126,13 +121,27 @@ public class titleScreen : MonoBehaviour
 
             pointer.transform.localPosition = new Vector3(
                 pointer.transform.localPosition[0],
-                options[selectedOption].transform.localPosition[1],
+                options[selectedOption].transform.localPosition[1] - 140,
                 pointer.transform.localPosition[2]);
-        } 
-        
-        else if (creditsObject != null && (Input.GetKeyDown(KeyCode.Escape)) || (Input.GetKeyDown(KeyCode.Z)) || (Input.GetKeyDown(KeyCode.X)))
+        }
+
+        else
         {
-            StartCoroutine(lerpCreditsOffScreen());
+            if (creditsObject != null && (Input.GetKeyDown(KeyCode.Escape)) || (Input.GetKeyDown(KeyCode.Z)) || (Input.GetKeyDown(KeyCode.X)))
+            {
+                if (isLerping == false)
+                {
+                    StartCoroutine(lerpObjectOffScreen(creditsObject));
+                }
+            }
+
+            if (controlsObject != null && (Input.GetKeyDown(KeyCode.Escape)) || (Input.GetKeyDown(KeyCode.Z)) || (Input.GetKeyDown(KeyCode.X)))
+            {
+                if (isLerping == false)
+                {
+                    StartCoroutine(lerpObjectOffScreen(controlsObject));
+                }
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
@@ -169,9 +178,11 @@ public class titleScreen : MonoBehaviour
         SceneManager.LoadScene(index);
     }
 
-    IEnumerator lerpCreditsOnScreen()
+    IEnumerator lerpObjectOnScreen(GameObject obj)
     {
-        if (creditsObject != null)
+        isLerping = true;
+
+        if (obj != null)
         {
             float time = 0f;
             float duration = 1f;
@@ -186,26 +197,31 @@ public class titleScreen : MonoBehaviour
 
                 t = t * t * (3f - 2f * t);
 
-                if (creditsObject != null)
+                if (obj != null)
                 {
-                    creditsObject.transform.localPosition = Vector3.Lerp(previousLocation, nextLocation, t);
+                    obj.transform.localPosition = Vector3.Lerp(previousLocation, nextLocation, t);
                 }
                 time += Time.deltaTime;
 
                 yield return null;
             }
 
-            if (creditsObject != null)
+            if (obj != null)
             {
-                creditsObject.transform.localPosition = nextLocation;
+                obj.transform.localPosition = nextLocation;
             }
         }
+
+        isLerping = false;
     }
 
-    IEnumerator lerpCreditsOffScreen()
+    IEnumerator lerpObjectOffScreen(GameObject obj)
     {
-        if (creditsObject != null)
+        isLerping = true;
+
+        if (obj != null)
         {
+
             float time = 0f;
             float duration = 1f;
 
@@ -219,9 +235,9 @@ public class titleScreen : MonoBehaviour
 
                 t = t * t * (3f - 2f * t);
 
-                if (creditsObject != null)
+                if (obj != null)
                 {
-                    creditsObject.transform.localPosition = Vector3.Lerp(previousLocation, nextLocation, t);
+                    obj.transform.localPosition = Vector3.Lerp(previousLocation, nextLocation, t);
                 }
 
                 time += Time.deltaTime;
@@ -229,11 +245,13 @@ public class titleScreen : MonoBehaviour
                 yield return null;
             }
 
-            if (creditsObject != null)
+            if (obj != null)
             {
-                creditsObject.transform.localPosition = nextLocation;
-                Destroy(creditsObject);
+                obj.transform.localPosition = nextLocation;
+                Destroy(obj);
             }
         }
+
+        isLerping = false;
     }
 }
