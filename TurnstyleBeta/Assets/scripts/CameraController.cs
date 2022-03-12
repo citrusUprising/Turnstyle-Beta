@@ -25,6 +25,7 @@ public class CameraController : MonoBehaviour
     public int currentCutScene =0;
 
     public GameObject moneyTxt;
+    public GameObject objective;
 
     public GameObject pauseMenu;
     private GameObject pauseMenuObject;
@@ -102,6 +103,19 @@ public class CameraController : MonoBehaviour
                 onLine = new bool[]{false,false,false,false,false,false};
                 Debug.Log("Opening Cutscene #"+currentCutScene);
                 //Music.SetActive(false);
+                switch(currentCutScene){
+                    case 1:
+                    objective.GetComponent<TextMeshProUGUI>().text = "Everyone needs to get to class. University is to the South.";
+                    break;
+
+                    case 2:
+                    objective.GetComponent<TextMeshProUGUI>().text = "It's been a long day. Head back home.";
+                    break;
+
+                    default:
+                    objective.GetComponent<TextMeshProUGUI>().text = "";
+                    break;
+                }
                StartCoroutine(loadScene("DialogueScene"));
             }
 

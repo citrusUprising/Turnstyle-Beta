@@ -1114,6 +1114,7 @@ GameObject:
   - component: {fileID: 6194342817783395097}
   - component: {fileID: 8640419028851797480}
   - component: {fileID: 2736015246434819403}
+  - component: {fileID: 8604992937538909762}
   m_Layer: 5
   m_Name: nameTag
   m_TagString: Untagged
@@ -1211,6 +1212,8 @@ MonoBehaviour:
   healthStatusTracker: {fileID: 4994691930084920309}
   buffStatusTracker: {fileID: 4816335651215792561}
   debuffStatusTracker: {fileID: 4180372119503366241}
+  speedSelectImage: {fileID: 0}
+  totalSpeedImage: {fileID: 0}
 --- !u!114 &2736015246434819403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1226,6 +1229,27 @@ MonoBehaviour:
   moveSelect: {fileID: 4720814543380981461, guid: b9800b8604f742c42bd4e016ccba34fc, type: 3}
   Player: {fileID: 0}
   playerImg: {fileID: 0}
+--- !u!223 &8604992937538909762
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6194342817783395099}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_SortingLayerID: 0
+  m_SortingOrder: 4
+  m_TargetDisplay: 0
 --- !u!1 &6194342818311131052
 GameObject:
   m_ObjectHideFlags: 0
