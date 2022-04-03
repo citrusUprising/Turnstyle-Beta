@@ -38,6 +38,9 @@ public class pauseMenu : MonoBehaviour
 
     public bool[] pauseMenuItemsShowing = new bool[5];
 
+    public GameObject selectSound;
+    public GameObject rotateSound;
+    public GameObject backSound;
 
     // Start is called before the first frame update
     void Start()
@@ -66,12 +69,14 @@ public class pauseMenu : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
-                rotate(1);
+                rotate(-1);
+                rotateSound.GetComponent<FMODUnity.StudioEventEmitter>().Play();
             }
 
             else if (Input.GetKeyDown(KeyCode.DownArrow))
             {
-                rotate(-1);
+                rotate(1);
+                rotateSound.GetComponent<FMODUnity.StudioEventEmitter>().Play();
             }
 
             if (Input.GetKeyDown(KeyCode.X) && isItemSelectionAnimating == false)
@@ -79,6 +84,7 @@ public class pauseMenu : MonoBehaviour
                 pauseMenuItemsShowing[currentSelectedItem] = true;
                 currentSelectedItemObject = items[currentSelectedItem];
                 StartCoroutine(lerpCurrentSelectedItemLeft());
+                selectSound.GetComponent<FMODUnity.StudioEventEmitter>().Play();
             }
 
             if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Z))
@@ -91,6 +97,7 @@ public class pauseMenu : MonoBehaviour
         {
             pauseMenuItemsShowing[currentSelectedItem] = false;
             StartCoroutine(lerpCurrentSelectedItemRight());
+            backSound.GetComponent<FMODUnity.StudioEventEmitter>().Play();
         }
         
     }
@@ -221,6 +228,12 @@ public class pauseMenu : MonoBehaviour
         }
 
         currentSelectedItemObject.GetComponent<RectTransform>().position = newVector3;
+
+        if (currentSelectedItem == 3)
+        {
+            currentSelectedItemObject.GetComponent<pauseMenuTextSpeed>().toggleSelectedLabel();
+            currentSelectedItemObject.GetComponent<pauseMenuTextSpeed>().toggleSelectedLabel();
+        }
 
         isItemSelectionAnimating = false;
     }

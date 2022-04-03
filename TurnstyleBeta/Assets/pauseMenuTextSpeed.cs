@@ -31,6 +31,11 @@ public class pauseMenuTextSpeed : MonoBehaviour
     private float dialogueTextSpeedMaxValue = .1f;
     private float dialogueTextSpeedMinValue = .01f;
 
+    public GameObject combatPreview;
+    public GameObject dialoguePreview;
+
+    public GameObject selectSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -72,20 +77,24 @@ public class pauseMenuTextSpeed : MonoBehaviour
         {
             movePointerOffscreen();
         }
-        
-        
     }
 
-    void toggleSelectedLabel()
+    public void toggleSelectedLabel()
     {
         if (selectedLabel == labelCombat)
         {
             selectedLabel = labelDialogue;
+
+            showTextPreview("dialogue", true);
         }
         else if (selectedLabel == labelDialogue)
         {
             selectedLabel = labelCombat;
+
+            showTextPreview("combat", true);
         }
+
+        selectSound.GetComponent<FMODUnity.StudioEventEmitter>().Play();
     }
 
     void editSelectedLabel(float change)
@@ -98,6 +107,9 @@ public class pauseMenuTextSpeed : MonoBehaviour
 
             PlayerPrefs.SetFloat("combatTextSpeedPercent", combatTextSpeedPercent);
             PlayerPrefs.SetFloat("combatTextSpeed", combatTextSpeed);
+
+            showTextPreview("combat", false);
+
         }
         else if (selectedLabel == labelDialogue)
         {
@@ -108,7 +120,27 @@ public class pauseMenuTextSpeed : MonoBehaviour
             PlayerPrefs.SetFloat("dialogueTextSpeedPercent", dialogueTextSpeedPercent);
             PlayerPrefs.SetFloat("dialogueTextSpeed", dialogueTextSpeed);
 
-            Debug.Log(dialogueTextSpeed);
+            showTextPreview("dialogue", false);
+        }
+
+        selectSound.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+    }
+
+    void showTextPreview(string kindOfPreview, bool skip)
+    {
+        if (kindOfPreview == "combat")
+        {
+            combatPreview.GetComponent<textPreviewCombat>().textSpeed = combatTextSpeed;
+            combatPreview.GetComponent<textPreviewCombat>().resetText(skip);
+
+            dialoguePreview.GetComponent<textPreviewDialogue>().deleteText();
+        }
+        else if (kindOfPreview == "dialogue")
+        {
+            dialoguePreview.GetComponent<textPreviewDialogue>().textSpeed = dialogueTextSpeed;
+            dialoguePreview.GetComponent<textPreviewDialogue>().resetText(skip);
+
+            combatPreview.GetComponent<textPreviewCombat>().deleteText();
         }
     }
 
