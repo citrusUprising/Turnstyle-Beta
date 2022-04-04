@@ -149,11 +149,13 @@ public class pauseMenuVolume : MonoBehaviour
 
     float getMusic()
     {
-        return Mathf.Lerp(musicMinValue, musicMaxValue, 1 - musicPercent);
+        float lerpValue = Mathf.Lerp(musicMinValue, musicMaxValue, musicPercent);
+        return Mathf.Pow(10f, lerpValue / 20f);
     }
 
     float getSFX()
     {
-        return Mathf.Lerp(sfxMinValue, sfxMaxValue, 1 - sfxPercent);
+        float lerpValue = Mathf.Lerp(sfxMinValue, sfxMaxValue, sfxPercent);
+        return Mathf.Pow(10f, lerpValue / 20f);
     }
 }
