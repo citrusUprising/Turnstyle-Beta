@@ -9,11 +9,23 @@ using TMPro;
 public class dialogueEntry{
 	public string line;
 	public bool speaker; // = false if left speaker, true if right
+	public string faceL; 
+	public string faceR; 
 	public string music;
 
 	public dialogueEntry(string line, bool speaker, string music){
 		this.line = line;
 		this.speaker = speaker;
+		this.music = music;
+		this.faceL = "neutral";
+		this.faceR = "neitral";
+	}
+
+	public dialogueEntry(string line, bool speaker, string faceL, string faceR, string music){
+		this.line = line;
+		this.speaker = speaker;
+		this.faceL = faceL;
+		this.faceR = faceR;
 		this.music = music;
 	}
 }
@@ -21,6 +33,7 @@ public class dialogueEntry{
 public class overallDialogue{
 	public string speakerA;
 	public string speakerB;
+	public string faceUnactive;
 	public string background;
 	public dialogueEntry[] lines;
 
@@ -40,6 +53,8 @@ public class dialogueEngine : MonoBehaviour
 	public GameObject mainBox;
 	public GameObject rightSprite;
 	public GameObject leftSprite;
+	public GameObject leftFace;
+	public GameObject rightFace;
 	public GameObject leftName;
 	public GameObject rightName;
 	public GameObject backGround;
@@ -86,6 +101,8 @@ public class dialogueEngine : MonoBehaviour
 
 		this.leftSprite.GetComponent<talkSpriteHandler>().changeCharacter(chosenDialogue.speakerA);
 		this.rightSprite.GetComponent<talkSpriteHandler>().changeCharacter(chosenDialogue.speakerB);
+		this.leftFace.GetComponent<faceHandler>().changeFace(chosenDialogue.speakerA,"");
+		this.rightFace.GetComponent<faceHandler>().changeFace(chosenDialogue.speakerB,"");
 		this.backGround.GetComponent<backGroundHandler>().changeBackground(chosenDialogue.background);
         leftName.GetComponent<TextMeshProUGUI>().text = chosenDialogue.speakerA;
         rightName.GetComponent<TextMeshProUGUI>().text = chosenDialogue.speakerB;
@@ -196,11 +213,19 @@ public class dialogueEngine : MonoBehaviour
 	private void swapAndSound(){
 		if(chosenDialogue.lines[currentLine].speaker){
 					leftSprite.GetComponent<talkSpriteHandler>().makeIdle();
+					leftFace.GetComponent<faceHandler>().makeIdle();
+					leftFace.GetComponent<faceHandler>().changeFace(chosenDialogue.speakerA,chosenDialogue.lines[currentLine].faceL);
 					rightSprite.GetComponent<talkSpriteHandler>().makeActive();
+					rightFace.GetComponent<faceHandler>().makeActive();
+					rightFace.GetComponent<faceHandler>().changeFace(chosenDialogue.speakerB,chosenDialogue.lines[currentLine].faceR);
         		}
         		else{
 					rightSprite.GetComponent<talkSpriteHandler>().makeIdle();
+					rightFace.GetComponent<faceHandler>().makeIdle();
+					rightFace.GetComponent<faceHandler>().changeFace(chosenDialogue.speakerB,chosenDialogue.lines[currentLine].faceR);
 					leftSprite.GetComponent<talkSpriteHandler>().makeActive();
+					leftFace.GetComponent<faceHandler>().makeActive();				
+					leftFace.GetComponent<faceHandler>().changeFace(chosenDialogue.speakerA,chosenDialogue.lines[currentLine].faceL);	
         		}
 				if(chosenDialogue.lines[currentLine].music != "null")
 				this.playMusic(chosenDialogue.lines[currentLine].music);
