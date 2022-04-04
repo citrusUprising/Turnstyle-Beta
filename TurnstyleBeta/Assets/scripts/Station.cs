@@ -48,8 +48,16 @@ public class Station : MonoBehaviour
         }
     }
 
+    public void DisableHardMode(){
+        if(hasHardMode && hasCombat){
+            hasCombat = false;
+            this.GetComponent<Image>().sprite = standard;
+        }
+    }
+
     public void endCombat(){
         this.GetComponent<Image>().sprite = standard;
         this.hasCombat = false;
+        this.hasHardMode = false;
     }
 }

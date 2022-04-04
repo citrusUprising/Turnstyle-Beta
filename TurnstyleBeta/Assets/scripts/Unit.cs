@@ -357,11 +357,19 @@ public class Unit : MonoBehaviour
         {
             if(s == newStatus)
             {
+                String s2 = s.ToString();
+                 if(s2.Contains("ed")||s2 == "Vulnerable")
+                gameLoop.outputQueue.Add(this.unitName + " is immune to being "+s2);
+                else gameLoop.outputQueue.Add(this.unitName + " is immune to "+s2);
                 return;
             }
         }
         if(this.statuses[(int) type].name != StatusName.None)
         {
+            String cur =this.statuses[(int) type].name.ToString();
+            if(cur.Contains("ed")||cur == "Vulnerable")
+            gameLoop.outputQueue.Add(this.unitName + " is already "+cur);
+            else gameLoop.outputQueue.Add(this.unitName + " already has "+cur);
             return;
         }
         else

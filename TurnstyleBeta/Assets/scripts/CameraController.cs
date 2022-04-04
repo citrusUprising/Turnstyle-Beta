@@ -23,6 +23,7 @@ public class CameraController : MonoBehaviour
     public GameObject Music;
     //determines which cutscene node is active
     public int currentCutScene =0;
+    private bool hasMoney;
 
     public GameObject moneyTxt;
     public GameObject objective;
@@ -116,7 +117,9 @@ public class CameraController : MonoBehaviour
                     objective.GetComponent<TextMeshProUGUI>().text = "";
                     break;
                 }
-               StartCoroutine(loadScene("DialogueScene"));
+                money +=2; //flag
+                this.MoneyUpdate();
+                StartCoroutine(loadScene("DialogueScene"));
             }
 
             if (currentStation.hasCombat&&currentCutScene!=currentStation.cutscene)
@@ -165,15 +168,7 @@ public class CameraController : MonoBehaviour
             }
             money--;
             Debug.Log("Changed lines");
-            if (money >= 0)
-            moneyTxt.GetComponent<TextMeshProUGUI>().text = "$" + money + "<size=54.4><sup><u>00";
-            if(money == -1){
-                Music.SetActive(false);
-                foreach(Station h in this.allStations){
-                    h.EnableHardMode(); //flag
-                }
-            }
-
+            this.MoneyUpdate();
         }
         currentStation = currentStation.destinations[s];
         currentLine = 0;
@@ -181,6 +176,25 @@ public class CameraController : MonoBehaviour
         Color temp2 = currentStation.GetComponent<Image>().color;
         temp2 = new Color (0.5f,0.43f,0.56f);
         currentStation.GetComponent<Image>().color = temp2;
+    }
+
+    void MoneyUpdate(){
+        if (money >= 0)
+        moneyTxt.GetComponent<TextMeshProUGUI>().text = "$" + money + "<size=54.4><sup><u>00";
+        if(money == -1 && hasMoney){
+            Music.SetActive(false);
+            hasMoney = false;
+            foreach(Station h in this.allStations){
+                h.EnableHardMode(); //flag
+            }
+        }else if (money > 0 && !hasMoney){
+            Music.SetActive(true);
+            hasMoney = true;
+            foreach(Station h in this.allStations){
+                h.DisableHardMode(); //flag
+            }
+        }
+        if(money < 0) money = 0;
     }
 
     IEnumerator loadScene(string Scene)
