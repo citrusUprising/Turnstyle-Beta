@@ -189,12 +189,12 @@ public class Unit : MonoBehaviour
         if(this.statuses[(int) StatusType.Health].name == StatusName.Regeneration)
         {
             this.hp = Math.Min(this.hp + this.statuses[(int) StatusType.Health].magnitude, this.maxHP);
-            gameLoop.outputQueue.Add(this.unitName+" regenerated health");
+            gameLoop.outputQueue.Add(this.unitName+" regenerated "+this.statuses[(int) StatusType.Health].magnitude+" health");
         }
         if(this.statuses[(int) StatusType.Health].name == StatusName.Burn)
         {
             this.hp = Math.Max(0, this.hp - this.statuses[(int) StatusType.Health].magnitude);
-            gameLoop.outputQueue.Add(this.unitName+" was hurt by their "+StatusName.Burn);
+            gameLoop.outputQueue.Add(this.unitName+" took "+this.statuses[(int) StatusType.Health].magnitude+" damage from their "+StatusName.Burn);
         }
         if(this.tag == "Enemy"){
             foreach(Status s in this.statuses)

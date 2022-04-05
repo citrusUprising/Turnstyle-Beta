@@ -308,7 +308,8 @@ public class Crush : Ability
     public override void effect(Unit target, Unit source, MainLoop L)
     {
         target.takeDamage(source, 8);
-        source.hp = Math.Min(source.hp-4, source.maxHP);
+        source.hp = Math.Max(source.hp-4, 0);
+        L.outputQueue.Add(source.unitName+" took 4 damage from recoil");
     }
 
     public override bool requirement(Unit target, Unit source)
@@ -380,9 +381,7 @@ public class Soulrip : Ability
         float check = UnityEngine.Random.Range(0.0f,1.0f);
         Debug.Log("Seraphim's accuracy is "+test);
         Debug.Log("Seraphim rolled "+ check);
-        if(source.fatigue <= 0 || check <= test){
-            L.outputQueue.Add(target.unitName+"'s soul was torn");
-            target.takeDamage(source, 10);}
+        if(source.fatigue <= 0 || check <= test) target.takeDamage(source, 10);
         else L.outputQueue.Add(source.unitName+" couldn't manifest");
     }
 

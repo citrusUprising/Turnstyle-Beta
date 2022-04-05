@@ -5,6 +5,61 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Random = System.Random;
 using TMPro;
+
+public class displayObject{
+    public string text; //the text sent to the display
+    public bool isLeft; //whether the text out is ally (true) or enemy (false)
+    public Unit origin; //location of affected unit
+    public bool isDamage;//whether or not popUp is healing or damage
+    public string popUp; //damage/healing numbers displayed over unit
+    public StatusName status; //status image that appears over unit
+    public string sound; //sound effect to play
+    public displayObject(string text, bool isDamage){
+        this.text = text;
+        this.isLeft = true;
+        this.origin = null;
+        this.popUp = "";
+        this.isDamage = isDamage;
+        this.status = StatusName.None;
+        this.sound ="null";
+    }
+    public displayObject(string text, bool isLeft, Unit origin, StatusName status, bool isDamage){
+        this.text = text;
+        this.isLeft = isLeft;
+        this.origin = origin;
+        this.popUp = "";
+        this.isDamage = isDamage;
+        this.status = status;
+        this.sound = "null";
+    }
+    public displayObject(string text, bool isLeft, Unit origin, string popUp, bool isDamage){
+        this.text = text;
+        this.isLeft = isLeft;
+        this.origin = origin;
+        this.popUp = popUp;
+        this.isDamage = isDamage;
+        this.status = StatusName.None;
+        this.sound = "null";
+    }
+     public displayObject(string text, bool isLeft, Unit origin, StatusName status, bool isDamage, string sound){
+        this.text = text;
+        this.isLeft = isLeft;
+        this.origin = origin;
+        this.popUp = "";
+        this.isDamage = isDamage;
+        this.status = status;
+        this.sound= sound;
+    }
+    public displayObject(string text, bool isLeft, Unit origin, string popUp, bool isDamage, string sound){
+        this.text = text;
+        this.isLeft = isLeft;
+        this.origin = origin;
+        this.popUp = popUp;
+        this.isDamage = isDamage;
+        this.status = StatusName.None;
+        this.sound = sound;
+    }
+}
 public class MainLoop : MonoBehaviour
 {
     public string sceneName;
