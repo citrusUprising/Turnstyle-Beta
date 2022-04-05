@@ -42,6 +42,8 @@ public class pauseMenu : MonoBehaviour
     public GameObject rotateSound;
     public GameObject backSound;
 
+    private bool isLerpingOnScreen = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,6 +53,8 @@ public class pauseMenu : MonoBehaviour
         currentX = selectedX;
 
         items[currentSelectedItem].GetComponent<RectTransform>().position = new Vector3(unselectedX, onScreen, 0);
+
+        StartCoroutine(lerpEverything("on screen"));
     }
 
     // Update is called once per frame
@@ -65,41 +69,43 @@ public class pauseMenu : MonoBehaviour
             currentX = unselectedX;
         }
 
-        if (currentSelectedItemObject == null)
+        if (isRotating == false && isLerpingOnScreen == false)
         {
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            if (currentSelectedItemObject == null)
             {
-                rotate(-1);
-                rotateSound.GetComponent<FMODUnity.StudioEventEmitter>().Play();
-            }
+                if (Input.GetKeyDown(KeyCode.UpArrow))
+                {
+                    rotate(-1);
+                    rotateSound.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+                }
 
-            else if (Input.GetKeyDown(KeyCode.DownArrow))
+                else if (Input.GetKeyDown(KeyCode.DownArrow))
+                {
+                    rotate(1);
+                    rotateSound.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+                }
+
+                if (Input.GetKeyDown(KeyCode.X) && isItemSelectionAnimating == false)
+                {
+                    pauseMenuItemsShowing[currentSelectedItem] = true;
+                    currentSelectedItemObject = items[currentSelectedItem];
+                    StartCoroutine(lerpCurrentSelectedItemLeft());
+                    selectSound.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+                }
+
+                if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Z))
+                {
+                    StartCoroutine(lerpEverything("off screen"));
+                }
+
+            }
+            else if (Input.GetKeyDown(KeyCode.Z) && isItemSelectionAnimating == false)
             {
-                rotate(1);
-                rotateSound.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+                pauseMenuItemsShowing[currentSelectedItem] = false;
+                StartCoroutine(lerpCurrentSelectedItemRight());
+                backSound.GetComponent<FMODUnity.StudioEventEmitter>().Play();
             }
-
-            if (Input.GetKeyDown(KeyCode.X) && isItemSelectionAnimating == false)
-            {
-                pauseMenuItemsShowing[currentSelectedItem] = true;
-                currentSelectedItemObject = items[currentSelectedItem];
-                StartCoroutine(lerpCurrentSelectedItemLeft());
-                selectSound.GetComponent<FMODUnity.StudioEventEmitter>().Play();
-            }
-
-            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Z))
-            {
-                Destroy(gameObject);
-            }
-
         }
-        else if (Input.GetKeyDown(KeyCode.Z) && isItemSelectionAnimating == false)
-        {
-            pauseMenuItemsShowing[currentSelectedItem] = false;
-            StartCoroutine(lerpCurrentSelectedItemRight());
-            backSound.GetComponent<FMODUnity.StudioEventEmitter>().Play();
-        }
-        
     }
 
     void rotate(int direction)
@@ -229,6 +235,9 @@ public class pauseMenu : MonoBehaviour
 
         currentSelectedItemObject.GetComponent<RectTransform>().position = newVector3;
 
+        // this is really messy code rn but it works
+        // this toggles the selection on the menu item twice IF that menu item is the text speed controls
+        // the function of this is to make the animation of the preview text speed play as soon as that item is selected
         if (currentSelectedItem == 3)
         {
             currentSelectedItemObject.GetComponent<pauseMenuTextSpeed>().toggleSelectedLabel();
@@ -268,6 +277,73 @@ public class pauseMenu : MonoBehaviour
         isItemSelectionAnimating = false;
 
         currentSelectedItemObject = null;
+    }
+
+    // this gets called in the start function of this object and in the context this object is created in to destroy it
+    public IEnumerator lerpEverything(string direction = "on screen")
+    {
+        isLerpingOnScreen = true;
+
+        float time = 0f;
+        float duration = .25f;
+
+        
+        Vector3 oldPentagonPosition = pentagonSelected;
+        oldPentagonPosition[0] -= Screen.width / 2;
+        Vector3 newPentagonPosition = pentagonSelected;
+
+        Vector3 oldItemPosition = items[currentSelectedItem].GetComponent<RectTransform>().position;
+        oldItemPosition[0] += Screen.width / 2;
+        Vector3 newItemPosition = items[currentSelectedItem].GetComponent<RectTransform>().position;
+
+        float oldRectangleAlpha = 0;
+        float newRectangleAlpha = 1;
+        
+
+        if (direction == "off screen")
+        {
+            newPentagonPosition = pentagonSelected;
+            newPentagonPosition[0] -= Screen.width / 2;
+            oldPentagonPosition = pentagonSelected;
+
+            newItemPosition = items[currentSelectedItem].GetComponent<RectTransform>().position;
+            newItemPosition[0] += Screen.width / 2;
+            oldItemPosition = items[currentSelectedItem].GetComponent<RectTransform>().position;
+
+            newRectangleAlpha = 0;
+            oldRectangleAlpha = 1;
+        }
+
+        while (time < duration)
+        {
+
+            float t = time / duration;
+
+            t = t * t * (3f - 2f * t);
+
+            pentagon.GetComponent<RectTransform>().localPosition = Vector3.Lerp(oldPentagonPosition, newPentagonPosition, t);
+
+            items[currentSelectedItem].GetComponent<RectTransform>().position = Vector3.Lerp(oldItemPosition, newItemPosition, t);
+
+            whiteRectangle.GetComponent<CanvasRenderer>().SetAlpha(Mathf.Lerp(oldRectangleAlpha, newRectangleAlpha, t));
+
+            time += Time.deltaTime;
+
+            yield return null;
+        }
+
+        pentagon.GetComponent<RectTransform>().localPosition = newPentagonPosition;
+
+        items[currentSelectedItem].GetComponent<RectTransform>().position = newItemPosition;
+
+        whiteRectangle.GetComponent<CanvasRenderer>().SetAlpha(newRectangleAlpha);
+
+        if (direction == "off screen")
+        {
+            Destroy(this.gameObject);
+        }
+
+        isLerpingOnScreen = false;
     }
 
     void closeMenu()
