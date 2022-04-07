@@ -163,7 +163,7 @@ public class MainLoop : MonoBehaviour
     }
 
     //Code for handling the enemies
-    void queueEnemyActions(){
+    public void queueEnemyActions(){
     	foreach(Enemy unit in enemyUnits){
     		if(unit.dead)
     			continue;
@@ -249,7 +249,7 @@ public class MainLoop : MonoBehaviour
         Debug.Log("done debugging Player Units");
     }
     //Resolve all actions in order
-    void resolveActions(){
+    public IEnumerator resolveActions(){
         debugQeuedActions();
     	queuedActions.Sort(delegate(Unit a, Unit b) {return b.queuedAction.speed-a.queuedAction.speed;});
         Debug.Log("Queued Actions sorted");
@@ -261,8 +261,12 @@ public class MainLoop : MonoBehaviour
             Debug.Log(actor.name + " used " + actor.queuedAction.ability.name + "!");
             //outputQueue.Add(actor.name + " used " +  actor.queuedAction.ability.name + "!");
     		actor.act();
+            Debug.Log("Actor has Acted");
+            yield return new WaitForSeconds(textSpeed);
     	}
+        Debug.Log("QueuedActions Cleared");
     	queuedActions.Clear();
+        endTurn();
     }
 
     //Sets which active units
@@ -282,9 +286,9 @@ public class MainLoop : MonoBehaviour
    	public void endTurn(){
 
    		//queue all enemy actions
-   		queueEnemyActions();
+   		//queueEnemyActions();
    		//Do all the actions 
-   		resolveActions();
+   		//resolveActions();
    		//Run end turn stuff
    		foreach (Unit unit in playerUnits){
    			unit.turnEnd();

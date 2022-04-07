@@ -893,7 +893,8 @@ public class combatController : MonoBehaviour
         Destroy(currentDrawnBox);
 
         currentDrawnBox = Instantiate(playResultsBox, canvas.transform);
-        gameLoop.endTurn();
+        gameLoop.queueEnemyActions();
+        StartCoroutine(gameLoop.resolveActions());
         StartCoroutine(gameLoop.OutputText());
     }
 
