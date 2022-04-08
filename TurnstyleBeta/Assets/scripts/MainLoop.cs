@@ -75,7 +75,7 @@ public class MainLoop : MonoBehaviour
 	public Friendly[] benchUnits = new Friendly[2];
     Random rand;
 	//List of text to display at end of turn
-	public List<string> outputQueue;
+	public List<displayObject> outputQueue;
 
 	//And also a list of actions to take, except it's really a list of units
 	private List<Unit> queuedActions;
@@ -132,7 +132,7 @@ public class MainLoop : MonoBehaviour
 
         queuedActions = new List<Unit>();
         speedTotal = 12;
-        outputQueue = new List<string>();
+        outputQueue = new List<displayObject>();
     }
     // Start is called before the first frame update
     void Start()
