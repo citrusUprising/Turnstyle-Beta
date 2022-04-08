@@ -314,6 +314,7 @@ public class MainLoop : MonoBehaviour
     
    		//Otherwise continue
    		if(!allDead && !enemyDead){
+            //flag
    			startTurn();
    		}
    	}

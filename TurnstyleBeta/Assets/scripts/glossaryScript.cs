@@ -162,7 +162,8 @@ public class glossaryScript : MonoBehaviour
     }
 
     public void hide()
-    {
+    {   
+        Debug.Log ("Closing Glossary");
         isShowing = false;
 
         for (int i = 0; i < pages.Length; i++)
@@ -205,7 +206,7 @@ public class glossaryScript : MonoBehaviour
         pages[currentPageIndex].transform.localPosition = offScreenLeft;
 
         currentPageIndex = page;
-        //nextPageIndex = (page+1)%3;
+        nextPageIndex = page;
     }
 
     public IEnumerator animateKeyPrompt()
