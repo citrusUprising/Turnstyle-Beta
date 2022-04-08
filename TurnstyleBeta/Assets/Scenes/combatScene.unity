@@ -146,6 +146,7 @@ GameObject:
   - component: {fileID: 61845107}
   - component: {fileID: 61845109}
   - component: {fileID: 61845108}
+  - component: {fileID: 61845110}
   m_Layer: 5
   m_Name: uiController
   m_TagString: Untagged
@@ -260,6 +261,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 61845105}
   m_CullTransparentMesh: 1
+--- !u!114 &61845110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 61845105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98a09a9b09303ee409a690cc748bee70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  popUpLoc: {fileID: 291208394382174079, guid: dbb238d43eaec1045aeb9e001f93318f, type: 3}
 --- !u!1001 &144371706
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -285,7 +299,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2348889262567115111, guid: 98b04edebba616c4284d57617a3632bb, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2348889262567115111, guid: 98b04edebba616c4284d57617a3632bb, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2411,7 +2425,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6194342817783395098, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6194342817783395098, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
       propertyPath: m_AnchorMax.x
@@ -3150,13 +3164,13 @@ RectTransform:
   - {fileID: 61845106}
   - {fileID: 524708520}
   - {fileID: 662275468}
+  - {fileID: 1881125687}
   - {fileID: 763891169}
-  - {fileID: 1967301445}
   - {fileID: 1234528162}
   - {fileID: 856136068}
   - {fileID: 399669878}
   - {fileID: 1774748453}
-  - {fileID: 1881125687}
+  - {fileID: 1967301445}
   - {fileID: 1878042730}
   - {fileID: 1349145692}
   - {fileID: 1228779047}
@@ -3883,7 +3897,6 @@ MonoBehaviour:
   benchUnits:
   - {fileID: 0}
   - {fileID: 0}
-  outputQueue: []
   speedTotal: 12
   textSpeed: 1
   uiController: {fileID: 61845105}
@@ -4153,7 +4166,7 @@ RectTransform:
   m_Children:
   - {fileID: 990851451}
   m_Father: {fileID: 1382596080}
-  m_RootOrder: 10
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: -50, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

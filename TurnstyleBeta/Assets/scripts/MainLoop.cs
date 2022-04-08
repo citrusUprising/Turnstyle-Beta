@@ -11,14 +11,14 @@ public class displayObject{
     public bool isLeft; //whether the text out is ally (true) or enemy (false)
     public Unit origin; //location of affected unit
     public bool isDamage;//whether or not popUp is healing or damage
-    public string popUp; //damage/healing numbers displayed over unit
+    public int popUp; //damage/healing numbers displayed over unit
     public StatusName status; //status image that appears over unit
     public string sound; //sound effect to play
     public displayObject(string text, bool isDamage){
         this.text = text;
         this.isLeft = true;
         this.origin = null;
-        this.popUp = "";
+        this.popUp = 0;
         this.isDamage = isDamage;
         this.status = StatusName.None;
         this.sound ="null";
@@ -27,12 +27,12 @@ public class displayObject{
         this.text = text;
         this.isLeft = isLeft;
         this.origin = origin;
-        this.popUp = "";
+        this.popUp = 0;
         this.isDamage = isDamage;
         this.status = status;
         this.sound = "null";
     }
-    public displayObject(string text, bool isLeft, Unit origin, string popUp, bool isDamage){
+    public displayObject(string text, bool isLeft, Unit origin, int popUp, bool isDamage){
         this.text = text;
         this.isLeft = isLeft;
         this.origin = origin;
@@ -45,12 +45,12 @@ public class displayObject{
         this.text = text;
         this.isLeft = isLeft;
         this.origin = origin;
-        this.popUp = "";
+        this.popUp = 0;
         this.isDamage = isDamage;
         this.status = status;
         this.sound= sound;
     }
-    public displayObject(string text, bool isLeft, Unit origin, string popUp, bool isDamage, string sound){
+    public displayObject(string text, bool isLeft, Unit origin, int popUp, bool isDamage, string sound){
         this.text = text;
         this.isLeft = isLeft;
         this.origin = origin;
@@ -324,22 +324,20 @@ public class MainLoop : MonoBehaviour
    	public IEnumerator OutputText(){
    		//Get the text box since it gets generated
    		TextMeshProUGUI textbox = GameObject.Find("resultsBox(Clone)").transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
-   		//outputQueue.Add("a");
-   		//outputQueue.Add("b");
-   		//outputQueue.Add("c");
-   		//outputQueue.Add("d");
-   		//outputQueue.Add("e");
-   		//outputQueue.Add("f");
-   		//outputQueue.Add("g");
+
    		for(int i = 0; i < outputQueue.Count; i++){
    			string outputBuild = "";
    			for(int index = -4; index < 1; index++){
    				if(i + index < 0)
    					continue;
-   				outputBuild += outputQueue[i + index] + "\n";
+   				outputBuild += outputQueue[i + index].text + "\n";
    			}
    			//Debug.Log(outputBuild);
    			textbox.text = outputBuild;
+
+            //Generate popUps
+            if(outputQueue[i].status == StatusName.None){}
+            if(outputQueue[i].popUp == 0){}
 
    			yield return new WaitForSeconds(textSpeed);
 
