@@ -105,6 +105,13 @@ public class combatController : MonoBehaviour
     private float t = 0.0f;
 
     // --------------------------------------------------------- //
+    // These are used for facilitating what part of the tutorial
+    // is visible and when the tutorial pops up
+    // --------------------------------------------------------- //
+        private GameObject Stats;
+        private int currentTurtorial;
+
+    // --------------------------------------------------------- //
     // these are used in the rotate state, but will also be used
     // later on for game logic stuff
     // --------------------------------------------------------- //
@@ -215,6 +222,15 @@ public class combatController : MonoBehaviour
 
         glossaryObject.GetComponent<glossaryScript>().nextSFX = menuForward;
         glossaryObject.GetComponent<glossaryScript>().prevSFX = menuBack;
+
+
+        //pulls from current stats object, and sets the checker to what's in current stats
+        Stats = GameObject.Find("CurrentStats");
+        currentTurtorial = Stats.GetComponent<CurrentStats>().currentTutorial;
+
+        //Opens initial tutorial on initial scene start
+        glossaryObject.GetComponent<glossaryScript>().isShowing = false;
+        glossaryPopUp(0);
     }
 
     // Update is called once per frame
@@ -796,6 +812,8 @@ public class combatController : MonoBehaviour
         int tempSpeed = hasteSpeed - nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Unit>().fatigue;;
         speedSelectTextObject.GetComponent<TextMeshProUGUI>().text = tempSpeed.ToString();
         speedForCurrentMove = 0;
+
+        glossaryPopUp(1);
     }
 
     void changeSpeed(int change)
@@ -947,5 +965,16 @@ public class combatController : MonoBehaviour
         {
             previousState = state;
         }
+    }
+
+    void glossaryPopUp (int check){
+        Debug.Log("Attempting glossary pop up");
+        if(check==currentTurtorial){
+            Debug.Log("opening glossary page "+check);
+            glossaryObject.GetComponent<glossaryScript>().setPage(check);
+            glossaryObject.GetComponent<glossaryScript>().show();
+            currentTurtorial++;
+        }
+        Stats.GetComponent<CurrentStats>().currentTutorial = currentTurtorial;
     }
 }

@@ -145,6 +145,7 @@ public class glossaryScript : MonoBehaviour
 
     public void show()
     {
+        Debug.Log ("Opening Glossary");
         isShowing = true;
 
         pages[currentPageIndex].transform.localPosition = new Vector3(0, 0, 0);
@@ -192,6 +193,19 @@ public class glossaryScript : MonoBehaviour
             // next one
             pages[nextPageIndex].transform.localPosition = Vector3.Lerp(offScreenRight, center, t);
         }
+    }
+
+    public void setPage(int page){
+        page=page%3;
+
+        if(page==(currentPageIndex-1)%3)
+        pages[currentPageIndex].transform.localPosition = offScreenRight;
+
+        else if (page==(currentPageIndex+1)%3)
+        pages[currentPageIndex].transform.localPosition = offScreenLeft;
+
+        currentPageIndex = page;
+        //nextPageIndex = (page+1)%3;
     }
 
     public IEnumerator animateKeyPrompt()
