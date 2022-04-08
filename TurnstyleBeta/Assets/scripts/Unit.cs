@@ -381,6 +381,7 @@ public class Unit : MonoBehaviour
             if(test.Contains("ed")||test == "Vulnerable")gameLoop.outputQueue.Add(this.unitName + " is " + newStatus);
             else gameLoop.outputQueue.Add(this.unitName + " has " + newStatus);
             
+            
         }
     }
 

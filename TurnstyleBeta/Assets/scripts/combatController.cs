@@ -24,6 +24,7 @@ public class combatController : MonoBehaviour
     public totalSpeed totalSpeedPrefab;
     public GameObject glossary;
     private string state = "rotate";
+    private bool xDown;
     MainLoop gameLoop;
     // this is currently only used in the pause state
     private string previousState = "rotate";
@@ -105,6 +106,13 @@ public class combatController : MonoBehaviour
     private float t = 0.0f;
 
     // --------------------------------------------------------- //
+    // These are used for facilitating what part of the tutorial
+    // is visible and when the tutorial pops up
+    // --------------------------------------------------------- //
+        private GameObject Stats;
+        private int currentTutorial;
+
+    // --------------------------------------------------------- //
     // these are used in the rotate state, but will also be used
     // later on for game logic stuff
     // --------------------------------------------------------- //
@@ -168,6 +176,7 @@ public class combatController : MonoBehaviour
     public GameObject selectSound;
 
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -196,6 +205,12 @@ public class combatController : MonoBehaviour
         }
 
         gameLoop = mainLoopObject.GetComponent<MainLoop>();
+
+        Stats = GameObject.Find("CurrentStats");
+        currentTutorial = Stats.GetComponent<CurrentStats>().currentTutorial;
+
+        targetPointer.GetComponent<CanvasRenderer>().SetAlpha(0);
+        
         // the available states so far are "rotate", "moveSelect", "targetSelect", "confirm", "playResults", "paused" (in that order)
         // "rotate" is for rotating the pentagon 
         // "moveSelect" is for selecting the move for a character
@@ -208,18 +223,57 @@ public class combatController : MonoBehaviour
         // these go in the order of:
         // rotate -> moveSelect(1) -> targetSelect(1) -> moveSelect(2) -> targetSelect(2) -> moveSelect(3) -> targetSelect(3) -> confirm ->
         // EITHER moveSelect(1) OR playResults -> rotate REPEAT
-        targetPointer.GetComponent<CanvasRenderer>().SetAlpha(0);
+         //pulls from current stats object, and sets the checker to what's in current stats
         transitionToRotate();
 
         glossaryObject = Instantiate(glossary, glossaryCanvas.transform);
 
         glossaryObject.GetComponent<glossaryScript>().nextSFX = menuForward;
         glossaryObject.GetComponent<glossaryScript>().prevSFX = menuBack;
+
+
+        //Opens initial tutorial on initial scene start
+        glossaryObject.GetComponent<glossaryScript>().isShowing = false;
+        glossaryPopUp(0);
+        xDown = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.X)){
+            xDown = true;
+        }
+
+        if (isRotating == false)
+        {
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                if (glossaryObject.GetComponent<glossaryScript>().isShowing)
+                {
+                    speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+
+                    glossaryObject.GetComponent<glossaryScript>().hide();
+                }
+                else if (glossaryObject.GetComponent<glossaryScript>().isShowing == false)
+                {
+                    speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+
+                    glossaryObject.GetComponent<glossaryScript>().show();
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.Escape) || xDown || Input.GetKeyDown(KeyCode.Z))
+            {
+                if (glossaryObject.GetComponent<glossaryScript>().isShowing)
+                {
+                    speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+                    glossaryObject.GetComponent<glossaryScript>().hide();
+                    xDown = false;
+                }
+            }
+        }
+
         if (glossaryObject.GetComponent<glossaryScript>().isShowing == false)
         {
 
@@ -227,7 +281,7 @@ public class combatController : MonoBehaviour
             if (state == "rotate")
             {
                 // if you press X, advance to the next state, destroying the rotate UI and replacing it with move select UI
-                if (Input.GetKeyDown(KeyCode.X) && isRotating == false)
+                if (xDown && isRotating == false)
                 {
                     menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                     gameLoop.setActiveUnits(nameTagArray);
@@ -236,6 +290,7 @@ public class combatController : MonoBehaviour
                     temp.a = 0.0f;
                     this.pentagonSprite.GetComponent<Image>().color = temp;
                     transitionToMoveSelect();
+                    xDown = false;
                 }
                 if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
                 {
@@ -281,12 +336,13 @@ public class combatController : MonoBehaviour
                     // nameTagArray[numberOfSelectedMoves].GetComponent<PlayerMoveSelect>().movePointer(-1);
                 }
                 // when the X key is pressed, we need to go to selecting targets
-                if (Input.GetKeyDown(KeyCode.X))
+                if (xDown)
                 {
                     menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                     selectedAbility = nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities[selectedAbilityIndex];
                     actions[numberOfSelectedMoves] += selectedAbility.name + " on ";
                     transitionToTargetSelect();
+                    xDown = false;
                 }
                 // back function needs to be implemented
                 // should go back to rotate if numberOfSelectedMoves is 0 and back to moveSelect if it is greater than zero
@@ -323,14 +379,16 @@ public class combatController : MonoBehaviour
                     changeSelectedTarget(1, selectedAbility.allies);
                 }
                 // when the X key is pressed, we need to go to selecting speed
-                if (Input.GetKeyDown(KeyCode.X)&&!selectedTarget.dead)
+                if (xDown&&!selectedTarget.dead)
                 {
                     menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                     targetPointer.GetComponent<CanvasRenderer>().SetAlpha(0);
                     transitionToSpeedSelect();
+                    xDown = false;
                 }
-                else if(Input.GetKeyDown(KeyCode.X)){
+                else if(xDown){
                     speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX //flag
+                    xDown = false;
                 }
                 else if (Input.GetKeyDown(KeyCode.Z))
                 {
@@ -345,7 +403,7 @@ public class combatController : MonoBehaviour
                 // this confirms the selected speed and goes to the next state
                 // if there have been three selected moves, then it goes to the confirm state
                 // if there have not, it goes to move select
-                if (Input.GetKeyDown(KeyCode.X))
+                if (xDown)
                 {
                     menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
 
@@ -372,7 +430,7 @@ public class combatController : MonoBehaviour
                     {
                         transitionToMoveSelect();
                     }
-
+                    xDown = false;
                 }
 
                 // back function: needs to be implemented
@@ -401,7 +459,7 @@ public class combatController : MonoBehaviour
 
             else if (state == "confirm")
             {
-                if (Input.GetKeyDown(KeyCode.X))
+                if (xDown)
                 {
                     if (selectedAbility.allies)
                     {
@@ -413,6 +471,7 @@ public class combatController : MonoBehaviour
                     }
                     menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                     transitionToPlayResults();
+                    xDown = false;
                 }
                 else if (Input.GetKeyDown(KeyCode.Z))
                 {
@@ -429,9 +488,10 @@ public class combatController : MonoBehaviour
             else if (state == "playResults")
             {
 
-                if (Input.GetKeyDown(KeyCode.X))
+                if (xDown)
                 {
                     transitionToRotate();
+                    xDown = false;
                 }
             }
 
@@ -453,35 +513,8 @@ public class combatController : MonoBehaviour
             }
         }
         
-        if (isRotating == false)
-        {
-            if (Input.GetKeyDown(KeyCode.G))
-            {
-                if (glossaryObject.GetComponent<glossaryScript>().isShowing)
-                {
-                    speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
-
-                    glossaryObject.GetComponent<glossaryScript>().hide();
-                }
-                else if (glossaryObject.GetComponent<glossaryScript>().isShowing == false)
-                {
-                    speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
-
-                    glossaryObject.GetComponent<glossaryScript>().show();
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Z))
-            {
-                if (glossaryObject.GetComponent<glossaryScript>().isShowing)
-                {
-                    speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
-                    glossaryObject.GetComponent<glossaryScript>().hide();
-                }
-            }
-        }
-        
         justUnpaused = false;
+        xDown = false;
     }
 
     // gets called once at the beginning of the pentagon rotation when the player presses up or down
@@ -624,6 +657,7 @@ public class combatController : MonoBehaviour
         nameTagArray[0].showPassive(); // show
         nameTagArray[1].showPassive(); // show
         nameTagArray[2].showPassive(); // show
+        glossaryPopUp(2);
     }
 
     void transitionToMoveSelect()
@@ -796,6 +830,8 @@ public class combatController : MonoBehaviour
         int tempSpeed = hasteSpeed - nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Unit>().fatigue;;
         speedSelectTextObject.GetComponent<TextMeshProUGUI>().text = tempSpeed.ToString();
         speedForCurrentMove = 0;
+
+        glossaryPopUp(1);
     }
 
     void changeSpeed(int change)
@@ -948,5 +984,16 @@ public class combatController : MonoBehaviour
         {
             previousState = state;
         }
+    }
+
+    void glossaryPopUp (int check){
+        Debug.Log("Attempting glossary pop up");
+        if(check==currentTutorial){
+            Debug.Log("opening glossary page "+check);
+            glossaryObject.GetComponent<glossaryScript>().setPage(check);
+            glossaryObject.GetComponent<glossaryScript>().show();
+            currentTutorial++;
+        }
+        Stats.GetComponent<CurrentStats>().currentTutorial = currentTutorial;
     }
 }
