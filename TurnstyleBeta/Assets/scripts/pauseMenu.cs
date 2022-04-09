@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// TODO:
+// add a function to each menu item to exit that menu item and then remove that logic from this script
+// move the code for moving the pointer off screen in that function
+
 public class pauseMenu : MonoBehaviour
 {
     private GameObject canvas;
@@ -44,6 +48,8 @@ public class pauseMenu : MonoBehaviour
 
     private bool isLerpingOnScreen = false;
 
+    public GameObject pointer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -60,6 +66,10 @@ public class pauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        selectedX = Screen.width / 2;
+        unselectedX = (Screen.width - 600) / 2 + 600;
+
         if (isItemSelected)
         {
             currentX = selectedX;
@@ -99,12 +109,6 @@ public class pauseMenu : MonoBehaviour
                 }
 
             }
-            else if (Input.GetKeyDown(KeyCode.Z) && isItemSelectionAnimating == false)
-            {
-                pauseMenuItemsShowing[currentSelectedItem] = false;
-                StartCoroutine(lerpCurrentSelectedItemRight());
-                backSound.GetComponent<FMODUnity.StudioEventEmitter>().Play();
-            }
         }
     }
 
@@ -130,6 +134,16 @@ public class pauseMenu : MonoBehaviour
             StartCoroutine(lerpItems(direction));
             currentSelectedItem = nextSelectedItem;
         }
+    }
+
+    public void goBack()
+    {
+        pauseMenuItemsShowing[currentSelectedItem] = false;
+        StartCoroutine(lerpCurrentSelectedItemRight());
+        backSound.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+
+        Vector3 pointerPos = new Vector3(Screen.width * -2, Screen.height * -2, 0);
+        pointer.GetComponent<RectTransform>().position = pointerPos;
     }
 
     IEnumerator lerpPentagonRotation(Quaternion oldRotation, Quaternion newRotation)

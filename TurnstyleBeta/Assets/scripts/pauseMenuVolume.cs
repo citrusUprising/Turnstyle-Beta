@@ -75,15 +75,11 @@ public class pauseMenuVolume : MonoBehaviour
             }
 
             realignPointer();
-        }
-        else
-        {
-            movePointerOffscreen();
-        }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log(isShowing);
+            if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Escape))
+            {
+                pauseMenu.GetComponent<pauseMenu>().goBack();
+            }
         }
     }
 
