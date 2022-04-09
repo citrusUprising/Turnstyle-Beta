@@ -67,6 +67,8 @@ public class pauseMenuResolution : MonoBehaviour
 
         isFullScreen = Screen.fullScreen;
         updateFullScreenIcon();
+
+        hidePopUp();
     }
 
     // Update is called once per frame
