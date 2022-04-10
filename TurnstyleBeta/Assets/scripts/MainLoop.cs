@@ -86,6 +86,8 @@ public class MainLoop : MonoBehaviour
     public GameObject damagePopUp;
     public GameObject statusPopUp;
     GameObject Stats;
+
+    public Canvas canvas;
     void Awake()
     {
         Stats = GameObject.Find("CurrentStats");
@@ -341,7 +343,8 @@ public class MainLoop : MonoBehaviour
             if(outputQueue[i].status != StatusName.None){
             GameObject temp1 = Instantiate(statusPopUp,
                 outputQueue[i].origin.GetComponent<Transform>().localPosition,
-                Quaternion.identity) as GameObject;
+                Quaternion.identity,
+                canvas.transform) as GameObject; 
                 temp1.GetComponent<PopUpDestroyer>().timeOut = textSpeed;
             temp1.GetComponent<Image>().sprite = Resources.Load<Sprite>("StatusIcons/icon"+outputQueue[i].status.ToString());
             }
@@ -349,7 +352,8 @@ public class MainLoop : MonoBehaviour
             if(outputQueue[i].popUp != 0){
             GameObject temp2 = Instantiate(damagePopUp,
                 outputQueue[i].origin.GetComponent<Transform>().localPosition,
-                Quaternion.identity) as GameObject;
+                Quaternion.identity,
+                canvas.transform) as GameObject;
             temp2.GetComponent<PopUpDestroyer>().timeOut = textSpeed;
             temp2.GetComponent<TextMeshProUGUI>().text = outputQueue[i].popUp.ToString();
             }
