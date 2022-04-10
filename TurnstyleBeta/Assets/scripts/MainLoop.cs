@@ -83,6 +83,8 @@ public class MainLoop : MonoBehaviour
     public float textSpeed;
 
     public GameObject uiController;
+    public GameObject damagePopUp;
+    public GameObject statusPopUp;
     GameObject Stats;
     void Awake()
     {
@@ -336,8 +338,21 @@ public class MainLoop : MonoBehaviour
    			textbox.text = outputBuild;
 
             //Generate popUps
-            if(outputQueue[i].status == StatusName.None){}
-            if(outputQueue[i].popUp == 0){}
+            if(outputQueue[i].status != StatusName.None){
+            GameObject temp1 = Instantiate(statusPopUp,
+                outputQueue[i].origin.GetComponent<Transform>().localPosition,
+                Quaternion.identity) as GameObject;
+                temp1.GetComponent<PopUpDestroyer>().timeOut = textSpeed;
+            temp1.GetComponent<Image>().sprite = Resources.Load<Sprite>("StatusIcons/icon"+outputQueue[i].status.ToString());
+            }
+
+            if(outputQueue[i].popUp != 0){
+            GameObject temp2 = Instantiate(damagePopUp,
+                outputQueue[i].origin.GetComponent<Transform>().localPosition,
+                Quaternion.identity) as GameObject;
+            temp2.GetComponent<PopUpDestroyer>().timeOut = textSpeed;
+            temp2.GetComponent<TextMeshProUGUI>().text = outputQueue[i].popUp.ToString();
+            }
 
    			yield return new WaitForSeconds(textSpeed);
 
@@ -345,11 +360,10 @@ public class MainLoop : MonoBehaviour
             {
                 tag.updateAllStatuses();
             }
-            
-        }
-        foreach (Unit unit in enemyUnits)
-        {
-            unit.Kill();
+            foreach (Unit unit in enemyUnits)
+            {
+                unit.Kill();
+            }    
         }
         outputQueue.Clear();
         bool alldead = true;

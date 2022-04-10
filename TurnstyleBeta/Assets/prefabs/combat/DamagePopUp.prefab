@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 291208394382174077}
   - component: {fileID: 291208394382174076}
   - component: {fileID: 291208394382174018}
-  - component: {fileID: 7451001886092349107}
+  - component: {fileID: 795900904072478524}
   m_Layer: 5
   m_Name: damagePopUp
   m_TagString: Untagged
@@ -157,7 +157,7 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 5
   m_TargetDisplay: 0
---- !u!114 &7451001886092349107
+--- !u!114 &795900904072478524
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -166,6 +166,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 291208394382174078}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9bc03c72b6da5842b530d9a0c6ef92b, type: 3}
+  m_Script: {fileID: 11500000, guid: 2c9d3c3da108327448c8e7bd772eb84d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

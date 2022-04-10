@@ -337,7 +337,13 @@ public class Unit : MonoBehaviour
             }
         }
         this.hp = Math.Max(this.hp - amount, 0);
-        gameLoop.outputQueue.Add(new displayObject(this.unitName + " took " + amount + " damage.",true));
+        gameLoop.outputQueue.Add(new displayObject(
+            this.unitName + " took " + amount + " damage.",
+            true,
+            this,
+            amount,
+            true)
+            );
         if (this.hp == 0 && !this.dead){ //No output queue just printing to debug log
                                            //No tint changing either
             this.dead = true;
@@ -358,8 +364,20 @@ public class Unit : MonoBehaviour
             {
                 String s2 = s.ToString();
                  if(s2.Contains("ed")||s2 == "Vulnerable")
-                gameLoop.outputQueue.Add(new displayObject(this.unitName + " is immune to being "+s2,false));
-                else gameLoop.outputQueue.Add(new displayObject(this.unitName + " is immune to "+s2,false));
+                gameLoop.outputQueue.Add(new displayObject(
+                    this.unitName + " is immune to being "+s2,
+                    true,
+                    this,
+                    newStatus,
+                    true)
+                    );
+                else gameLoop.outputQueue.Add(new displayObject(
+                    this.unitName + " is immune to "+s2,
+                    true,
+                    this,
+                    newStatus,
+                    true)
+                    );
                 return;
             }
         }
@@ -377,8 +395,20 @@ public class Unit : MonoBehaviour
             this.statuses[(int) type].duration = duration;
             this.statuses[(int) type].magnitude = magnitude;
             String test = newStatus.ToString();
-            if(test.Contains("ed")||test == "Vulnerable")gameLoop.outputQueue.Add(new displayObject(this.unitName + " is " + newStatus, true));
-            else gameLoop.outputQueue.Add(new displayObject(this.unitName + " has " + newStatus,true));
+            if(test.Contains("ed")||test == "Vulnerable")gameLoop.outputQueue.Add(new displayObject(
+                this.unitName + " is " + newStatus,
+                true,
+                this,
+                newStatus,
+                true)
+                );
+            else gameLoop.outputQueue.Add(new displayObject(
+                this.unitName + " has " + newStatus,
+                true,
+                this,
+                newStatus,
+                true)
+                );
             
             
         }
