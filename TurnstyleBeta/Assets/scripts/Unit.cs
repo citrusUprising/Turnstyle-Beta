@@ -88,13 +88,17 @@ public class Unit : MonoBehaviour
     {
         if(this.statuses[(int) StatusType.Debuff].name == StatusName.Flinch)
         {
-            gameLoop.outputQueue.Add(this.unitName + " flinched");
+            gameLoop.outputQueue.Add(new displayObject(this.unitName + " flinched",
+            this,
+            StatusName.Flinch,
+            false)
+            );
             this.statuses[(int) StatusType.Debuff].name = StatusName.None;
             this.statuses[(int) StatusType.Debuff].duration = 0;
             return;
         }
         //we don't always want to print this so it has been moved
-        //gameLoop.outputQueue.Add(this.unitName + " used " + this.queuedAction.ability.name + "!");
+        //gameLoop.outputQueue.Add(new displayObject(this.unitName + " used " + this.queuedAction.ability.name + "!"), true);
         this.getTeams();
         if(this.queuedAction.ability.multitarget == true)
         {
@@ -105,7 +109,11 @@ public class Unit : MonoBehaviour
                     foreach(GameObject o in this.allies){
                         if(!o.GetComponent<Unit>().dead && o.GetComponent<Unit>().isActive){
                             if(!used){
-                                gameLoop.outputQueue.Add(this.unitName + " used " + this.queuedAction.ability.name + "!");
+                                gameLoop.outputQueue.Add(new displayObject(this.unitName + " used " + this.queuedAction.ability.name + "!",
+                                this,
+                                StatusName.None,
+                                false)
+                                );
                                 used = true;
                             }
                             this.queuedAction.ability.effect(o.GetComponent<Unit>(),this, gameLoop);
@@ -115,7 +123,11 @@ public class Unit : MonoBehaviour
                     foreach(GameObject o in this.enemies){ 
                         if(!o.GetComponent<Unit>().dead){
                             if(!used){
-                                gameLoop.outputQueue.Add(this.unitName + " used " + this.queuedAction.ability.name + "!");
+                                gameLoop.outputQueue.Add(new displayObject(this.unitName + " used " + this.queuedAction.ability.name + "!",
+                                this,
+                                StatusName.None,
+                                false)
+                                );
                                 used = true;
                             }
                             this.queuedAction.ability.effect(o.GetComponent<Unit>(),this, gameLoop);
@@ -129,7 +141,11 @@ public class Unit : MonoBehaviour
                     foreach(GameObject o in this.enemies) { 
                         if(!o.GetComponent<Unit>().dead){
                             if(!used){
-                                gameLoop.outputQueue.Add(this.unitName + " used " + this.queuedAction.ability.name + "!");
+                                gameLoop.outputQueue.Add(new displayObject(this.unitName + " used " + this.queuedAction.ability.name + "!",
+                                this,
+                                StatusName.None,
+                                true)
+                                );
                                 used = true;
                             }
                             this.queuedAction.ability.effect(o.GetComponent<Unit>(),this, gameLoop);
@@ -139,7 +155,11 @@ public class Unit : MonoBehaviour
                     foreach(GameObject o in this.allies){
                         if(!o.GetComponent<Unit>().dead && o.GetComponent<Unit>().isActive){
                             if(!used){
-                                gameLoop.outputQueue.Add(this.unitName + " used " + this.queuedAction.ability.name + "!");
+                                gameLoop.outputQueue.Add(new displayObject(this.unitName + " used " + this.queuedAction.ability.name + "!",
+                                this,
+                                StatusName.None,
+                                false)
+                                );
                                 used = true;
                             }
                             this.queuedAction.ability.effect(o.GetComponent<Unit>(),this, gameLoop);
@@ -148,24 +168,41 @@ public class Unit : MonoBehaviour
                 }
             }
             if(!used)
-                gameLoop.outputQueue.Add(this.unitName + "'s ability had no targets!");
+                gameLoop.outputQueue.Add(new displayObject(this.unitName + "'s ability had no targets!",
+                false)
+                );
         } else if (this.queuedAction.ability.selftarget == true)
         {
-            gameLoop.outputQueue.Add(this.unitName + " used " + this.queuedAction.ability.name + "!");
+            gameLoop.outputQueue.Add(new displayObject(this.unitName + " used " + this.queuedAction.ability.name + "!",
+                this,
+                StatusName.None,
+                false)
+                );
             this.queuedAction.ability.effect(this, this, gameLoop);
         }
         else
         {
             if(!this.queuedAction.target.dead || this.queuedAction.ability.name == "Rally" || this.queuedAction.ability.name == "Mitigate"){
-                gameLoop.outputQueue.Add(this.unitName + " used " + this.queuedAction.ability.name + "!");
+                gameLoop.outputQueue.Add(new displayObject(this.unitName + " used " + this.queuedAction.ability.name + "!",
+                    this,
+                    StatusName.None,
+                    false)
+                    );
                 this.queuedAction.ability.effect(this.queuedAction.target, this, gameLoop);
             }
             else
-                gameLoop.outputQueue.Add(this.unitName + "'s ability had no target!");
+                gameLoop.outputQueue.Add(new displayObject(this.unitName + "'s ability had no target!",
+                false)
+                );
         }
         if(this.queuedAction.speed < 0){
-            this.hp = Math.Max(this.hp - (this.hp/5), 0);
-            gameLoop.outputQueue.Add(this.unitName + " took "+(this.maxHP/5)+" damage from exhaustion");
+            this.hp = Math.Max(this.hp - (this.maxHP/5), 0);
+            gameLoop.outputQueue.Add(new displayObject(this.unitName + " took "+this.maxHP/5+" damage from exhaustion",
+            this,
+            this.maxHP/5,
+            true,
+            "damage")
+            );
         }
         this.fatigue += 1;
         if(this.statuses[(int)StatusType.Debuff].name == StatusName.FatigueUP) this.fatigue += 1;
@@ -175,7 +212,7 @@ public class Unit : MonoBehaviour
     public void turnEnd()
     {
         if(!this.isActive)this.fatigue = 0;
-        //gameLoop.outputQueue.Add(this.unitName + " has ended their turn");
+        //gameLoop.outputQueue.Add(new displayObject(this.unitName + " has ended their turn");
         Debug.Log(this.unitName + " has ended their turn");
         //Debug.Log("queuedAction.ability.name: " + this.queuedAction.ability.name);
         if (this.queuedAction != null)
@@ -189,12 +226,22 @@ public class Unit : MonoBehaviour
         if(this.statuses[(int) StatusType.Health].name == StatusName.Regeneration)
         {
             this.hp = Math.Min(this.hp + this.statuses[(int) StatusType.Health].magnitude, this.maxHP);
-            gameLoop.outputQueue.Add(this.unitName+" regenerated "+this.statuses[(int) StatusType.Health].magnitude+" health");
+            gameLoop.outputQueue.Add(new displayObject(this.unitName+" regenerated "+this.statuses[(int) StatusType.Health].magnitude+" health",
+            this,
+            StatusName.Regeneration,
+            false,
+            "buff")
+            );
         }
         if(this.statuses[(int) StatusType.Health].name == StatusName.Burn)
         {
             this.hp = Math.Max(0, this.hp - this.statuses[(int) StatusType.Health].magnitude);
-            gameLoop.outputQueue.Add(this.unitName+" took "+this.statuses[(int) StatusType.Health].magnitude+" damage from their "+StatusName.Burn);
+            gameLoop.outputQueue.Add(new displayObject(this.unitName+" took "+this.statuses[(int) StatusType.Health].magnitude+" damage from their "+StatusName.Burn,
+            this,
+            StatusName.Burn,
+            true,
+            "damage")
+            );
         }
         if(this.tag == "Enemy"){
             foreach(Status s in this.statuses)
@@ -206,9 +253,18 @@ public class Unit : MonoBehaviour
                     if(s.duration == 0)
                     {
                         String test = s.name.ToString();
-                        if(test.Contains("ed")||test == "Vulnerable")gameLoop.outputQueue.Add(this.unitName + " is no longer " + s.name);
-                        else gameLoop.outputQueue.Add(this.unitName + "'s " + s.name + " wore off");
+                        if(test.Contains("ed")||test == "Vulnerable")gameLoop.outputQueue.Add(new displayObject(this.unitName + " is no longer " + s.name,
+                            this,
+                            s.name,
+                            false)
+                            );
+                        else gameLoop.outputQueue.Add(new displayObject(this.unitName + "'s " + s.name + " wore off",
+                            this,
+                            s.name,
+                            false)
+                            );
                         s.name = StatusName.None;
+                        s.magnitude = 0;
                     }
                 }
             }
@@ -217,15 +273,22 @@ public class Unit : MonoBehaviour
         { //I have replaced the queue with just printing to the debug log for the moment
             //I have also not set anything to change tint
             this.dead = true;
-            gameLoop.outputQueue.Add(this.unitName + " died!");
-            
+            gameLoop.outputQueue.Add(new displayObject(this.unitName + " died!",
+            true,
+            "damage")
+            );            
         }
         if(this.unitName.Equals("Jade")&&this.fatigue < 2&&this.isActive&& !this.dead){
             foreach(GameObject o in this.allies){
                 Unit temp = o.GetComponent<Unit>();
                 if(temp.statuses[(int)StatusType.Debuff].name != StatusName.None &&
                 temp.statuses[(int)StatusType.Debuff].name != StatusName.Null){
-                    gameLoop.outputQueue.Add(this.unitName+" cured "+temp.unitName+" of any conditions");
+                    gameLoop.outputQueue.Add(new displayObject(this.unitName+" cured "+temp.unitName+" of any conditions",
+                    temp,
+                    temp.statuses[(int)StatusType.Debuff].name,
+                    false,
+                    "buff")
+                    );
                     temp.statuses[(int)StatusType.Debuff].name = StatusName.None;
                     temp.statuses[(int)StatusType.Debuff].duration = 0;
                     temp.statuses[(int)StatusType.Debuff].magnitude = 0;
@@ -260,9 +323,16 @@ public class Unit : MonoBehaviour
                     }
                         int transfer = Math.Min(4, lowest.maxHP-lowest.hp);
                         if(transfer >0){
-                            gameLoop.outputQueue.Add("Amery delegated health");
+                            gameLoop.outputQueue.Add(new displayObject("Amery delegated health",
+                            true)
+                            );
                             highest.hp = Math.Max(highest.hp-transfer, 0);
-                            gameLoop.outputQueue.Add(highest.unitName+" gave "+transfer+" health");
+                            gameLoop.outputQueue.Add(new displayObject(highest.unitName+" gave "+transfer+" health",
+                            highest,
+                            transfer,
+                            true,
+                            "damage")
+                            );
                             lowest.healSelf(transfer);
                         }
                 }
@@ -307,7 +377,11 @@ public class Unit : MonoBehaviour
     public void healSelf(int amount)
     {
         this.hp = Math.Min(this.hp + amount, this.maxHP);
-        gameLoop.outputQueue.Add(this.unitName+" regained "+amount+" health");
+        gameLoop.outputQueue.Add(new displayObject(this.unitName+" regained "+amount+" health",
+        this,
+        amount,
+        false)
+        );
     }
 
     public void takeDamage(Unit source, int amount)
@@ -333,20 +407,40 @@ public class Unit : MonoBehaviour
             float check = UnityEngine.Random.Range(0.0f,1.0f);
             Debug.Log("Seraphim's dodge check is" + check);
             if(check > 0.5){
-                gameLoop.outputQueue.Add(this.unitName + " dodged the attack");
+                gameLoop.outputQueue.Add(new displayObject(this.unitName + " dodged the attack",
+                this,
+                StatusName.None,
+                false)
+                );
                 return;
             }
         }
         this.hp = Math.Max(this.hp - amount, 0);
-        gameLoop.outputQueue.Add(this.unitName + " took " + amount + " damage.");
+        gameLoop.outputQueue.Add(new displayObject(
+            this.unitName + " took " + amount + " damage.",
+            this,
+            amount,
+            true,
+            "damage")
+            );
         if (this.hp == 0 && !this.dead){ //No output queue just printing to debug log
                                            //No tint changing either
             this.dead = true;
-            gameLoop.outputQueue.Add(this.unitName + " died!");
+            gameLoop.outputQueue.Add(new displayObject(this.unitName + " died!",
+            this,
+            StatusName.None,
+            true,
+            "damage")
+            );
             if(source.unitName.Equals("Beverly"))
             {
                 source.fatigue = 0;
-                Debug.Log(source.unitName+" gets a second wind");
+            gameLoop.outputQueue.Add(new displayObject(source.unitName+" gets a second wind",
+            source,
+            StatusName.None,
+            false,
+            "buff")
+            );
             }
         }
     }
@@ -359,8 +453,20 @@ public class Unit : MonoBehaviour
             {
                 String s2 = s.ToString();
                  if(s2.Contains("ed")||s2 == "Vulnerable")
-                gameLoop.outputQueue.Add(this.unitName + " is immune to being "+s2);
-                else gameLoop.outputQueue.Add(this.unitName + " is immune to "+s2);
+                gameLoop.outputQueue.Add(new displayObject(
+                    this.unitName + " is immune to being "+s2,
+                    this,
+                    newStatus,
+                    false,
+                    "buff")
+                    );
+                else gameLoop.outputQueue.Add(new displayObject(
+                    this.unitName + " is immune to "+s2,
+                    this,
+                    newStatus,
+                    false,
+                    "buff")
+                    );
                 return;
             }
         }
@@ -368,8 +474,16 @@ public class Unit : MonoBehaviour
         {
             String cur =this.statuses[(int) type].name.ToString();
             if(cur.Contains("ed")||cur == "Vulnerable")
-            gameLoop.outputQueue.Add(this.unitName + " is already "+cur);
-            else gameLoop.outputQueue.Add(this.unitName + " already has "+cur);
+            gameLoop.outputQueue.Add(new displayObject(this.unitName + " is already "+cur,
+            this,
+            this.statuses[(int) type].name,
+            false)
+            );
+            else gameLoop.outputQueue.Add(new displayObject(this.unitName + " already has "+cur,
+            this,
+            this.statuses[(int) type].name, 
+            false)
+            );
             return;
         }
         else
@@ -378,8 +492,23 @@ public class Unit : MonoBehaviour
             this.statuses[(int) type].duration = duration;
             this.statuses[(int) type].magnitude = magnitude;
             String test = newStatus.ToString();
-            if(test.Contains("ed")||test == "Vulnerable")gameLoop.outputQueue.Add(this.unitName + " is " + newStatus);
-            else gameLoop.outputQueue.Add(this.unitName + " has " + newStatus);
+            String sound = "null";
+            if(type == StatusType.Buff) sound = "buff";
+
+            if(test.Contains("ed")||test == "Vulnerable")gameLoop.outputQueue.Add(new displayObject(
+                this.unitName + " is " + newStatus,
+                this,
+                newStatus,
+                true,
+                sound)
+                );
+            else gameLoop.outputQueue.Add(new displayObject(
+                this.unitName + " has " + newStatus,
+                this,
+                newStatus,
+                true,
+                sound)
+                );
             
             
         }
@@ -396,8 +525,16 @@ public class Unit : MonoBehaviour
                 if(s.duration == 0)
                 {
                     String test = s.name.ToString();
-                    if(test.Contains("ed")||test == "Vulnerable")gameLoop.outputQueue.Add(this.unitName + " is no longer " + s.name);
-                    else gameLoop.outputQueue.Add(this.unitName + "'s " + s.name + " wore off");
+                    if(test.Contains("ed")||test == "Vulnerable")gameLoop.outputQueue.Add(new displayObject(this.unitName + " is no longer " + s.name,
+                    this,
+                    s.name,
+                    false)
+                    );
+                    else gameLoop.outputQueue.Add(new displayObject(this.unitName + "'s " + s.name + " wore off",
+                    this,
+                    s.name,
+                    false)
+                    );
                     s.name = StatusName.None;
                 }
             }
