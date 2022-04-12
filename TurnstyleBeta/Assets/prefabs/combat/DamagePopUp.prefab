@@ -170,4 +170,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeOut: 0
-  animationRatio: 0.3
+  animationRatio: 0.9

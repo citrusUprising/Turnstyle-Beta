@@ -5,10 +5,10 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Random = System.Random;
 using TMPro;
+using FMODUnity;
 
 public class displayObject{
     public string text; //the text sent to the display
-    public bool isLeft; //whether the text out is ally (true) or enemy (false)
     public Unit origin; //location of affected unit
     public bool isDamage;//whether or not popUp is healing or damage
     public int popUp; //damage/healing numbers displayed over unit
@@ -16,43 +16,47 @@ public class displayObject{
     public string sound; //sound effect to play
     public displayObject(string text, bool isDamage){
         this.text = text;
-        this.isLeft = true;
         this.origin = null;
         this.popUp = 0;
         this.isDamage = isDamage;
         this.status = StatusName.None;
         this.sound ="null";
     }
-    public displayObject(string text, bool isLeft, Unit origin, StatusName status, bool isDamage){
+
+    public displayObject(string text, bool isDamage, string sound){
         this.text = text;
-        this.isLeft = isLeft;
+        this.origin = null;
+        this.popUp = 0;
+        this.isDamage = isDamage;
+        this.status = StatusName.None;
+        this.sound = sound;
+    }
+    public displayObject(string text, Unit origin, StatusName status, bool isDamage){
+        this.text = text;
         this.origin = origin;
         this.popUp = 0;
         this.isDamage = isDamage;
         this.status = status;
         this.sound = "null";
     }
-    public displayObject(string text, bool isLeft, Unit origin, int popUp, bool isDamage){
+    public displayObject(string text, Unit origin, int popUp, bool isDamage){
         this.text = text;
-        this.isLeft = isLeft;
         this.origin = origin;
         this.popUp = popUp;
         this.isDamage = isDamage;
         this.status = StatusName.None;
         this.sound = "null";
     }
-     public displayObject(string text, bool isLeft, Unit origin, StatusName status, bool isDamage, string sound){
+     public displayObject(string text, Unit origin, StatusName status, bool isDamage, string sound){
         this.text = text;
-        this.isLeft = isLeft;
         this.origin = origin;
         this.popUp = 0;
         this.isDamage = isDamage;
         this.status = status;
         this.sound= sound;
     }
-    public displayObject(string text, bool isLeft, Unit origin, int popUp, bool isDamage, string sound){
+    public displayObject(string text, Unit origin, int popUp, bool isDamage, string sound){
         this.text = text;
-        this.isLeft = isLeft;
         this.origin = origin;
         this.popUp = popUp;
         this.isDamage = isDamage;
@@ -340,9 +344,26 @@ public class MainLoop : MonoBehaviour
    			textbox.text = outputBuild;
 
             //Generate popUps
+            Vector3 tempLoc;
+            if(outputQueue[i].origin != null){
+                    if(outputQueue[i].origin.tag == "Enemy")
+                    tempLoc = new Vector3 (outputQueue[i].origin.GetComponent<Transform>().position.x,
+                        outputQueue[i].origin.GetComponent<Transform>().position.y+100,
+                        outputQueue[i].origin.GetComponent<Transform>().position.z );
+                    else if(outputQueue[i].origin.tag == "Ally"){
+                        Image locTrans = outputQueue[i].origin.GetComponent<Friendly>().sprite;
+                        tempLoc = new Vector3 (locTrans.GetComponent<Transform>().position.x,
+                        locTrans.GetComponent<Transform>().position.y+500,
+                        locTrans.GetComponent<Transform>().position.z );
+                    }
+                    else tempLoc = new Vector3 (0f,0f,0f);
+                }
+            else tempLoc = new Vector3 (0f,0f,0f);
+            //Debug.Log("Location is "+tempLoc.x+", "+tempLoc.y+", "+tempLoc.z+" targeting "+outputQueue[i].origin.unitName);
+
             if(outputQueue[i].status != StatusName.None){
             GameObject temp1 = Instantiate(statusPopUp,
-                outputQueue[i].origin.GetComponent<Transform>().localPosition,
+                tempLoc,
                 Quaternion.identity,
                 canvas.transform) as GameObject; 
                 temp1.GetComponent<PopUpDestroyer>().timeOut = textSpeed;
@@ -351,11 +372,17 @@ public class MainLoop : MonoBehaviour
 
             if(outputQueue[i].popUp != 0){
             GameObject temp2 = Instantiate(damagePopUp,
-                outputQueue[i].origin.GetComponent<Transform>().localPosition,
+                tempLoc,
                 Quaternion.identity,
                 canvas.transform) as GameObject;
             temp2.GetComponent<PopUpDestroyer>().timeOut = textSpeed;
             temp2.GetComponent<TextMeshProUGUI>().text = outputQueue[i].popUp.ToString();
+            }
+
+            if(outputQueue[i].sound != "null"){
+                FMOD.Studio.EventInstance sfxInstance;
+		        sfxInstance = RuntimeManager.CreateInstance("event:/Battle/"+outputQueue[i].sound); 
+		        sfxInstance.start();
             }
 
    			yield return new WaitForSeconds(textSpeed);

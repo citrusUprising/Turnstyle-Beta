@@ -187,7 +187,12 @@ public class Scrum : Ability
     public override void effect(Unit target, Unit source, MainLoop L)
     {
   if(target.statuses[(int) StatusType.Debuff].name != StatusName.None){
-    L.outputQueue.Add(new displayObject(target.unitName+" was cured of "+target.statuses[(int) StatusType.Debuff].name,false));
+    L.outputQueue.Add(new displayObject(target.unitName+" was cured of "+target.statuses[(int) StatusType.Debuff].name,
+    target,
+    target.statuses[(int) StatusType.Debuff].name,
+    false,
+    "buff")
+    );
   }
   target.statuses[(int) StatusType.Debuff].name = StatusName.None;
   target.statuses[(int) StatusType.Debuff].duration = 0;
@@ -309,7 +314,12 @@ public class Crush : Ability
     {
         target.takeDamage(source, 8);
         source.hp = Math.Max(source.hp-4, 0);
-        L.outputQueue.Add(new displayObject(source.unitName+" took 4 damage from recoil", true));
+        L.outputQueue.Add(new displayObject(source.unitName+" took 4 damage from recoil",
+         source,
+         4,
+         true,
+         "damage")
+         );
     }
 
     public override bool requirement(Unit target, Unit source)
@@ -332,7 +342,11 @@ public class Rally : Ability
     public override void effect(Unit target, Unit source, MainLoop L)
     {
         source.hp = Math.Min(source.hp-4, source.maxHP);
-        L.outputQueue.Add(new displayObject(source.unitName+" sacrificed 4 health",true));
+        L.outputQueue.Add(new displayObject(source.unitName+" sacrificed 4 health",
+        source,
+        4,
+        true)
+        );
         target.healSelf(8);
     }
 
@@ -382,7 +396,9 @@ public class Soulrip : Ability
         Debug.Log("Seraphim's accuracy is "+test);
         Debug.Log("Seraphim rolled "+ check);
         if(source.fatigue <= 0 || check <= test) target.takeDamage(source, 10);
-        else L.outputQueue.Add(new displayObject(source.unitName+" couldn't manifest",true));
+        else L.outputQueue.Add(new displayObject(source.unitName+" couldn't manifest",
+        true)
+        );
     }
 
     public override bool requirement(Unit target, Unit source)
@@ -410,7 +426,9 @@ public class Dazzle : Ability
             target.applyStatus(StatusType.Debuff,StatusName.Flinch, 1, 0);
         }else if(check2 <= 0.35){
             target.applyStatus(StatusType.Health, StatusName.Burn, 2, 4);
-        }else L.outputQueue.Add(new displayObject(target.unitName+" avoided the "+this.name,false));
+        }else L.outputQueue.Add(new displayObject(target.unitName+" avoided the "+this.name,
+        false)
+        );
     }
 
     public override bool requirement(Unit target, Unit source)
@@ -718,7 +736,11 @@ public class Flagellate : Ability
     {
         if(target.statuses[(int) StatusType.Buff].name != StatusName.None){
             target.takeDamage(source,2);
-            L.outputQueue.Add(new displayObject(target.unitName+" was relieved of "+target.statuses[(int) StatusType.Buff].name,true));
+            L.outputQueue.Add(new displayObject(target.unitName+" was relieved of "+target.statuses[(int) StatusType.Buff].name,
+            target,
+            target.statuses[(int) StatusType.Buff].name,
+            true)
+            );
         }else{
             target.takeDamage(source,4);
         }
@@ -769,7 +791,12 @@ public class Cleave : Ability
     public override void effect(Unit target, Unit source, MainLoop L)
     {
         target.hp = Math.Max(target.hp/2, 0);
-        L.outputQueue.Add(new displayObject(target.unitName+"'s health was halved",true));
+        L.outputQueue.Add(new displayObject(target.unitName+"'s health was halved",
+        target,
+        target.hp/2,
+        true,
+        "damage")
+        );
     }
     
     public override bool requirement(Unit target, Unit source)
@@ -971,7 +998,12 @@ public class Habituate : Ability
     public override void effect(Unit target, Unit source, MainLoop L)
     {
           if(target.statuses[(int) StatusType.Debuff].name != StatusName.None){
-            L.outputQueue.Add(new displayObject(target.unitName+" was cured of "+target.statuses[(int) StatusType.Debuff].name,false));
+            L.outputQueue.Add(new displayObject(target.unitName+" was cured of "+target.statuses[(int) StatusType.Debuff].name,
+            target,
+            target.statuses[(int) StatusType.Debuff].name,
+            false,
+            "buff")
+            );
         }
         target.statuses[(int) StatusType.Debuff].name = StatusName.None;
         target.statuses[(int) StatusType.Debuff].duration = 0;
