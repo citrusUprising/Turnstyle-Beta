@@ -42,6 +42,9 @@ public class titleScreen : MonoBehaviour
 
     private bool isLerping = false;
 
+    private bool controlsLerpingOn = false;
+    private bool controlsLerpingOff = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -55,30 +58,16 @@ public class titleScreen : MonoBehaviour
     {
         gameObject.transform.Rotate(0, 0, .25f*rotateDirection);
 
-        if (creditsObject == null && controlsObject == null && pauseMenuObject == null)
+        if (creditsObject == null && pauseMenuObject == null)
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
-                // Play menu scroll sfx
-                menuScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
-
-                selectedOption--;
-                if (selectedOption == -1)
-                {
-                    selectedOption = options.Length - 1;
-                }
+                changeSelectedOption(-1);
             }
 
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
-                // Play menu scroll sfx
-                menuScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
-
-                selectedOption++;
-                if (selectedOption == options.Length)
-                {
-                    selectedOption = 0;
-                }
+                changeSelectedOption(1);
             }
 
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -94,12 +83,6 @@ public class titleScreen : MonoBehaviour
                 if (options[selectedOption] == start)
                 {
                     StartCoroutine(loadScene(2));
-                }
-
-                else if (options[selectedOption] == controlsText)
-                {
-                    controlsObject = Instantiate(controls, canvas.transform);
-                    StartCoroutine(lerpObjectOnScreen(controlsObject));
                 }
 
                 else if (options[selectedOption] == settings)
@@ -121,7 +104,7 @@ public class titleScreen : MonoBehaviour
 
             pointer.transform.localPosition = new Vector3(
                 pointer.transform.localPosition[0],
-                options[selectedOption].transform.localPosition[1] - 140,
+                options[selectedOption].transform.localPosition[1] - 200,
                 pointer.transform.localPosition[2]);
         }
 
@@ -132,14 +115,6 @@ public class titleScreen : MonoBehaviour
                 if (isLerping == false)
                 {
                     StartCoroutine(lerpObjectOffScreen(creditsObject));
-                }
-            }
-
-            if (controlsObject != null && (Input.GetKeyDown(KeyCode.Escape)) || (Input.GetKeyDown(KeyCode.Z)) || (Input.GetKeyDown(KeyCode.X)))
-            {
-                if (isLerping == false)
-                {
-                    StartCoroutine(lerpObjectOffScreen(controlsObject));
                 }
             }
         }
@@ -153,6 +128,31 @@ public class titleScreen : MonoBehaviour
         }
 
         
+    }
+
+    void changeSelectedOption(int direction)
+    {
+        // Play menu scroll sfx
+        menuScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+
+        selectedOption += direction;
+        if (selectedOption == -1)
+        {
+            selectedOption = options.Length - 1;
+        }
+        else if (selectedOption == options.Length)
+        {
+            selectedOption = 0;
+        }
+
+        if (options[selectedOption] == controlsText && controlsObject == null)
+        {
+            StartCoroutine(lerpControls("on"));
+        }
+        else if (options[selectedOption] != controlsText && controlsObject != null)
+        {
+            StartCoroutine(lerpControls("off"));
+        }
     }
 
     void randomizeRotateDirection()
@@ -178,6 +178,80 @@ public class titleScreen : MonoBehaviour
         SceneManager.LoadScene(index);
     }
 
+    IEnumerator lerpControls(string direction)
+    {
+        float time = 0;
+        float duration = .25f;
+
+        Vector3 prevLocation = new Vector3(0, 0, 0);
+        Vector3 nextLocation = new Vector3(0, 0, 0);
+
+        if (direction == "on")
+        {
+            controlsObject = Instantiate(controls, canvas.transform);
+            prevLocation = new Vector3(Screen.width * 3 / 4, Screen.height / 2, 0);
+            nextLocation = new Vector3(Screen.width/2, Screen.height/2, 0);
+
+            if (controlsLerpingOn == true)
+            {
+                yield break;
+            }
+
+            controlsLerpingOn = true;
+        }
+        else if (direction == "off")
+        {
+            prevLocation = new Vector3(Screen.width / 2, Screen.height / 2, 0);
+            nextLocation = new Vector3(Screen.width * 3 / 4, Screen.height / 2, 0);
+
+            if (controlsLerpingOff == true)
+            {
+                yield break;
+            }
+
+            controlsLerpingOff = true;
+        }
+
+        if (direction == "off")
+        {
+            while (controlsLerpingOn)
+            {
+                yield return null;
+            }
+        }
+        else if (direction == "on")
+        {
+            while (controlsLerpingOff)
+            {
+                yield return null;
+            }
+        }
+
+        while (time < duration)
+        {
+            float t = time / duration;
+
+            t = t * t * (3f - 2f * t);
+
+            controlsObject.transform.position = Vector3.Lerp(prevLocation, nextLocation, t);
+
+            time += Time.deltaTime;
+
+            yield return null;
+        }
+
+        if (direction == "off")
+        {
+            Destroy(controlsObject);
+            controlsLerpingOff = false;
+        }
+        else if (direction == "on")
+        {
+            controlsLerpingOn = false;
+        }
+
+    }
+
     IEnumerator lerpObjectOnScreen(GameObject obj)
     {
         isLerping = true;
@@ -187,7 +261,7 @@ public class titleScreen : MonoBehaviour
             float time = 0f;
             float duration = 1f;
 
-            Vector3 previousLocation = new Vector3(1024, 0, 0);
+            Vector3 previousLocation = new Vector3(Screen.width, 0, 0);
             Vector3 nextLocation = new Vector3(0, 0, 0);
 
             while (time < duration)
@@ -226,7 +300,7 @@ public class titleScreen : MonoBehaviour
             float duration = 1f;
 
             Vector3 previousLocation = new Vector3(0, 0, 0);
-            Vector3 nextLocation = new Vector3(-1024, 0, 0);
+            Vector3 nextLocation = new Vector3(-Screen.width, 0, 0);
 
             while (time < duration)
             {
