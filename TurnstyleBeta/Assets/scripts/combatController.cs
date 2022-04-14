@@ -26,6 +26,7 @@ public class combatController : MonoBehaviour
     private string state = "rotate";
     private bool xDown;
     MainLoop gameLoop;
+
     // this is currently only used in the pause state
     private string previousState = "rotate";
 

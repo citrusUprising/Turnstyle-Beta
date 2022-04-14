@@ -18,15 +18,18 @@ public class pauseMenuExit : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        isShowing = pauseMenu.pauseMenuItemsShowing[0];
+
         if (isShowing)
         {
             if (Input.GetKeyDown(KeyCode.X))
             {
                 Application.Quit();
             }
-        }
-
-        isShowing = pauseMenu.pauseMenuItemsShowing[0];
+            else if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Escape))
+            {
+                pauseMenu.goBack();
+            }
+        }        
     }
 }
