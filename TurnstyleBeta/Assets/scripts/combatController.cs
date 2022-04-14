@@ -931,7 +931,6 @@ public class combatController : MonoBehaviour
 
         currentDrawnBox = Instantiate(playResultsBox, canvas.transform);
         gameLoop.queueEnemyActions();
-        StartCoroutine(gameLoop.resolveActions());
         StartCoroutine(gameLoop.OutputText());
     }
 
