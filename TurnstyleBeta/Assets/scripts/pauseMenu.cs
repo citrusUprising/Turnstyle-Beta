@@ -2,10 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// TODO:
-// add a function to each menu item to exit that menu item and then remove that logic from this script
-// move the code for moving the pointer off screen in that function
-
 public class pauseMenu : MonoBehaviour
 {
     private GameObject canvas;
@@ -49,6 +45,8 @@ public class pauseMenu : MonoBehaviour
     private bool isLerpingOnScreen = false;
 
     public GameObject pointer;
+
+    public GameObject bioObject;
 
     // Start is called before the first frame update
     void Start()
@@ -99,7 +97,9 @@ public class pauseMenu : MonoBehaviour
                 {
                     pauseMenuItemsShowing[currentSelectedItem] = true;
                     currentSelectedItemObject = items[currentSelectedItem];
+
                     StartCoroutine(lerpCurrentSelectedItemLeft());
+                    
                     selectSound.GetComponent<FMODUnity.StudioEventEmitter>().Play();
                 }
 
@@ -110,6 +110,8 @@ public class pauseMenu : MonoBehaviour
 
             }
         }
+
+        bioObject.GetComponent<pauseMenuBio>().countingPreview = currentSelectedItem == 4;
     }
 
     void rotate(int direction)
@@ -139,7 +141,9 @@ public class pauseMenu : MonoBehaviour
     public void goBack()
     {
         pauseMenuItemsShowing[currentSelectedItem] = false;
+
         StartCoroutine(lerpCurrentSelectedItemRight());
+
         backSound.GetComponent<FMODUnity.StudioEventEmitter>().Play();
 
         Vector3 pointerPos = new Vector3(Screen.width * -2, Screen.height * -2, 0);
@@ -197,11 +201,11 @@ public class pauseMenu : MonoBehaviour
             itemGoingOnScreenY = offScreenTop;
         }
 
-        Vector3 itemGoingOnScreenOld = new Vector3(itemGoingOnScreenX, itemGoingOnScreenY, 0);
-        Vector3 itemGoingOnScreenNew = new Vector3(itemGoingOnScreenX, onScreen, 0);
+        Vector3 itemGoingOnScreenOld = new Vector3(currentX, itemGoingOnScreenY, 0);
+        Vector3 itemGoingOnScreenNew = new Vector3(currentX, onScreen, 0);
 
-        Vector3 itemGoingOffScreenOld = new Vector3(itemGoingOffScreenX, onScreen, 0);
-        Vector3 itemGoingOffScreenNew = new Vector3(itemGoingOffScreenX, itemGoingOffScreenY, 0);
+        Vector3 itemGoingOffScreenOld = new Vector3(currentX, onScreen, 0);
+        Vector3 itemGoingOffScreenNew = new Vector3(currentX, itemGoingOffScreenY, 0);
 
         while (time < duration)
         {
@@ -210,8 +214,10 @@ public class pauseMenu : MonoBehaviour
 
             t = t * t * (3f - 2f * t);
 
-            itemGoingOnScreen.GetComponent<RectTransform>().position = Vector3.Lerp(itemGoingOnScreenOld, itemGoingOnScreenNew, t);
-            itemGoingOffScreen.GetComponent<RectTransform>().position = Vector3.Lerp(itemGoingOffScreenOld, itemGoingOffScreenNew, t);
+            itemGoingOnScreen.transform.position = Vector3.Lerp(itemGoingOnScreenOld, itemGoingOnScreenNew, t);
+            itemGoingOffScreen.transform.position = Vector3.Lerp(itemGoingOffScreenOld, itemGoingOffScreenNew, t);
+
+            bioObject.transform.position = new Vector3(0, bioObject.transform.position[1], 0);
 
             time += Time.deltaTime;
 
@@ -220,6 +226,8 @@ public class pauseMenu : MonoBehaviour
 
         itemGoingOnScreen.GetComponent<RectTransform>().position = itemGoingOnScreenNew;
         itemGoingOffScreen.GetComponent<RectTransform>().position = itemGoingOffScreenNew;
+
+        bioObject.transform.position = new Vector3(0, bioObject.transform.position[1], 0);
     }
 
     IEnumerator lerpCurrentSelectedItemLeft()
@@ -229,6 +237,15 @@ public class pauseMenu : MonoBehaviour
 
         Vector3 oldVector3 = currentSelectedItemObject.GetComponent<RectTransform>().position;
         Vector3 newVector3 = new Vector3(selectedX, onScreen, 0);
+
+        Vector3 oldPentagonPos = pentagon.transform.localPosition;
+        Vector3 newPentagonPos = pentagonUnselected;
+
+        if (currentSelectedItemObject == bioObject)
+        {
+            newPentagonPos = new Vector3(-725, 0, 0);
+            duration = .5f;
+        }
 
         currentSelectedItemObject.GetComponent<Canvas>().sortingOrder = 11;
         pentagon.GetComponent<Canvas>().sortingOrder = 9;
@@ -240,7 +257,9 @@ public class pauseMenu : MonoBehaviour
         {
             currentSelectedItemObject.GetComponent<RectTransform>().position = Vector3.Lerp(oldVector3, newVector3, time / duration);
 
-            pentagon.GetComponent<RectTransform>().localPosition = Vector3.Lerp(pentagonSelected, pentagonUnselected, time / duration);
+            pentagon.GetComponent<RectTransform>().localPosition = Vector3.Lerp(oldPentagonPos, newPentagonPos, time / duration);
+
+            bioObject.transform.position = new Vector3(0, bioObject.transform.position[1], 0);
 
             time += Time.deltaTime;
 
@@ -248,6 +267,8 @@ public class pauseMenu : MonoBehaviour
         }
 
         currentSelectedItemObject.GetComponent<RectTransform>().position = newVector3;
+
+        bioObject.transform.position = new Vector3(0, bioObject.transform.position[1], 0);
 
         // this is really messy code rn but it works
         // this toggles the selection on the menu item twice IF that menu item is the text speed controls
@@ -269,6 +290,14 @@ public class pauseMenu : MonoBehaviour
         Vector3 oldVector3 = currentSelectedItemObject.GetComponent<RectTransform>().position;
         Vector3 newVector3 = new Vector3(unselectedX, onScreen, 0);
 
+        Vector3 oldPentagonPos = pentagon.transform.localPosition;
+        Vector3 newPentagonPos = pentagonSelected;
+
+        if (currentSelectedItemObject == bioObject)
+        {
+            duration = .5f;
+        }
+
         currentSelectedItemObject.GetComponent<Canvas>().sortingOrder = 9;
         pentagon.GetComponent<Canvas>().sortingOrder = 11;
         whiteRectangle.GetComponent<Canvas>().sortingOrder = 10;
@@ -279,7 +308,9 @@ public class pauseMenu : MonoBehaviour
         {
             currentSelectedItemObject.GetComponent<RectTransform>().position = Vector3.Lerp(oldVector3, newVector3, time / duration);
 
-            pentagon.GetComponent<RectTransform>().localPosition = Vector3.Lerp(pentagonUnselected, pentagonSelected, time / duration);
+            pentagon.GetComponent<RectTransform>().localPosition = Vector3.Lerp(oldPentagonPos, newPentagonPos, time / duration);
+
+            bioObject.transform.position = new Vector3(0, bioObject.transform.position[1], 0);
 
             time += Time.deltaTime;
 
@@ -287,6 +318,8 @@ public class pauseMenu : MonoBehaviour
         }
 
         currentSelectedItemObject.GetComponent<RectTransform>().position = newVector3;
+
+        bioObject.transform.position = new Vector3(0, bioObject.transform.position[1], 0);
 
         isItemSelectionAnimating = false;
 
