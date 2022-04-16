@@ -14,6 +14,7 @@ public class displayObject{
     public int popUp; //damage/healing numbers displayed over unit
     public StatusName status; //status image that appears over unit
     public string sound; //sound effect to play
+    public bool isAction; //determines whether to resolve an action or not
     public displayObject(string text, bool isDamage){
         this.text = text;
         this.origin = null;
@@ -21,6 +22,17 @@ public class displayObject{
         this.isDamage = isDamage;
         this.status = StatusName.None;
         this.sound ="null";
+        this.isAction = false;
+    }
+
+    public displayObject(string text, bool isDamage, bool isAction){
+        this.text = text;
+        this.origin = null;
+        this.popUp = 0;
+        this.isDamage = isDamage;
+        this.status = StatusName.None;
+        this.sound ="null";
+        this.isAction = isAction;
     }
 
     public displayObject(string text, bool isDamage, string sound){
@@ -30,6 +42,7 @@ public class displayObject{
         this.isDamage = isDamage;
         this.status = StatusName.None;
         this.sound = sound;
+        this.isAction = false;
     }
     public displayObject(string text, Unit origin, StatusName status, bool isDamage){
         this.text = text;
@@ -38,6 +51,17 @@ public class displayObject{
         this.isDamage = isDamage;
         this.status = status;
         this.sound = "null";
+        this.isAction = false;
+    }
+
+    public displayObject(string text, Unit origin, StatusName status, bool isDamage, bool isAction){
+        this.text = text;
+        this.origin = origin;
+        this.popUp = 0;
+        this.isDamage = isDamage;
+        this.status = status;
+        this.sound = "null";
+        this.isAction = isAction;
     }
     public displayObject(string text, Unit origin, int popUp, bool isDamage){
         this.text = text;
@@ -46,6 +70,7 @@ public class displayObject{
         this.isDamage = isDamage;
         this.status = StatusName.None;
         this.sound = "null";
+        this.isAction = false;
     }
      public displayObject(string text, Unit origin, StatusName status, bool isDamage, string sound){
         this.text = text;
@@ -54,6 +79,7 @@ public class displayObject{
         this.isDamage = isDamage;
         this.status = status;
         this.sound= sound;
+        this.isAction = false;
     }
     public displayObject(string text, Unit origin, int popUp, bool isDamage, string sound){
         this.text = text;
@@ -62,6 +88,7 @@ public class displayObject{
         this.isDamage = isDamage;
         this.status = StatusName.None;
         this.sound = sound;
+        this.isAction = false;
     }
 }
 public class MainLoop : MonoBehaviour
@@ -171,7 +198,7 @@ public class MainLoop : MonoBehaviour
     }
 
     //Code for handling the enemies
-    void queueEnemyActions(){
+    public void queueEnemyActions(){
     	foreach(Enemy unit in enemyUnits){
     		if(unit.dead)
     			continue;
@@ -256,22 +283,6 @@ public class MainLoop : MonoBehaviour
         }
         Debug.Log("done debugging Player Units");
     }
-    //Resolve all actions in order
-    void resolveActions(){
-        debugQeuedActions();
-    	queuedActions.Sort(delegate(Unit a, Unit b) {return b.queuedAction.speed-a.queuedAction.speed;});
-        Debug.Log("Queued Actions sorted");
-        debugQeuedActions();
-        Debug.Log("Done debugging queued actions after sort");
-        foreach (Unit actor in queuedActions){
-    		if(actor.dead)
-    			continue;
-            Debug.Log(actor.name + " used " + actor.queuedAction.ability.name + "!");
-            //outputQueue.Add(actor.name + " used " +  actor.queuedAction.ability.name + "!");
-    		actor.act();
-    	}
-    	queuedActions.Clear();
-    }
 
     //Sets which active units
     //Pass it the index of the first active unit
@@ -290,9 +301,9 @@ public class MainLoop : MonoBehaviour
    	public void endTurn(){
 
    		//queue all enemy actions
-   		queueEnemyActions();
+   		//queueEnemyActions();
    		//Do all the actions 
-   		resolveActions();
+   		//resolveActions();
    		//Run end turn stuff
    		foreach (Unit unit in playerUnits){
    			unit.turnEnd();
@@ -330,73 +341,109 @@ public class MainLoop : MonoBehaviour
 
    	//Coroutine for displaying output
    	public IEnumerator OutputText(){
+        //Establishes Turn Logic Order
+        debugQeuedActions();
+    	queuedActions.Sort(delegate(Unit a, Unit b) {return b.queuedAction.speed-a.queuedAction.speed;});
+        Debug.Log("Queued Actions sorted");
+        debugQeuedActions();
+        Debug.Log("Done debugging queued actions after sort");
+
    		//Get the text box since it gets generated
    		TextMeshProUGUI textbox = GameObject.Find("resultsBox(Clone)").transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
 
-   		for(int i = 0; i < outputQueue.Count; i++){
-   			string outputBuild = "";
-   			for(int index = -4; index < 1; index++){
-   				if(i + index < 0)
-   					continue;
-   				outputBuild += outputQueue[i + index].text + "\n";
-   			}
-   			//Debug.Log(outputBuild);
-   			textbox.text = outputBuild;
+        //set variable for actions
+        int actionCount = 0;
+        int messageCount = 0;
+           
+           while(actionCount <= queuedActions.Count){
+                //updates UI
+                foreach(nameTag tag in uiController.GetComponent<combatController>().nameTagArray)
+                {
+                    tag.updateAllStatuses();
+                }
+                foreach (Unit unit in enemyUnits)
+                {
+                    unit.Kill();
+                } 
 
-            //Generate popUps
-            Vector3 tempLoc;
-            if(outputQueue[i].origin != null){
-                    if(outputQueue[i].origin.tag == "Enemy")
-                    tempLoc = new Vector3 (outputQueue[i].origin.GetComponent<Transform>().position.x,
-                        outputQueue[i].origin.GetComponent<Transform>().position.y+100,
-                        outputQueue[i].origin.GetComponent<Transform>().position.z );
-                    else if(outputQueue[i].origin.tag == "Ally"){
-                        Image locTrans = outputQueue[i].origin.GetComponent<Friendly>().sprite;
-                        tempLoc = new Vector3 (locTrans.GetComponent<Transform>().position.x,
-                        locTrans.GetComponent<Transform>().position.y+500,
-                        locTrans.GetComponent<Transform>().position.z );
+               //resolve Action
+               if(actionCount < queuedActions.Count){
+                    if(!queuedActions[actionCount].dead){
+                        Debug.Log(queuedActions[actionCount].name
+                        +" used "+queuedActions[actionCount].queuedAction.ability.name+"!");
+                        queuedActions[actionCount].act();
+                        Debug.Log("Actor has Acted");
+                    }
+                }else{
+                    endTurn();
+                }
+                //Prints Messages
+               while(messageCount < outputQueue.Count){
+                   //Creates Output text
+                   string outputBuild = "";
+   			        for(int index = -4; index < 1; index++){
+   				        if(messageCount + index < 0)
+   					        continue;
+   				        outputBuild += outputQueue[messageCount + index].text + "\n";
+   			            }
+                    //Debug.Log(outputBuild);
+   			        textbox.text = outputBuild;
+                    
+                    //Generate popUps
+                    Vector3 tempLoc;
+                    if(outputQueue[messageCount].origin != null){
+                        if(outputQueue[messageCount].origin.tag == "Enemy")
+                            tempLoc = new Vector3 (outputQueue[messageCount].origin.GetComponent<Transform>().position.x,
+                            outputQueue[messageCount].origin.GetComponent<Transform>().position.y+100,
+                            outputQueue[messageCount].origin.GetComponent<Transform>().position.z );
+                        else if(outputQueue[messageCount].origin.tag == "Ally"){
+                            Image locTrans = outputQueue[messageCount].origin.GetComponent<Friendly>().sprite;
+                            tempLoc = new Vector3 (locTrans.GetComponent<Transform>().position.x,
+                            locTrans.GetComponent<Transform>().position.y+500,
+                            locTrans.GetComponent<Transform>().position.z );
+                        }
+                        else tempLoc = new Vector3 (0f,0f,0f);
                     }
                     else tempLoc = new Vector3 (0f,0f,0f);
-                }
-            else tempLoc = new Vector3 (0f,0f,0f);
-            //Debug.Log("Location is "+tempLoc.x+", "+tempLoc.y+", "+tempLoc.z+" targeting "+outputQueue[i].origin.unitName);
+                    //Debug.Log("Location is "+tempLoc.x+", "+tempLoc.y+", "+tempLoc.z+" targeting "+outputQueue[messageCount].origin.unitName);
 
-            if(outputQueue[i].status != StatusName.None){
-            GameObject temp1 = Instantiate(statusPopUp,
-                tempLoc,
-                Quaternion.identity,
-                canvas.transform) as GameObject; 
-                temp1.GetComponent<PopUpDestroyer>().timeOut = textSpeed;
-            temp1.GetComponent<Image>().sprite = Resources.Load<Sprite>("StatusIcons/icon"+outputQueue[i].status.ToString());
-            }
+                    if(outputQueue[messageCount].status != StatusName.None){
+                        GameObject temp1 = Instantiate(statusPopUp,
+                            tempLoc,
+                            Quaternion.identity,
+                            canvas.transform) as GameObject; 
+                        temp1.GetComponent<PopUpDestroyer>().timeOut = textSpeed;
+                        temp1.GetComponent<Image>().sprite = Resources.Load<Sprite>("StatusIcons/icon"+outputQueue[messageCount].status.ToString());
+                    }
 
-            if(outputQueue[i].popUp != 0){
-            GameObject temp2 = Instantiate(damagePopUp,
-                tempLoc,
-                Quaternion.identity,
-                canvas.transform) as GameObject;
-            temp2.GetComponent<PopUpDestroyer>().timeOut = textSpeed;
-            temp2.GetComponent<TextMeshProUGUI>().text = outputQueue[i].popUp.ToString();
-            }
+                    if(outputQueue[messageCount].popUp != 0){
+                        GameObject temp2 = Instantiate(damagePopUp,
+                            tempLoc,
+                            Quaternion.identity,
+                            canvas.transform) as GameObject;
+                        temp2.GetComponent<PopUpDestroyer>().timeOut = textSpeed;
+                        temp2.GetComponent<TextMeshProUGUI>().text = outputQueue[messageCount].popUp.ToString();
+                    }
 
-            if(outputQueue[i].sound != "null"){
-                FMOD.Studio.EventInstance sfxInstance;
-		        sfxInstance = RuntimeManager.CreateInstance("event:/Battle/"+outputQueue[i].sound); 
-		        sfxInstance.start();
-            }
+                    if(outputQueue[messageCount].sound != "null"){
+                        FMOD.Studio.EventInstance sfxInstance;
+		                sfxInstance = RuntimeManager.CreateInstance("event:/Battle/"+outputQueue[messageCount].sound); 
+		                sfxInstance.start();
+                    }
 
-   			yield return new WaitForSeconds(textSpeed);
+   			        yield return new WaitForSeconds(textSpeed);   
 
-            foreach(nameTag tag in uiController.GetComponent<combatController>().nameTagArray)
-            {
-                tag.updateAllStatuses();
-            }
-            foreach (Unit unit in enemyUnits)
-            {
-                unit.Kill();
-            }    
-        }
+                    //moves to next message
+                    messageCount++;
+               }
+               //moves to next action
+               actionCount++;
+           }
+           
+        Debug.Log("QueuedActions Cleared");
+    	queuedActions.Clear();
         outputQueue.Clear();
+
         bool alldead = true;
         foreach (Unit unit in enemyUnits)
         {

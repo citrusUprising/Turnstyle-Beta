@@ -91,7 +91,8 @@ public class Unit : MonoBehaviour
             gameLoop.outputQueue.Add(new displayObject(this.unitName + " flinched",
             this,
             StatusName.Flinch,
-            false)
+            false,
+            true)
             );
             this.statuses[(int) StatusType.Debuff].name = StatusName.None;
             this.statuses[(int) StatusType.Debuff].duration = 0;
@@ -112,7 +113,8 @@ public class Unit : MonoBehaviour
                                 gameLoop.outputQueue.Add(new displayObject(this.unitName + " used " + this.queuedAction.ability.name + "!",
                                 this,
                                 StatusName.None,
-                                false)
+                                false,
+                                true)
                                 );
                                 used = true;
                             }
@@ -126,7 +128,8 @@ public class Unit : MonoBehaviour
                                 gameLoop.outputQueue.Add(new displayObject(this.unitName + " used " + this.queuedAction.ability.name + "!",
                                 this,
                                 StatusName.None,
-                                false)
+                                false,
+                                true)
                                 );
                                 used = true;
                             }
@@ -144,6 +147,7 @@ public class Unit : MonoBehaviour
                                 gameLoop.outputQueue.Add(new displayObject(this.unitName + " used " + this.queuedAction.ability.name + "!",
                                 this,
                                 StatusName.None,
+                                true,
                                 true)
                                 );
                                 used = true;
@@ -158,7 +162,8 @@ public class Unit : MonoBehaviour
                                 gameLoop.outputQueue.Add(new displayObject(this.unitName + " used " + this.queuedAction.ability.name + "!",
                                 this,
                                 StatusName.None,
-                                false)
+                                false,
+                                true)
                                 );
                                 used = true;
                             }
@@ -169,14 +174,16 @@ public class Unit : MonoBehaviour
             }
             if(!used)
                 gameLoop.outputQueue.Add(new displayObject(this.unitName + "'s ability had no targets!",
-                false)
+                false,
+                true)
                 );
         } else if (this.queuedAction.ability.selftarget == true)
         {
             gameLoop.outputQueue.Add(new displayObject(this.unitName + " used " + this.queuedAction.ability.name + "!",
                 this,
                 StatusName.None,
-                false)
+                false,
+                true)
                 );
             this.queuedAction.ability.effect(this, this, gameLoop);
         }
@@ -186,13 +193,15 @@ public class Unit : MonoBehaviour
                 gameLoop.outputQueue.Add(new displayObject(this.unitName + " used " + this.queuedAction.ability.name + "!",
                     this,
                     StatusName.None,
-                    false)
+                    false,
+                    true)
                     );
                 this.queuedAction.ability.effect(this.queuedAction.target, this, gameLoop);
             }
             else
                 gameLoop.outputQueue.Add(new displayObject(this.unitName + "'s ability had no target!",
-                false)
+                false,
+                true)
                 );
         }
         if(this.queuedAction.speed < 0){
