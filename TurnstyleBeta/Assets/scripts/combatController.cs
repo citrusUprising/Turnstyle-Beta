@@ -231,6 +231,7 @@ public class combatController : MonoBehaviour
 
         glossaryObject.GetComponent<glossaryScript>().nextSFX = menuForward;
         glossaryObject.GetComponent<glossaryScript>().prevSFX = menuBack;
+        glossaryObject.GetComponent<glossaryScript>().errorSFX = speedScroll;
 
 
         //Opens initial tutorial on initial scene start
