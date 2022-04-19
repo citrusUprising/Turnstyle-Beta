@@ -116,6 +116,8 @@ public class MainLoop : MonoBehaviour
     public GameObject uiController;
     public GameObject damagePopUp;
     public GameObject statusPopUp;
+    //checks if text output was skipped, changing logic speed and animations accordingly
+    public bool isSkipped;
     GameObject Stats;
 
     public Canvas canvas;
@@ -173,6 +175,7 @@ public class MainLoop : MonoBehaviour
     void Start()
     {
         textSpeed = PlayerPrefs.GetFloat("combatTextSpeed", 1.125f);
+        isSkipped = false;
     }
 
     // Update is called once per frame
@@ -356,15 +359,8 @@ public class MainLoop : MonoBehaviour
         int messageCount = 0;
            
            while(actionCount <= queuedActions.Count){
-                //updates UI
-                foreach(nameTag tag in uiController.GetComponent<combatController>().nameTagArray)
-                {
-                    tag.updateAllStatuses();
-                }
-                foreach (Unit unit in enemyUnits)
-                {
-                    unit.Kill();
-                } 
+                //resets textspeed to 0 to speed through logic if skipped
+                if(isSkipped) textSpeed = 0;
 
                //resolve Action
                if(actionCount < queuedActions.Count){
@@ -390,24 +386,32 @@ public class MainLoop : MonoBehaviour
    			        textbox.text = outputBuild;
                     
                     //Generate popUps
-                    Vector3 tempLoc;
-                    if(outputQueue[messageCount].origin != null){
-                        if(outputQueue[messageCount].origin.tag == "Enemy")
-                            tempLoc = new Vector3 (outputQueue[messageCount].origin.GetComponent<Transform>().position.x,
-                            outputQueue[messageCount].origin.GetComponent<Transform>().position.y+100,
-                            outputQueue[messageCount].origin.GetComponent<Transform>().position.z );
-                        else if(outputQueue[messageCount].origin.tag == "Ally"){
-                            Image locTrans = outputQueue[messageCount].origin.GetComponent<Friendly>().sprite;
+                    Vector3 tempLoc; //flag
+                    if(outputQueue[messageCount].origin != null&&!isSkipped){
+                        Unit tempU = outputQueue[messageCount].origin;
+                        
+                        if(tempU.tag == "Enemy"){
+                            tempLoc = new Vector3 (tempU.GetComponent<Transform>().position.x,
+                            tempU.GetComponent<Transform>().position.y+100,
+                            tempU.GetComponent<Transform>().position.z );
+                            tempU.GetComponent<Enemy>().updateHealthBar();
+                        }
+                        else if(tempU.tag == "Ally"){
+                            Image locTrans = tempU.GetComponent<Friendly>().sprite;
                             tempLoc = new Vector3 (locTrans.GetComponent<Transform>().position.x,
                             locTrans.GetComponent<Transform>().position.y+500,
                             locTrans.GetComponent<Transform>().position.z );
+                            tempU.GetComponent<Friendly>().nameTag.GetComponent<nameTag>().adjustHealth();
+                            tempU.GetComponent<Friendly>().nameTag.GetComponent<nameTag>().updateAllStatuses();
+                            
                         }
                         else tempLoc = new Vector3 (0f,0f,0f);
+                        tempU.GetComponent<Unit>().Kill();
                     }
                     else tempLoc = new Vector3 (0f,0f,0f);
-                    //Debug.Log("Location is "+tempLoc.x+", "+tempLoc.y+", "+tempLoc.z+" targeting "+outputQueue[messageCount].origin.unitName);
+                    //Debug.Log("Location is "+tempLoc.x+", "+tempLoc.y+", "+tempLoc.z+" targeting "+tempU.unitName);
 
-                    if(outputQueue[messageCount].status != StatusName.None){
+                    if(outputQueue[messageCount].status != StatusName.None&&!isSkipped){
                         GameObject temp1 = Instantiate(statusPopUp,
                             tempLoc,
                             Quaternion.identity,
@@ -416,7 +420,7 @@ public class MainLoop : MonoBehaviour
                         temp1.GetComponent<Image>().sprite = Resources.Load<Sprite>("StatusIcons/icon"+outputQueue[messageCount].status.ToString());
                     }
 
-                    if(outputQueue[messageCount].popUp != 0){
+                    if(outputQueue[messageCount].popUp != 0 && !isSkipped){
                         GameObject temp2 = Instantiate(damagePopUp,
                             tempLoc,
                             Quaternion.identity,
@@ -425,7 +429,7 @@ public class MainLoop : MonoBehaviour
                         temp2.GetComponent<TextMeshProUGUI>().text = outputQueue[messageCount].popUp.ToString();
                     }
 
-                    if(outputQueue[messageCount].sound != "null"){
+                    if(outputQueue[messageCount].sound != "null"&&!isSkipped){
                         FMOD.Studio.EventInstance sfxInstance;
 		                sfxInstance = RuntimeManager.CreateInstance("event:/Battle/"+outputQueue[messageCount].sound); 
 		                sfxInstance.start();
@@ -436,10 +440,25 @@ public class MainLoop : MonoBehaviour
                     //moves to next message
                     messageCount++;
                }
+
                //moves to next action
                actionCount++;
            }
            
+         //updates UI
+            foreach(nameTag tag in uiController.GetComponent<combatController>().nameTagArray)
+            {
+                tag.adjustHealth();
+                tag.updateAllStatuses();
+            }
+            foreach (Enemy unit in enemyUnits)
+            {
+                unit.updateHealthBar();
+                unit.Kill();
+            } 
+
+        isSkipped = false;
+        textSpeed = PlayerPrefs.GetFloat("combatTextSpeed", 1.125f);   
         Debug.Log("QueuedActions Cleared");
     	queuedActions.Clear();
         outputQueue.Clear();

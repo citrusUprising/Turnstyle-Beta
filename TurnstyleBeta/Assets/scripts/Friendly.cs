@@ -12,6 +12,7 @@ public class Friendly : Unit
     }
 
     public Image sprite;
+    public GameObject nameTag;
     // Start is called before the first frame update
     void Start()
     {

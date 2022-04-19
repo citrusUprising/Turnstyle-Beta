@@ -49,15 +49,14 @@ public class Script1a : MonoBehaviour
         temp[dialogueVarietyCount]=new overallDialogue("Amery","Seraphim","ApartmentLight",
         new dialogueEntry[]{
             new dialogueEntry("Ugh…are you serious…? I’m too tired for this…just let me sleep…",true,"null"),
-            new dialogueEntry("Oh Seraphim, of course you’re tired and don’t want to get up, you swear that anytime before 3 pm is morning.",false,"null"),
-            new dialogueEntry("Gosh, I just don’t understand why you’re all being so unreasonable about this! Come on, let’s get ready to go, I’ll go pack my briefcase.",false,"null")
+            new dialogueEntry("Oh Seraphim, of course you’re tired and don’t want to get up, you swear that anytime before 3 pm is morning. Quit being lazy and let's get ready to go.",false,"null")
             }
         );
         dialogueVarietyCount++;
 
         temp[dialogueVarietyCount]=new overallDialogue("","Seraphim","ApartmentLight",
         new dialogueEntry[]{
-            new dialogueEntry("Hey, wait! I’m not just gonna— and he’s already gone. Great, great…Well it’s not like this morning can get any worse, right?",true,"null")
+            new dialogueEntry("Hey, wait! I’m not just gonna— ",true,"null")
             }
         );
         dialogueVarietyCount ++;
@@ -65,11 +64,9 @@ public class Script1a : MonoBehaviour
         temp[dialogueVarietyCount]=new overallDialogue("Koralie","Seraphim","ApartmentLight",
         new dialogueEntry[]{
             new dialogueEntry("Helloooo!! Is everyone else ready to head to the subway?",false,"null"),
-            new dialogueEntry("Guess I spoke too soon…",true,"null"),
-            new dialogueEntry("Well, wouldn’t cha know? Look who’s ready to go! The princex of our house is perfect as usual.",true,"null"),
+            new dialogueEntry("Just when I thought this couldn't get any worse.",true,"null"),
+            new dialogueEntry("We get it. You're already all done up! The princex of our house is perfect as usual.",true,"null"),
             new dialogueEntry("Well, of course! A dashing princex like myself has to be ready for anything teehee.",false,"null"),
-            new dialogueEntry("I think you could learn a bit from me actually…would you like princex lessons from THE Koralie themselves?",false,"null"),
-            new dialogueEntry("Nah…no thanks.",true,"null"),
             new dialogueEntry("Geez…your voice is more annoying than the alarm.",true,"null"),
             new dialogueEntry("Excuse me, what did you just say? Come here, you little—",false,"null")
             }
@@ -87,7 +84,7 @@ public class Script1a : MonoBehaviour
         temp[dialogueVarietyCount]=new overallDialogue("Koralie","Beverly","ApartmentLight",
         new dialogueEntry[]{
             new dialogueEntry("Okay! I’m all ready to go! You’re ready too, aren’t you, Koralie? Do you want to wait outside with me for everyone else?",true,"null"),
-            new dialogueEntry("Ah uhm…no, I’m alright. I’ll go outside with the others when they’re ready.",false,"null"),
+            new dialogueEntry("Ah uhm…no, I’ll just go outside with the others when they’re ready.",false,"null"),
             new dialogueEntry("Oh…well that’s cool! See you out there, then!",true,"null") //doorClosing
         }
         );
@@ -95,7 +92,7 @@ public class Script1a : MonoBehaviour
 
         temp[dialogueVarietyCount]=new overallDialogue("Amery","Seraphim","ApartmentLight",
         new dialogueEntry[]{
-            new dialogueEntry("Alright, I’ve gathered all my papers! I see that Bev and Koralie are ready, what’s the hold up for the rest of you?",false,"null"),
+            new dialogueEntry("Alright, I’ve gathered all my papers! What’s the hold up?",false,"null"),
             new dialogueEntry("We’ll be ready in a second…but god, why do you have to spring this on us without any notice at all? We have lives too, don’t you get that?",true,"null")
             }
         );
@@ -105,8 +102,7 @@ public class Script1a : MonoBehaviour
         new dialogueEntry[]{
             new dialogueEntry("They’re right, you know. Why can’t you get your actual friends to help you with this? Why us?",true,"null"),
             new dialogueEntry("Oh well…they’re very busy people, yeah, really busy…they simply didn’t have time to help me out today. The next best thing was you guys!",false,"null"),
-            new dialogueEntry("Right…uh huh. Well, let’s head out, since you’re in such a hurry and all.",true,"null"),
-            new dialogueEntry("Now you’re talking! Everyone, let’s go!",false,"null")
+            new dialogueEntry("Right…uh huh. Well, let’s head out, since you’re in such a hurry and all.",true,"null")
             }
         );
         dialogueVarietyCount ++;

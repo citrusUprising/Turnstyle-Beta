@@ -64,6 +64,11 @@ public class nameTag : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //adjustHealth();
+        animatePassive();
+    }
+
+    public void adjustHealth(){
         hpValue = character.GetComponent<Friendly>().hp;
         fatigue.GetComponent<TextMeshProUGUI>().text = character.GetComponent<Friendly>().fatigue.ToString();
 
@@ -72,8 +77,6 @@ public class nameTag : MonoBehaviour
         hpText.GetComponent<TextMeshProUGUI>().text = hpValueString;
 
         healthBar.GetComponent<Image>().fillAmount = (float)hpValue / (float)hpValueMax;
-
-        animatePassive();
     }
     
     public void togglePassiveShowing()

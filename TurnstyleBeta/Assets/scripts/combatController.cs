@@ -492,8 +492,9 @@ public class combatController : MonoBehaviour
 
                 if (xDown)
                 {
-                    transitionToRotate();
+                    mainLoopObject.GetComponent<MainLoop>().isSkipped = true;
                     xDown = false;
+                    transitionToRotate();
                 }
             }
 

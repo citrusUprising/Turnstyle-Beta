@@ -138,6 +138,10 @@ public class Enemy : Unit
     // Update is called once per frame
     void Update()
     {
+        
+    }
+
+    public void updateHealthBar(){
         hpPercent = (float)hp / (float)maxHP;
 
         healthBar.GetComponent<Image>().fillAmount = hpPercent;
