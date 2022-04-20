@@ -397,7 +397,7 @@ public class Soulrip : Ability
         Debug.Log("Seraphim rolled "+ check);
         if(source.fatigue <= 0 || check <= test) target.takeDamage(source, 10);
         else L.outputQueue.Add(new displayObject(source.unitName+" couldn't manifest",
-        true)
+        false)
         );
     }
 
@@ -739,7 +739,7 @@ public class Flagellate : Ability
             L.outputQueue.Add(new displayObject(target.unitName+" was relieved of "+target.statuses[(int) StatusType.Buff].name,
             target,
             target.statuses[(int) StatusType.Buff].name,
-            true)
+            false)
             );
         }else{
             target.takeDamage(source,4);
@@ -790,7 +790,7 @@ public class Cleave : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        target.hp = Math.Max(target.hp/2, 0);
+        target.hp = Math.Max(target.hp-target.hp/2, 0);
         L.outputQueue.Add(new displayObject(target.unitName+"'s health was halved",
         target,
         target.hp/2,

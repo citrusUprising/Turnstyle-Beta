@@ -10,85 +10,59 @@ using FMODUnity;
 public class displayObject{
     public string text; //the text sent to the display
     public Unit origin; //location of affected unit
-    public bool isDamage;//whether or not popUp is healing or damage
+    public bool changeHP;//whether health bar is changed
     public int popUp; //damage/healing numbers displayed over unit
     public StatusName status; //status image that appears over unit
     public string sound; //sound effect to play
-    public bool isAction; //determines whether to resolve an action or not
-    public displayObject(string text, bool isDamage){
+    public displayObject(string text, bool changeHP){
         this.text = text;
         this.origin = null;
         this.popUp = 0;
-        this.isDamage = isDamage;
+        this.changeHP = changeHP;
         this.status = StatusName.None;
         this.sound ="null";
-        this.isAction = false;
     }
 
-    public displayObject(string text, bool isDamage, bool isAction){
+    public displayObject(string text, bool changeHP, string sound){
         this.text = text;
         this.origin = null;
         this.popUp = 0;
-        this.isDamage = isDamage;
-        this.status = StatusName.None;
-        this.sound ="null";
-        this.isAction = isAction;
-    }
-
-    public displayObject(string text, bool isDamage, string sound){
-        this.text = text;
-        this.origin = null;
-        this.popUp = 0;
-        this.isDamage = isDamage;
+        this.changeHP = changeHP;
         this.status = StatusName.None;
         this.sound = sound;
-        this.isAction = false;
-    }
-    public displayObject(string text, Unit origin, StatusName status, bool isDamage){
-        this.text = text;
-        this.origin = origin;
-        this.popUp = 0;
-        this.isDamage = isDamage;
-        this.status = status;
-        this.sound = "null";
-        this.isAction = false;
     }
 
-    public displayObject(string text, Unit origin, StatusName status, bool isDamage, bool isAction){
+    public displayObject(string text, Unit origin, StatusName status, bool changeHP){
         this.text = text;
         this.origin = origin;
         this.popUp = 0;
-        this.isDamage = isDamage;
+        this.changeHP = changeHP;
         this.status = status;
         this.sound = "null";
-        this.isAction = isAction;
     }
-    public displayObject(string text, Unit origin, int popUp, bool isDamage){
+    public displayObject(string text, Unit origin, int popUp, bool changeHP){
         this.text = text;
         this.origin = origin;
         this.popUp = popUp;
-        this.isDamage = isDamage;
+        this.changeHP = changeHP;
         this.status = StatusName.None;
         this.sound = "null";
-        this.isAction = false;
     }
-     public displayObject(string text, Unit origin, StatusName status, bool isDamage, string sound){
+     public displayObject(string text, Unit origin, StatusName status, bool changeHP, string sound){
         this.text = text;
         this.origin = origin;
         this.popUp = 0;
-        this.isDamage = isDamage;
+        this.changeHP = changeHP;
         this.status = status;
         this.sound= sound;
-        this.isAction = false;
     }
-    public displayObject(string text, Unit origin, int popUp, bool isDamage, string sound){
+    public displayObject(string text, Unit origin, int popUp, bool changeHP, string sound){
         this.text = text;
         this.origin = origin;
         this.popUp = popUp;
-        this.isDamage = isDamage;
+        this.changeHP = changeHP;
         this.status = StatusName.None;
         this.sound = sound;
-        this.isAction = false;
     }
 }
 public class MainLoop : MonoBehaviour
@@ -394,19 +368,19 @@ public class MainLoop : MonoBehaviour
                             tempLoc = new Vector3 (tempU.GetComponent<Transform>().position.x,
                             tempU.GetComponent<Transform>().position.y+100,
                             tempU.GetComponent<Transform>().position.z );
-                            tempU.GetComponent<Enemy>().updateHealthBar();
+                            if(outputQueue[messageCount].changeHP)tempU.GetComponent<Enemy>().updateHealthBar();
+                            tempU.GetComponent<Unit>().Kill();
                         }
                         else if(tempU.tag == "Ally"){
                             Image locTrans = tempU.GetComponent<Friendly>().sprite;
                             tempLoc = new Vector3 (locTrans.GetComponent<Transform>().position.x,
                             locTrans.GetComponent<Transform>().position.y+500,
                             locTrans.GetComponent<Transform>().position.z );
-                            tempU.GetComponent<Friendly>().nameTag.GetComponent<nameTag>().adjustHealth();
+                            if(outputQueue[messageCount].changeHP)tempU.GetComponent<Friendly>().nameTag.GetComponent<nameTag>().adjustHealth();
                             tempU.GetComponent<Friendly>().nameTag.GetComponent<nameTag>().updateAllStatuses();
                             
                         }
                         else tempLoc = new Vector3 (0f,0f,0f);
-                        tempU.GetComponent<Unit>().Kill();
                     }
                     else tempLoc = new Vector3 (0f,0f,0f);
                     //Debug.Log("Location is "+tempLoc.x+", "+tempLoc.y+", "+tempLoc.z+" targeting "+tempU.unitName);
