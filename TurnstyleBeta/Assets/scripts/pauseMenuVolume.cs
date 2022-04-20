@@ -22,14 +22,11 @@ public class pauseMenuVolume : MonoBehaviour
     public float musicVolume;
     public float musicPercent;
 
-    private float musicMaxValue = 10f;
-    private float musicMinValue = -80f;
-
     public float sfxVolume;
     public float sfxPercent;
 
-    private float sfxMaxValue = 10f;
-    private float sfxMinValue = -80f;
+    private float halfAmplitude = 1f;
+    private float maxAmplitude = 4f;
 
     public GameObject selectSound;
 
@@ -143,15 +140,17 @@ public class pauseMenuVolume : MonoBehaviour
         pointer.GetComponent<RectTransform>().position = pointerPos;
     }
 
+    // Range 0 to maxAmplitude, with the halfway point being halfAmplitude
     float getMusic()
     {
-        float lerpValue = Mathf.Lerp(musicMinValue, musicMaxValue, musicPercent);
-        return Mathf.Pow(10f, lerpValue / 20f);
+        if (musicPercent <= .5) return (musicPercent * 2) * halfAmplitude;
+        else return ((musicPercent - 0.5f) * 2) * (maxAmplitude - 1) + halfAmplitude;
     }
 
+    // Range 0 to maxAmplitude, with the halfway point being halfAmplitude
     float getSFX()
     {
-        float lerpValue = Mathf.Lerp(sfxMinValue, sfxMaxValue, sfxPercent);
-        return Mathf.Pow(10f, lerpValue / 20f);
+        if (sfxPercent <= .5) return (sfxPercent * 2) * halfAmplitude;
+        else return ((sfxPercent - 0.5f) * 2) * (maxAmplitude - 1) + halfAmplitude;
     }
 }
