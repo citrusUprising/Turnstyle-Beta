@@ -202,7 +202,7 @@ public class combatController : MonoBehaviour
         //enemies = GameObject.FindGameObjectsWithTag("Enemy");
         for (int i = 0; i < 5; i++)
         {
-            nameTagCoords[i] = nameTagArray[i].transform.position;
+            nameTagCoords[i] = nameTagArray[i].transform.localPosition;
         }
 
         gameLoop = mainLoopObject.GetComponent<MainLoop>();
@@ -589,7 +589,7 @@ public class combatController : MonoBehaviour
 
         for (int i = 0; i < 5; i++)
         {
-            nameTagArray[i].previousPosition = nameTagArray[i].transform.position;
+            nameTagArray[i].previousPosition = nameTagArray[i].transform.localPosition;
             nameTagArray[i].nextPosition = nameTagCoords[i];
         }
 
@@ -616,7 +616,7 @@ public class combatController : MonoBehaviour
 
         for (int i = 0; i < 5; i++)
         {
-            nameTagArray[i].transform.position = Vector3.Lerp(nameTagArray[i].previousPosition, nameTagArray[i].nextPosition, t);
+            nameTagArray[i].transform.localPosition = Vector3.Lerp(nameTagArray[i].previousPosition, nameTagArray[i].nextPosition, t);
         }
 
         // increases time
@@ -632,7 +632,7 @@ public class combatController : MonoBehaviour
 
             for (int i = 0; i < 5; i++)
             {
-                nameTagArray[i].transform.position = Vector3.Lerp(nameTagArray[i].previousPosition, nameTagArray[i].nextPosition, t);
+                nameTagArray[i].transform.localPosition = Vector3.Lerp(nameTagArray[i].previousPosition, nameTagArray[i].nextPosition, t);
             }
 
             // the pentagon is done rotating by now
