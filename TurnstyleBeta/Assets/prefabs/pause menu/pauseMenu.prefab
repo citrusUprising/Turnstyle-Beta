@@ -4301,6 +4301,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 548863471691136474}
     m_Modifications:
     - target: {fileID: 130373340576238253, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 130373340576238253, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_SizeDelta.y
       value: 466
       objectReference: {fileID: 0}
@@ -4310,7 +4314,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 130373340576238253, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 108
+      value: -376
       objectReference: {fileID: 0}
     - target: {fileID: 137167551957325351, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_SizeDelta.y
@@ -4319,6 +4323,26 @@ PrefabInstance:
     - target: {fileID: 188020568662879549, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Name
       value: seraphim
+      objectReference: {fileID: 0}
+    - target: {fileID: 261543465173136891, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_Pivot.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 261543465173136891, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 261543465173136891, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 384
+      objectReference: {fileID: 0}
+    - target: {fileID: 261543465173136891, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -256
+      objectReference: {fileID: 0}
+    - target: {fileID: 261543465173136891, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -376
       objectReference: {fileID: 0}
     - target: {fileID: 1048582530542957359, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_SizeDelta.y
@@ -4429,12 +4453,34 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3389193972863487417, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 172
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 3790125253247517159, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 320
       objectReference: {fileID: 0}
     - target: {fileID: 3892526753406117818, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: a8386260c851d904a98cce95e9c508c6, type: 3}
+    - target: {fileID: 4217894515740350329, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_text
+      value: '<b>Age:</b> 18
+
+        <b>Fashion:</b> None, Absolutely Dripless
+
+        <b>Powers:</b>
+        Astral Projection
+
+        <b>Major:</b> Physics
+
+        <b>Favorite Food:</b>
+        Pancakes
+
+
+        Struggling with depression, Seraphim stumbles through
+        life, but is reluctant to reach out to others for help.'
+      objectReference: {fileID: 0}
     - target: {fileID: 4248260983611928317, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4477,13 +4523,17 @@ PrefabInstance:
         Afflicts one targeted
         enemy with Vulnerable for 2 turns.'
       objectReference: {fileID: 0}
+    - target: {fileID: 7301671282474752484, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 64b61503cdabb414382a789a061ed183, type: 3}
     - target: {fileID: 8207806611650452735, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 8207806611650452735, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -216
+      value: -213
       objectReference: {fileID: 0}
     - target: {fileID: 8772789440583524666, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -4531,7 +4581,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 130373340576238253, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -356
+      value: -368
       objectReference: {fileID: 0}
     - target: {fileID: 137167551957325351, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_SizeDelta.y
@@ -4540,6 +4590,22 @@ PrefabInstance:
     - target: {fileID: 188020568662879549, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Name
       value: berverly
+      objectReference: {fileID: 0}
+    - target: {fileID: 261543465173136891, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_Pivot.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 261543465173136891, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 261543465173136891, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -256
+      objectReference: {fileID: 0}
+    - target: {fileID: 261543465173136891, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -368
       objectReference: {fileID: 0}
     - target: {fileID: 1048582530542957359, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -4611,11 +4677,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1913134562507730970, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 2142
+      value: 2118
       objectReference: {fileID: 0}
     - target: {fileID: 1913134562507730970, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 805
+      value: 737
       objectReference: {fileID: 0}
     - target: {fileID: 1913134562507730970, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -4646,12 +4712,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3389193972863487417, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 172
+      value: 128
       objectReference: {fileID: 0}
     - target: {fileID: 3892526753406117818, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 7272de00b9c5fc9488c5e0861489622e, type: 3}
+    - target: {fileID: 4217894515740350329, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_text
+      value: '<b>Age:</b> 22
+
+        <b>Fashion:</b> Y2K Bimbo
+
+        <b>Powers:</b>
+        Pyrokinesis
+
+        <b>Major:</b> Biochemistry
+
+        <b>Favorite Animal:</b>
+        Orangutan
+
+
+        Bubbly and extremely intelligent, Beverly is the mom-type
+        who would do anything for her friends!'
+      objectReference: {fileID: 0}
     - target: {fileID: 4248260983611928317, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4692,6 +4776,10 @@ PrefabInstance:
         Targets all enemies,
         35% chance to Flinch, 35% chance to Burn.'
       objectReference: {fileID: 0}
+    - target: {fileID: 7301671282474752484, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 19ef373340724af4596bd403a39cd135, type: 3}
     - target: {fileID: 8207806611650452735, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -210
@@ -4738,11 +4826,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 130373340576238253, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -308
+      value: -328
       objectReference: {fileID: 0}
     - target: {fileID: 188020568662879549, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Name
       value: koralie
+      objectReference: {fileID: 0}
+    - target: {fileID: 261543465173136891, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_Pivot.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 261543465173136891, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 261543465173136891, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -256
+      objectReference: {fileID: 0}
+    - target: {fileID: 261543465173136891, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -328
       objectReference: {fileID: 0}
     - target: {fileID: 1913134562507730970, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Pivot.x
@@ -4834,7 +4938,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3389193972863487417, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 172
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 4248260983611928317, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Pivot.x
@@ -4857,8 +4961,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8207806611650452735, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 71
+      objectReference: {fileID: 0}
+    - target: {fileID: 8207806611650452735, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -129
+      value: -120
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
@@ -4893,7 +5001,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 130373340576238253, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -388
+      value: -392
       objectReference: {fileID: 0}
     - target: {fileID: 137167551957325351, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_SizeDelta.y
@@ -4910,6 +5018,22 @@ PrefabInstance:
     - target: {fileID: 188020568662879549, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Name
       value: jade
+      objectReference: {fileID: 0}
+    - target: {fileID: 261543465173136891, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_Pivot.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 261543465173136891, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 261543465173136891, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -256
+      objectReference: {fileID: 0}
+    - target: {fileID: 261543465173136891, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -392
       objectReference: {fileID: 0}
     - target: {fileID: 1048582530542957359, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_SizeDelta.y
@@ -5015,6 +5139,10 @@ PrefabInstance:
         for 1 turn, Shielded for 1 turn, or haste (3) for 2 turns.'
       objectReference: {fileID: 0}
     - target: {fileID: 3389193972863487417, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3389193972863487417, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_SizeDelta.y
       value: 256
       objectReference: {fileID: 0}
@@ -5024,12 +5152,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3389193972863487417, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 172
+      value: 136
       objectReference: {fileID: 0}
     - target: {fileID: 3892526753406117818, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 0cef9fefb12717b499479508833cb83d, type: 3}
+    - target: {fileID: 4217894515740350329, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_text
+      value: '<b>Age:</b> 20
+
+        <b>Fashion:</b> Punk
+
+        <b>Powers:</b>
+        Telepathy
+
+        <b>Major:</b> Philosophy
+
+        <b>Shits Given:</b>
+        None
+
+
+        Jade is a carefree anarchist with a tough exterior, but a
+        soft heart once you get to know him.'
+      objectReference: {fileID: 0}
     - target: {fileID: 4248260983611928317, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5071,6 +5217,14 @@ PrefabInstance:
 
         Heal an ally for
         8 damage and deal 4 damage to user.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7301671282474752484, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 168b4dddfd79b0c4dacfe3612549595a, type: 3}
+    - target: {fileID: 8207806611650452735, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 74
       objectReference: {fileID: 0}
     - target: {fileID: 8207806611650452735, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -5118,7 +5272,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 130373340576238253, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -340
+      value: -376
       objectReference: {fileID: 0}
     - target: {fileID: 137167551957325351, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_SizeDelta.y
@@ -5127,6 +5281,26 @@ PrefabInstance:
     - target: {fileID: 188020568662879549, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Name
       value: amery
+      objectReference: {fileID: 0}
+    - target: {fileID: 261543465173136891, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_Pivot.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 261543465173136891, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 261543465173136891, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 384
+      objectReference: {fileID: 0}
+    - target: {fileID: 261543465173136891, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -256
+      objectReference: {fileID: 0}
+    - target: {fileID: 261543465173136891, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -376
       objectReference: {fileID: 0}
     - target: {fileID: 1048582530542957359, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_SizeDelta.y
@@ -5233,12 +5407,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3389193972863487417, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 172
+      value: 104
+      objectReference: {fileID: 0}
+    - target: {fileID: 3790125253247517159, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 320
+      objectReference: {fileID: 0}
+    - target: {fileID: 3790125253247517159, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3892526753406117818, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 713f4bea2970e854486302eb7555d32d, type: 3}
+    - target: {fileID: 4217894515740350329, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_text
+      value: '<b>Age:</b> 21
+
+        <b>Fashion:</b> Buisiness Casual
+
+        <b>Powers:</b>
+        Precognition
+
+        <b>Major:</b> Legal Studies
+
+        <b>Myers-Brigg
+        Type:</b> ENTJ
+
+
+        Very career-driven and focused on his studies, Amery
+        hides his lack of self-confidence behind a professional facade.'
+      objectReference: {fileID: 0}
     - target: {fileID: 4248260983611928317, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5277,6 +5477,10 @@ PrefabInstance:
         Grants party
         Shielded for 1 turn.'
       objectReference: {fileID: 0}
+    - target: {fileID: 7301671282474752484, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b137607f850790245abdb584c627b347, type: 3}
     - target: {fileID: 8207806611650452735, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 15
