@@ -91,8 +91,7 @@ public class Unit : MonoBehaviour
             gameLoop.outputQueue.Add(new displayObject(this.unitName + " flinched",
             this,
             StatusName.Flinch,
-            false,
-            true)
+            false)
             );
             this.statuses[(int) StatusType.Debuff].name = StatusName.None;
             this.statuses[(int) StatusType.Debuff].duration = 0;
@@ -113,8 +112,7 @@ public class Unit : MonoBehaviour
                                 gameLoop.outputQueue.Add(new displayObject(this.unitName + " used " + this.queuedAction.ability.name + "!",
                                 this,
                                 StatusName.None,
-                                false,
-                                true)
+                                false)
                                 );
                                 used = true;
                             }
@@ -128,8 +126,7 @@ public class Unit : MonoBehaviour
                                 gameLoop.outputQueue.Add(new displayObject(this.unitName + " used " + this.queuedAction.ability.name + "!",
                                 this,
                                 StatusName.None,
-                                false,
-                                true)
+                                false)
                                 );
                                 used = true;
                             }
@@ -147,8 +144,7 @@ public class Unit : MonoBehaviour
                                 gameLoop.outputQueue.Add(new displayObject(this.unitName + " used " + this.queuedAction.ability.name + "!",
                                 this,
                                 StatusName.None,
-                                true,
-                                true)
+                                false)
                                 );
                                 used = true;
                             }
@@ -162,8 +158,7 @@ public class Unit : MonoBehaviour
                                 gameLoop.outputQueue.Add(new displayObject(this.unitName + " used " + this.queuedAction.ability.name + "!",
                                 this,
                                 StatusName.None,
-                                false,
-                                true)
+                                false)
                                 );
                                 used = true;
                             }
@@ -174,16 +169,14 @@ public class Unit : MonoBehaviour
             }
             if(!used)
                 gameLoop.outputQueue.Add(new displayObject(this.unitName + "'s ability had no targets!",
-                false,
-                true)
+                false)
                 );
         } else if (this.queuedAction.ability.selftarget == true)
         {
             gameLoop.outputQueue.Add(new displayObject(this.unitName + " used " + this.queuedAction.ability.name + "!",
                 this,
                 StatusName.None,
-                false,
-                true)
+                false)
                 );
             this.queuedAction.ability.effect(this, this, gameLoop);
         }
@@ -193,15 +186,13 @@ public class Unit : MonoBehaviour
                 gameLoop.outputQueue.Add(new displayObject(this.unitName + " used " + this.queuedAction.ability.name + "!",
                     this,
                     StatusName.None,
-                    false,
-                    true)
+                    false)
                     );
                 this.queuedAction.ability.effect(this.queuedAction.target, this, gameLoop);
             }
             else
                 gameLoop.outputQueue.Add(new displayObject(this.unitName + "'s ability had no target!",
-                false,
-                true)
+                false)
                 );
         }
         if(this.queuedAction.speed < 0){
@@ -238,7 +229,7 @@ public class Unit : MonoBehaviour
             gameLoop.outputQueue.Add(new displayObject(this.unitName+" regenerated "+this.statuses[(int) StatusType.Health].magnitude+" health",
             this,
             StatusName.Regeneration,
-            false,
+            true,
             "buff")
             );
         }
@@ -283,7 +274,7 @@ public class Unit : MonoBehaviour
             //I have also not set anything to change tint
             this.dead = true;
             gameLoop.outputQueue.Add(new displayObject(this.unitName + " died!",
-            true,
+            false,
             "damage")
             );            
         }
@@ -333,7 +324,7 @@ public class Unit : MonoBehaviour
                         int transfer = Math.Min(4, lowest.maxHP-lowest.hp);
                         if(transfer >0){
                             gameLoop.outputQueue.Add(new displayObject("Amery delegated health",
-                            true)
+                            false)
                             );
                             highest.hp = Math.Max(highest.hp-transfer, 0);
                             gameLoop.outputQueue.Add(new displayObject(highest.unitName+" gave "+transfer+" health",
@@ -389,7 +380,7 @@ public class Unit : MonoBehaviour
         gameLoop.outputQueue.Add(new displayObject(this.unitName+" regained "+amount+" health",
         this,
         amount,
-        false)
+        true)
         );
     }
 
@@ -438,7 +429,7 @@ public class Unit : MonoBehaviour
             gameLoop.outputQueue.Add(new displayObject(this.unitName + " died!",
             this,
             StatusName.None,
-            true,
+            false,
             "damage")
             );
             if(source.unitName.Equals("Beverly"))
@@ -508,14 +499,14 @@ public class Unit : MonoBehaviour
                 this.unitName + " is " + newStatus,
                 this,
                 newStatus,
-                true,
+                false,
                 sound)
                 );
             else gameLoop.outputQueue.Add(new displayObject(
                 this.unitName + " has " + newStatus,
                 this,
                 newStatus,
-                true,
+                false,
                 sound)
                 );
             
