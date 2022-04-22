@@ -289,16 +289,16 @@ public class pauseMenuResolution : MonoBehaviour
             }
 
             selectSound.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+
+            pauseMenu.realignEverything();
         }
     }
 
     void realignPointer()
     {
-        Vector3 pointerPos = selectedLabel.GetComponent<RectTransform>().position;
+        Vector3 pointerPos = selectedLabel.transform.position;
 
-        var rect = gameObject.GetComponent<RectTransform>().rect;
-
-        pointerPos[0] += (float)rect.left;
+        pointerPos[0] -= 12;
 
         if (isPopUpShowing)
         {

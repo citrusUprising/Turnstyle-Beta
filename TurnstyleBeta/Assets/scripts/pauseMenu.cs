@@ -68,6 +68,10 @@ public class pauseMenu : MonoBehaviour
         selectedX = Screen.width / 2;
         unselectedX = (Screen.width - 600) / 2 + 600;
 
+        offScreenTop = Screen.height * 2;
+        offScreenBottom = -Screen.height;
+        onScreen = Screen.height / 2;
+
         if (isItemSelected)
         {
             currentX = selectedX;
@@ -148,6 +152,19 @@ public class pauseMenu : MonoBehaviour
 
         Vector3 pointerPos = new Vector3(Screen.width * -2, Screen.height * -2, 0);
         pointer.GetComponent<RectTransform>().position = pointerPos;
+    }
+
+    public void realignEverything()
+    {
+
+        selectedX = Screen.width / 2;
+        unselectedX = (Screen.width - 600) / 2 + 600;
+
+        offScreenTop = Screen.height * 2;
+        offScreenBottom = -Screen.height;
+        onScreen = Screen.height / 2;
+
+        currentSelectedItemObject.transform.position = new Vector3(currentX, onScreen, 0);
     }
 
     IEnumerator lerpPentagonRotation(Quaternion oldRotation, Quaternion newRotation)

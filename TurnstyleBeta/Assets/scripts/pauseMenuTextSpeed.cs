@@ -78,11 +78,6 @@ public class pauseMenuTextSpeed : MonoBehaviour
                 pauseMenu.goBack();
             }
         } 
-        else
-        {
-            movePointerOffscreen();
-        }
-
     }
 
     public void toggleSelectedLabel()
@@ -152,11 +147,9 @@ public class pauseMenuTextSpeed : MonoBehaviour
 
     void realignPointer()
     {
-        Vector3 pointerPos = selectedLabel.GetComponent<RectTransform>().position;
+        Vector3 pointerPos = selectedLabel.transform.position;
 
-        var rect = gameObject.GetComponent<RectTransform>().rect;
-
-        pointerPos[0] += (float) rect.left;
+        pointerPos[0] -= 12;
 
         pointer.GetComponent<RectTransform>().position = pointerPos;
     }
