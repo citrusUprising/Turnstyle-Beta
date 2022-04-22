@@ -620,14 +620,14 @@ public class combatController : MonoBehaviour
         {
             float t = time / duration;
 
-            t = t * t * (3f - 2f * t);
+            t = easeInOutCubic(t);
 
             // lerps the rotation of the pentagon to the next rotation
             pentagonSprite.GetComponent<RectTransform>().rotation = Quaternion.Lerp(oldRotation, newRotation, t);
 
             for (int i = 0; i < 5; i++)
             {
-                nameTagArray[i].transform.position = Vector3.Lerp(nameTagArray[i].previousPosition, nameTagArray[i].nextPosition, t);
+                nameTagArray[i].transform.localPosition = Vector3.Lerp(nameTagArray[i].previousPosition, nameTagArray[i].nextPosition, t);
             }
 
             time += Time.deltaTime;
@@ -641,7 +641,7 @@ public class combatController : MonoBehaviour
 
         for (int i = 0; i < 5; i++)
         {
-            nameTagArray[i].transform.position = Vector3.Lerp(nameTagArray[i].previousPosition, nameTagArray[i].nextPosition, t);
+            nameTagArray[i].transform.localPosition = Vector3.Lerp(nameTagArray[i].previousPosition, nameTagArray[i].nextPosition, t);
         }
 
         // the pentagon is done rotating by now
@@ -1045,47 +1045,11 @@ public class combatController : MonoBehaviour
     }
 
     // taken from easings.net and modified for c#
-    float easeOutElastic(float x)
+    // taken from easings.net
+    float easeInOutCubic(float x)
     {
-        float constant = (2 * Mathf.PI) / 3;
 
-        return x == 0
-          ? 0
-          : x == 1
-          ? 1
-          : Mathf.Pow(2, -10 * x) * Mathf.Sin((x * 10 - 0.75f) * constant) + 1;
-    }
+        return x < 0.5 ? 4 * x * x * x : 1 - Mathf.Pow(-2 * x + 2, 3) / 2;
 
-    float easeOutBounce(float x)
-    {
-        float n1 = 7.5625f;
-        float d1 = 2.75f;
-
-        if (x < 1 / d1)
-        {
-            return n1 * x * x;
-        }
-        else if (x < 2 / d1)
-        {
-            return n1 * (x -= 1.5f / d1) * x + .75f;
-        }
-        else if (x < 2.5 / d1)
-        {
-            return n1 * (x -= 2.25f / d1) * x + 0.9375f;
-        }
-        else
-        {
-            return n1 * (x -= 2.625f / d1) * x + 0.984375f;
-        }
-    }
-    
-    float easeInExpo(float x)
-    {
-        return x == 0 ? 0 : Mathf.Pow(2, 10 * x - 10);
-    }
-
-    float easeInCircle(float x)
-    {
-        return 1 - Mathf.Sqrt(1 - Mathf.Pow(x, 3));
     }
 }
