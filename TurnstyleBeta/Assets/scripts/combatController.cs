@@ -314,10 +314,10 @@ public class combatController : MonoBehaviour
                     }
                 }
                 // here is all the logic 
-                if (isRotating)
-                {
-                    rotatePentagon();
-                }
+                // if (isRotating)
+                // {
+                //     rotatePentagon();
+                // }
             }
 
             else if (state == "moveSelect")
@@ -603,10 +603,56 @@ public class combatController : MonoBehaviour
             nameTagArray[4].hidePassive(); // hide?
             nameTagArray[2].showPassive(); // show?
         }
+
+        StartCoroutine(rotatePentagon());
     }
 
-    void rotatePentagon()
+    IEnumerator rotatePentagon()
     {
+        float time = 0f;
+        float duration = .5f;
+
+        // converts the Vector3 rotatoins to Quarternion
+        Quaternion oldRotation = Quaternion.Euler(pentagonRotateX, pentagonRotateY, pentagonRotation);
+        Quaternion newRotation = Quaternion.Euler(pentagonRotateX, pentagonRotateY, nextPentagonRotation);
+
+        while (time < duration)
+        {
+            float t = time / duration;
+
+            t = t * t * (3f - 2f * t);
+
+            // lerps the rotation of the pentagon to the next rotation
+            pentagonSprite.GetComponent<RectTransform>().rotation = Quaternion.Lerp(oldRotation, newRotation, t);
+
+            for (int i = 0; i < 5; i++)
+            {
+                nameTagArray[i].transform.position = Vector3.Lerp(nameTagArray[i].previousPosition, nameTagArray[i].nextPosition, t);
+            }
+
+            time += Time.deltaTime;
+
+            yield return null;
+        }
+
+        t = 1f;
+
+        pentagonSprite.GetComponent<RectTransform>().rotation = Quaternion.Lerp(oldRotation, newRotation, t);
+
+        for (int i = 0; i < 5; i++)
+        {
+            nameTagArray[i].transform.position = Vector3.Lerp(nameTagArray[i].previousPosition, nameTagArray[i].nextPosition, t);
+        }
+
+        // the pentagon is done rotating by now
+        isRotating = false;
+
+        pentagonRotation = nextPentagonRotation;
+    }
+
+    void rotatePentagonOld()
+    {
+        
         // converts the Vector3 rotatoins to Quarternion
         Quaternion oldRotation = Quaternion.Euler(pentagonRotateX, pentagonRotateY, pentagonRotation);
         Quaternion newRotation = Quaternion.Euler(pentagonRotateX, pentagonRotateY, nextPentagonRotation);
@@ -620,8 +666,6 @@ public class combatController : MonoBehaviour
         }
 
         // increases time
-        // honestly i have no clue how this works. i have never understood what "deltaTime" means in any programming language
-        // but hey it works
         t += 2.5f * Time.deltaTime;
 
         // when this happens, this function should no longer be called
@@ -642,6 +686,7 @@ public class combatController : MonoBehaviour
             // proper value
             pentagonRotation = nextPentagonRotation;
         }
+        
     }
 
     public void transitionToRotate()
@@ -997,5 +1042,50 @@ public class combatController : MonoBehaviour
             currentTutorial++;
         }
         Stats.GetComponent<CurrentStats>().currentTutorial = currentTutorial;
+    }
+
+    // taken from easings.net and modified for c#
+    float easeOutElastic(float x)
+    {
+        float constant = (2 * Mathf.PI) / 3;
+
+        return x == 0
+          ? 0
+          : x == 1
+          ? 1
+          : Mathf.Pow(2, -10 * x) * Mathf.Sin((x * 10 - 0.75f) * constant) + 1;
+    }
+
+    float easeOutBounce(float x)
+    {
+        float n1 = 7.5625f;
+        float d1 = 2.75f;
+
+        if (x < 1 / d1)
+        {
+            return n1 * x * x;
+        }
+        else if (x < 2 / d1)
+        {
+            return n1 * (x -= 1.5f / d1) * x + .75f;
+        }
+        else if (x < 2.5 / d1)
+        {
+            return n1 * (x -= 2.25f / d1) * x + 0.9375f;
+        }
+        else
+        {
+            return n1 * (x -= 2.625f / d1) * x + 0.984375f;
+        }
+    }
+    
+    float easeInExpo(float x)
+    {
+        return x == 0 ? 0 : Mathf.Pow(2, 10 * x - 10);
+    }
+
+    float easeInCircle(float x)
+    {
+        return 1 - Mathf.Sqrt(1 - Mathf.Pow(x, 3));
     }
 }
