@@ -36,7 +36,7 @@ public class talkSpriteHandler : MonoBehaviour
         if(this.currentName == ""){
             trans.a = 0.0f;
         }else{
-            Sprite temp = Resources.Load<Sprite>("TalkSprites/Battle_"+name+" PNG");
+            Sprite temp = Resources.Load<Sprite>("TalkSprites/"+name+"_Body");
             talker = temp;
             trans.a = 1.0f;
         }

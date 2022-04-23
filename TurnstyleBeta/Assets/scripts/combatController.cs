@@ -490,10 +490,9 @@ public class combatController : MonoBehaviour
             else if (state == "playResults")
             {
 
-                if (xDown)
+                if (Input.GetKeyDown(KeyCode.C))//flag
                 {
                     mainLoopObject.GetComponent<MainLoop>().isSkipped = true;
-                    xDown = false;
                     transitionToRotate();
                 }
             }

@@ -39,7 +39,7 @@ public class faceHandler : MonoBehaviour
             trans.a = 0.0f;
         }else{
             Sprite temp = Resources.Load<Sprite>("TalkSprites/"+characterName+"_"+currentFace); //change file format
-            //talkFace = temp;  //commented out until images are implemented
+            talkFace = temp;  //commented out until images are implemented
             trans.a = 1.0f;
         }
         this.GetComponent<Image>().sprite = talkFace;

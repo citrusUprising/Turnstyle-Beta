@@ -17,8 +17,8 @@ public class dialogueEntry{
 		this.line = line;
 		this.speaker = speaker;
 		this.music = music;
-		this.faceL = "neutral";
-		this.faceR = "neitral";
+		this.faceL = "happy";
+		this.faceR = "happy";
 	}
 
 	public dialogueEntry(string line, bool speaker, string faceL, string faceR, string music){
