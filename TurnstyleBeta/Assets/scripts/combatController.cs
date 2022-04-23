@@ -24,7 +24,8 @@ public class combatController : MonoBehaviour
     public totalSpeed totalSpeedPrefab;
     public GameObject glossary;
     private string state = "rotate";
-    private bool xDown;
+    private bool xDown; //if confirm is pressed, to prevent multi-read errors
+    public bool combatDone; //used to tell if combat is done
     MainLoop gameLoop;
 
     // this is currently only used in the pause state
@@ -209,6 +210,7 @@ public class combatController : MonoBehaviour
 
         Stats = GameObject.Find("CurrentStats");
         currentTutorial = Stats.GetComponent<CurrentStats>().currentTutorial;
+        Debug.Log("Starting currentTutorial is "+currentTutorial);
 
         targetPointer.GetComponent<CanvasRenderer>().SetAlpha(0);
         
@@ -235,9 +237,10 @@ public class combatController : MonoBehaviour
 
 
         //Opens initial tutorial on initial scene start
-        glossaryObject.GetComponent<glossaryScript>().isShowing = false;
+        glossaryObject.GetComponent<glossaryScript>().hide();
         glossaryPopUp(0);
         xDown = false;
+        combatDone = false;
     }
 
     // Update is called once per frame
@@ -463,9 +466,10 @@ public class combatController : MonoBehaviour
                 else if (state == "playResults")
                 {
 
-                    if (Input.GetKeyDown(KeyCode.C))//flag
+                    if (Input.GetKeyDown(KeyCode.C)||(xDown&&combatDone))//flag
                     {
                         mainLoopObject.GetComponent<MainLoop>().isSkipped = true;
+                        combatDone = false;
                         transitionToRotate();
                     }
                 }
@@ -1027,7 +1031,7 @@ public class combatController : MonoBehaviour
     }
 
     void glossaryPopUp (int check){
-        Debug.Log("Attempting glossary pop up");
+        Debug.Log("Current Tutorial is "+currentTutorial);
         if(check==currentTutorial){
             Debug.Log("opening glossary page "+check);
             glossaryObject.GetComponent<glossaryScript>().setPage(check);

@@ -432,6 +432,7 @@ public class MainLoop : MonoBehaviour
             } 
 
         isSkipped = false;
+        uiController.GetComponent<combatController>().combatDone = true;
         textSpeed = PlayerPrefs.GetFloat("combatTextSpeed", 1.125f);   
         Debug.Log("QueuedActions Cleared");
     	queuedActions.Clear();

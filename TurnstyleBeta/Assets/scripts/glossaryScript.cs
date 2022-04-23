@@ -7,6 +7,7 @@ public class glossaryScript : MonoBehaviour
 {
     public GameObject[] pagesRef;
     public List<GameObject> pagesReal;
+    private GameObject Stats;
 
     public GameObject keyPrompt;
 
@@ -42,6 +43,13 @@ public class glossaryScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Stats = GameObject.Find("CurrentStats");
+        
+        if(Stats.GetComponent<CurrentStats>().currentTutorial > 2){
+            for(int i =0; i<pagesRef.Length; i++)
+            pagesReal.Add(pagesRef[i]);
+        }
+        
 
         if (isShowing)
         {
