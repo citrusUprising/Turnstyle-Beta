@@ -466,10 +466,14 @@ public class combatController : MonoBehaviour
                 else if (state == "playResults")
                 {
 
-                    if (Input.GetKeyDown(KeyCode.C)||(xDown&&combatDone))//flag
+                    if (Input.GetKeyDown(KeyCode.C)&&!combatDone)//flag
                     {
                         mainLoopObject.GetComponent<MainLoop>().isSkipped = true;
-                        combatDone = false;
+                        transitionToRotate();
+                    }else if(Input.GetKeyDown(KeyCode.C)){
+                        transitionToRotate();
+                    }else if (xDown&&combatDone){
+                        xDown = false;
                         transitionToRotate();
                     }
                 }
@@ -688,6 +692,7 @@ public class combatController : MonoBehaviour
 
     public void transitionToRotate()
     {
+        combatDone = false;
         Color temp = this.pentagonSprite.GetComponent<Image>().color;
         temp.a = 1.0f;
         this.pentagonSprite.GetComponent<Image>().color = temp;
