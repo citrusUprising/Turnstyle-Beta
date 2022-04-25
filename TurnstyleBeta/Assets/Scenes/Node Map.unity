@@ -3416,6 +3416,7 @@ MonoBehaviour:
   - {fileID: 1620162594}
   - {fileID: 1786686803}
   speed: 0.03
+  pulseSpeed: 0.003
   onLine: 000000000100
   allStations:
   - {fileID: 1700469575}

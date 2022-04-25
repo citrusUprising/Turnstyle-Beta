@@ -13,6 +13,7 @@ public class CameraController : MonoBehaviour
     public GameObject[] lines;
     Vector3 moveToPosition; 
     public float speed = 2f;
+    public float pulseSpeed;
     int currentLine = 0;
     //lists possible lines the player could be on, for money purposes
     public bool[] onLine;
@@ -62,14 +63,14 @@ public class CameraController : MonoBehaviour
             LineRenderer temp = lines[i].GetComponent<LineRenderer>();
             if(onLine[i]){
                 if(temp.startWidth < 1.75f && pulseUp){
-                    temp.startWidth += 0.02f;
-                    temp.endWidth += 0.02f;
+                    temp.startWidth += pulseSpeed;
+                    temp.endWidth += pulseSpeed;
                     if(temp.startWidth >= 1f){
                         pulseUp = false;
                     }
                 } else {
-                    temp.startWidth -= 0.02f;
-                    temp.endWidth -= 0.02f;
+                    temp.startWidth -= pulseSpeed;
+                    temp.endWidth -= pulseSpeed;
                     if(temp.startWidth <= 0.1f){
                         pulseUp = true;
                     }
