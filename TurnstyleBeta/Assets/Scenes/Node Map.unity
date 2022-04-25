@@ -546,7 +546,7 @@ GameObject:
   - component: {fileID: 335961723}
   - component: {fileID: 335961722}
   m_Layer: 0
-  m_Name: Line
+  m_Name: Blue Line Drawer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -895,7 +895,7 @@ GameObject:
   - component: {fileID: 405624643}
   - component: {fileID: 405624642}
   m_Layer: 0
-  m_Name: Line
+  m_Name: Orange Line Drawer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1437,6 +1437,7 @@ MonoBehaviour:
   SeraphimHealth: 10
   AmeryHealth: 12
   CurrentEnemies: []
+  currentTutorial: 0
 --- !u!4 &533350017
 Transform:
   m_ObjectHideFlags: 0
@@ -2995,7 +2996,7 @@ GameObject:
   - component: {fileID: 1076347871}
   - component: {fileID: 1076347870}
   m_Layer: 0
-  m_Name: Line
+  m_Name: Yellow Line Drawer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3407,7 +3408,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentStation: {fileID: 900250774}
+  lines:
+  - {fileID: 1076347868}
+  - {fileID: 405624640}
+  - {fileID: 335961720}
+  - {fileID: 1696602934}
+  - {fileID: 1620162594}
+  - {fileID: 1786686803}
   speed: 0.03
+  onLine: 000000000100
   allStations:
   - {fileID: 1700469575}
   - {fileID: 992003681}
@@ -4836,7 +4845,7 @@ GameObject:
   - component: {fileID: 1620162596}
   - component: {fileID: 1620162597}
   m_Layer: 0
-  m_Name: Line
+  m_Name: Green Line Drawer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5417,7 +5426,7 @@ GameObject:
   - component: {fileID: 1696602937}
   - component: {fileID: 1696602936}
   m_Layer: 0
-  m_Name: Line
+  m_Name: Pink Line Drawer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5873,7 +5882,7 @@ GameObject:
   - component: {fileID: 1786686806}
   - component: {fileID: 1786686805}
   m_Layer: 0
-  m_Name: Line
+  m_Name: Red Line Drawer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
