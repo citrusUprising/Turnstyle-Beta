@@ -10,11 +10,13 @@ using TMPro;
 public class CameraController : MonoBehaviour
 {
     public Station currentStation;
+    public GameObject[] lines;
     Vector3 moveToPosition; 
     public float speed = 2f;
+    public float pulseSpeed;
     int currentLine = 0;
     //lists possible lines the player could be on, for money purposes
-    private bool[] onLine;
+    public bool[] onLine;
     public Station[] allStations;
     public float height;
     public Vector3 scale;
@@ -33,13 +35,13 @@ public class CameraController : MonoBehaviour
     public Canvas canvas;
 
     private bool loading = false;
-
+    private bool pulseUp = true;
     int money = 8;
     // Start is called before the first frame update
     void Start()
     {
         transform.position = currentStation.transform.position + new Vector3(0,0, height);
-        onLine = new bool[]{false,false,false,false,false,false};
+        //onLine = new bool[]{false,false,false,false,false,false};
         
         Color temp = currentStation.GetComponent<Image>().color;
         temp = new Color (0.5f,0.43f,0.56f);
@@ -53,9 +55,31 @@ public class CameraController : MonoBehaviour
     {
         //cancels out of game after final cutscene
         if(currentCutScene == 4){
-                    Music.SetActive(false);
-                    SceneManager.LoadScene("mainMenuScene",LoadSceneMode.Single);
+            Music.SetActive(false);
+            SceneManager.LoadScene("mainMenuScene",LoadSceneMode.Single);
+        }
+        //Line Pulsing animation
+        for(int i = 0; i < 6; i++){
+            LineRenderer temp = lines[i].GetComponent<LineRenderer>();
+            if(onLine[i]){
+                if(temp.startWidth < 1.75f && pulseUp){
+                    temp.startWidth += pulseSpeed;
+                    temp.endWidth += pulseSpeed;
+                    if(temp.startWidth >= 1f){
+                        pulseUp = false;
+                    }
+                } else {
+                    temp.startWidth -= pulseSpeed;
+                    temp.endWidth -= pulseSpeed;
+                    if(temp.startWidth <= 0.3f){
+                        pulseUp = true;
+                    }
                 }
+            } else {
+                temp.startWidth = 0.3f;
+                temp.endWidth = 0.3f;
+            }
+        }
         
         //Debug.Log("Actice Scene Count: " + SceneManager.sceneCount);
         if (SceneManager.sceneCount == 1&&!loading) 
@@ -199,7 +223,7 @@ public class CameraController : MonoBehaviour
 
     IEnumerator loadScene(string Scene)
     {
-        loading =true;
+        loading = true;
         transitionAnimator.SetTrigger("toBlack");
 
         yield return new WaitForSeconds(transitionTime);

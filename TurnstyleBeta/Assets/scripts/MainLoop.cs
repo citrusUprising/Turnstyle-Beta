@@ -150,6 +150,11 @@ public class MainLoop : MonoBehaviour
     {
         textSpeed = PlayerPrefs.GetFloat("combatTextSpeed", 1.125f);
         isSkipped = false;
+        foreach (Enemy unit in enemyUnits)
+            {
+                unit.Kill();
+                unit.updateHealthBar();
+            } 
     }
 
     // Update is called once per frame
@@ -427,12 +432,15 @@ public class MainLoop : MonoBehaviour
             }
             foreach (Enemy unit in enemyUnits)
             {
-                unit.updateHealthBar();
                 unit.Kill();
+                unit.updateHealthBar();
             } 
 
         isSkipped = false;
-        textSpeed = PlayerPrefs.GetFloat("combatTextSpeed", 1.125f);   
+        uiController.GetComponent<combatController>().combatDone = true;
+        Debug.Log ("original textspeed is "+textSpeed);
+        textSpeed = PlayerPrefs.GetFloat("combatTextSpeed", 1.125f);
+        Debug.Log ("new textspeed is "+textSpeed);  
         Debug.Log("QueuedActions Cleared");
     	queuedActions.Clear();
         outputQueue.Clear();

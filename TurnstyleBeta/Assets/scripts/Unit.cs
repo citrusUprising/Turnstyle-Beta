@@ -223,7 +223,7 @@ public class Unit : MonoBehaviour
             this.queuedAction.speed = 0;
         }
 
-        if(this.statuses[(int) StatusType.Health].name == StatusName.Regeneration)
+        if(this.statuses[(int) StatusType.Health].name == StatusName.Regeneration && (!this.dead||this.tag == "Ally"))
         {
             this.hp = Math.Min(this.hp + this.statuses[(int) StatusType.Health].magnitude, this.maxHP);
             gameLoop.outputQueue.Add(new displayObject(this.unitName+" regenerated "+this.statuses[(int) StatusType.Health].magnitude+" health",
@@ -233,7 +233,7 @@ public class Unit : MonoBehaviour
             "buff")
             );
         }
-        if(this.statuses[(int) StatusType.Health].name == StatusName.Burn)
+        if(this.statuses[(int) StatusType.Health].name == StatusName.Burn&&!this.dead)
         {
             this.hp = Math.Max(0, this.hp - this.statuses[(int) StatusType.Health].magnitude);
             gameLoop.outputQueue.Add(new displayObject(this.unitName+" took "+this.statuses[(int) StatusType.Health].magnitude+" damage from their "+StatusName.Burn,
@@ -250,7 +250,7 @@ public class Unit : MonoBehaviour
                 {
                     s.duration -= 1;
                     Debug.Log(s.name+" has "+s.duration+" turns left");
-                    if(s.duration == 0)
+                    if(s.duration == 0 && !this.dead)
                     {
                         String test = s.name.ToString();
                         if(test.Contains("ed")||test == "Vulnerable")gameLoop.outputQueue.Add(new displayObject(this.unitName + " is no longer " + s.name,
