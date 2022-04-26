@@ -71,7 +71,7 @@ public class CameraController : MonoBehaviour
                 } else {
                     temp.startWidth -= pulseSpeed;
                     temp.endWidth -= pulseSpeed;
-                    if(temp.startWidth <= 0.1f){
+                    if(temp.startWidth <= 0.3f){
                         pulseUp = true;
                     }
                 }
