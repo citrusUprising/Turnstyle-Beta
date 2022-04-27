@@ -155,6 +155,10 @@ public class MainLoop : MonoBehaviour
                 unit.Kill();
                 unit.updateHealthBar();
             } 
+        foreach (Friendly unit in playerUnits)
+            {
+                unit.GetComponent<Friendly>().nameTag.GetComponent<nameTag>().adjustHealth();
+            }
     }
 
     // Update is called once per frame
