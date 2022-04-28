@@ -152,6 +152,7 @@ public class CameraController : MonoBehaviour
                 GameObject Stats = GameObject.Find("CurrentStats");
                 CurrentStats currStats = Stats.GetComponent<CurrentStats>();
                 currStats.CurrentEnemies = currentStation.Enemies;
+                currStats.isTutorial = currentStation.isTutorial;
                 if (!currentStation.isTutorial)
                 StartCoroutine(loadScene("combatScene"));
                 else StartCoroutine(loadScene("tutorialScene"));
