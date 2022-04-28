@@ -285,15 +285,18 @@ public class combatController : MonoBehaviour
                     break;
 
                     case "ArrowKeys":
+                    xDown = false;
                     if(Input.GetKeyDown(KeyCode.UpArrow)||
                         Input.GetKeyDown(KeyCode.DownArrow)||
                         Input.GetKeyDown(KeyCode.LeftArrow)||
                         Input.GetKeyDown(KeyCode.RightArrow))
-                    tutorialHandler.GetComponent<tutorialHandler>().nextPage();
+                            tutorialHandler.GetComponent<tutorialHandler>().nextPage();
                     break;
 
                     case "G":
-                    if(Input.GetKeyDown(KeyCode.G))tutorialHandler.GetComponent<tutorialHandler>().nextPage();
+                    xDown = false;
+                    if(Input.GetKeyDown(KeyCode.G))
+                        tutorialHandler.GetComponent<tutorialHandler>().nextPage();
                     break;
 
                     default:

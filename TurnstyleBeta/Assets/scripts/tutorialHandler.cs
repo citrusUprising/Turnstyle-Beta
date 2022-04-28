@@ -99,7 +99,21 @@ public class tutorialHandler : MonoBehaviour
         //-------------------------------------------------------//
 
         temp[pageFiller] = new TutorialSegment(
-            new string[2]{"",""},
+            new string[2]{"Testing","Hey we're testing over here"},
+            new string[1]{""},
+            "xDown"
+        );
+        pageFiller++;
+
+        temp[pageFiller] = new TutorialSegment(
+            new string[1]{"try Rotating?"},
+            new string[1]{""},
+            "ArrowKeys"
+        );
+        pageFiller++;
+
+        temp[pageFiller] = new TutorialSegment(
+            new string[2]{"Okay that worked","Bye now"},
             new string[1]{""},
             "xDown"
         );
