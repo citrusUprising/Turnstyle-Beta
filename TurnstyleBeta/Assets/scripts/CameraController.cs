@@ -29,6 +29,7 @@ public class CameraController : MonoBehaviour
 
     public GameObject moneyTxt;
     public GameObject objective;
+    public GameObject pointer;
 
     public GameObject pauseMenu;
     private GameObject pauseMenuObject;
@@ -47,7 +48,7 @@ public class CameraController : MonoBehaviour
         temp = new Color (0.5f,0.43f,0.56f);
         currentStation.GetComponent<Image>().color = temp;
 
-        StartCoroutine(loadScene("DialogueScene"));
+        SceneManager.LoadScene("DialogueScene", LoadSceneMode.Additive);
     }
 
     // Update is called once per frame
@@ -157,6 +158,15 @@ public class CameraController : MonoBehaviour
                 currentStation.endCombat();
             }
         }
+
+        pointer.transform.localPosition = Vector3.zero;
+        pointer.transform.position = gameObject.transform.position;
+        pointer.transform.position = new Vector3(pointer.transform.position[0], pointer.transform.position[1], 0);
+
+        var direction = objective.transform.position - gameObject.GetComponent<Camera>().WorldToScreenPoint(pointer.transform.position);
+        var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        pointer.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
     void moveToStation(int s)
