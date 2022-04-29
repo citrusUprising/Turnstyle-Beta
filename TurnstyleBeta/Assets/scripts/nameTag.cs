@@ -36,6 +36,8 @@ public class nameTag : MonoBehaviour
     public Sprite speedSelectImage;
     public Sprite totalSpeedImage;
 
+    public Color confirmColor;
+
     // Start is called before the first frame update
     void Start()
     {
