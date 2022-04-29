@@ -1119,4 +1119,8 @@ public class combatController : MonoBehaviour
         return x < 0.5 ? 4 * x * x * x : 1 - Mathf.Pow(-2 * x + 2, 3) / 2;
 
     }
+
+    public void setPage (int page){
+        glossaryObject.GetComponent<glossaryScript>().setPage(page);
+    }
 }

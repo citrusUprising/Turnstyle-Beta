@@ -7,7 +7,7 @@ public class tutorialHandler : MonoBehaviour
 {
     
     public TutorialSegment[][] allTutorials;
-    private GameObject Glossary;
+    [SerializeField] private GameObject combatCon;
     [SerializeField] private GameObject sceneCanvas;
     private Image[] sceneObjects;
     public bool isOpen;
@@ -19,7 +19,6 @@ public class tutorialHandler : MonoBehaviour
         bookCount =0;
         pageCount = 0;
         populateScript(3);
-        Glossary = GameObject.Find("glossary");
         sceneObjects = sceneCanvas.GetComponentsInChildren<Image>();
     }
 
@@ -48,7 +47,7 @@ public class tutorialHandler : MonoBehaviour
         }else{
             //open new prefabs
             if (allTutorials[bookCount][pageCount].trigger == "G"){
-            Glossary.GetComponent<glossaryScript>().setPage(2);
+            combatCon.GetComponent<combatController>().setPage(2);
         }
         }
         //sets glossary to open up statuses when prompted, untested
@@ -62,8 +61,9 @@ public class tutorialHandler : MonoBehaviour
         transform.localPosition = phonePos;
         isOpen = true;
         for(int i = 0; i < sceneObjects.Length; i++){
+            Debug.Log (sceneObjects[i].sprite+", Item "+i+" is now "+sceneObjects[i].color);
             sceneObjects[i].color *= new Color(0.5f,0.5f,0.5f);
-            Debug.Log ("Item "+i+" is now "+sceneObjects[i].color);
+            Debug.Log (sceneObjects[i].sprite+", Item "+i+" is now "+sceneObjects[i].color);
         }
         this.GetComponent<Image>().color = new Color (1.0f,1.0f,1.0f);
         //Instnatiate first page
@@ -72,14 +72,16 @@ public class tutorialHandler : MonoBehaviour
 
     public void close(){
         if(isOpen){
+        sceneObjects = sceneCanvas.GetComponentsInChildren<Image>();
         Transform transform = this.GetComponent<Transform>();
         Vector3 phonePos = transform.localPosition;
         phonePos = new Vector3 (phonePos.x, phonePos.y-490, phonePos.z);
         transform.localPosition = phonePos;
         isOpen = false;
         for(int i = 0; i < sceneObjects.Length; i++){
+            Debug.Log (sceneObjects[i].sprite+", Item "+i+" is now "+sceneObjects[i].color);
             sceneObjects[i].color *= new Color(2.0f,2.0f,2.0f);
-            Debug.Log ("Item "+i+" is now "+sceneObjects[i].color);
+            Debug.Log (sceneObjects[i].sprite+", Item "+i+" is now "+sceneObjects[i].color);
         }
         bookCount++;
         }
@@ -126,9 +128,9 @@ public class tutorialHandler : MonoBehaviour
         pageFiller++;
 
         temp[pageFiller] = new TutorialSegment(
-            new string[2]{"Okay that worked","Bye now"},
+            new string[2]{"Okay that worked","open the glossary"},
             new string[1]{""},
-            "xDown"
+            "G"
         );
         pageFiller++;
 

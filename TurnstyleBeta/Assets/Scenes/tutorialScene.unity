@@ -2691,7 +2691,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f684fd4bd3344954ea35ff70792c8ae9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  combatCon: {fileID: 61845105}
   sceneCanvas: {fileID: 1382596076}
+  tempCharHolder:
+  - {fileID: 1104327839}
+  - {fileID: 893252111}
+  - {fileID: 1311215999}
+  - {fileID: 2091758727}
+  - {fileID: 1674523445}
   isOpen: 0
   pageCount: 0
   bookCount: 0

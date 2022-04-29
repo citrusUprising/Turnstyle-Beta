@@ -10,6 +10,7 @@ public class BattleSpriteHandler : MonoBehaviour
     private Color shade;
     public GameObject controller;
 
+
     private float outAlpha = .5f;
 
     // Start is called before the first frame update
@@ -21,6 +22,7 @@ public class BattleSpriteHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        shade = this.GetComponent<Image>().color;
         //changes color based on dead
         if (profile.GetComponent<nameTag>().character.GetComponent<Unit>().dead){
             shade = new Color (0.5f,0.5f,0.5f);
@@ -54,5 +56,7 @@ public class BattleSpriteHandler : MonoBehaviour
         }
 
         this.GetComponent<Image>().color = shade;
+
     }
+
 }
