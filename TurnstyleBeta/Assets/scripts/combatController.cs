@@ -6,9 +6,9 @@ using TMPro;
 
 public class TutorialSegment{
     public string[] text;
-    public string[] highlights;
+    public int[] highlights;
     public string trigger;
-    public TutorialSegment (string[] text, string[] highlights, string trigger){
+    public TutorialSegment (string[] text, int[] highlights, string trigger){
         this.text = text;
         this.highlights = highlights;
         this.trigger = trigger;
