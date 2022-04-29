@@ -37,7 +37,7 @@ public class CameraController : MonoBehaviour
 
     private bool loading = false;
     private bool pulseUp = true;
-    int money = 8;
+    int money = 5;
     // Start is called before the first frame update
     void Start()
     {

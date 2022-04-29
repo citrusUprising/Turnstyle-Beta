@@ -9,30 +9,38 @@ public class tutorialHandler : MonoBehaviour
     public TutorialSegment[][] allTutorials;
     [SerializeField] private GameObject combatCon;
     [SerializeField] private GameObject sceneCanvas;
+    [SerializeField] private string scene;
     private Image[] sceneObjects;
     public bool isOpen;
     public int pageCount;
     public int bookCount;
+    private bool startup;
 
     void Awake(){
         isOpen = false;
         bookCount =0;
         pageCount = 0;
-        populateScript(3);
-        sceneObjects = sceneCanvas.GetComponentsInChildren<Image>();
+        startup = true;
     }
 
 
     // Start is called before the first frame update
     void Start()
     {
-
+        newCanvas();
+        if(scene == "nodeMap")
+        allTutorials = this.GetComponent<comTutorialScript>().allTutorials; //flag
+        else if (scene == "combat")
+        allTutorials = this.GetComponent<comTutorialScript>().allTutorials; 
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+    }
+
+    void newCanvas(){
+        sceneObjects = sceneCanvas.GetComponentsInChildren<Image>();
     }
 
     public void nextPage(){
@@ -61,9 +69,9 @@ public class tutorialHandler : MonoBehaviour
         transform.localPosition = phonePos;
         isOpen = true;
         for(int i = 0; i < sceneObjects.Length; i++){
-            Debug.Log (sceneObjects[i].sprite+", Item "+i+" is now "+sceneObjects[i].color);
+            //Debug.Log (sceneObjects[i].sprite+", Item "+i+" is now "+sceneObjects[i].color);
             sceneObjects[i].color *= new Color(0.5f,0.5f,0.5f);
-            Debug.Log (sceneObjects[i].sprite+", Item "+i+" is now "+sceneObjects[i].color);
+            //Debug.Log (sceneObjects[i].sprite+", Item "+i+" is now "+sceneObjects[i].color);
         }
         this.GetComponent<Image>().color = new Color (1.0f,1.0f,1.0f);
         //Instnatiate first page
@@ -79,79 +87,15 @@ public class tutorialHandler : MonoBehaviour
         transform.localPosition = phonePos;
         isOpen = false;
         for(int i = 0; i < sceneObjects.Length; i++){
-            Debug.Log (sceneObjects[i].sprite+", Item "+i+" is now "+sceneObjects[i].color);
+            //Debug.Log (sceneObjects[i].sprite+", Item "+i+" is now "+sceneObjects[i].color);
             sceneObjects[i].color *= new Color(2.0f,2.0f,2.0f);
-            Debug.Log (sceneObjects[i].sprite+", Item "+i+" is now "+sceneObjects[i].color);
+            //Debug.Log (sceneObjects[i].sprite+", Item "+i+" is now "+sceneObjects[i].color);
         }
         bookCount++;
         }
     }
 
     private void HighlightObject(){
-        
+
     }
-    
-    private void addTutorialText(TutorialSegment[] temp, int book, int pageNumber){
-        allTutorials[book] = new TutorialSegment[pageNumber];
-        for(int i = 0; i < pageNumber; i++){
-            allTutorials[book][i] = temp[i];
-        }
-    }
-
-    private void populateScript(int books){
-        allTutorials = new TutorialSegment[books][];
-        int bookFiller = 0;
-        int pageFiller = 0;
-        TutorialSegment[] temp = new TutorialSegment[50];
-
-        //-------------------------------------------------------//
-        //The following is the format for a tutorial section
-        /*
-         temp[pageFiller] = new TutorialSegment(
-            new string[2]{"",""},      Array of all Displayed Text
-            new string[1]{""},   Array of highlighted objects
-            "X"                     Condition to move to next page
-        );
-        pageFiller++;
-        */
-        //
-        //-------------------------------------------------------//
-
-        temp[pageFiller] = new TutorialSegment(
-            new string[2]{"Testing","Hey we're testing over here"},
-            new string[1]{""},
-            "xDown"
-        );
-        pageFiller++;
-
-        temp[pageFiller] = new TutorialSegment(
-            new string[1]{"try Rotating?"},
-            new string[1]{""},
-            "ArrowKeys"
-        );
-        pageFiller++;
-
-        temp[pageFiller] = new TutorialSegment(
-            new string[2]{"Okay that worked","open the glossary"},
-            new string[1]{""},
-            "G"
-        );
-        pageFiller++;
-
-        //ends Current tutorials section and writes to allTutorials
-        addTutorialText(temp,bookFiller,pageFiller);
-        bookFiller++;
-        pageFiller = 0;
-
-        //ends Current tutorials section and writes to allTutorials
-        addTutorialText(temp,bookFiller,pageFiller);
-        bookFiller++;
-        pageFiller = 0;
-
-        //ends Current tutorials section and writes to allTutorials
-        addTutorialText(temp,bookFiller,pageFiller);
-        bookFiller++;
-        pageFiller = 0;
-    }
-
 }

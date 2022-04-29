@@ -2632,6 +2632,7 @@ GameObject:
   - component: {fileID: 1200914358}
   - component: {fileID: 1200914357}
   - component: {fileID: 1200914356}
+  - component: {fileID: 1200914359}
   m_Layer: 0
   m_Name: Phone
   m_TagString: Untagged
@@ -2693,6 +2694,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   combatCon: {fileID: 61845105}
   sceneCanvas: {fileID: 1382596076}
+  scene: combat
   isOpen: 0
   pageCount: 0
   bookCount: 0
@@ -2734,6 +2736,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1200914353}
   m_CullTransparentMesh: 1
+--- !u!114 &1200914359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1200914353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3659815e340e2ad4badd25b3ae53a8a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1228779046
 GameObject:
   m_ObjectHideFlags: 0

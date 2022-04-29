@@ -131,6 +131,7 @@ public class combatController : MonoBehaviour
     // --------------------------------------------------------- //
         private GameObject Stats;
         private int currentTutorial;
+        private bool runTutorial;
 
     // --------------------------------------------------------- //
     // these are used in the rotate state, but will also be used
@@ -256,7 +257,7 @@ public class combatController : MonoBehaviour
 
         //Sets tutorial
         this.isTutorial = Stats.GetComponent<CurrentStats>().isTutorial;
-        if (isTutorial) tutorialHandler.GetComponent<tutorialHandler>().open(0);
+        runTutorial = true;
 
         xDown = false;
         combatDone = false;
@@ -265,6 +266,11 @@ public class combatController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isTutorial&&runTutorial){
+        tutorialHandler.GetComponent<tutorialHandler>().open(0);
+        runTutorial = false;
+        }
+
         if(Input.GetKeyDown(KeyCode.X)){
             xDown = true;
         }
