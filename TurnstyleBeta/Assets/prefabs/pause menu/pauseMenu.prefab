@@ -4515,7 +4515,7 @@ PrefabInstance:
     - target: {fileID: 6395455071587730179, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 0800ca34df30814468fa006c22a7e9b3, type: 3}
+      objectReference: {fileID: 21300000, guid: b642fad6250b1c04fae4856bfef5df7e, type: 3}
     - target: {fileID: 6645970059734120962, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_text
       value: 'Scry <font="Roboto-Regular SDF"><size=24>
@@ -4768,7 +4768,7 @@ PrefabInstance:
     - target: {fileID: 6395455071587730179, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: e16d80cfc52414441ad253e2ee3460ff, type: 3}
+      objectReference: {fileID: 21300000, guid: e2c7006f2de293f4ab82956acaae92e1, type: 3}
     - target: {fileID: 6645970059734120962, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_text
       value: 'Dazzle <font="Roboto-Regular SDF"><size=24>
@@ -4781,8 +4781,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 19ef373340724af4596bd403a39cd135, type: 3}
     - target: {fileID: 8207806611650452735, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 831.2024
+      objectReference: {fileID: 0}
+    - target: {fileID: 8207806611650452735, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1408.1548
+      objectReference: {fileID: 0}
+    - target: {fileID: 8207806611650452735, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -210
+      value: -297.9226
       objectReference: {fileID: 0}
     - target: {fileID: 8772789440583524666, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_SizeDelta.y
@@ -4960,6 +4968,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6395455071587730179, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 49a040e118b1c9e4fb2833284afe7f1e, type: 3}
     - target: {fileID: 8207806611650452735, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 71
@@ -5469,7 +5481,7 @@ PrefabInstance:
     - target: {fileID: 6395455071587730179, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 07a78a979b380194d9d3ec3b0801d304, type: 3}
+      objectReference: {fileID: 21300000, guid: 8e429a370df5bfa41bf48397dfb06c0d, type: 3}
     - target: {fileID: 6645970059734120962, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_text
       value: 'Unionize <font="Roboto-Regular SDF"><size=24>
