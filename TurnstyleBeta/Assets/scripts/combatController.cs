@@ -177,8 +177,6 @@ public class combatController : MonoBehaviour
     public GameObject speedScroll;
     public GameObject selectSound;
 
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -961,11 +959,23 @@ public class combatController : MonoBehaviour
 
         currentDrawnBox = Instantiate(confirmBox, canvas.transform);
         
+        currentDrawnBox.transform.GetChild(0).GetComponent<Image>().color = nameTagArray[0].confirmColor;
+        currentDrawnBox.transform.GetChild(1).GetComponent<Image>().color = nameTagArray[1].confirmColor;
+        currentDrawnBox.transform.GetChild(2).GetComponent<Image>().color = nameTagArray[2].confirmColor;
+
+        Debug.Log(nameTagArray[0].confirmColor);
+        Debug.Log(nameTagArray[1].confirmColor);
+        Debug.Log(nameTagArray[2].confirmColor);
+
+        Debug.Log(currentDrawnBox.transform.GetChild(0).GetComponent<Image>().color);
+        Debug.Log(currentDrawnBox.transform.GetChild(1).GetComponent<Image>().color);
+        Debug.Log(currentDrawnBox.transform.GetChild(2).GetComponent<Image>().color);
+
         // changing confirm moves to each action 
-        for(int i = 0; i < 3; i++){
+        for (int i = 0; i < 3; i++){
             Friendly displayedUnit = nameTagArray[i].GetComponent<nameTag>().character.GetComponent<Friendly>();
             if (displayedUnit.dead){
-                currentDrawnBox.transform.GetChild(i+2).gameObject.GetComponent<TextMeshProUGUI>().text = displayedUnit.unitName + " is KO'd!";
+                currentDrawnBox.transform.GetChild(i+4).gameObject.GetComponent<TextMeshProUGUI>().text = displayedUnit.unitName + " is KO'd!";
                 continue;
             }
             string actionDescription = displayedUnit.unitName + ": " + displayedUnit.queuedAction.ability.name + " on ";
@@ -977,7 +987,7 @@ public class combatController : MonoBehaviour
             }
             else
                 actionDescription += displayedUnit.queuedAction.target.unitName + ".";
-            currentDrawnBox.transform.GetChild(i+2).gameObject.GetComponent<TextMeshProUGUI>().text = actionDescription;   
+            currentDrawnBox.transform.GetChild(i+4).gameObject.GetComponent<TextMeshProUGUI>().text = actionDescription;   
         }
     }
 
