@@ -1003,7 +1003,7 @@ public class combatController : MonoBehaviour
     void transitionFromPause()
     {
         Debug.Log("transitioned from pause");
-
+        gameLoop.textSpeed = PlayerPrefs.GetFloat("combatTextSpeed", 1.125f);
         switch (previousState)
         {
 
