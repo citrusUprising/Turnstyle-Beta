@@ -4,8 +4,26 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+public class TutorialSegment{
+    public string[] text;
+    public string[] highlights;
+    public string trigger;
+    public TutorialSegment (string[] text, string[] highlights, string trigger){
+        this.text = text;
+        this.highlights = highlights;
+        this.trigger = trigger;
+    }
+}
+
 public class combatController : MonoBehaviour
 {
+    // --------------------------------------------------------- //
+    // variables that effect/control tutorials
+    // these shouldn't matter in normal combat scene, other than isTutorial
+    // --------------------------------------------------------- //
+    public bool isTutorial;
+    public GameObject tutorialHandler;
+
     // --------------------------------------------------------- //
     // variables that interact with states in general
     // there is an explanation of all the states at the 
@@ -207,8 +225,6 @@ public class combatController : MonoBehaviour
         gameLoop = mainLoopObject.GetComponent<MainLoop>();
 
         Stats = GameObject.Find("CurrentStats");
-        currentTutorial = Stats.GetComponent<CurrentStats>().currentTutorial;
-        Debug.Log("Starting currentTutorial is "+currentTutorial);
 
         targetPointer.GetComponent<CanvasRenderer>().SetAlpha(0);
         
@@ -234,9 +250,14 @@ public class combatController : MonoBehaviour
         glossaryObject.GetComponent<glossaryScript>().errorSFX = speedScroll;
 
 
-        //Opens initial tutorial on initial scene start
+        //Hides glossary
         glossaryObject.GetComponent<glossaryScript>().hide();
-        glossaryPopUp(0);
+        //glossaryPopUp(0);
+
+        //Sets tutorial
+        this.isTutorial = Stats.GetComponent<CurrentStats>().isTutorial;
+        if (isTutorial) tutorialHandler.GetComponent<tutorialHandler>().open(0);
+
         xDown = false;
         combatDone = false;
     }
@@ -248,6 +269,42 @@ public class combatController : MonoBehaviour
             xDown = true;
         }
 
+        //Disables Tutorial Logic if there is no tutorial
+        if(isTutorial){
+            int bookTemp = tutorialHandler.GetComponent<tutorialHandler>().bookCount;
+            int pageTemp = tutorialHandler.GetComponent<tutorialHandler>().pageCount;
+
+            
+            if(tutorialHandler.GetComponent<tutorialHandler>().isOpen){
+                //Changes accepted input to continue
+                switch (tutorialHandler.GetComponent<tutorialHandler>().allTutorials[bookTemp][pageTemp].trigger){
+                    case "xDown":
+                    if(xPress()){
+                        tutorialHandler.GetComponent<tutorialHandler>().nextPage();
+                    }
+                    break;
+
+                    case "ArrowKeys":
+                    xDown = false;
+                    if(Input.GetKeyDown(KeyCode.UpArrow)||
+                        Input.GetKeyDown(KeyCode.DownArrow)||
+                        Input.GetKeyDown(KeyCode.LeftArrow)||
+                        Input.GetKeyDown(KeyCode.RightArrow))
+                            tutorialHandler.GetComponent<tutorialHandler>().nextPage();
+                    break;
+
+                    case "G":
+                    xDown = false;
+                    if(Input.GetKeyDown(KeyCode.G))
+                        tutorialHandler.GetComponent<tutorialHandler>().nextPage();
+                    break;
+
+                    default:
+                    break;
+                }
+            }
+        }
+
         if (glossaryObject.GetComponent<glossaryScript>().isShowing == false)
         {
 
@@ -257,7 +314,7 @@ public class combatController : MonoBehaviour
                 if (state == "rotate")
                 {
                     // if you press X, advance to the next state, destroying the rotate UI and replacing it with move select UI
-                    if (xDown && isRotating == false)
+                    if (xPress() && isRotating == false)
                     {
                         menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                         gameLoop.setActiveUnits(nameTagArray);
@@ -266,7 +323,6 @@ public class combatController : MonoBehaviour
                         temp.a = 0.0f;
                         this.pentagonSprite.GetComponent<Image>().color = temp;
                         transitionToMoveSelect();
-                        xDown = false;
                     }
                     if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
                     {
@@ -312,13 +368,12 @@ public class combatController : MonoBehaviour
                         // nameTagArray[numberOfSelectedMoves].GetComponent<PlayerMoveSelect>().movePointer(-1);
                     }
                     // when the X key is pressed, we need to go to selecting targets
-                    if (xDown)
+                    if (xPress())
                     {
                         menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                         selectedAbility = nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities[selectedAbilityIndex];
                         actions[numberOfSelectedMoves] += selectedAbility.name + " on ";
                         transitionToTargetSelect();
-                        xDown = false;
                     }
                     // back function needs to be implemented
                     // should go back to rotate if numberOfSelectedMoves is 0 and back to moveSelect if it is greater than zero
@@ -355,16 +410,14 @@ public class combatController : MonoBehaviour
                         changeSelectedTarget(1, selectedAbility.allies);
                     }
                     // when the X key is pressed, we need to go to selecting speed
-                    if (xDown && !selectedTarget.dead)
+                    if (xPress() && !selectedTarget.dead)
                     {
                         menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                         targetPointer.GetComponent<CanvasRenderer>().SetAlpha(0);
                         transitionToSpeedSelect();
-                        xDown = false;
                     }
-                    else if (xDown) {
+                    else if (xPress()) {
                         speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX //flag
-                        xDown = false;
                     }
                     else if (Input.GetKeyDown(KeyCode.Z))
                     {
@@ -379,7 +432,7 @@ public class combatController : MonoBehaviour
                     // this confirms the selected speed and goes to the next state
                     // if there have been three selected moves, then it goes to the confirm state
                     // if there have not, it goes to move select
-                    if (xDown)
+                    if (xPress())
                     {
                         menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
 
@@ -406,7 +459,6 @@ public class combatController : MonoBehaviour
                         {
                             transitionToMoveSelect();
                         }
-                        xDown = false;
                     }
 
                     // back function: needs to be implemented
@@ -435,7 +487,7 @@ public class combatController : MonoBehaviour
 
                 else if (state == "confirm")
                 {
-                    if (xDown)
+                    if (xPress())
                     {
                         if (selectedAbility.allies)
                         {
@@ -447,7 +499,6 @@ public class combatController : MonoBehaviour
                         }
                         menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                         transitionToPlayResults();
-                        xDown = false;
                     }
                     else if (Input.GetKeyDown(KeyCode.Z))
                     {
@@ -470,8 +521,7 @@ public class combatController : MonoBehaviour
                         transitionToRotate();
                     }else if(Input.GetKeyDown(KeyCode.C)){
                         transitionToRotate();
-                    }else if (xDown&&combatDone){
-                        xDown = false;
+                    }else if (xPress()&&combatDone){
                         transitionToRotate();
                     }
                 }
@@ -504,19 +554,17 @@ public class combatController : MonoBehaviour
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.Escape) || xDown || Input.GetKeyDown(KeyCode.Z))
+            if (Input.GetKeyDown(KeyCode.Escape) || xPress() || Input.GetKeyDown(KeyCode.Z))
             {
                 if (glossaryObject.GetComponent<glossaryScript>().isShowing)
                 {
                     speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
                     glossaryObject.GetComponent<glossaryScript>().hide();
-                    xDown = false;
                 }
             }
         }
 
         justUnpaused = false;
-        xDown = false;
     }
 
     // gets called once at the beginning of the pentagon rotation when the player presses up or down
@@ -705,7 +753,7 @@ public class combatController : MonoBehaviour
         nameTagArray[0].showPassive(); // show
         nameTagArray[1].showPassive(); // show
         nameTagArray[2].showPassive(); // show
-        glossaryPopUp(2);
+        //glossaryPopUp(2);
     }
 
     void transitionToMoveSelect()
@@ -879,7 +927,7 @@ public class combatController : MonoBehaviour
         speedSelectTextObject.GetComponent<TextMeshProUGUI>().text = tempSpeed.ToString();
         speedForCurrentMove = 0;
 
-        glossaryPopUp(1);
+        //glossaryPopUp(1);
     }
 
     void changeSpeed(int change)
@@ -1037,6 +1085,13 @@ public class combatController : MonoBehaviour
         justUnpaused = true;
     }
 
+    private bool xPress(){
+        if (xDown){
+            xDown = false;
+            return true;
+        }else return false;
+    }
+
     void setPreviousState()
     {
         if (state != "paused")
@@ -1045,7 +1100,7 @@ public class combatController : MonoBehaviour
         }
     }
 
-    void glossaryPopUp (int check){
+    /*void glossaryPopUp (int check){
         Debug.Log("Current Tutorial is "+currentTutorial);
         if(check==currentTutorial){
             Debug.Log("opening glossary page "+check);
@@ -1054,7 +1109,7 @@ public class combatController : MonoBehaviour
             currentTutorial++;
         }
         Stats.GetComponent<CurrentStats>().currentTutorial = currentTutorial;
-    }
+    }*/
 
     // taken from easings.net and modified for c#
     // taken from easings.net

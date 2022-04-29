@@ -8,6 +8,7 @@ public class Station : MonoBehaviour
     public Station[] destinations;
     public Color line;
     public bool hasCombat;
+    public bool isTutorial;
     public bool hasHardMode;
     public string[] Enemies;
     //All lines that connect to that station
