@@ -14,7 +14,7 @@ public class Script1b : MonoBehaviour
 
         temp[dialogueVarietyCount]=(new overallDialogue("","","Station", 
         new dialogueEntry[]{
-            new dialogueEntry("Having defeated the monsters and arrived at their destination, the team waits at the subway station for Amery to finish his interview.",false,"null") //ambientSubway
+            new dialogueEntry("Having defeated the monsters and arrived at their destination, the team waits at the subway station for Amery to finish his interview.",false,"Happy","Happy","null") //ambientSubway
             }
 
         ));
@@ -22,12 +22,12 @@ public class Script1b : MonoBehaviour
 
         temp[dialogueVarietyCount]=(new overallDialogue("Jade","Koralie","Station", 
         new dialogueEntry[]{
-            new dialogueEntry("Can’t believe Amery did that…sometimes I really think he doesn’t care about anyone other than himself.",false,"null"),
-            new dialogueEntry("And waking all of us up unannounced isn’t even the end of it. If Amery's interview drags on any longer, I’m gonna be late for class!",false,"null"),
-            new dialogueEntry("I’ll admit that I feel the same way. Amery is my friend and all, but I cannot bear to miss the game design club meeting today!",true,"null"),
-            new dialogueEntry("We’re voting on club t-shirt designs today and their mascot is ever so cute…",true,"null"),
-            new dialogueEntry("Oh! I’ve come up with an absolutely GENIUS solution!",true,"null"),
-            new dialogueEntry(" Let’s simply tell Amery to pay for the premium subway without monsters! That way we can all get on with our days and head to campus!",true,"null")
+            new dialogueEntry("Can’t believe Amery did that…sometimes I really think he doesn’t care about anyone other than himself.",false,"Happy","Happy","null"),
+            new dialogueEntry("And waking all of us up unannounced isn’t even the end of it. If Amery's interview drags on any longer, I’m gonna be late for class!",false,"Happy","Happy","null"),
+            new dialogueEntry("I’ll admit that I feel the same way. Amery is my friend and all, but I cannot bear to miss the game design club meeting today!",true,"Happy","Happy","null"),
+            new dialogueEntry("We’re voting on club t-shirt designs today and their mascot is ever so cute…",true,"Happy","Happy","null"),
+            new dialogueEntry("Oh! I’ve come up with an absolutely GENIUS solution!",true,"Happy","Happy","null"),
+            new dialogueEntry(" Let’s simply tell Amery to pay for the premium subway without monsters! That way we can all get on with our days and head to campus!",true,"Happy","Happy","null")
             }
 
         ));
@@ -35,8 +35,8 @@ public class Script1b : MonoBehaviour
 
         temp[dialogueVarietyCount]=(new overallDialogue("Seraphim","Koralie","Station", 
         new dialogueEntry[]{
-            new dialogueEntry("Tsk. Really?",false,"null"),
-            new dialogueEntry("Hm…? What’s wrong?",true,"null")
+            new dialogueEntry("Tsk. Really?",false,"Happy","Happy","null"),
+            new dialogueEntry("Hm…? What’s wrong?",true,"Happy","Happy","null")
             }
 
         ));
@@ -44,8 +44,8 @@ public class Script1b : MonoBehaviour
 
         temp[dialogueVarietyCount]=(new overallDialogue("Jade","Koralie","Station", 
         new dialogueEntry[]{
-            new dialogueEntry("You gotta remember, Koralie, not everyone has the privilege of being able to afford that.",false,"null"),
-            new dialogueEntry("Oh…right. Of course. Forgot about that.",true,"null")
+            new dialogueEntry("You gotta remember, Koralie, not everyone has the privilege of being able to afford that.",false,"Happy","Happy","null"),
+            new dialogueEntry("Oh…right. Of course. Forgot about that.",true,"Happy","Happy","null")
             }
 
         ));
@@ -53,7 +53,7 @@ public class Script1b : MonoBehaviour
 
         temp[dialogueVarietyCount]=(new overallDialogue("Seraphim","Koralie","Station", 
         new dialogueEntry[]{
-            new dialogueEntry("Imagine having the luxury of being able to forget something like that…",false,"null")
+            new dialogueEntry("Imagine having the luxury of being able to forget something like that…",false,"Happy","Happy","null")
             }
 
         ));
@@ -61,7 +61,7 @@ public class Script1b : MonoBehaviour
 
         temp[dialogueVarietyCount]=(new overallDialogue("Seraphim","","Station", 
         new dialogueEntry[]{
-            new dialogueEntry("*footsteps*",true,"Cutscene/footsteps")
+            new dialogueEntry("*footsteps*",true,"Happy","Happy","Cutscene/footsteps")
             }
 
         ));
@@ -69,16 +69,16 @@ public class Script1b : MonoBehaviour
 
         temp[dialogueVarietyCount]=(new overallDialogue("Seraphim","Amery","Station", 
         new dialogueEntry[]{
-            new dialogueEntry("Complaining as usual, are we, Seraphim?",true,"null"),
-            new dialogueEntry("I…uhm…",false,"null"),
-            new dialogueEntry("Well, no matter, hello everyone! We meet again!",true,"null"),
-            new dialogueEntry("The internship interview was a complete success! I have the utmost confidence that I’ll be accepted!",true,"null"),
-            new dialogueEntry("You say that after all your interviews and those never worked out so…",false,"null"),
-            new dialogueEntry("Oh? Care to speak up, Seraphim?",true,"null"),
-            new dialogueEntry("I uh…I didn’t say anything.",false,"null"),
-            new dialogueEntry("I heard you muttering something. What. Did. You. Say?",true,"null"),
-            new dialogueEntry("Nothing, just let it go! We all gotta head to campus now, you’ve made us late enough already…",false,"null"),
-            new dialogueEntry("Don’t just walk away from me! I won’t just let you get away wi—",true,"null")
+            new dialogueEntry("Complaining as usual, are we, Seraphim?",true,"Happy","Happy","null"),
+            new dialogueEntry("I…uhm…",false,"Happy","Happy","null"),
+            new dialogueEntry("Well, no matter, hello everyone! We meet again!",true,"Happy","Happy","null"),
+            new dialogueEntry("The internship interview was a complete success! I have the utmost confidence that I’ll be accepted!",true,"Happy","Happy","null"),
+            new dialogueEntry("You say that after all your interviews and those never worked out so…",false,"Happy","Happy","null"),
+            new dialogueEntry("Oh? Care to speak up, Seraphim?",true,"Happy","Happy","null"),
+            new dialogueEntry("I uh…I didn’t say anything.",false,"Happy","Happy","null"),
+            new dialogueEntry("I heard you muttering something. What. Did. You. Say?",true,"Happy","Happy","null"),
+            new dialogueEntry("Nothing, just let it go! We all gotta head to campus now, you’ve made us late enough already…",false,"Happy","Happy","null"),
+            new dialogueEntry("Don’t just walk away from me! I won’t just let you get away wi—",true,"Happy","Happy","null")
             }
 
         ));
@@ -86,7 +86,7 @@ public class Script1b : MonoBehaviour
 
         temp[dialogueVarietyCount]=(new overallDialogue("Beverly","Amery","Station", 
         new dialogueEntry[]{
-            new dialogueEntry("Ok you two, just stop! You’ve been at each other’s throats since we first woke up!",false,"null"),
+            new dialogueEntry("Ok you two, just stop! You’ve been at each other’s throats since we first woke up!",false,"Happy","Happy","null"),
             }
 
         ));
@@ -94,9 +94,9 @@ public class Script1b : MonoBehaviour
 
         temp[dialogueVarietyCount]=(new overallDialogue("Beverly","Seraphim","Station", 
         new dialogueEntry[]{
-            new dialogueEntry("But I just—",true,"null"),
-            new dialogueEntry("No buts! This is something we can all work through together at home. I’m tired of hearing you tear each other down like you’ve been doing all day!",false,"null"),
-            new dialogueEntry("I get you, Bev…sorry.",true,"null")
+            new dialogueEntry("But I just—",true,"Happy","Happy","null"),
+            new dialogueEntry("No buts! This is something we can all work through together at home. I’m tired of hearing you tear each other down like you’ve been doing all day!",false,"Happy","Happy","null"),
+            new dialogueEntry("I get you, Bev…sorry.",true,"Happy","Happy","null")
             }
 
         ));
@@ -104,10 +104,10 @@ public class Script1b : MonoBehaviour
 
         temp[dialogueVarietyCount]=(new overallDialogue("Beverly","Amery","Station", 
         new dialogueEntry[]{
-            new dialogueEntry("Ha, she showed you.",true,"null"),
-            new dialogueEntry("That wasn’t meant for just them, Amery. You too. There’s no need to say all that mean stuff to them. They’re trying their best, you know.",false,"null"),
-            new dialogueEntry("Alright, alright. …I understand.",true,"null"),
-            new dialogueEntry("Good. Well then, let’s get going everyone!",false,"null")
+            new dialogueEntry("Ha, she showed you.",true,"Happy","Happy","null"),
+            new dialogueEntry("That wasn’t meant for just them, Amery. You too. There’s no need to say all that mean stuff to them. They’re trying their best, you know.",false,"Happy","Happy","null"),
+            new dialogueEntry("Alright, alright. …I understand.",true,"Happy","Happy","null"),
+            new dialogueEntry("Good. Well then, let’s get going everyone!",false,"Happy","Happy","null")
             }
 
         ));
@@ -115,7 +115,7 @@ public class Script1b : MonoBehaviour
 
         temp[dialogueVarietyCount]=(new overallDialogue("Beverly","Koralie","Station", 
         new dialogueEntry[]{
-            new dialogueEntry("Sounds good to me!",true,"null")
+            new dialogueEntry("Sounds good to me!",true,"Happy","Happy","null")
             }
 
         ));
@@ -123,7 +123,7 @@ public class Script1b : MonoBehaviour
 
         temp[dialogueVarietyCount]=(new overallDialogue("Beverly","Jade","Station", 
         new dialogueEntry[]{
-            new dialogueEntry("Way ahead of you.",true,"null")
+            new dialogueEntry("Way ahead of you.",true,"Happy","Happy","null")
             }
 
         ));

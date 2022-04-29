@@ -100,11 +100,13 @@ public class tutorialHandler : MonoBehaviour
     private void makePage(TutorialSegment page){
         for(int i = 0; i < page.highlights.Length; i++)
         HighlightObject(page.highlights[i] ,true);
+        //text code
     }
 
     private void breakPage(TutorialSegment page){
         for(int i = 0; i < page.highlights.Length; i++)
         HighlightObject(page.highlights[i] ,false);
+        //text code;
     }
 
     private void HighlightObject(int cat, bool light){
@@ -112,7 +114,7 @@ public class tutorialHandler : MonoBehaviour
         if(light) shade = new Color (2.0f,2.0f,2.0f,1.0f);
         else shade = new Color (0.5f,0.5f,0.5f,1.0f);
         if(scene == "nodeMap"){
-            highlightObjects = this.GetComponent<comTutorialScript>().sceneItems; 
+            highlightObjects = this.GetComponent<comTutorialScript>().sceneItems; //flag
             for (int i = 0; i < highlightObjects[cat].Length;i++){
                 highlightObjects[cat][i].GetComponent<Image>().color *= shade;
                 Image[] temp;
