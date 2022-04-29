@@ -31,7 +31,7 @@ public class Script1a : MonoBehaviour
 
         temp[dialogueVarietyCount]=new overallDialogue("Amery","Jade","ApartmentLight",
         new dialogueEntry[]{
-            new dialogueEntry("Goddamnit Amery…what do you mean ‘we’re already running late’? Late for what?",true,"Happy","Angry","null"),
+            new dialogueEntry("Goddamnit Amery…what do you mean ‘we’re already running late’? Late for what?",true,"Happy","Sad","null"),
             new dialogueEntry("Why, I’ve landed yet another internship interview. And it’s at 8 a.m. sharp!",false,"Happy","Angry","null")
             }
         );
@@ -39,17 +39,17 @@ public class Script1a : MonoBehaviour
 
         temp[dialogueVarietyCount]=new overallDialogue("Amery","Beverly","ApartmentLight",
         new dialogueEntry[]{
-            new dialogueEntry("Oh, that’s great, I’m so happy for you! But uhm…what are you waking up the rest of us for exactly…?",true,"Happy","Angry","null"),
-            new dialogueEntry("Well, Beverly, you all have to help me fight the subway monsters, of course!",false,"Happy","Angry","null"),
-            new dialogueEntry("Can’t have my outfit getting messed up before the big interview.",false,"Happy","Angry","null")
+            new dialogueEntry("Oh, that’s great, I’m so happy for you! But uhm…what are you waking up the rest of us for exactly…?",true,"Happy","Sad","null"),
+            new dialogueEntry("Well, Beverly, you all have to help me fight the subway monsters, of course!",false,"Happy","Sad","null"),
+            new dialogueEntry("Can’t have my outfit getting messed up before the big interview.",false,"Happy","Sad","null")
             }
         );
         dialogueVarietyCount++;
 
         temp[dialogueVarietyCount]=new overallDialogue("Amery","Seraphim","ApartmentLight",
         new dialogueEntry[]{
-            new dialogueEntry("Ugh…are you serious…? I’m too tired for this…just let me sleep…",true,"Happy","Happy","null"),
-            new dialogueEntry("Oh Seraphim, of course you’re tired and don’t want to get up, you swear that anytime before 3 pm is morning. Quit being lazy and let's get ready to go.",false,"Happy","Happy","null")
+            new dialogueEntry("Ugh…are you serious…? I’m too tired for this…just let me sleep…",true,"Happy","Sad","null"),
+            new dialogueEntry("Oh Seraphim, of course you’re tired and don’t want to get up, you swear that anytime before 3 pm is morning. Quit being lazy and let's get ready to go.",false,"Happy","Sad","null")
             }
         );
         dialogueVarietyCount++;
@@ -63,12 +63,12 @@ public class Script1a : MonoBehaviour
 
         temp[dialogueVarietyCount]=new overallDialogue("Koralie","Seraphim","ApartmentLight",
         new dialogueEntry[]{
-            new dialogueEntry("Helloooo!! Is everyone else ready to head to the subway?",false,"Happy","Happy","null"),
-            new dialogueEntry("Just when I thought this couldn't get any worse.",true,"Happy","Happy","null"),
-            new dialogueEntry("We get it. You're already all done up! The princex of our house is perfect as usual.",true,"Happy","Happy","null"),
-            new dialogueEntry("Well, of course! A dashing princex like myself has to be ready for anything teehee.",false,"Happy","Happy","null"),
-            new dialogueEntry("Geez…your voice is more annoying than the alarm.",true,"Happy","Happy","null"),
-            new dialogueEntry("Excuse me, what did you just say? Come here, you little—",false,"Angry","Happy","null")
+            new dialogueEntry("Helloooo!! Is everyone else ready to head to the subway?",false,"Happy","Sad","null"),
+            new dialogueEntry("Just when I thought this couldn't get any worse.",true,"Happy","Sad","null"),
+            new dialogueEntry("We get it. You're already all done up! The princex of our house is perfect as usual.",true,"Happy","Sad","null"),
+            new dialogueEntry("Well, of course! A dashing princex like myself has to be ready for anything teehee.",false,"Happy","Sad","null"),
+            new dialogueEntry("Geez…your voice is more annoying than the alarm.",true,"Happy","Sad","null"),
+            new dialogueEntry("Excuse me, what did you just say? Come here, you little—",false,"Angry","Sad","null")
             }
         );
         dialogueVarietyCount ++;
@@ -83,26 +83,26 @@ public class Script1a : MonoBehaviour
 
         temp[dialogueVarietyCount]=new overallDialogue("Koralie","Beverly","ApartmentLight",
         new dialogueEntry[]{
-            new dialogueEntry("Okay! I’m all ready to go! You’re ready too, aren’t you, Koralie? Do you want to wait outside with me for everyone else?",true,"Happy","Happy","null"),
-            new dialogueEntry("Ah uhm…no, I’ll just go outside with the others when they’re ready.",false,"Flustered","Happy","null"),
-            new dialogueEntry("Oh…well that’s cool! See you out there, then!",true,"Flustered","Flustered","null") //doorClosing
+            new dialogueEntry("Okay! I’m all ready to go! You’re ready too, aren’t you, Koralie? Do you want to wait outside with me for everyone else?",true,"Angry","Shy","null"),
+            new dialogueEntry("Ah uhm…no, I’ll just go outside with the others when they’re ready.",false,"Shy","Shy","null"),
+            new dialogueEntry("Oh…well that’s cool! See you out there, then!",true,"Shy","Sad","null") //doorClosing
         }
         );
         dialogueVarietyCount ++;
 
         temp[dialogueVarietyCount]=new overallDialogue("Amery","Seraphim","ApartmentLight",
         new dialogueEntry[]{
-            new dialogueEntry("Alright, I’ve gathered all my papers! What’s the hold up?",false,"Flustered","Happy","null"),
-            new dialogueEntry("We’ll be ready in a second…but god, why do you have to spring this on us without any notice at all? We have lives too, don’t you get that?",true,"Flustered","Angry","null")
+            new dialogueEntry("Alright, I’ve gathered all my papers! What’s the hold up?",false,"Shy","Sad","null"),
+            new dialogueEntry("We’ll be ready in a second…but god, why do you have to spring this on us without any notice at all? We have lives too, don’t you get that?",true,"Shy","Angry","null")
             }
         );
         dialogueVarietyCount ++;
 
         temp[dialogueVarietyCount]=new overallDialogue("Amery","Jade","ApartmentLight",
         new dialogueEntry[]{
-            new dialogueEntry("They’re right, you know. Why can’t you get your actual friends to help you with this? Why us?",true,"Flustered","Flustered","null"),
-            new dialogueEntry("Oh well…they’re very busy people, yeah, really busy…they simply didn’t have time to help me out today. The next best thing was you guys!",false,"Happy","Flustered","null"),
-            new dialogueEntry("Right…uh huh. Well, let’s head out, since you’re in such a hurry and all.",true,"Happy","Flustered","null")
+            new dialogueEntry("They’re right, you know. Why can’t you get your actual friends to help you with this? Why us?",true,"Shy","Shy","null"),
+            new dialogueEntry("Oh well…they’re very busy people, yeah, really busy…they simply didn’t have time to help me out today. The next best thing was you guys!",false,"Happy","Angry","null"),
+            new dialogueEntry("Right…uh huh. Well, let’s head out, since you’re in such a hurry and all.",true,"Happy","Angry","null")
             }
         );
         dialogueVarietyCount ++;

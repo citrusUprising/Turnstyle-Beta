@@ -178,8 +178,8 @@ public class Script1c : MonoBehaviour
 
         temp[dialogueVarietyCount]=(new overallDialogue("","Amery","Train", 
         new dialogueEntry[]{
-            new dialogueEntry("Wh…why are you all here?!",true,"null"),
-            new dialogueEntry("Agh! ",true,"Battle/damage"),
+            new dialogueEntry("Wh…why are you all here?!",true,"Happy", "Angry","null"),
+            new dialogueEntry("Agh! ",true, "Happy", "Sad","Battle/damage"),
             }
 
         ));
