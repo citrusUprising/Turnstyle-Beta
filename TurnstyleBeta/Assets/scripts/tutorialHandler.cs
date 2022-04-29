@@ -86,6 +86,10 @@ public class tutorialHandler : MonoBehaviour
         bookCount++;
         }
     }
+
+    private void HighlightObject(){
+        
+    }
     
     private void addTutorialText(TutorialSegment[] temp, int book, int pageNumber){
         allTutorials[book] = new TutorialSegment[pageNumber];
