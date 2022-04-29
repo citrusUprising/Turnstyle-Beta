@@ -2748,6 +2748,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3659815e340e2ad4badd25b3ae53a8a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pentagon:
+  - {fileID: 990851450}
+  activeChars:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  passiveChars:
+  - {fileID: 0}
+  - {fileID: 0}
+  activeNames:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  passiveNames:
+  - {fileID: 0}
+  - {fileID: 0}
+  speedSelect: []
+  totalSpeed: []
+  statusBar: []
 --- !u!1 &1228779046
 GameObject:
   m_ObjectHideFlags: 0
