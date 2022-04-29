@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class tutorialHandler : MonoBehaviour
 {
     
     public TutorialSegment[][] allTutorials;
     private GameObject Glossary;
+    [SerializeField] private GameObject sceneCanvas;
+    private Image[] sceneObjects;
     public bool isOpen;
     public int pageCount;
     public int bookCount;
@@ -17,6 +20,7 @@ public class tutorialHandler : MonoBehaviour
         pageCount = 0;
         populateScript(3);
         Glossary = GameObject.Find("glossary");
+        sceneObjects = sceneCanvas.GetComponentsInChildren<Image>();
     }
 
 
@@ -57,6 +61,11 @@ public class tutorialHandler : MonoBehaviour
         phonePos = new Vector3 (phonePos.x, phonePos.y+490, phonePos.z);
         transform.localPosition = phonePos;
         isOpen = true;
+        for(int i = 0; i < sceneObjects.Length; i++){
+            sceneObjects[i].color *= new Color(0.5f,0.5f,0.5f);
+            Debug.Log ("Item "+i+" is now "+sceneObjects[i].color);
+        }
+        this.GetComponent<Image>().color = new Color (1.0f,1.0f,1.0f);
         //Instnatiate first page
         }
     }
@@ -68,6 +77,10 @@ public class tutorialHandler : MonoBehaviour
         phonePos = new Vector3 (phonePos.x, phonePos.y-490, phonePos.z);
         transform.localPosition = phonePos;
         isOpen = false;
+        for(int i = 0; i < sceneObjects.Length; i++){
+            sceneObjects[i].color *= new Color(2.0f,2.0f,2.0f);
+            Debug.Log ("Item "+i+" is now "+sceneObjects[i].color);
+        }
         bookCount++;
         }
     }
