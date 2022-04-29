@@ -333,6 +333,16 @@ public class combatController : MonoBehaviour
                         }
                         else {
                             numberOfSelectedMoves--;
+                            // fixing back past KO'd character
+                            // need to test this
+                            while(nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>().dead &&
+                                    numberOfSelectedMoves >= 0){
+                                numberOfSelectedMoves--; 
+                            }
+                            if(numberOfSelectedMoves < 0){
+                                numberOfSelectedMoves = 0;
+                                transitionToRotate();
+                            }
                             transitionToMoveSelect();
                         }
                     }
