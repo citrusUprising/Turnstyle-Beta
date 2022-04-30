@@ -35,7 +35,7 @@ public class textClusterHelpers : MonoBehaviour
 
     public void createCluster(string[] texts)
     {
-        textMessageCluster.destroy();
+        Destroy(textMessageCluster);
 
         textMessageCluster = Instantiate(textMessageClusterPrefab, gameObject.transform);
 
