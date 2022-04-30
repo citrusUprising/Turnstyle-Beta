@@ -37,7 +37,7 @@ public class CameraController : MonoBehaviour
 
     private bool loading = false;
     private bool pulseUp = true;
-    int money = 8;
+    int money = 5;
     // Start is called before the first frame update
     void Start()
     {
@@ -153,7 +153,8 @@ public class CameraController : MonoBehaviour
                 GameObject Stats = GameObject.Find("CurrentStats");
                 CurrentStats currStats = Stats.GetComponent<CurrentStats>();
                 currStats.CurrentEnemies = currentStation.Enemies;
-                StartCoroutine(loadScene("combatScene"));
+                currStats.isTutorial = currentStation.isTutorial;
+                StartCoroutine(loadScene("tutorialScene"));
                 Music.SetActive(false);
                 currentStation.endCombat();
             }

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class glossaryScript : MonoBehaviour
 {
     public GameObject[] pagesRef;
-    public List<GameObject> pagesReal;
+    //public List<GameObject> pagesRef;
     private GameObject Stats;
 
     public GameObject keyPrompt;
@@ -45,10 +45,10 @@ public class glossaryScript : MonoBehaviour
     {
         Stats = GameObject.Find("CurrentStats");
         
-        if(Stats.GetComponent<CurrentStats>().currentTutorial > 2){
+      /*  if(Stats.GetComponent<CurrentStats>().currentTutorial > 2){
             for(int i =0; i<pagesRef.Length; i++)
             pagesReal.Add(pagesRef[i]);
-        }
+        }*/
         
 
         if (isShowing)
@@ -114,38 +114,36 @@ public class glossaryScript : MonoBehaviour
 
     void nextPage(int direction)
     {
-        if(pagesReal.Count > 1){
-            isAnimating = true;
+        isAnimating = true;
 
-            t = 0.0f;
+        t = 0.0f;
 
-            if (direction > 0)
+        if (direction > 0)
+        {
+            if (isShowing)
             {
-                if (isShowing)
-                {
-                    nextSFX.GetComponent<FMODUnity.StudioEventEmitter>().Play();
-                }
-
-                nextPageIndex++;
-
-                animateDirection = "right";
-
-                nextPageIndex = nextPageIndex%pagesReal.Count;
+                nextSFX.GetComponent<FMODUnity.StudioEventEmitter>().Play();
             }
-            else if (direction < 0)
+
+            nextPageIndex++;
+
+            animateDirection = "right";
+
+            nextPageIndex = nextPageIndex%pagesRef.Length;
+        }
+        else if (direction < 0)
+        {
+            if (isShowing)
             {
-                if (isShowing)
-                {
-                    prevSFX.GetComponent<FMODUnity.StudioEventEmitter>().Play();
-                }
-
-                nextPageIndex--;
-
-                animateDirection = "left";
-
-                nextPageIndex = (nextPageIndex+pagesReal.Count)%pagesReal.Count;
+                prevSFX.GetComponent<FMODUnity.StudioEventEmitter>().Play();
             }
-        }else errorSFX.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+
+            nextPageIndex--;
+
+            animateDirection = "left";
+
+            nextPageIndex = (nextPageIndex+pagesRef.Length)%pagesRef.Length;
+        }
     }
 
     public void show()
@@ -153,11 +151,11 @@ public class glossaryScript : MonoBehaviour
         Debug.Log ("Opening Glossary");
         isShowing = true;
 
-        pagesReal[currentPageIndex].transform.localPosition = new Vector3(0, 0, 0);
+        pagesRef[currentPageIndex].transform.localPosition = new Vector3(0, 0, 0);
 
-        for (int i = 0; i < pagesReal.Count; i++)
+        for (int i = 0; i < pagesRef.Length; i++)
         {
-            pagesReal[i].GetComponent<CanvasRenderer>().SetAlpha(1f);
+            pagesRef[i].GetComponent<CanvasRenderer>().SetAlpha(1f);
         }
 
         changeArrowAlpha(1);
@@ -171,9 +169,9 @@ public class glossaryScript : MonoBehaviour
         Debug.Log ("Closing Glossary");
         isShowing = false;
 
-        for (int i = 0; i < pagesReal.Count; i++)
+        for (int i = 0; i < pagesRef.Length; i++)
         {
-            pagesReal[i].GetComponent<CanvasRenderer>().SetAlpha(0f);
+            pagesRef[i].GetComponent<CanvasRenderer>().SetAlpha(0f);
         }
 
         changeArrowAlpha(0);
@@ -186,33 +184,33 @@ public class glossaryScript : MonoBehaviour
         if (animateDirection == "left")
         {
             // current one
-            pagesReal[currentPageIndex].transform.localPosition = Vector3.Lerp(center, offScreenRight, t);
+            pagesRef[currentPageIndex].transform.localPosition = Vector3.Lerp(center, offScreenRight, t);
 
             // next one
-            pagesReal[nextPageIndex].transform.localPosition = Vector3.Lerp(offScreenLeft, center, t);
+            pagesRef[nextPageIndex].transform.localPosition = Vector3.Lerp(offScreenLeft, center, t);
         }
         else
         {
             // current one
-            pagesReal[currentPageIndex].transform.localPosition = Vector3.Lerp(center, offScreenLeft, t);
+            pagesRef[currentPageIndex].transform.localPosition = Vector3.Lerp(center, offScreenLeft, t);
 
             // next one
-            pagesReal[nextPageIndex].transform.localPosition = Vector3.Lerp(offScreenRight, center, t);
+            pagesRef[nextPageIndex].transform.localPosition = Vector3.Lerp(offScreenRight, center, t);
         }
     }
 
     public void setPage(int page){
-        page=page%pagesRef.Length;
-        if(pagesReal.Count <= page){
-            pagesReal.Add(pagesRef[page]);
+        /*page=page%pagesRef.Length;
+        if(pagesRef.Length <= page){
+            pagesRef.Add(pagesRef[page]);
             Debug.Log("Adding Page "+page);
-    }
+    }*/
 
-        if(page==(currentPageIndex-1+pagesReal.Count)%pagesReal.Count)
-        pagesReal[currentPageIndex].transform.localPosition = offScreenRight;
+        if(page==(currentPageIndex-1+pagesRef.Length)%pagesRef.Length)
+        pagesRef[currentPageIndex].transform.localPosition = offScreenRight;
 
-        else if (page==(currentPageIndex+1)%pagesReal.Count)
-        pagesReal[currentPageIndex].transform.localPosition = offScreenLeft;
+        else if (page==(currentPageIndex+1)%pagesRef.Length)
+        pagesRef[currentPageIndex].transform.localPosition = offScreenLeft;
 
         currentPageIndex = page;
         nextPageIndex = page;
