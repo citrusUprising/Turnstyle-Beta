@@ -65,7 +65,7 @@ public class tutorialHandler : MonoBehaviour
         if(!isOpen&&bookCount == book){
         Transform transform = this.GetComponent<Transform>();
         Vector3 phonePos = transform.localPosition;
-        phonePos = new Vector3 (phonePos.x, phonePos.y+490, phonePos.z);
+        phonePos = new Vector3 (phonePos.x, phonePos.y+550, phonePos.z);
         transform.localPosition = phonePos;
         isOpen = true;
         for(int i = 0; i < sceneObjects.Length; i++){
@@ -83,7 +83,7 @@ public class tutorialHandler : MonoBehaviour
         sceneObjects = sceneCanvas.GetComponentsInChildren<Image>();
         Transform transform = this.GetComponent<Transform>();
         Vector3 phonePos = transform.localPosition;
-        phonePos = new Vector3 (phonePos.x, phonePos.y-490, phonePos.z);
+        phonePos = new Vector3 (phonePos.x, phonePos.y-550, phonePos.z);
         transform.localPosition = phonePos;
         isOpen = false;
         for(int i = 0; i < sceneObjects.Length; i++){
@@ -98,7 +98,7 @@ public class tutorialHandler : MonoBehaviour
     private void makePage(TutorialSegment page){
         for(int i = 0; i < page.highlights.Length; i++)
         HighlightObject(page.highlights[i] ,true);
-        //text code
+        this.GetComponent<textClusterHelpers>().createCluster(page.text);
     }
 
     private void breakPage(TutorialSegment page){
