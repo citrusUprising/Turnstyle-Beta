@@ -31,7 +31,9 @@ public class textClusterHelpers : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (textMessageCluster != null){
+                textMessageCluster.GetComponent<VerticalLayoutGroup>().spacing =150;
+        }
     }
 
     public void createCluster(string[] texts)
