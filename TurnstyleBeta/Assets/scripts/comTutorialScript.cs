@@ -29,8 +29,6 @@ public class comTutorialScript : MonoBehaviour
     public TutorialSegment[][] allTutorials;
     public GameObject[][] sceneItems = new GameObject[8][];
 
-    
-
     void Awake(){
         sceneItems[0] = pentagon;
         sceneItems[1] = activeChars;
@@ -60,9 +58,9 @@ public class comTutorialScript : MonoBehaviour
         //The following is the format for a tutorial section
         /*
          temp[pageFiller] = new TutorialSegment(
-            new string[2]{"",""},      Array of all Displayed Text
-            new string[1]{""},   Array of highlighted objects
-            "X"                     Condition to move to next page
+            new string[2]{"",""},       // Array of all Displayed Text
+            new int[1]{""},             //Array of highlighted objects
+            "X"                         // Condition to move to next page
         );
         pageFiller++;
         */
@@ -70,22 +68,89 @@ public class comTutorialScript : MonoBehaviour
         //-------------------------------------------------------//
 
         temp[pageFiller] = new TutorialSegment(
-            new string[2]{"Testing","Hey we're testing over here"},
-            new string[1]{""},
+            new string[1]{"Each <b>Party Member</b> has their own spot on the <b>Pentagon.</b> Each turn, you can <b>Rotate</b> it however you like."},
+            new int[1]{0},
             "xDown"
         );
         pageFiller++;
 
         temp[pageFiller] = new TutorialSegment(
-            new string[1]{"try Rotating?"},
-            new string[1]{""},
-            "ArrowKeys"
+            new string[1]{"Each <b>Party Member</b> has a <b>Name Tag</b> that shows you their <b>HP,</b> <b>Fatigue, Statuses,</b> and <b>Passive.</b>"},
+            new int[2]{3, 4},
+            "xDown"
         );
         pageFiller++;
 
         temp[pageFiller] = new TutorialSegment(
-            new string[2]{"Okay that worked","open the glossary"},
-            new string[1]{""},
+            new string[2]{"The three <b>Party Members</b> on the <b>right</b> side of the <b>Pentagon</b> are <b>in combat.</b> "
+                        ,"They get <b>1 Fatigue</b> each turn."},      
+            new int[4]{1, 2, 3, 4},   
+            "xDown"                     
+        );
+        pageFiller++;
+        
+        temp[pageFiller] = new TutorialSegment(
+            new string[2]{"The two <b>Party Members</b> on the <b>left</b> side of the <b>Pen/tagon<b> are <b>out of combat.</b>"
+                        ,"They <b>aren’t affected</b> by any <b>moves</b> and <b>lose 2 Fatigue</b> each turn. "},      
+            new int[2]{2, 4},   
+            "xDown"                     
+        );
+        pageFiller++;
+
+        temp[pageFiller] = new TutorialSegment(
+            new string[1]{"At the beginning of <b>each Turn,</b> you can <b>rotate</b> the <b>Pentagon</b> by pressing the <b>arrow keys.</b> Try it!"},
+            new int[1]{0},
+            "ArrowKeys"                         
+        );
+        pageFiller++;
+
+        temp[pageFiller] = new TutorialSegment(
+            new string[1]{"You can view each <b>Party Member’s Moves</b> and <b>Passive</b> in the <b>Pause Menu</b> by pressing <b>Escape.</b>"}, 
+            new int[0]{}, 
+            "xDown"
+        );
+        pageFiller++;
+
+        temp[pageFiller] = new TutorialSegment(
+            new string[2]{"Each <b>Turn,</b> you assign each <b>Party Member</b> a <b>Speed</b> value."
+                        , "Characters with <b>high Speed act first.</b>"}, 
+            new int[1]{5}, 
+            "xDown"
+        );
+        pageFiller++;
+
+        temp[pageFiller] = new TutorialSegment(
+            new string[2]{"You get <b>12 Speed</b> each turn to <b>distribute</b> between your three <b>active Party Members.</b>"
+                        , "This is <b>refilled</b> at the beginning of <b>each turn.</b>"}, 
+            new int[2]{5, 6}, 
+            "xDown"
+        );
+        pageFiller++;
+
+        temp[pageFiller] = new TutorialSegment(
+            new string[1]{"A <b>Party Member’s Speed</b> is <b>lowered</b> by one for each point of <b>Fatigue</b> they have."}, 
+            new int[3]{3, 4, 5}, 
+            "xDown"
+        );
+        pageFiller++;
+
+        temp[pageFiller] = new TutorialSegment(
+            new string[1]{"If a <b>Party Member’s Speed</b> is lower than <b>0,</b> they take <b>20%</b> of their <b>HP</b> in damage."}, 
+            new int[1]{5}, 
+            "xDown"
+        );
+        pageFiller++;
+
+        temp[pageFiller] = new TutorialSegment(
+            new string[1]{"This is where you can see someone’s <b>Status Effects.</b>"}, 
+            new int[1]{7}, 
+            "xDown"
+        );
+        pageFiller++;
+
+        temp[pageFiller] = new TutorialSegment(
+            new string[1]{"These are all the <b>Status Effects.</b> You can see this in the <b>Glossary</b> by pressing <b>G.</b>"}, 
+            new int[0]{}, 
             "G"
         );
         pageFiller++;
