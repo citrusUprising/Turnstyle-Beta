@@ -49,8 +49,6 @@ public class tutorialHandler : MonoBehaviour
 
         breakPage(allTutorials[bookCount][pageCount]);
         pageCount++;
-        if(pageCount > 0){
-        }
         if(pageCount >= allTutorials[bookCount].Length){
             pageCount = 0;
             this.close();
@@ -127,7 +125,15 @@ public class tutorialHandler : MonoBehaviour
         else if (scene == "combat"){
             highlightObjects = this.GetComponent<comTutorialScript>().sceneItems; 
             for (int i = 0; i < highlightObjects[cat].Length;i++){
-                highlightObjects[cat][i].GetComponent<Image>().color *= shade;
+                if(cat != 7){
+                    highlightObjects[cat][i].GetComponent<Image>().color *= shade;
+                    if(cat == 2){
+                            Color tempCol = highlightObjects[cat][i].GetComponent<Image>().color;
+                            if(light)tempCol.a = 1.0f;
+                            else tempCol.a = 0.5f;
+                            highlightObjects[cat][i].GetComponent<Image>().color = tempCol;
+                    }
+                }
                 Image[] temp;
                 temp = highlightObjects[cat][i].GetComponentsInChildren<Image>();
                 for (int j = 0; j < temp.Length; j++){
