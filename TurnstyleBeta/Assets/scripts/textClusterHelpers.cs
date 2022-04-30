@@ -17,11 +17,6 @@ public class textClusterHelpers : MonoBehaviour
 
     private Vector3 clusterPosition = new Vector3(40, -150, 0);
 
-    private int numOfMessages = 0;
-
-    private string[] testArray = new string[2];
-    private string[] testArray2 = new string[2];
-
     // Start is called before the first frame update
     void Start()
     {
@@ -31,9 +26,7 @@ public class textClusterHelpers : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (textMessageCluster != null){
-                textMessageCluster.GetComponent<VerticalLayoutGroup>().spacing =150;
-        }
+        
     }
 
     public void createCluster(string[] texts)
@@ -45,15 +38,11 @@ public class textClusterHelpers : MonoBehaviour
 
         textMessageCluster = Instantiate(textMessageClusterPrefab, gameObject.transform);
 
-        textMessageCluster.GetComponent<VerticalLayoutGroup>().spacing = 20;
-
         for (int i = 0; i < texts.Length; i++)
         {
             currentTextMessage = Instantiate(textMessagePrefab, textMessageCluster.transform);
 
             currentTextMessage.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = texts[i];
-
-            textMessageCluster.GetComponent<VerticalLayoutGroup>().spacing = 20;
         }
     }
 }
