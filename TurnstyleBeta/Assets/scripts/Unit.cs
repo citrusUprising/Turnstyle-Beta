@@ -488,6 +488,7 @@ public class Unit : MonoBehaviour
         }
         else
         { //again no outputQueue
+            gameLoop.GetComponent<MainLoop>().statused();
             this.statuses[(int) type].name = newStatus;
             this.statuses[(int) type].duration = duration;
             this.statuses[(int) type].magnitude = magnitude;

@@ -202,6 +202,7 @@ MonoBehaviour:
   targetPointer: {fileID: 1878042729}
   pentagonRotateX: -50
   pentagonRotateY: 0
+  statused: 0
   nameTagBeverly: {fileID: 791818962}
   nameTagAmery: {fileID: 17120531}
   nameTagKoralie: {fileID: 545475370}
@@ -2717,7 +2718,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatCon: {fileID: 61845105}
-  sceneCanvas: {fileID: 1382596076}
+  sceneCanvases:
+  - {fileID: 1382596076}
   scene: combat
   isOpen: 0
   pageCount: 0

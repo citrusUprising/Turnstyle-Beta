@@ -324,6 +324,10 @@ public class MainLoop : MonoBehaviour
    		}
    	}
 
+    public void statused(){
+        uiController.GetComponent<combatController>().statused = true;
+    }
+
 
    	//Coroutine for displaying output
    	public IEnumerator OutputText(){

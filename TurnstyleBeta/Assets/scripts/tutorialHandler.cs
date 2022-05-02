@@ -9,8 +9,9 @@ public class tutorialHandler : MonoBehaviour
     public TutorialSegment[][] allTutorials;
     private GameObject[][] highlightObjects; 
     [SerializeField] private GameObject combatCon;
-    [SerializeField] private GameObject sceneCanvas;
+    [SerializeField] private GameObject[] sceneCanvases;
     [SerializeField] private string scene;
+    [SerializeField] private GameObject[] background = new GameObject[0];
     
     private Image[] sceneObjects;
     public bool isOpen;
@@ -31,7 +32,7 @@ public class tutorialHandler : MonoBehaviour
     {
         newCanvas();
         if(scene == "nodeMap")
-        allTutorials = this.GetComponent<comTutorialScript>().allTutorials;
+        allTutorials = this.GetComponent<mapTutorialScript>().allTutorials;
         else if (scene == "combat")
         allTutorials = this.GetComponent<comTutorialScript>().allTutorials; 
     }
@@ -42,7 +43,18 @@ public class tutorialHandler : MonoBehaviour
     }
 
     void newCanvas(){
-        sceneObjects = sceneCanvas.GetComponentsInChildren<Image>();
+        int temp = 0;
+        for (int i = 0; i <sceneCanvases.Length; i++){
+            temp += sceneCanvases[i].GetComponentsInChildren<Image>().Length;
+        }
+        sceneObjects = new Image[temp];
+        int counter = 0;
+        for(int j = 0; j < sceneCanvases.Length; j++){
+            for(int k = 0; k < sceneCanvases[j].GetComponentsInChildren<Image>().Length; k++){
+                sceneObjects[k+counter] = sceneCanvases[j].GetComponentsInChildren<Image>()[k];
+            }
+            counter += sceneCanvases[j].GetComponentsInChildren<Image>().Length;
+        }
     }
 
     public void nextPage(){
@@ -54,7 +66,7 @@ public class tutorialHandler : MonoBehaviour
             this.close();
         }else{
             makePage(allTutorials[bookCount][pageCount]);
-            if (allTutorials[bookCount][pageCount].trigger == "G"){
+            if (allTutorials[bookCount][pageCount].trigger == "G"&&scene == "combat"){
             combatCon.GetComponent<combatController>().setPage(2);
         }
         }
@@ -63,6 +75,8 @@ public class tutorialHandler : MonoBehaviour
 
     public void open(int book){
         if(!isOpen&&bookCount == book){
+        newCanvas();
+        backgroundToggle(false);
         Transform transform = this.GetComponent<Transform>();
         Vector3 phonePos = transform.localPosition;
         phonePos = new Vector3 (phonePos.x, phonePos.y+550, phonePos.z);
@@ -80,7 +94,8 @@ public class tutorialHandler : MonoBehaviour
 
     public void close(){
         if(isOpen){
-        sceneObjects = sceneCanvas.GetComponentsInChildren<Image>();
+        newCanvas();
+        backgroundToggle(true);
         Transform transform = this.GetComponent<Transform>();
         Vector3 phonePos = transform.localPosition;
         phonePos = new Vector3 (phonePos.x, phonePos.y-550, phonePos.z);
@@ -93,6 +108,15 @@ public class tutorialHandler : MonoBehaviour
         }
         bookCount++;
         }
+    }
+    private void backgroundToggle(bool light){
+        if(background.Length > 0){
+            Color pigment;
+            if(light) pigment = new Color (2.0f,2.0f,2.0f,1.0f);
+            else pigment = new Color (0.5f,0.5f,0.5f,1.0f);
+            for (int i = 0; i < background.Length; i++)
+                background[i].GetComponent<SpriteRenderer>().color *= pigment;
+        }    
     }
 
     private void makePage(TutorialSegment page){
@@ -112,7 +136,7 @@ public class tutorialHandler : MonoBehaviour
         if(light) shade = new Color (2.0f,2.0f,2.0f,1.0f);
         else shade = new Color (0.5f,0.5f,0.5f,1.0f);
         if(scene == "nodeMap"){
-            highlightObjects = this.GetComponent<comTutorialScript>().sceneItems; //flag
+            highlightObjects = this.GetComponent<mapTutorialScript>().sceneItems; //flag
             for (int i = 0; i < highlightObjects[cat].Length;i++){
                 highlightObjects[cat][i].GetComponent<Image>().color *= shade;
                 Image[] temp;

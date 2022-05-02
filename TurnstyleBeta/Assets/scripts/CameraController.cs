@@ -30,10 +30,12 @@ public class CameraController : MonoBehaviour
     public GameObject moneyTxt;
     public GameObject objective;
     public GameObject pointer;
+    private bool xDown;
 
     public GameObject pauseMenu;
     private GameObject pauseMenuObject;
     public Canvas canvas;
+    public GameObject tutorialPhone;
 
     private bool loading = false;
     private bool pulseUp = true;
@@ -54,6 +56,7 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        xDown = false;
         //cancels out of game after final cutscene
         if(currentCutScene == 4){
             Music.SetActive(false);
@@ -85,6 +88,37 @@ public class CameraController : MonoBehaviour
         //Debug.Log("Actice Scene Count: " + SceneManager.sceneCount);
         if (SceneManager.sceneCount == 1&&!loading) 
         {
+            if(tutorialPhone.GetComponent<tutorialHandler>().isOpen){
+            int bookTemp = tutorialPhone.GetComponent<tutorialHandler>().bookCount;
+            int pageTemp = tutorialPhone.GetComponent<tutorialHandler>().pageCount;
+                //Changes accepted input to continue
+                switch (tutorialPhone.GetComponent<tutorialHandler>().allTutorials[bookTemp][pageTemp].trigger){
+                    case "xDown":
+                    if(xPress()){
+                        tutorialPhone.GetComponent<tutorialHandler>().nextPage();
+                    }
+                    break;
+
+                    case "ArrowKeys":
+                    xDown = false;
+                    if(Input.GetKeyDown(KeyCode.UpArrow)||
+                        Input.GetKeyDown(KeyCode.DownArrow)||
+                        Input.GetKeyDown(KeyCode.LeftArrow)||
+                        Input.GetKeyDown(KeyCode.RightArrow))
+                            tutorialPhone.GetComponent<tutorialHandler>().nextPage();
+                    break;
+
+                    case "G":
+                    xDown = false;
+                    if(Input.GetKeyDown(KeyCode.G))
+                        tutorialPhone.GetComponent<tutorialHandler>().nextPage();
+                    break;
+
+                    default:
+                    break;
+                }
+            }
+
             if(money >=0)Music.SetActive(true);
 
             if (pauseMenuObject == null)
@@ -109,7 +143,7 @@ public class CameraController : MonoBehaviour
                     }
                 }
 
-                if (Input.GetKeyDown(KeyCode.X))
+                if (xPress())
                 {
                     currentStation.transform.localScale = new Vector3(1, 1, 1);
                     moveToStation(currentLine);
@@ -157,6 +191,7 @@ public class CameraController : MonoBehaviour
                 StartCoroutine(loadScene("tutorialScene"));
                 Music.SetActive(false);
                 currentStation.endCombat();
+                tutorialPhone.GetComponent<tutorialHandler>().open(0);
             }
         }
 
@@ -168,6 +203,15 @@ public class CameraController : MonoBehaviour
         var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
         pointer.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+    }
+
+    bool xPress(){
+        if(Input.GetKeyDown(KeyCode.X)&&!xDown){
+        xDown = true;
+        return true;
+        }
+        else
+        return false;
     }
 
     void moveToStation(int s)

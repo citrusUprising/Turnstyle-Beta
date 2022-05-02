@@ -13,18 +13,6 @@ public class comTutorialScript : MonoBehaviour
 [SerializeField] private GameObject[] speedSelect;
 [SerializeField] private GameObject[] totalSpeed;
 [SerializeField] private GameObject[] statusBar;
-    public enum highlightList
-    {
-        pentagon = 0,
-        activeChar = 1,
-        passiveChar = 2,
-        activeNames = 3,
-        passiveNames = 4,
-        speedSelect = 5,
-        totalSpeed = 6,
-        statusBar = 7
-
-    }
 
     public TutorialSegment[][] allTutorials;
     public GameObject[][] sceneItems = new GameObject[8][];
@@ -111,6 +99,11 @@ public class comTutorialScript : MonoBehaviour
         );
         pageFiller++;
 
+        //ends Current tutorials section and writes to allTutorials
+        addTutorialText(temp,bookFiller,pageFiller);
+        bookFiller++;
+        pageFiller = 0;
+
         temp[pageFiller] = new TutorialSegment(
             new string[2]{"Each <b>Turn,</b> you assign each <b>Party Member</b> a <b>Speed</b> value."
                         , "Characters with <b>high Speed act first.</b>"}, 
@@ -141,6 +134,11 @@ public class comTutorialScript : MonoBehaviour
         );
         pageFiller++;
 
+        //ends Current tutorials section and writes to allTutorials
+        addTutorialText(temp,bookFiller,pageFiller);
+        bookFiller++;
+        pageFiller = 0;
+
         temp[pageFiller] = new TutorialSegment(
             new string[1]{"This is where you can see someone’s <b>Status Effects.</b>"}, 
             new int[1]{7}, 
@@ -154,16 +152,6 @@ public class comTutorialScript : MonoBehaviour
             "G"
         );
         pageFiller++;
-
-        //ends Current tutorials section and writes to allTutorials
-        addTutorialText(temp,bookFiller,pageFiller);
-        bookFiller++;
-        pageFiller = 0;
-
-        //ends Current tutorials section and writes to allTutorials
-        addTutorialText(temp,bookFiller,pageFiller);
-        bookFiller++;
-        pageFiller = 0;
 
         //ends Current tutorials section and writes to allTutorials
         addTutorialText(temp,bookFiller,pageFiller);

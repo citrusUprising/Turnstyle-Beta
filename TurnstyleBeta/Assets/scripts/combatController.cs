@@ -131,7 +131,7 @@ public class combatController : MonoBehaviour
     // --------------------------------------------------------- //
         private GameObject Stats;
         private int currentTutorial;
-        private bool runTutorial;
+        public bool statused;
 
     // --------------------------------------------------------- //
     // these are used in the rotate state, but will also be used
@@ -257,7 +257,7 @@ public class combatController : MonoBehaviour
 
         //Sets tutorial
         this.isTutorial = Stats.GetComponent<CurrentStats>().isTutorial;
-        runTutorial = true;
+        statused = false;
 
         xDown = false;
         combatDone = false;
@@ -266,10 +266,8 @@ public class combatController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isTutorial&&runTutorial){
+        if (isTutorial)
         tutorialHandler.GetComponent<tutorialHandler>().open(0);
-        runTutorial = false;
-        }
 
         if(Input.GetKeyDown(KeyCode.X)){
             xDown = true;
@@ -744,6 +742,7 @@ public class combatController : MonoBehaviour
 
     public void transitionToRotate()
     {
+
         combatDone = false;
         Color temp = this.pentagonSprite.GetComponent<Image>().color;
         temp.a = 1.0f;
@@ -760,6 +759,9 @@ public class combatController : MonoBehaviour
         nameTagArray[1].showPassive(); // show
         nameTagArray[2].showPassive(); // show
         //glossaryPopUp(2);
+
+        if(isTutorial&&statused)
+        tutorialHandler.GetComponent<tutorialHandler>().open(2);
     }
 
     void transitionToMoveSelect()
@@ -934,6 +936,7 @@ public class combatController : MonoBehaviour
         speedForCurrentMove = 0;
 
         //glossaryPopUp(1);
+        if(isTutorial) tutorialHandler.GetComponent<tutorialHandler>().open(1);
     }
 
     void changeSpeed(int change)
