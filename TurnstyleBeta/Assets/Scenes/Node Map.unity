@@ -2227,6 +2227,8 @@ MonoBehaviour:
   - {fileID: 1208892394}
   - {fileID: 929340984}
   scene: nodeMap
+  background:
+  - {fileID: 722258253}
   isOpen: 0
   pageCount: 0
   bookCount: 0
