@@ -118,6 +118,7 @@ public class dialogueEngine : MonoBehaviour
 			{
 				GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentCutScene++;
 				dialogueChoice = 0;
+				//GameObject.Find("CurrentStats").GetComponent<savingEngine>().checkpoint();
 				SceneManager.UnloadSceneAsync(sceneName);
 			}
 
@@ -142,7 +143,9 @@ public class dialogueEngine : MonoBehaviour
 					if (dialogueChoice >= dialogueVarieties.Length)
 					{
 						GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentCutScene++;
+						
 						dialogueChoice = 0;
+						GameObject.Find("CurrentStats").GetComponent<savingEngine>().checkpoint();
 						SceneManager.UnloadSceneAsync(sceneName);
 					}
 					else

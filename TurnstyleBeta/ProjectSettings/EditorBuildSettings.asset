@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/mainMenuScene.unity
     guid: f0238e72bcba9c740af1e748bbc0d2c6
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/combatScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/tutorialScene.unity
     guid: 68971e2b08f65b7439511254072b9652
+  - enabled: 1
+    path: Assets/Scenes/gameOver.unity
+    guid: b4c059564bbe74e48ae435377896cd59
   m_configObjects: {}

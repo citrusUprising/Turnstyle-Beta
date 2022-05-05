@@ -16,7 +16,9 @@ public class titleScreen : MonoBehaviour
     public GameObject creditsText;
     public GameObject exit;
     public GameObject settings;
-    public GameObject start;
+    public GameObject resume;
+    public GameObject newGame;
+    
 
     private int selectedOption = 0;
     public GameObject[] options;
@@ -80,9 +82,15 @@ public class titleScreen : MonoBehaviour
                 // Play select sound sfx
                 selectSound.GetComponent<FMODUnity.StudioEventEmitter>().Play();
 
-                if (options[selectedOption] == start)
+                if (options[selectedOption] == newGame)
                 {
-                    StartCoroutine(loadScene(2));
+                    //GameObject.Find("CurrentStats").GetComponent<savingEngine>().reset();
+                    StartCoroutine(loadScene(1));
+                }
+
+                else if (options[selectedOption] == resume){
+                    GameObject.Find("CurrentStats").GetComponent<savingEngine>().retry();
+                    StartCoroutine(loadScene(1));
                 }
 
                 else if (options[selectedOption] == settings)

@@ -327,6 +327,7 @@ public class Unit : MonoBehaviour
                             false)
                             );
                             highest.hp = Math.Max(highest.hp-transfer, 0);
+                            highest.Kill();
                             gameLoop.outputQueue.Add(new displayObject(highest.unitName+" gave "+transfer+" health",
                             highest,
                             transfer,
