@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!95 &104285465 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9017956464561179415, guid: a3342c13ef0122547a47ee636bc14559, type: 3}
+  m_PrefabInstance: {fileID: 413653367}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &345391167
 GameObject:
   m_ObjectHideFlags: 0
@@ -962,8 +967,10 @@ MonoBehaviour:
   titleScreenLabel: {fileID: 382717860}
   labelContainer: {fileID: 859229575}
   gameOverText: {fileID: 1186452805}
-  transitionAnimator: {fileID: 0}
+  transitionAnimator: {fileID: 104285465}
   transitionObject: {fileID: 413653368}
+  selectSound: {fileID: 706397275}
+  menuScroll: {fileID: 1778263378}
 --- !u!114 &1290237397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1121,6 +1128,7 @@ GameObject:
   - component: {fileID: 1853780393}
   - component: {fileID: 1853780392}
   - component: {fileID: 1853780391}
+  - component: {fileID: 1853780394}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1193,3 +1201,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1853780394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1853780390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 0}
+  ListenerNumber: -1
