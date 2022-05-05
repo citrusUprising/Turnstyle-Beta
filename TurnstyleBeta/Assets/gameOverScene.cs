@@ -25,7 +25,10 @@ public class gameOverScene : MonoBehaviour
 
     public Animator transitionAnimator;
     public GameObject transitionObject;
-    
+
+    public GameObject selectSound;
+    public GameObject menuScroll;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,11 +45,18 @@ public class gameOverScene : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.UpArrow)
                         || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow))
             {
+                menuScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+
                 toggleSelectedLabel();
             }
 
             if (Input.GetKeyDown(KeyCode.X))
             {
+
+                selectSound.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+
+                isLerping = true;
+
                 if (currentSelectedLabel == restartLabel)
                 {
                     restartFromCheckpoint();
