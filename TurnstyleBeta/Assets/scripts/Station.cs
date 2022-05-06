@@ -32,7 +32,7 @@ public class Station : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(hasCombat){
+        if(hasCombat && cutscene < 1){
             this.GetComponent<Image>().sprite = encounter;
         }else{
             this.GetComponent<Image>().sprite = standard;

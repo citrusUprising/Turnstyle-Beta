@@ -10,6 +10,7 @@ class SaveData
 {
     public int currentStation;
     public int currentCutscene;
+    public int currentTutorial;
 }
 
 public class savingEngine : MonoBehaviour
@@ -40,9 +41,10 @@ public bool load;
     data.currentStation = 
     Array.IndexOf(GameObject.Find("NodeMapCamera").GetComponent<CameraController>().allStations,
     GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentStation);
-    Debug.Log("the current saved station is #"+data.currentStation);
+    //Debug.Log("the current saved station is #"+data.currentStation);
     data.currentCutscene = GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentCutScene;
-    Debug.Log("the current saved cutscene is #"+data.currentCutscene);
+    //Debug.Log("the current saved cutscene is #"+data.currentCutscene);
+    data.currentTutorial = GameObject.Find("CurrentStats").GetComponent<CurrentStats>().currentTutorial;
 	bf.Serialize(file, data);
 	file.Close();
 	Debug.Log("Game data saved!");
@@ -64,9 +66,10 @@ public bool load;
 		SaveData data = (SaveData)bf.Deserialize(file);
 		file.Close();
         GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentStation = GameObject.Find("NodeMapCamera").GetComponent<CameraController>().allStations[data.currentStation];
-        Debug.Log("the current loaded station is #"+data.currentStation);
+        //Debug.Log("the current loaded station is #"+data.currentStation);
         GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentCutScene = data.currentCutscene;
-        Debug.Log("the current loaded cutscene is #"+data.currentCutscene);
+        //Debug.Log("the current loaded cutscene is #"+data.currentCutscene);
+        GameObject.Find("CurrentStats").GetComponent<CurrentStats>().currentTutorial = data.currentTutorial;
 		Debug.Log("Game data loaded!");
 	}
 	else
