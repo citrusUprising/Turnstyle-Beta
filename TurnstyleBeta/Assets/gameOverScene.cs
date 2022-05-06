@@ -29,6 +29,11 @@ public class gameOverScene : MonoBehaviour
     public GameObject selectSound;
     public GameObject menuScroll;
 
+    public GameObject grayBox;
+
+    public GameObject pentagonTop;
+    public GameObject pentagonBottom;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -104,14 +109,20 @@ public class gameOverScene : MonoBehaviour
 
         isLerping = true;
 
-        Vector3 oldGameOverPos = gameOverText.transform.position;
-        Vector3 newGameOverPos = new Vector3(Screen.width / 2, (int)Screen.height * .75f, 0);
+        Vector3 oldGameOverPos = gameOverText.transform.localPosition;
+        Vector3 newGameOverPos = new Vector3(0, 203, 0);
 
-        Vector3 oldLabelContainerPos = labelContainer.transform.position;
-        Vector3 newLabelContainerPos = new Vector3(Screen.width / 2, Screen.height / 2, 0);
+        Vector3 oldLabelContainerPos = labelContainer.transform.localPosition;
+        Vector3 newLabelContainerPos = new Vector3(0, -175, 0);
 
-        int oldAlpha = 0;
+        Vector3 oldPentagonTopPos = pentagonTop.transform.localPosition;
+        Vector3 oldPentagonBottomPos = pentagonBottom.transform.localPosition;
+
+        Vector3 newPentagonPos = new Vector3(0, 0, 0);
+
+        float oldAlpha = 0f;
         float newAlpha = .5f;
+        float newAlphaGrayBox = 2f;
 
         while (time < duration)
         {
@@ -119,11 +130,14 @@ public class gameOverScene : MonoBehaviour
 
             t = t * t * (3f - 2f * t);
 
-            gameOverText.transform.position = Vector3.Lerp(oldGameOverPos, newGameOverPos, t);
-            labelContainer.gameObject.transform.position = Vector3.Lerp(oldLabelContainerPos, newLabelContainerPos, t);
-            whiteRectangle.GetComponent<CanvasRenderer>().SetAlpha(Mathf.Lerp(oldAlpha, newAlpha, t));
+            gameOverText.transform.localPosition = Vector3.Lerp(oldGameOverPos, newGameOverPos, t);
+            labelContainer.gameObject.transform.localPosition = Vector3.Lerp(oldLabelContainerPos, newLabelContainerPos, t);
 
-            Debug.Log(whiteRectangle.GetComponent<CanvasRenderer>().GetAlpha());
+            pentagonTop.gameObject.transform.localPosition = Vector3.Lerp(oldPentagonTopPos, newPentagonPos, t);
+            pentagonBottom.gameObject.transform.localPosition = Vector3.Lerp(oldPentagonBottomPos, newPentagonPos, t);
+
+            whiteRectangle.GetComponent<CanvasRenderer>().SetAlpha(Mathf.Lerp(oldAlpha, newAlpha, t));
+            grayBox.GetComponent<CanvasRenderer>().SetAlpha(Mathf.Lerp(oldAlpha, newAlphaGrayBox, t));
 
             time += Time.deltaTime;
 
@@ -132,9 +146,14 @@ public class gameOverScene : MonoBehaviour
 
         t = 1;
 
-        gameOverText.transform.position = Vector3.Lerp(oldGameOverPos, newGameOverPos, t);
-        labelContainer.transform.position = Vector3.Lerp(oldLabelContainerPos, newLabelContainerPos, t);
+        gameOverText.transform.localPosition = Vector3.Lerp(oldGameOverPos, newGameOverPos, t);
+        labelContainer.gameObject.transform.localPosition = Vector3.Lerp(oldLabelContainerPos, newLabelContainerPos, t);
+
+        pentagonTop.gameObject.transform.localPosition = Vector3.Lerp(oldPentagonTopPos, newPentagonPos, t);
+        pentagonBottom.gameObject.transform.localPosition = Vector3.Lerp(oldPentagonBottomPos, newPentagonPos, t);
+
         whiteRectangle.GetComponent<CanvasRenderer>().SetAlpha(Mathf.Lerp(oldAlpha, newAlpha, t));
+        grayBox.GetComponent<CanvasRenderer>().SetAlpha(Mathf.Lerp(oldAlpha, newAlphaGrayBox, t));
 
         isLerping = false;
     }

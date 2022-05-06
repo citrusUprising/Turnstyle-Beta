@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class TutorialSegment{
     public string[] text;
@@ -196,6 +197,8 @@ public class combatController : MonoBehaviour
     public GameObject speedScroll;
     public GameObject selectSound;
 
+    private bool isSceneOverlayActive = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -266,309 +269,324 @@ public class combatController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isTutorial)
-        tutorialHandler.GetComponent<tutorialHandler>().open(0);
+        if (isSceneOverlayActive == false)
+        {
+            if (isTutorial)
+                tutorialHandler.GetComponent<tutorialHandler>().open(0);
 
-        if(Input.GetKeyDown(KeyCode.X)){
-            xDown = true;
-        }
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                xDown = true;
+            }
 
-        //Disables Tutorial Logic if there is no tutorial
-        if(isTutorial){
-            int bookTemp = tutorialHandler.GetComponent<tutorialHandler>().bookCount;
-            int pageTemp = tutorialHandler.GetComponent<tutorialHandler>().pageCount;
+            //Disables Tutorial Logic if there is no tutorial
+            if (isTutorial)
+            {
+                int bookTemp = tutorialHandler.GetComponent<tutorialHandler>().bookCount;
+                int pageTemp = tutorialHandler.GetComponent<tutorialHandler>().pageCount;
 
-            
-            if(tutorialHandler.GetComponent<tutorialHandler>().isOpen){
-                //Changes accepted input to continue
-                switch (tutorialHandler.GetComponent<tutorialHandler>().allTutorials[bookTemp][pageTemp].trigger){
-                    case "xDown":
-                    if(xPress()){
-                        tutorialHandler.GetComponent<tutorialHandler>().nextPage();
+
+                if (tutorialHandler.GetComponent<tutorialHandler>().isOpen)
+                {
+                    //Changes accepted input to continue
+                    switch (tutorialHandler.GetComponent<tutorialHandler>().allTutorials[bookTemp][pageTemp].trigger)
+                    {
+                        case "xDown":
+                            if (xPress())
+                            {
+                                tutorialHandler.GetComponent<tutorialHandler>().nextPage();
+                            }
+                            break;
+
+                        case "ArrowKeys":
+                            xDown = false;
+                            if (Input.GetKeyDown(KeyCode.UpArrow) ||
+                                Input.GetKeyDown(KeyCode.DownArrow) ||
+                                Input.GetKeyDown(KeyCode.LeftArrow) ||
+                                Input.GetKeyDown(KeyCode.RightArrow))
+                                tutorialHandler.GetComponent<tutorialHandler>().nextPage();
+                            break;
+
+                        case "G":
+                            xDown = false;
+                            if (Input.GetKeyDown(KeyCode.G))
+                                tutorialHandler.GetComponent<tutorialHandler>().nextPage();
+                            break;
+
+                        default:
+                            break;
                     }
-                    break;
-
-                    case "ArrowKeys":
-                    xDown = false;
-                    if(Input.GetKeyDown(KeyCode.UpArrow)||
-                        Input.GetKeyDown(KeyCode.DownArrow)||
-                        Input.GetKeyDown(KeyCode.LeftArrow)||
-                        Input.GetKeyDown(KeyCode.RightArrow))
-                            tutorialHandler.GetComponent<tutorialHandler>().nextPage();
-                    break;
-
-                    case "G":
-                    xDown = false;
-                    if(Input.GetKeyDown(KeyCode.G))
-                        tutorialHandler.GetComponent<tutorialHandler>().nextPage();
-                    break;
-
-                    default:
-                    break;
                 }
             }
-        }
 
-        if (glossaryObject.GetComponent<glossaryScript>().isShowing == false)
-        {
-
-            if (pauseMenuInstance == null)
+            if (glossaryObject.GetComponent<glossaryScript>().isShowing == false)
             {
-                // if the state is "rotate," than the available controls are up and down to rotate and Z to advance to move select
-                if (state == "rotate")
+
+                if (pauseMenuInstance == null)
                 {
-                    // if you press X, advance to the next state, destroying the rotate UI and replacing it with move select UI
-                    if (xPress() && isRotating == false)
+                    // if the state is "rotate," than the available controls are up and down to rotate and Z to advance to move select
+                    if (state == "rotate")
                     {
-                        menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
-                        gameLoop.setActiveUnits(nameTagArray);
-                        Debug.Log("Setting Active Units");
-                        Color temp = this.pentagonSprite.GetComponent<Image>().color;
-                        temp.a = 0.0f;
-                        this.pentagonSprite.GetComponent<Image>().color = temp;
-                        transitionToMoveSelect();
-                    }
-                    if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
-                    {
-                        // if the pentagon is NOT rotating, then begin rotating DOWN
-                        if (!isRotating)
+                        // if you press X, advance to the next state, destroying the rotate UI and replacing it with move select UI
+                        if (xPress() && isRotating == false)
                         {
-                            turnstyleRotate.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
-                            beginRotatingPentagon(-1);
+                            menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
+                            gameLoop.setActiveUnits(nameTagArray);
+                            Debug.Log("Setting Active Units");
+                            Color temp = this.pentagonSprite.GetComponent<Image>().color;
+                            temp.a = 0.0f;
+                            this.pentagonSprite.GetComponent<Image>().color = temp;
+                            transitionToMoveSelect();
+                        }
+                        if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
+                        {
+                            // if the pentagon is NOT rotating, then begin rotating DOWN
+                            if (!isRotating)
+                            {
+                                turnstyleRotate.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
+                                beginRotatingPentagon(-1);
+                            }
+
+                        }
+                        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.RightArrow))
+                        {
+                            // if the pentagon IS rotating, then begin rotating UP
+                            if (!isRotating)
+                            {
+                                turnstyleRotate.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
+                                beginRotatingPentagon(1);
+                            }
+                        }
+                        // here is all the logic 
+                        // if (isRotating)
+                        // {
+                        //     rotatePentagon();
+                        // }
+                    }
+
+                    else if (state == "moveSelect")
+                    {
+                        // when the down arrow is pressed, move the selection down
+                        if (Input.GetKeyDown(KeyCode.DownArrow))
+                        {
+                            menuScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
+                            changeSelectedAbilityIndex(1);
+                            // nameTagArray[numberOfSelectedMoves].GetComponent<PlayerMoveSelect>().movePointer(1);
+
+                        }
+                        // when the up arrow is pressed, move the selection up
+                        if (Input.GetKeyDown(KeyCode.UpArrow))
+                        {
+                            menuScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
+                            changeSelectedAbilityIndex(-1);
+                            // nameTagArray[numberOfSelectedMoves].GetComponent<PlayerMoveSelect>().movePointer(-1);
+                        }
+                        // when the X key is pressed, we need to go to selecting targets
+                        if (xPress())
+                        {
+                            menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
+                            selectedAbility = nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities[selectedAbilityIndex];
+                            actions[numberOfSelectedMoves] += selectedAbility.name + " on ";
+                            transitionToTargetSelect();
+                        }
+                        // back function needs to be implemented
+                        // should go back to rotate if numberOfSelectedMoves is 0 and back to moveSelect if it is greater than zero
+                        // if it goes back to moveSelect, then it should -- numberOfSelectedMoves
+                        else if (Input.GetKeyDown(KeyCode.Z))
+                        {
+                            //menuBack.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
+                            if (numberOfSelectedMoves == 0)
+                            {
+                                transitionToRotate();
+                            }
+                            else
+                            {
+                                numberOfSelectedMoves--;
+                                transitionToMoveSelect();
+                            }
+                        }
+                    }
+
+                    // needs to be implemented
+                    else if (state == "targetSelect")
+                    {
+                        // when the down arrow is pressed, move the selection down
+                        if (Input.GetKeyDown(KeyCode.LeftArrow))
+                        {
+                            menuScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
+                            Debug.Log("previous enemy");
+                            changeSelectedTarget(-1, selectedAbility.allies);
+                            // change target   
+                        }
+                        // when the up arrow is pressed, move the selection up
+                        if (Input.GetKeyDown(KeyCode.RightArrow))
+                        {
+                            menuScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
+                            Debug.Log("next enemy");
+                            changeSelectedTarget(1, selectedAbility.allies);
+                        }
+                        // when the X key is pressed, we need to go to selecting speed
+                        if (xPress() && !selectedTarget.dead)
+                        {
+                            menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
+                            targetPointer.GetComponent<CanvasRenderer>().SetAlpha(0);
+                            transitionToSpeedSelect();
+                        }
+                        else if (xPress())
+                        {
+                            speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX //flag
+                        }
+                        else if (Input.GetKeyDown(KeyCode.Z))
+                        {
+                            // possibly hide cursor here
+                            targetPointer.GetComponent<CanvasRenderer>().SetAlpha(0);
+                            transitionToMoveSelect();
+                        }
+                    }
+
+                    else if (state == "speedSelect")
+                    {
+                        // this confirms the selected speed and goes to the next state
+                        // if there have been three selected moves, then it goes to the confirm state
+                        // if there have not, it goes to move select
+                        if (xPress())
+                        {
+                            menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
+
+                            // destroy the old speedIndicator2 (the one on top of the speed select sprite)
+                            // i had to make a custom function for some reason idk
+                            totalSpeedIndicator2.destroySelf();
+
+                            selectedSpeed = selectedSpeeds[numberOfSelectedMoves];
+                            Debug.Log("Selected Unit: " + selectedUnit.name);
+                            Debug.Log("Selected Target: " + selectedTarget.name);
+                            Debug.Log("Selected Ability: " + selectedAbility.name);
+                            Debug.Log("Selected Speed: " + selectedSpeed);
+                            //gameLoop.debugPlayerUnits();
+                            gameLoop.setPlayerAction(selectedUnit, selectedTarget, selectedAbility, selectedSpeed);
+
+                            // this is used for a few different things, including handling which unit is acting
+                            numberOfSelectedMoves++;
+
+                            if (numberOfSelectedMoves == 3)
+                            {
+                                transitionToConfirm();
+                            }
+                            else
+                            {
+                                transitionToMoveSelect();
+                            }
+                        }
+
+                        // back function: needs to be implemented
+                        // should go back to the target select and reset the speed that was set for that move
+                        else if (Input.GetKeyDown(KeyCode.Z))
+                        {
+                            selectedSpeeds[numberOfSelectedMoves] = 0;
+                            transitionToTargetSelect();
+                        }
+
+                        // changes the speed of the selected move up by one
+                        else if (Input.GetKeyDown(KeyCode.UpArrow))
+                        {
+                            speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
+                            changeSpeed(1);
+                        }
+
+                        // changes it down by one
+                        else if (Input.GetKeyDown(KeyCode.DownArrow))
+                        {
+                            speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
+                            changeSpeed(-1);
                         }
 
                     }
-                    if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.RightArrow))
+
+                    else if (state == "confirm")
                     {
-                        // if the pentagon IS rotating, then begin rotating UP
-                        if (!isRotating)
+                        if (xPress())
                         {
-                            turnstyleRotate.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
-                            beginRotatingPentagon(1);
+                            if (selectedAbility.allies)
+                            {
+                                actions[numberOfSelectedMoves - 1] += nameTagArray[targetIndex].GetComponent<nameTag>().character.GetComponent<Friendly>().name;
+                            }
+                            else
+                            {
+                                actions[numberOfSelectedMoves - 1] += enemies[targetIndex].GetComponent<Enemy>().name;
+                            }
+                            menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
+                            transitionToPlayResults();
                         }
-                    }
-                    // here is all the logic 
-                    // if (isRotating)
-                    // {
-                    //     rotatePentagon();
-                    // }
-                }
-
-                else if (state == "moveSelect")
-                {
-                    // when the down arrow is pressed, move the selection down
-                    if (Input.GetKeyDown(KeyCode.DownArrow))
-                    {
-                        menuScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
-                        changeSelectedAbilityIndex(1);
-                        // nameTagArray[numberOfSelectedMoves].GetComponent<PlayerMoveSelect>().movePointer(1);
-
-                    }
-                    // when the up arrow is pressed, move the selection up
-                    if (Input.GetKeyDown(KeyCode.UpArrow))
-                    {
-                        menuScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
-                        changeSelectedAbilityIndex(-1);
-                        // nameTagArray[numberOfSelectedMoves].GetComponent<PlayerMoveSelect>().movePointer(-1);
-                    }
-                    // when the X key is pressed, we need to go to selecting targets
-                    if (xPress())
-                    {
-                        menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
-                        selectedAbility = nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities[selectedAbilityIndex];
-                        actions[numberOfSelectedMoves] += selectedAbility.name + " on ";
-                        transitionToTargetSelect();
-                    }
-                    // back function needs to be implemented
-                    // should go back to rotate if numberOfSelectedMoves is 0 and back to moveSelect if it is greater than zero
-                    // if it goes back to moveSelect, then it should -- numberOfSelectedMoves
-                    else if (Input.GetKeyDown(KeyCode.Z))
-                    {
-                        //menuBack.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
-                        if (numberOfSelectedMoves == 0) {
+                        else if (Input.GetKeyDown(KeyCode.Z))
+                        {
+                            menuBack.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
+                            numberOfSelectedMoves = 0;
                             transitionToRotate();
                         }
-                        else {
-                            numberOfSelectedMoves--;
-                            transitionToMoveSelect();
-                        }
                     }
-                }
 
-                // needs to be implemented
-                else if (state == "targetSelect")
-                {
-                    // when the down arrow is pressed, move the selection down
-                    if (Input.GetKeyDown(KeyCode.LeftArrow))
+                    // THIS NEEDS TO BE DELETED ONCE WE GET FURTHER ALONG
+                    // in the play results state, the player should have no inputs. they should only proceed once all the results are finished displaying. 
+                    // at that point, the turn is complete and the state should be rotate
+                    // cuz we don't have all that done rn, i'm just using this for the moment for bug testing and such
+                    else if (state == "playResults")
                     {
-                        menuScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
-                        Debug.Log("previous enemy");
-                        changeSelectedTarget(-1, selectedAbility.allies);
-                        // change target   
-                    }
-                    // when the up arrow is pressed, move the selection up
-                    if (Input.GetKeyDown(KeyCode.RightArrow))
-                    {
-                        menuScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
-                        Debug.Log("next enemy");
-                        changeSelectedTarget(1, selectedAbility.allies);
-                    }
-                    // when the X key is pressed, we need to go to selecting speed
-                    if (xPress() && !selectedTarget.dead)
-                    {
-                        menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
-                        targetPointer.GetComponent<CanvasRenderer>().SetAlpha(0);
-                        transitionToSpeedSelect();
-                    }
-                    else if (xPress()) {
-                        speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX //flag
-                    }
-                    else if (Input.GetKeyDown(KeyCode.Z))
-                    {
-                        // possibly hide cursor here
-                        targetPointer.GetComponent<CanvasRenderer>().SetAlpha(0);
-                        transitionToMoveSelect();
-                    }
-                }
 
-                else if (state == "speedSelect")
-                {
-                    // this confirms the selected speed and goes to the next state
-                    // if there have been three selected moves, then it goes to the confirm state
-                    // if there have not, it goes to move select
-                    if (xPress())
-                    {
-                        menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
-
-                        // destroy the old speedIndicator2 (the one on top of the speed select sprite)
-                        // i had to make a custom function for some reason idk
-                        totalSpeedIndicator2.destroySelf();
-
-                        selectedSpeed = selectedSpeeds[numberOfSelectedMoves];
-                        Debug.Log("Selected Unit: " + selectedUnit.name);
-                        Debug.Log("Selected Target: " + selectedTarget.name);
-                        Debug.Log("Selected Ability: " + selectedAbility.name);
-                        Debug.Log("Selected Speed: " + selectedSpeed);
-                        //gameLoop.debugPlayerUnits();
-                        gameLoop.setPlayerAction(selectedUnit, selectedTarget, selectedAbility, selectedSpeed);
-
-                        // this is used for a few different things, including handling which unit is acting
-                        numberOfSelectedMoves++;
-
-                        if (numberOfSelectedMoves == 3)
+                        if (Input.GetKeyDown(KeyCode.C) && !combatDone)//flag
                         {
-                            transitionToConfirm();
+                            mainLoopObject.GetComponent<MainLoop>().isSkipped = true;
+                            transitionToRotate();
                         }
-                        else
+                        else if (Input.GetKeyDown(KeyCode.C))
                         {
-                            transitionToMoveSelect();
+                            transitionToRotate();
                         }
-                    }
-
-                    // back function: needs to be implemented
-                    // should go back to the target select and reset the speed that was set for that move
-                    else if (Input.GetKeyDown(KeyCode.Z))
-                    {
-                        selectedSpeeds[numberOfSelectedMoves] = 0;
-                        transitionToTargetSelect();
-                    }
-
-                    // changes the speed of the selected move up by one
-                    else if (Input.GetKeyDown(KeyCode.UpArrow))
-                    {
-                        speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
-                        changeSpeed(1);
-                    }
-
-                    // changes it down by one
-                    else if (Input.GetKeyDown(KeyCode.DownArrow))
-                    {
-                        speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
-                        changeSpeed(-1);
-                    }
-
-                }
-
-                else if (state == "confirm")
-                {
-                    if (xPress())
-                    {
-                        if (selectedAbility.allies)
+                        else if (xPress() && combatDone)
                         {
-                            actions[numberOfSelectedMoves - 1] += nameTagArray[targetIndex].GetComponent<nameTag>().character.GetComponent<Friendly>().name;
+                            transitionToRotate();
                         }
-                        else
+                    }
+
+                    if (state != "playResults")
+                    {
+                        if (Input.GetKeyDown(KeyCode.Escape))
                         {
-                            actions[numberOfSelectedMoves - 1] += enemies[targetIndex].GetComponent<Enemy>().name;
+                            pauseMenuInstance = Instantiate(pauseMenu, glossaryCanvas.transform);
                         }
-                        menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
-                        transitionToPlayResults();
-                    }
-                    else if (Input.GetKeyDown(KeyCode.Z))
-                    {
-                        menuBack.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
-                        numberOfSelectedMoves = 0;
-                        transitionToRotate();
-                    }
-                }
-
-                // THIS NEEDS TO BE DELETED ONCE WE GET FURTHER ALONG
-                // in the play results state, the player should have no inputs. they should only proceed once all the results are finished displaying. 
-                // at that point, the turn is complete and the state should be rotate
-                // cuz we don't have all that done rn, i'm just using this for the moment for bug testing and such
-                else if (state == "playResults")
-                {
-
-                    if (Input.GetKeyDown(KeyCode.C)&&!combatDone)//flag
-                    {
-                        mainLoopObject.GetComponent<MainLoop>().isSkipped = true;
-                        transitionToRotate();
-                    }else if(Input.GetKeyDown(KeyCode.C)){
-                        transitionToRotate();
-                    }else if (xPress()&&combatDone){
-                        transitionToRotate();
-                    }
-                }
-
-                if (state != "playResults")
-                {
-                    if (Input.GetKeyDown(KeyCode.Escape))
-                    {
-                        pauseMenuInstance = Instantiate(pauseMenu, glossaryCanvas.transform);
                     }
                 }
             }
-        }
 
-        if (isRotating == false)
-        {
-            if (Input.GetKeyDown(KeyCode.G))
+            if (isRotating == false)
             {
-                if (glossaryObject.GetComponent<glossaryScript>().isShowing)
+                if (Input.GetKeyDown(KeyCode.G))
                 {
-                    speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+                    if (glossaryObject.GetComponent<glossaryScript>().isShowing)
+                    {
+                        speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
 
-                    glossaryObject.GetComponent<glossaryScript>().hide();
+                        glossaryObject.GetComponent<glossaryScript>().hide();
+                    }
+                    else if (glossaryObject.GetComponent<glossaryScript>().isShowing == false)
+                    {
+                        speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+
+                        glossaryObject.GetComponent<glossaryScript>().show();
+                    }
                 }
-                else if (glossaryObject.GetComponent<glossaryScript>().isShowing == false)
-                {
-                    speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
 
-                    glossaryObject.GetComponent<glossaryScript>().show();
+                if (Input.GetKeyDown(KeyCode.Escape) || xPress() || Input.GetKeyDown(KeyCode.Z))
+                {
+                    if (glossaryObject.GetComponent<glossaryScript>().isShowing)
+                    {
+                        speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+                        glossaryObject.GetComponent<glossaryScript>().hide();
+                    }
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.Escape) || xPress() || Input.GetKeyDown(KeyCode.Z))
-            {
-                if (glossaryObject.GetComponent<glossaryScript>().isShowing)
-                {
-                    speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
-                    glossaryObject.GetComponent<glossaryScript>().hide();
-                }
-            }
+            justUnpaused = false;
         }
-
-        justUnpaused = false;
     }
 
     // gets called once at the beginning of the pentagon rotation when the player presses up or down
