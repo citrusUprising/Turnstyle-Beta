@@ -16,7 +16,9 @@ public class titleScreen : MonoBehaviour
     public GameObject creditsText;
     public GameObject exit;
     public GameObject settings;
-    public GameObject start;
+    public GameObject resume;
+    public GameObject newGame;
+    
 
     private int selectedOption = 0;
     public GameObject[] options;
@@ -51,6 +53,8 @@ public class titleScreen : MonoBehaviour
         randomizeRotateDirection();
 
         gameObject.transform.Rotate(0, 0, Random.Range(0, 5) * 72);
+
+        PlayerPrefs.SetInt("Load", 0);
     }
 
     // Update is called once per frame
@@ -80,9 +84,15 @@ public class titleScreen : MonoBehaviour
                 // Play select sound sfx
                 selectSound.GetComponent<FMODUnity.StudioEventEmitter>().Play();
 
-                if (options[selectedOption] == start)
+                if (options[selectedOption] == newGame)
                 {
-                    StartCoroutine(loadScene(2));
+                    PlayerPrefs.SetInt("Load", 0);
+                    StartCoroutine(loadScene(1));
+                }
+
+                else if (options[selectedOption] == resume){
+                    PlayerPrefs.SetInt("Load", 1);
+                    StartCoroutine(loadScene(1));
                 }
 
                 else if (options[selectedOption] == settings)

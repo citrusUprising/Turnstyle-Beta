@@ -22,4 +22,8 @@ public class CurrentStats : MonoBehaviour
     {
         
     }
+
+    public void Reset(){
+
+    }
 }

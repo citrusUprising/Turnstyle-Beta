@@ -64,7 +64,7 @@ public class gameOverScene : MonoBehaviour
 
                 if (currentSelectedLabel == restartLabel)
                 {
-                    restartFromCheckpoint();
+                    StartCoroutine(restartFromCheckpoint());
                 }
                 else
                 {
@@ -84,9 +84,13 @@ public class gameOverScene : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    void restartFromCheckpoint()
+    IEnumerator restartFromCheckpoint()
     {
-
+        transitionAnimator.SetTrigger("toBlack");
+        
+        yield return new WaitForSeconds(.5f);
+        PlayerPrefs.SetInt("Load", 1);
+        SceneManager.LoadScene(1);
     }
 
     void toggleSelectedLabel()

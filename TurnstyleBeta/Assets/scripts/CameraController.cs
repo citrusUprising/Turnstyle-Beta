@@ -40,6 +40,14 @@ public class CameraController : MonoBehaviour
     private bool loading = false;
     private bool pulseUp = true;
     int money = 5;
+    void Awake(){
+        if(PlayerPrefs.GetInt("Load", 0) == 1){
+            GameObject.Find("CurrentStats").GetComponent<savingEngine>().retry();
+            PlayerPrefs.SetInt("Load", 0);
+        }else{
+            GameObject.Find("CurrentStats").GetComponent<savingEngine>().reset();
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -50,6 +58,7 @@ public class CameraController : MonoBehaviour
         temp = new Color (0.5f,0.43f,0.56f);
         currentStation.GetComponent<Image>().color = temp;
 
+        if(currentCutScene == 0)
         SceneManager.LoadScene("DialogueScene", LoadSceneMode.Additive);
     }
 
@@ -178,6 +187,12 @@ public class CameraController : MonoBehaviour
                 }
                 money +=2; //flag
                 this.MoneyUpdate();
+                GameObject Stats = GameObject.Find("CurrentStats");
+                Stats.GetComponent<CurrentStats>().BeverlyHealth = 16;
+                Stats.GetComponent<CurrentStats>().JadeHealth = 15;
+                Stats.GetComponent<CurrentStats>().KoralieHealth = 20;
+                Stats.GetComponent<CurrentStats>().SeraphimHealth = 10;
+                Stats.GetComponent<CurrentStats>().AmeryHealth = 12;
                 StartCoroutine(loadScene("DialogueScene"));
             }
 
