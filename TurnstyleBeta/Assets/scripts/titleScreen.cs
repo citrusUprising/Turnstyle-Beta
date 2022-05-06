@@ -53,6 +53,8 @@ public class titleScreen : MonoBehaviour
         randomizeRotateDirection();
 
         gameObject.transform.Rotate(0, 0, Random.Range(0, 5) * 72);
+
+        PlayerPrefs.SetInt("Load", 0);
     }
 
     // Update is called once per frame
@@ -84,12 +86,12 @@ public class titleScreen : MonoBehaviour
 
                 if (options[selectedOption] == newGame)
                 {
-                    //GameObject.Find("CurrentStats").GetComponent<savingEngine>().reset();
+                    PlayerPrefs.SetInt("Load", 0);
                     StartCoroutine(loadScene(1));
                 }
 
                 else if (options[selectedOption] == resume){
-                    GameObject.Find("CurrentStats").GetComponent<savingEngine>().retry();
+                    PlayerPrefs.SetInt("Load", 1);
                     StartCoroutine(loadScene(1));
                 }
 

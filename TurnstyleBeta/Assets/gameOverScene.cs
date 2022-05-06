@@ -84,6 +84,7 @@ public class gameOverScene : MonoBehaviour
         transitionAnimator.SetTrigger("toBlack");
         
         yield return new WaitForSeconds(.5f);
+        PlayerPrefs.SetInt("Load", 1);
         SceneManager.LoadScene(1);
     }
 
