@@ -22,7 +22,7 @@ public class combatController : MonoBehaviour
     // variables that effect/control tutorials
     // these shouldn't matter in normal combat scene, other than isTutorial
     // --------------------------------------------------------- //
-    public bool isTutorial;
+    public int isTutorial;
     public GameObject tutorialHandler;
 
     // --------------------------------------------------------- //
@@ -271,8 +271,14 @@ public class combatController : MonoBehaviour
     {
         if (isSceneOverlayActive == false)
         {
-            if (isTutorial)
+            switch (isTutorial){
+                case 0:default:
+                break;
+
+                case 1: 
                 tutorialHandler.GetComponent<tutorialHandler>().open(0);
+                break;
+            }
 
             if (Input.GetKeyDown(KeyCode.X))
             {
@@ -280,7 +286,7 @@ public class combatController : MonoBehaviour
             }
 
             //Disables Tutorial Logic if there is no tutorial
-            if (isTutorial)
+            if (isTutorial > 0)
             {
                 int bookTemp = tutorialHandler.GetComponent<tutorialHandler>().bookCount;
                 int pageTemp = tutorialHandler.GetComponent<tutorialHandler>().pageCount;
@@ -317,6 +323,8 @@ public class combatController : MonoBehaviour
                             break;
                     }
                 }
+                if(statused&&!tutorialHandler.GetComponent<tutorialHandler>().isOpen)
+                    tutorialHandler.GetComponent<tutorialHandler>().open(3);
             }
 
             if (glossaryObject.GetComponent<glossaryScript>().isShowing == false)
@@ -778,8 +786,9 @@ public class combatController : MonoBehaviour
         nameTagArray[2].showPassive(); // show
         //glossaryPopUp(2);
 
-        if(isTutorial&&statused)
-        tutorialHandler.GetComponent<tutorialHandler>().open(2);
+        if(isTutorial>0){
+            tutorialHandler.GetComponent<tutorialHandler>().open(2);
+        }
     }
 
     void transitionToMoveSelect()
@@ -954,7 +963,7 @@ public class combatController : MonoBehaviour
         speedForCurrentMove = 0;
 
         //glossaryPopUp(1);
-        if(isTutorial) tutorialHandler.GetComponent<tutorialHandler>().open(1);
+        if(isTutorial>0) tutorialHandler.GetComponent<tutorialHandler>().open(1);
     }
 
     void changeSpeed(int change)

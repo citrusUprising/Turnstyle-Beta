@@ -202,7 +202,10 @@ public class CameraController : MonoBehaviour
                 GameObject Stats = GameObject.Find("CurrentStats");
                 CurrentStats currStats = Stats.GetComponent<CurrentStats>();
                 currStats.CurrentEnemies = currentStation.Enemies;
-                currStats.isTutorial = currentStation.isTutorial;
+                if(currStats.currentTutorial == currentStation.isTutorial){
+                    currStats.isTutorial = currentStation.isTutorial;
+                    currStats.currentTutorial++;
+                } else currStats.isTutorial = 0;
                 StartCoroutine(loadScene("tutorialScene"));
                 Music.SetActive(false);
                 currentStation.endCombat();

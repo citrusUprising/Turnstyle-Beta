@@ -1439,6 +1439,7 @@ MonoBehaviour:
   AmeryHealth: 12
   CurrentEnemies: []
   isTutorial: 0
+  currentTutorial: 1
 --- !u!4 &533350017
 Transform:
   m_ObjectHideFlags: 0

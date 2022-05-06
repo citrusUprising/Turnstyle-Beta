@@ -26,7 +26,7 @@ public class comTutorialScript : MonoBehaviour
         sceneItems[5] = speedSelect;
         sceneItems[6] = totalSpeed;
         sceneItems[7] = statusBar;
-        populateScript(3);
+        populateScript(4);
     }
 
     private void addTutorialText(TutorialSegment[] temp, int book, int pageNumber){
@@ -56,8 +56,8 @@ public class comTutorialScript : MonoBehaviour
         //-------------------------------------------------------//
 
         temp[pageFiller] = new TutorialSegment(
-            new string[1]{"Each <b>Party Member</b> has their own spot on the <b>Pentagon.</b> Each turn, you can <b>Rotate</b> it however you like."},
-            new int[1]{0},
+            new string[1]{"Welcome to <b>Turnstyle</b>! Let's show you the ropes!"},
+            new int[0]{},
             "xDown"
         );
         pageFiller++;
@@ -82,13 +82,6 @@ public class comTutorialScript : MonoBehaviour
                         ,"They <b>aren’t affected</b> by any <b>moves</b> and <b>lose 2 Fatigue</b> each turn. "},      
             new int[2]{2, 4},   
             "xDown"                     
-        );
-        pageFiller++;
-
-        temp[pageFiller] = new TutorialSegment(
-            new string[1]{"At the beginning of <b>each Turn,</b> you can <b>rotate</b> the <b>Pentagon</b> by pressing the <b>arrow keys.</b> Try it!"},
-            new int[1]{0},
-            "ArrowKeys"                         
         );
         pageFiller++;
 
@@ -139,6 +132,25 @@ public class comTutorialScript : MonoBehaviour
         bookFiller++;
         pageFiller = 0;
 
+         temp[pageFiller] = new TutorialSegment(
+            new string[1]{"Each <b>Party Member</b> has their own spot on the <b>Pentagon.</b> Each turn, you can <b>Rotate</b> it however you like."},
+            new int[1]{0},
+            "xDown"
+        );
+        pageFiller++;
+
+        temp[pageFiller] = new TutorialSegment(
+            new string[1]{"At the beginning of <b>each Turn,</b> you can <b>rotate</b> the <b>Pentagon</b> by pressing the <b>arrow keys.</b> Try it!"},
+            new int[1]{0},
+            "ArrowKeys"                         
+        );
+        pageFiller++;
+
+        //ends Current tutorials section and writes to allTutorials
+        addTutorialText(temp,bookFiller,pageFiller);
+        bookFiller++;
+        pageFiller = 0;
+
         temp[pageFiller] = new TutorialSegment(
             new string[1]{"This is where you can see someone’s <b>Status Effects.</b>"}, 
             new int[1]{7}, 
@@ -147,7 +159,8 @@ public class comTutorialScript : MonoBehaviour
         pageFiller++;
 
         temp[pageFiller] = new TutorialSegment(
-            new string[1]{"These are all the <b>Status Effects.</b> You can see this in the <b>Glossary</b> by pressing <b>G.</b>"}, 
+            new string[2]{"All the <b>Status Effects</b> are visible in the <b>Glossary</b> by pressing <b>G.</b>",
+            "Why don't you check it out?"}, 
             new int[0]{}, 
             "G"
         );
