@@ -14,7 +14,7 @@ public class Script1b : MonoBehaviour
 
         temp[dialogueVarietyCount]=(new overallDialogue("","","Station", 
         new dialogueEntry[]{
-            new dialogueEntry("Having defeated the monsters and arrived at their destination, the team waits at the subway station for Amery to finish his interview.",false,"Happy","Happy","null") //ambientSubway
+            new dialogueEntry("Having defeated the monsters and arrived at their destination, the team waits at the subway station for Amery to finish his interview.",false,"Happy","Happy","Cutscene/subway_ambience") //ambientSubway
             }
 
         ));
@@ -69,7 +69,7 @@ public class Script1b : MonoBehaviour
 
         temp[dialogueVarietyCount]=(new overallDialogue("Seraphim","Amery","Station", 
         new dialogueEntry[]{
-            new dialogueEntry("Complaining as usual, are we, Seraphim?",true,"Sad","Happy","null"),
+            new dialogueEntry("Complaining as usual, are we, Seraphim?",true,"Sad","Happy","Music/AmeryTheme"),
             new dialogueEntry("I…uhm…",false,"Shy","Happy","null"),
             new dialogueEntry("Well, no matter, hello everyone! We meet again!",true,"Shy","Happy","null"),
             new dialogueEntry("The internship interview was a complete success! I have the utmost confidence that I’ll be accepted!",true,"Shy","Happy","null"),
@@ -86,7 +86,7 @@ public class Script1b : MonoBehaviour
 
         temp[dialogueVarietyCount]=(new overallDialogue("Beverly","Amery","Station", 
         new dialogueEntry[]{
-            new dialogueEntry("Ok you two, just stop! You’ve been at each other’s throats since we first woke up!",false,"Angry","Angry","null"),
+            new dialogueEntry("Ok you two, just stop! You’ve been at each other’s throats since we first woke up!",false,"Angry","Angry","stop"), // stop music
             }
 
         ));

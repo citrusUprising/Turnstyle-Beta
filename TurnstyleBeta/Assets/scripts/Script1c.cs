@@ -14,7 +14,7 @@ public class Script1c : MonoBehaviour
 
         temp[dialogueVarietyCount]=(new overallDialogue("","","Station", 
         new dialogueEntry[]{
-            new dialogueEntry("Koralie patiently waits at the subway station for the rest of the team. They zone out on their phone and are currently in the middle of a fierce gacha pull!",false,"Happy","Happy","null") //gacha sounds
+            new dialogueEntry("Koralie patiently waits at the subway station for the rest of the team. They zone out on their phone and are currently in the middle of a fierce gacha pull!",false,"Happy","Happy","Cutscene/subway_ambience") //gacha sounds
             }
 
         ));
@@ -56,7 +56,7 @@ public class Script1c : MonoBehaviour
 
         temp[dialogueVarietyCount]=(new overallDialogue("Koralie","Jade","Station", 
         new dialogueEntry[]{
-            new dialogueEntry("Hey you two, how’s it going?",true,"Shy","Happy","null")
+            new dialogueEntry("Hey you two, how’s it going?",true,"Shy","Happy","Music/MapTheme")
             }
 
         ));
@@ -120,7 +120,7 @@ public class Script1c : MonoBehaviour
 
         temp[dialogueVarietyCount]=(new overallDialogue("Koralie","Amery","Station", 
         new dialogueEntry[]{
-            new dialogueEntry("Aha! I knew it! You’re all badmouthing me! The others I expected, but even you two? Bev, Koralie, how could you?!",true,"Angry","Angry","null"),
+            new dialogueEntry("Aha! I knew it! You’re all badmouthing me! The others I expected, but even you two? Bev, Koralie, how could you?!",true,"Angry","Angry","stop"), // stop music for dramatic effect
             new dialogueEntry("I know that you all have been talking behind my back since this morning! You never show me the respect that I deserve!",true,"Angry","Angry","null"),
             new dialogueEntry("You all think I’m a failure, don’t you? You think I’m incompetent because I can’t land an internship despite all my hard work, huh? Well, fine!",true,"Angry","Angry","null"),
             new dialogueEntry("I don’t need your help! I don’t need anyone else AT ALL! I can fight off the subway monsters just fine by myself!",true,"Angry","Angry","null"),
@@ -188,7 +188,7 @@ public class Script1c : MonoBehaviour
 
         temp[dialogueVarietyCount]=(new overallDialogue("Beverly","Amery","Train", 
         new dialogueEntry[]{
-            new dialogueEntry("We’re here to help you! Now, come on, let’s fight these things!",false,"Happy","Shy","null"),
+            new dialogueEntry("We’re here to help you! Now, come on, let’s fight these things!",false,"Happy","Shy","Music/BattleTheme"),
             new dialogueEntry("NO! What don’t you understand? I can do this just fine by myself! I don’t need your pity! And I definitely don’t need help from people who hate me!",true,"Happy","Angry","null")
             }
 

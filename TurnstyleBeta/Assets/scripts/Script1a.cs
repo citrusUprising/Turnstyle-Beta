@@ -14,7 +14,7 @@ public class Script1a : MonoBehaviour
 
         temp[dialogueVarietyCount]=new overallDialogue("","","ApartmentDark",
         new dialogueEntry[]{
-            new dialogueEntry("It’s bright and early, the sun softly shining through the apartment curtains.",false,"null"),
+            new dialogueEntry("It’s bright and early, the sun softly shining through the apartment curtains.",false,"Music/MapTheme"),
             new dialogueEntry("It is calm and quiet, four college students sleeping soundly. A rare moment in an otherwise loud, often arguing household of five",false,"null"),
             new dialogueEntry("…it’d be a shame if someone were to disturb this peacef—",false,"null"),
             new dialogueEntry("*alarm clock ringing*",false,"Cutscene/alarm"), //alarm
@@ -24,7 +24,7 @@ public class Script1a : MonoBehaviour
         
         temp[dialogueVarietyCount]=new overallDialogue("Amery","","ApartmentLight",
         new dialogueEntry[]{
-            new dialogueEntry("Wakey wakey everyone!! We’re already running late, let’s get a move on!",false,"Happy","Angry","null")
+            new dialogueEntry("Wakey wakey everyone!! We’re already running late, let’s get a move on!",false,"Happy","Angry","Music/AmeryTheme")
             }
         );
         dialogueVarietyCount++;

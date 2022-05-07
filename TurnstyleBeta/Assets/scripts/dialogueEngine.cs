@@ -12,6 +12,7 @@ public class dialogueEntry{
 	public string faceL; 
 	public string faceR; 
 	public string music;
+	public string sfx;
 
 	public dialogueEntry(string line, bool speaker, string music){
 		this.line = line;
@@ -65,6 +66,9 @@ public class dialogueEngine : MonoBehaviour
 	private int dialogueChoice = 0;
 
 	private float textSpeed;
+
+	private FMOD.Studio.EventInstance musicInstance;
+	private FMOD.Studio.EventInstance sfxInstance;
 
 	public GameObject pauseMenu;
 	private GameObject pauseMenuObject;
@@ -191,6 +195,10 @@ public class dialogueEngine : MonoBehaviour
 		}
     }
 
+	void OnDestroy(){
+		musicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT); // fade music out on cutscene end
+	}
+
     public IEnumerator WriteLine(){
     	writing = true;
     	dialogueEntry currentEntry = chosenDialogue.lines[currentLine];
@@ -204,10 +212,8 @@ public class dialogueEngine : MonoBehaviour
     }
 
 	private void playMusic(string path){
-		FMOD.Studio.EventInstance sfxInstance;
-
-		sfxInstance = RuntimeManager.CreateInstance("event:/"+path); 
-		sfxInstance.start();
+		musicInstance = RuntimeManager.CreateInstance("event:/"+path); 
+		musicInstance.start();
 	}
 
 	/* All cutscene sounds
@@ -234,7 +240,12 @@ public class dialogueEngine : MonoBehaviour
 					leftFace.GetComponent<faceHandler>().makeActive();				
 					leftFace.GetComponent<faceHandler>().changeFace(chosenDialogue.speakerA,chosenDialogue.lines[currentLine].faceL);	
         		}
-				if(chosenDialogue.lines[currentLine].music != "null")
-				this.playMusic(chosenDialogue.lines[currentLine].music);
+				if (chosenDialogue.lines[currentLine].music == "stop")
+					musicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+				else if(chosenDialogue.lines[currentLine].music != "null")
+				{
+					musicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+					this.playMusic(chosenDialogue.lines[currentLine].music);
+				}
 	}
 }

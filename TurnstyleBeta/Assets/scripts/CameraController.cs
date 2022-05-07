@@ -59,7 +59,10 @@ public class CameraController : MonoBehaviour
         currentStation.GetComponent<Image>().color = temp;
 
         if(currentCutScene == 0)
-        SceneManager.LoadScene("DialogueScene", LoadSceneMode.Additive);
+        {
+            Music.SetActive(false);
+            SceneManager.LoadScene("DialogueScene", LoadSceneMode.Additive);
+        }
     }
 
     // Update is called once per frame
