@@ -12,21 +12,24 @@ public class dialogueEntry{
 	public string faceL; 
 	public string faceR; 
 	public string music;
+	public string sfx;
 
-	public dialogueEntry(string line, bool speaker, string music){
+	public dialogueEntry(string line, bool speaker, string music, string sfx){
 		this.line = line;
 		this.speaker = speaker;
 		this.music = music;
+		this.sfx = sfx;
 		this.faceL = "happy";
 		this.faceR = "happy";
 	}
 
-	public dialogueEntry(string line, bool speaker, string faceL, string faceR, string music){
+	public dialogueEntry(string line, bool speaker, string faceL, string faceR, string music, string sfx){
 		this.line = line;
 		this.speaker = speaker;
+		this.music = music;
+		this.sfx = sfx;
 		this.faceL = faceL;
 		this.faceR = faceR;
-		this.music = music;
 	}
 }
 
@@ -65,6 +68,9 @@ public class dialogueEngine : MonoBehaviour
 	private int dialogueChoice = 0;
 
 	private float textSpeed;
+
+	private FMOD.Studio.EventInstance musicInstance;
+	private FMOD.Studio.EventInstance sfxInstance;
 
 	public GameObject pauseMenu;
 	private GameObject pauseMenuObject;
@@ -191,6 +197,10 @@ public class dialogueEngine : MonoBehaviour
 		}
     }
 
+	void OnDestroy(){
+		musicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT); // fade music out on cutscene end
+	}
+
     public IEnumerator WriteLine(){
     	writing = true;
     	dialogueEntry currentEntry = chosenDialogue.lines[currentLine];
@@ -204,8 +214,11 @@ public class dialogueEngine : MonoBehaviour
     }
 
 	private void playMusic(string path){
-		FMOD.Studio.EventInstance sfxInstance;
+		musicInstance = RuntimeManager.CreateInstance("event:/"+path); 
+		musicInstance.start();
+	}
 
+	private void playSfx(string path){
 		sfxInstance = RuntimeManager.CreateInstance("event:/"+path); 
 		sfxInstance.start();
 	}
@@ -234,7 +247,22 @@ public class dialogueEngine : MonoBehaviour
 					leftFace.GetComponent<faceHandler>().makeActive();				
 					leftFace.GetComponent<faceHandler>().changeFace(chosenDialogue.speakerA,chosenDialogue.lines[currentLine].faceL);	
         		}
-				if(chosenDialogue.lines[currentLine].music != "null")
-				this.playMusic(chosenDialogue.lines[currentLine].music);
+				
+				// music
+				if (chosenDialogue.lines[currentLine].music == "stop")
+					musicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+				else if(chosenDialogue.lines[currentLine].music != "null")
+				{
+					musicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+					this.playMusic(chosenDialogue.lines[currentLine].music);
+				}
+				// sfx
+				if (chosenDialogue.lines[currentLine].sfx == "stop")
+					sfxInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+				else if(chosenDialogue.lines[currentLine].sfx != "null")
+				{
+					sfxInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+					this.playSfx(chosenDialogue.lines[currentLine].sfx);
+				}
 	}
 }

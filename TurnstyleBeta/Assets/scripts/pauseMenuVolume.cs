@@ -25,8 +25,8 @@ public class pauseMenuVolume : MonoBehaviour
     public float sfxVolume;
     public float sfxPercent;
 
-    private float halfAmplitude = 1f;
-    private float maxAmplitude = 4f;
+    public float halfAmplitude = 1f;
+    public float maxAmplitude = 4f;
 
     public GameObject selectSound;
 
@@ -48,6 +48,14 @@ public class pauseMenuVolume : MonoBehaviour
 
         musicVCA = FMODUnity.RuntimeManager.GetVCA("vca:/Music");
         sfxVCA = FMODUnity.RuntimeManager.GetVCA("vca:/SFX");
+
+        // set initial amplitude in case default value isn't .5 for whatever reason
+        musicPercent = sliderMusic.GetComponent<Image>().fillAmount;
+        musicVolume = getMusic();
+        musicVCA.setVolume(musicVolume);
+        sfxPercent = sliderSFX.GetComponent<Image>().fillAmount;
+        sfxVolume = getSFX();
+        sfxVCA.setVolume(sfxVolume);
     }
 
     // Update is called once per frame

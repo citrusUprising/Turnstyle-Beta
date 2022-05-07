@@ -15,7 +15,7 @@ public class Script1d : MonoBehaviour
 
         temp[dialogueVarietyCount]=(new overallDialogue("","","ApartmentDark", 
         new dialogueEntry[]{
-            new dialogueEntry("And with that, the team heads back to their apartment, exhausted after a long day",false,"null")
+            new dialogueEntry("And with that, the team heads back to their apartment, exhausted after a long day",false,"null","null")
             }
 
         ));
