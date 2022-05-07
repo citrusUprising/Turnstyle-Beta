@@ -14,20 +14,22 @@ public class dialogueEntry{
 	public string music;
 	public string sfx;
 
-	public dialogueEntry(string line, bool speaker, string music){
+	public dialogueEntry(string line, bool speaker, string music, string sfx){
 		this.line = line;
 		this.speaker = speaker;
 		this.music = music;
+		this.sfx = sfx;
 		this.faceL = "happy";
 		this.faceR = "happy";
 	}
 
-	public dialogueEntry(string line, bool speaker, string faceL, string faceR, string music){
+	public dialogueEntry(string line, bool speaker, string faceL, string faceR, string music, string sfx){
 		this.line = line;
 		this.speaker = speaker;
+		this.music = music;
+		this.sfx = sfx;
 		this.faceL = faceL;
 		this.faceR = faceR;
-		this.music = music;
 	}
 }
 
@@ -216,6 +218,11 @@ public class dialogueEngine : MonoBehaviour
 		musicInstance.start();
 	}
 
+	private void playSfx(string path){
+		sfxInstance = RuntimeManager.CreateInstance("event:/"+path); 
+		sfxInstance.start();
+	}
+
 	/* All cutscene sounds
 	Damage = Battle/damage
 	Buff = Battle/buff
@@ -240,12 +247,22 @@ public class dialogueEngine : MonoBehaviour
 					leftFace.GetComponent<faceHandler>().makeActive();				
 					leftFace.GetComponent<faceHandler>().changeFace(chosenDialogue.speakerA,chosenDialogue.lines[currentLine].faceL);	
         		}
+				
+				// music
 				if (chosenDialogue.lines[currentLine].music == "stop")
 					musicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
 				else if(chosenDialogue.lines[currentLine].music != "null")
 				{
 					musicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
 					this.playMusic(chosenDialogue.lines[currentLine].music);
+				}
+				// sfx
+				if (chosenDialogue.lines[currentLine].sfx == "stop")
+					sfxInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+				else if(chosenDialogue.lines[currentLine].sfx != "null")
+				{
+					sfxInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+					this.playSfx(chosenDialogue.lines[currentLine].sfx);
 				}
 	}
 }
