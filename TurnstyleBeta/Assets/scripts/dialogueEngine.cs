@@ -36,7 +36,6 @@ public class dialogueEntry{
 public class overallDialogue{
 	public string speakerA;
 	public string speakerB;
-	public string faceUnactive;
 	public string background;
 	public dialogueEntry[] lines;
 
