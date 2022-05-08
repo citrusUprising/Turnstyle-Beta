@@ -2147,7 +2147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   money:
-  - {fileID: 0}
+  - {fileID: 89606369}
   lines:
   - {fileID: 1208892394}
 --- !u!114 &702265087
