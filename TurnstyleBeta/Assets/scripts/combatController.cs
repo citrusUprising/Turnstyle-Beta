@@ -267,6 +267,7 @@ public class combatController : MonoBehaviour
 
         //Sets tutorial
         this.isTutorial = Stats.GetComponent<CurrentStats>().isTutorial;
+        if(isTutorial == 2) tutorialHandler.GetComponent<tutorialHandler>().bookCount = 2;
         statused = false;
 
         xDown = false;
@@ -292,6 +293,11 @@ public class combatController : MonoBehaviour
 
                 case 1: 
                 tutorialHandler.GetComponent<tutorialHandler>().open(0);
+                break;
+
+                case 2:
+                tutorialHandler.GetComponent<tutorialHandler>().open(2);
+                rotateAllowed = true;
                 break;
             }
 
@@ -338,8 +344,6 @@ public class combatController : MonoBehaviour
                             break;
                     }
                 }
-                if(statused&&!tutorialHandler.GetComponent<tutorialHandler>().isOpen)
-                    tutorialHandler.GetComponent<tutorialHandler>().open(3);
             }
 
             if (glossaryObject.GetComponent<glossaryScript>().isShowing == false)
@@ -811,12 +815,11 @@ public class combatController : MonoBehaviour
         nameTagArray[2].showPassive(); // show
         //glossaryPopUp(2);
 
-        if(isTutorial>0){
-            tutorialHandler.GetComponent<tutorialHandler>().open(2);
-            rotateAllowed = true;
-        }
+       if(statused&&!tutorialHandler.GetComponent<tutorialHandler>().isOpen)
+            tutorialHandler.GetComponent<tutorialHandler>().open(3);
 
         promptManager.changePrompt(0);
+
     }
 
     void transitionToMoveSelect()
