@@ -77,6 +77,8 @@ public class dialogueEngine : MonoBehaviour
 
 	public Canvas canvas;
 
+	public GameObject keyPrompt;
+
     // Start is called before the first frame update
 	void Start()
     {
@@ -194,6 +196,11 @@ public class dialogueEngine : MonoBehaviour
             {
 				pauseMenuObject = Instantiate(pauseMenu, canvas.transform);
             }
+			keyPrompt.SetActive(true);
+		}
+        else
+        {
+			keyPrompt.SetActive(false);
 		}
     }
 

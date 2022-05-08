@@ -40,6 +40,9 @@ public class CameraController : MonoBehaviour
     private bool loading = false;
     private bool pulseUp = true;
     int money = 5;
+
+    public GameObject keyPrompt;
+
     void Awake(){
         if(PlayerPrefs.GetInt("Load", 0) == 1){
             GameObject.Find("CurrentStats").GetComponent<savingEngine>().retry();
@@ -164,6 +167,12 @@ public class CameraController : MonoBehaviour
                 {
                     pauseMenuObject = Instantiate(pauseMenu, canvas.transform);
                 }
+
+                keyPrompt.SetActive(true);
+            }
+            else
+            {
+                keyPrompt.SetActive(false);
             }
 
             

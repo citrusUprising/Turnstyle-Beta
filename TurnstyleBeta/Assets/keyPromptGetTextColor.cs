@@ -22,7 +22,7 @@ public class keyPromptGetTextColor : MonoBehaviour
         {
             currentColor = nodeMapColor;
         }
-        else if (currentScene == "combat")
+        else if (currentScene == "combat" || currentScene == "cutscene")
         {
             currentColor = combatColor;
         }

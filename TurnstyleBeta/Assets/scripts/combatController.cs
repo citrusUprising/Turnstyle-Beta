@@ -199,9 +199,13 @@ public class combatController : MonoBehaviour
 
     private bool isSceneOverlayActive = false;
 
+    private keyPromptManager promptManager;
+
     // Start is called before the first frame update
     void Start()
     {
+
+        promptManager = GetComponent<keyPromptManager>();
 
         totalSpeedIndicator1 = Instantiate(totalSpeedPrefab, canvas.transform);
         totalSpeedIndicator1.GetComponent<Transform>().position = new Vector3(224, 310, 0);
@@ -562,6 +566,11 @@ public class combatController : MonoBehaviour
                             pauseMenuInstance = Instantiate(pauseMenu, glossaryCanvas.transform);
                         }
                     }
+                    promptManager.currentPrompt.SetActive(true);
+                }
+                else
+                {
+                    promptManager.currentPrompt.SetActive(false);
                 }
             }
 
@@ -789,6 +798,8 @@ public class combatController : MonoBehaviour
         if(isTutorial>0){
             tutorialHandler.GetComponent<tutorialHandler>().open(2);
         }
+
+        promptManager.changePrompt(0);
     }
 
     void transitionToMoveSelect()
@@ -829,6 +840,8 @@ public class combatController : MonoBehaviour
 
         // this needs to be put back in once the friendly objects are properly put into the nameTags
         //gameLoop.setActiveUnits(rotationState);
+
+        promptManager.changePrompt(1);
     }
 
     void changeSelectedAbilityIndex(int change)
@@ -914,6 +927,8 @@ public class combatController : MonoBehaviour
                 targetPointer.transform.eulerAngles = new Vector3(0,0,0);
             targetPointer.GetComponent<CanvasRenderer>().SetAlpha(1);
         }
+
+        promptManager.changePrompt(2);
     }
 
     // a lot of things have to happen here
@@ -964,6 +979,8 @@ public class combatController : MonoBehaviour
 
         //glossaryPopUp(1);
         if(isTutorial>0) tutorialHandler.GetComponent<tutorialHandler>().open(1);
+
+        promptManager.changePrompt(3);
     }
 
     void changeSpeed(int change)
@@ -1063,6 +1080,7 @@ public class combatController : MonoBehaviour
                 actionDescription += displayedUnit.queuedAction.target.unitName + ".";
             currentDrawnBox.transform.GetChild(i+4).gameObject.GetComponent<TextMeshProUGUI>().text = actionDescription;   
         }
+        promptManager.changePrompt(4);
     }
 
     // playResults is also not really implemented yet
@@ -1075,6 +1093,8 @@ public class combatController : MonoBehaviour
         currentDrawnBox = Instantiate(playResultsBox, canvas.transform);
         gameLoop.queueEnemyActions();
         StartCoroutine(gameLoop.OutputText());
+
+        promptManager.changePrompt(-1);
     }
 
     void transitionToPause()
