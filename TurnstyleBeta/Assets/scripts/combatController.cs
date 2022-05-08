@@ -147,6 +147,7 @@ public class combatController : MonoBehaviour
     public nameTag[] nameTagArray;
 
     private bool rotateAllowed;
+    private bool correctColor = false;
 
     // --------------------------------------------------------- //
     // these are used in the speedSelect state
@@ -272,11 +273,17 @@ public class combatController : MonoBehaviour
         xDown = false;
         combatDone = false;
         rotateAllowed = false;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!correctColor){
+            BattleSpriteHandler[] temp = pentagonSprite.GetComponentsInChildren<BattleSpriteHandler>();
+            for (int i= 0; i < temp.Length; i++)temp[i].AlphaUpdate();
+            correctColor = true;
+        }
         if (isSceneOverlayActive == false)
         {
             switch (isTutorial){
@@ -361,10 +368,13 @@ public class combatController : MonoBehaviour
                         if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
                         {
                             // if the pentagon is NOT rotating, then begin rotating DOWN
-                            if (!isRotating&&rotateAllowed)//flag
+                            if (!isRotating&&rotateAllowed)
                             {
                                 turnstyleRotate.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                                 beginRotatingPentagon(-1);
+                                BattleSpriteHandler[] temp = pentagonSprite.GetComponentsInChildren<BattleSpriteHandler>();
+                                for (int i= 0; i < temp.Length; i++)temp[i].AlphaUpdate();
+                                //flag
                             }
 
                         }
@@ -374,7 +384,9 @@ public class combatController : MonoBehaviour
                             if (!isRotating&&rotateAllowed)
                             {
                                 turnstyleRotate.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
-                                beginRotatingPentagon(1);//flag
+                                beginRotatingPentagon(1);
+                                BattleSpriteHandler[] temp = pentagonSprite.GetComponentsInChildren<BattleSpriteHandler>();
+                                for (int i= 0; i < temp.Length; i++)temp[i].AlphaUpdate();
                             }
                         }
                         // here is all the logic 

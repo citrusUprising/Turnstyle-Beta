@@ -121,7 +121,7 @@ public class Enemy : Unit
 
             case "Null":
             this.hp = 0;
-            this.maxHP = 0;
+            this.maxHP = 1;
             this.dead = true;
             this.abilities = new Ability[] {};
             a = new Color(0,0,0,0);
@@ -133,6 +133,8 @@ public class Enemy : Unit
 
         }
         rend.color=a;
+        this.updateHealthBar();
+        this.Kill();
     }
 
     // Update is called once per frame
