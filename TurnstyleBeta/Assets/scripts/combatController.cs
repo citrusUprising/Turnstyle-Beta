@@ -92,7 +92,7 @@ public class combatController : MonoBehaviour
     private bool isRotating = false;
 
     // this is the rotation of the pentagon sprite
-    private float pentagonRotation = 0.0f;
+    private float pentagonRotation = 144.0f;
 
     // this is the value that we lerp the pentagon rotation to
     // it will increase or decrease by 72 (one fifth of 360) whenever the rotate function is called
@@ -145,6 +145,8 @@ public class combatController : MonoBehaviour
     public nameTag nameTagSeraphim;
     // this is an array of the above objects
     public nameTag[] nameTagArray;
+
+    private bool rotateAllowed;
 
     // --------------------------------------------------------- //
     // these are used in the speedSelect state
@@ -211,18 +213,18 @@ public class combatController : MonoBehaviour
         totalSpeedIndicator1.GetComponent<Transform>().position = new Vector3(224, 310, 0);
 
         // 3 and 4 are inactive, 0, 1, and 2 are active
-        nameTagArray[0] = nameTagBeverly;
-        nameTagArray[1] = nameTagAmery;
-        nameTagArray[2] = nameTagKoralie;
-        nameTagArray[3] = nameTagJade;
-        nameTagArray[4] = nameTagSeraphim;
+        nameTagArray[0] = nameTagKoralie;
+        nameTagArray[1] = nameTagJade;
+        nameTagArray[2] = nameTagSeraphim;
+        nameTagArray[3] = nameTagBeverly;
+        nameTagArray[4] = nameTagAmery;
 
         // init each player's moves here ⬇ this code is ugly but it works
-        nameTagArray[0].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Smolder(), new Dazzle(), new Imbibe()}; 
-        nameTagArray[1].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Mitigate(), new Unionize(), new Scrum()};
-        nameTagArray[2].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Repel(), new Hunker(), new Crush()};
-        nameTagArray[3].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Stunnerclap(), new Rally(), new Motivate()};
-        nameTagArray[4].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Soulrip(), new Scry(), new Slump()};
+        nameTagArray[0].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Repel(), new Hunker(), new Crush()};
+        nameTagArray[1].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Stunnerclap(), new Rally(), new Motivate()};
+        nameTagArray[2].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Soulrip(), new Scry(), new Slump()};
+        nameTagArray[3].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Smolder(), new Dazzle(), new Imbibe()}; 
+        nameTagArray[4].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Mitigate(), new Unionize(), new Scrum()};
 
         //enemies = GameObject.FindGameObjectsWithTag("Enemy");
         for (int i = 0; i < 5; i++)
@@ -268,6 +270,7 @@ public class combatController : MonoBehaviour
 
         xDown = false;
         combatDone = false;
+        rotateAllowed = false;
     }
 
     // Update is called once per frame
@@ -277,6 +280,7 @@ public class combatController : MonoBehaviour
         {
             switch (isTutorial){
                 case 0:default:
+                rotateAllowed = true;
                 break;
 
                 case 1: 
@@ -340,7 +344,7 @@ public class combatController : MonoBehaviour
                     if (state == "rotate")
                     {
                         // if you press X, advance to the next state, destroying the rotate UI and replacing it with move select UI
-                        if (xPress() && isRotating == false)
+                        if (xPress() && !isRotating)
                         {
                             menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                             gameLoop.setActiveUnits(nameTagArray);
@@ -353,7 +357,7 @@ public class combatController : MonoBehaviour
                         if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
                         {
                             // if the pentagon is NOT rotating, then begin rotating DOWN
-                            if (!isRotating)
+                            if (!isRotating&&rotateAllowed)//flag
                             {
                                 turnstyleRotate.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                                 beginRotatingPentagon(-1);
@@ -363,10 +367,10 @@ public class combatController : MonoBehaviour
                         if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.RightArrow))
                         {
                             // if the pentagon IS rotating, then begin rotating UP
-                            if (!isRotating)
+                            if (!isRotating&&rotateAllowed)
                             {
                                 turnstyleRotate.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
-                                beginRotatingPentagon(1);
+                                beginRotatingPentagon(1);//flag
                             }
                         }
                         // here is all the logic 
@@ -797,6 +801,7 @@ public class combatController : MonoBehaviour
 
         if(isTutorial>0){
             tutorialHandler.GetComponent<tutorialHandler>().open(2);
+            rotateAllowed = true;
         }
 
         promptManager.changePrompt(0);
