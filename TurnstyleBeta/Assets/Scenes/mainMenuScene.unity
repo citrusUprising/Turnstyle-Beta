@@ -336,7 +336,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Version 1.5.1S
+  m_text: Version 1.5.1D
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 63966710d2c481544a494dd77bc1cc79, type: 2}
   m_sharedMaterial: {fileID: -888945008187845637, guid: 63966710d2c481544a494dd77bc1cc79, type: 2}
@@ -345,8 +345,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 3422568249
-  m_fontColor: {r: 0.22491181, g: 0.24528301, b: 0, a: 0.8}
+    rgba: 3426686464
+  m_fontColor: {r: 0, g: 0.088060424, b: 0.24705882, a: 0.8}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2259,7 +2259,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 477145824238822308, guid: 6f674d4b992b2a2408ef015dd8143183, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 232
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 477145824238822308, guid: 6f674d4b992b2a2408ef015dd8143183, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2403,7 +2403,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2711864508129841094, guid: 6f674d4b992b2a2408ef015dd8143183, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 83
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2711864508129841094, guid: 6f674d4b992b2a2408ef015dd8143183, type: 3}
       propertyPath: m_AnchoredPosition.y

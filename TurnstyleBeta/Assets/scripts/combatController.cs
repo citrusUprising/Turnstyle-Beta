@@ -805,8 +805,6 @@ public class combatController : MonoBehaviour
 
        if(statused&&!tutorialHandler.GetComponent<tutorialHandler>().isOpen)
             tutorialHandler.GetComponent<tutorialHandler>().open(3);
-            
-        }
 
         promptManager.changePrompt(0);
 
