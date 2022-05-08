@@ -18,7 +18,7 @@ public class pauseMenuExit : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        isShowing = pauseMenu.pauseMenuItemsShowing[0];
+        
 
         if (isShowing)
         {
@@ -30,6 +30,8 @@ public class pauseMenuExit : MonoBehaviour
             {
                 pauseMenu.goBack();
             }
-        }        
+        }
+
+        isShowing = pauseMenu.pauseMenuItemsShowing[0];
     }
 }

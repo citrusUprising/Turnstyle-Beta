@@ -33,6 +33,7 @@
 		</relationship>
 		<relationship name="banks">
 			<destination>{16edbd9c-aee7-47a9-b765-8f12d0e6f86c}</destination>
+			<destination>{bddce5da-9538-4e10-a62e-3d920ccc4cc2}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixer" id="{318452f5-5019-4379-8c46-cedc5eba0a76}">
@@ -93,13 +94,19 @@
 	<object class="MixerBusPanner" id="{33364938-866c-4dd1-87aa-70062bc4712e}" />
 	<object class="SingleSound" id="{6121feed-3381-4ac8-b642-5b7d625b2fae}">
 		<property name="length">
-			<value>9</value>
+			<value>8.5</value>
+		</property>
+		<property name="timelockedOffset">
+			<value>0.5</value>
 		</property>
 		<relationship name="audioFile">
 			<destination>{0c021984-f362-412e-b758-fe169b55e1e1}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{1c55bb07-e3f9-447f-9ffb-cc13350cf8b2}">
+		<property name="volume">
+			<value>2.5</value>
+		</property>
 		<property name="name">
 			<value>Audio 1</value>
 		</property>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{a1976a14-dce8-41a6-831b-b0d0bb9a2bee}">
+		<property name="assetPath">
+			<value>Cutscene1_Concept.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>49.580408163265304</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{40e41151-c888-41b3-a13a-78bb50f836ba}</destination>
+		</relationship>
+	</object>
+</objects>
