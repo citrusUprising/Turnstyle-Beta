@@ -2831,19 +2831,19 @@ MonoBehaviour:
   pentagon:
   - {fileID: 990851450}
   activeChars:
-  - {fileID: 1104327839}
-  - {fileID: 893252111}
   - {fileID: 2091758727}
-  passiveChars:
   - {fileID: 1311215999}
   - {fileID: 1674523445}
+  passiveChars:
+  - {fileID: 1104327839}
+  - {fileID: 893252111}
   activeNames:
   - {fileID: 682632786}
+  - {fileID: 1458302070}
+  - {fileID: 1034425708}
+  passiveNames:
   - {fileID: 844409253}
   - {fileID: 1089004968}
-  passiveNames:
-  - {fileID: 1034425708}
-  - {fileID: 1458302070}
   speedSelect: []
   totalSpeed:
   - {fileID: 307228611}

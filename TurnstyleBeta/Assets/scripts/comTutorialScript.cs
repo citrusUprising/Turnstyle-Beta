@@ -72,7 +72,7 @@ public class comTutorialScript : MonoBehaviour
         temp[pageFiller] = new TutorialSegment(
             new string[2]{"The three <b>Party Members</b> on the <b>right</b> side of the <b>Pentagon</b> are <b>in combat.</b> "
                         ,"They get <b>1 Fatigue</b> each turn."},      
-            new int[4]{1, 2, 3, 4},   
+            new int[2]{1, 3},   
             "xDown"                     
         );
         pageFiller++;

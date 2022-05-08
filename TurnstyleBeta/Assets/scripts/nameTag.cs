@@ -61,6 +61,7 @@ public class nameTag : MonoBehaviour
 
         // tooltipA = transform.GetChild(9).statusTooltip;
         // tooltipA.hide();
+        adjustHealth();
     }
 
     // Update is called once per frame
