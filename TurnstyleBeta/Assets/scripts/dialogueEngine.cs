@@ -12,28 +12,30 @@ public class dialogueEntry{
 	public string faceL; 
 	public string faceR; 
 	public string music;
+	public string sfx;
 
-	public dialogueEntry(string line, bool speaker, string music){
+	public dialogueEntry(string line, bool speaker, string music, string sfx){
 		this.line = line;
 		this.speaker = speaker;
 		this.music = music;
+		this.sfx = sfx;
 		this.faceL = "happy";
 		this.faceR = "happy";
 	}
 
-	public dialogueEntry(string line, bool speaker, string faceL, string faceR, string music){
+	public dialogueEntry(string line, bool speaker, string faceL, string faceR, string music, string sfx){
 		this.line = line;
 		this.speaker = speaker;
+		this.music = music;
+		this.sfx = sfx;
 		this.faceL = faceL;
 		this.faceR = faceR;
-		this.music = music;
 	}
 }
 
 public class overallDialogue{
 	public string speakerA;
 	public string speakerB;
-	public string faceUnactive;
 	public string background;
 	public dialogueEntry[] lines;
 
@@ -66,10 +68,15 @@ public class dialogueEngine : MonoBehaviour
 
 	private float textSpeed;
 
+	private FMOD.Studio.EventInstance musicInstance;
+	private FMOD.Studio.EventInstance sfxInstance;
+
 	public GameObject pauseMenu;
 	private GameObject pauseMenuObject;
 
 	public Canvas canvas;
+
+	public GameObject keyPrompt;
 
     // Start is called before the first frame update
 	void Start()
@@ -118,6 +125,9 @@ public class dialogueEngine : MonoBehaviour
 			{
 				GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentCutScene++;
 				dialogueChoice = 0;
+				PlayerPrefs.SetInt("Load", 0);
+				GameObject.Find("CurrentStats").GetComponent<savingEngine>().reset();
+				GameObject.Find("CurrentStats").GetComponent<savingEngine>().checkpoint();
 				SceneManager.UnloadSceneAsync(sceneName);
 			}
 
@@ -142,7 +152,11 @@ public class dialogueEngine : MonoBehaviour
 					if (dialogueChoice >= dialogueVarieties.Length)
 					{
 						GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentCutScene++;
+						
 						dialogueChoice = 0;
+						PlayerPrefs.SetInt("Load", 0);
+						GameObject.Find("CurrentStats").GetComponent<savingEngine>().reset();
+						GameObject.Find("CurrentStats").GetComponent<savingEngine>().checkpoint();
 						SceneManager.UnloadSceneAsync(sceneName);
 					}
 					else
@@ -181,8 +195,17 @@ public class dialogueEngine : MonoBehaviour
             {
 				pauseMenuObject = Instantiate(pauseMenu, canvas.transform);
             }
+			keyPrompt.SetActive(true);
+		}
+        else
+        {
+			keyPrompt.SetActive(false);
 		}
     }
+
+	void OnDestroy(){
+		musicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT); // fade music out on cutscene end
+	}
 
     public IEnumerator WriteLine(){
 		textSpeed = PlayerPrefs.GetFloat("dialogueTextSpeed", .055f);
@@ -198,8 +221,11 @@ public class dialogueEngine : MonoBehaviour
     }
 
 	private void playMusic(string path){
-		FMOD.Studio.EventInstance sfxInstance;
+		musicInstance = RuntimeManager.CreateInstance("event:/"+path); 
+		musicInstance.start();
+	}
 
+	private void playSfx(string path){
 		sfxInstance = RuntimeManager.CreateInstance("event:/"+path); 
 		sfxInstance.start();
 	}
@@ -228,7 +254,22 @@ public class dialogueEngine : MonoBehaviour
 					leftFace.GetComponent<faceHandler>().makeActive();				
 					leftFace.GetComponent<faceHandler>().changeFace(chosenDialogue.speakerA,chosenDialogue.lines[currentLine].faceL);	
         		}
-				if(chosenDialogue.lines[currentLine].music != "null")
-				this.playMusic(chosenDialogue.lines[currentLine].music);
+				
+				// music
+				if (chosenDialogue.lines[currentLine].music == "stop")
+					musicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+				else if(chosenDialogue.lines[currentLine].music != "null")
+				{
+					musicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+					this.playMusic(chosenDialogue.lines[currentLine].music);
+				}
+				// sfx
+				if (chosenDialogue.lines[currentLine].sfx == "stop")
+					sfxInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+				else if(chosenDialogue.lines[currentLine].sfx != "null")
+				{
+					sfxInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+					this.playSfx(chosenDialogue.lines[currentLine].sfx);
+				}
 	}
 }

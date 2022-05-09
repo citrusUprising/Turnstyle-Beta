@@ -167,7 +167,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7581664070208454919
 RectTransform:
   m_ObjectHideFlags: 0
@@ -284,7 +284,6 @@ MonoBehaviour:
   - {fileID: 3487317013780222683}
   - {fileID: 7353995767309997433}
   - {fileID: 911325609807055955}
-  pagesReal: []
   keyPrompt: {fileID: 1843342695010688882}
   keyPromptIsShowing: 0
   isShowing: 1
@@ -292,6 +291,7 @@ MonoBehaviour:
   rightArrow: {fileID: 877045938239325722}
   nextSFX: {fileID: 0}
   prevSFX: {fileID: 0}
+  errorSFX: {fileID: 0}
   whiteRectangle: {fileID: 2783839715133135499}
 --- !u!1 &2783839715133135499
 GameObject:

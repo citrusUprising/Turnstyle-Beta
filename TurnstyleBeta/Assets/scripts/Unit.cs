@@ -327,6 +327,7 @@ public class Unit : MonoBehaviour
                             false)
                             );
                             highest.hp = Math.Max(highest.hp-transfer, 0);
+                            highest.Kill();
                             gameLoop.outputQueue.Add(new displayObject(highest.unitName+" gave "+transfer+" health",
                             highest,
                             transfer,
@@ -488,6 +489,7 @@ public class Unit : MonoBehaviour
         }
         else
         { //again no outputQueue
+            gameLoop.GetComponent<MainLoop>().statused();
             this.statuses[(int) type].name = newStatus;
             this.statuses[(int) type].duration = duration;
             this.statuses[(int) type].magnitude = magnitude;

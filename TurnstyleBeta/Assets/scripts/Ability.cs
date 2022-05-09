@@ -156,7 +156,7 @@ public class Mitigate : Ability
     public Mitigate()
     {
         this.name = "Mitigate";
-        this.text = "Give ally Regen (4) for 2 turns";
+        this.text = "Give ally Regen (2) for 4 turns";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = true;
@@ -164,7 +164,7 @@ public class Mitigate : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        target.applyStatus(StatusType.Health, StatusName.Regeneration, 2, 4);
+        target.applyStatus(StatusType.Health, StatusName.Regeneration, 4, 2);
     }
 
     public override bool requirement(Unit target, Unit source)
@@ -333,7 +333,7 @@ public class Rally : Ability
     public Rally()
     {
         this.name = "Rally";
-        this.text = "Heal an ally for 8 damage and deal 4 damage to user";
+        this.text = "Heal an ally for 6 damage and deal 3 damage to user";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = true;
@@ -341,13 +341,13 @@ public class Rally : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        source.hp = Math.Min(source.hp-4, source.maxHP);
-        L.outputQueue.Add(new displayObject(source.unitName+" sacrificed 4 health",
+        source.hp = Math.Min(source.hp-3, source.maxHP);
+        L.outputQueue.Add(new displayObject(source.unitName+" sacrificed 3 health",
         source,
-        4,
+        3,
         true)
         );
-        target.healSelf(8);
+        target.healSelf(6);
     }
 
     public override bool requirement(Unit target, Unit source)

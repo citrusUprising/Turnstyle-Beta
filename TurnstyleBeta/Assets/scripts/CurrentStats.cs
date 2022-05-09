@@ -11,6 +11,7 @@ public class CurrentStats : MonoBehaviour
     public int AmeryHealth;
     public string[] CurrentEnemies;
     // Start is called before the first frame update
+    public int isTutorial;
     public int currentTutorial;
     void Start()
     {
@@ -21,5 +22,9 @@ public class CurrentStats : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void Reset(){
+
     }
 }

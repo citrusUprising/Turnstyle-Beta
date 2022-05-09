@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
+[Serializable]
 public class Station : MonoBehaviour
 {
     public Station[] destinations;
     public Color line;
     public bool hasCombat;
+    public int isTutorial;
     public bool hasHardMode;
     public string[] Enemies;
     //All lines that connect to that station
@@ -27,7 +32,7 @@ public class Station : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(hasCombat){
+        if(hasCombat && cutscene < 1){
             this.GetComponent<Image>().sprite = encounter;
         }else{
             this.GetComponent<Image>().sprite = standard;

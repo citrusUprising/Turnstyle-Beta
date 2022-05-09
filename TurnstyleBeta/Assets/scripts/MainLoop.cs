@@ -93,7 +93,6 @@ public class MainLoop : MonoBehaviour
     //checks if text output was skipped, changing logic speed and animations accordingly
     public bool isSkipped;
     GameObject Stats;
-
     public Canvas canvas;
     void Awake()
     {
@@ -314,15 +313,61 @@ public class MainLoop : MonoBehaviour
    				enemyDead = false;
    				break;
    			}
-   		}
-        //if enemyDead, win
-    
+           }
+
    		//Otherwise continue
    		if(!allDead && !enemyDead){
             //flag
    			startTurn();
    		}
+        //if allDead, gameOver
+        else if (allDead){
+            SceneManager.LoadSceneAsync("gameOver");
+            SceneManager.UnloadSceneAsync(sceneName);
+        }
+        //if enemyDead, win
+        else if (enemyDead)
+        {
+            Stats = GameObject.Find("CurrentStats");
+            CurrentStats currStats = Stats.GetComponent<CurrentStats>();
+            foreach (Friendly friend in playerUnits)
+            {
+                switch (friend.name)
+                {
+                    case "Beverly":
+                        if (friend.hp == 0)
+                            friend.hp = 1;
+                        currStats.BeverlyHealth = friend.hp;
+                        break;
+                    case "Jade":
+                        if (friend.hp == 0)
+                            friend.hp = 1;
+                        currStats.JadeHealth = friend.hp;
+                        break;
+                    case "Koralie":
+                        if (friend.hp == 0)
+                            friend.hp = 1;
+                        currStats.KoralieHealth = friend.hp;
+                        break;
+                    case "Seraphim":
+                        if (friend.hp == 0)
+                            friend.hp = 1;
+                        currStats.SeraphimHealth = friend.hp;
+                        break;
+                    case "Amery":
+                        if (friend.hp == 0)
+                            friend.hp = 1;
+                        currStats.AmeryHealth = friend.hp;
+                        break;
+                }
+            }
+            SceneManager.UnloadSceneAsync(sceneName);
+        }
    	}
+
+    public void statused(){
+        uiController.GetComponent<combatController>().statused = true;
+    }
 
 
    	//Coroutine for displaying output
@@ -448,53 +493,5 @@ public class MainLoop : MonoBehaviour
         Debug.Log("QueuedActions Cleared");
     	queuedActions.Clear();
         outputQueue.Clear();
-
-        bool alldead = true;
-        foreach (Unit unit in enemyUnits)
-        {
-            if (!unit.dead)
-            {
-                alldead = false;
-                break;
-            } 
-        }
-        if (alldead)
-        {
-            Stats = GameObject.Find("CurrentStats");
-            CurrentStats currStats = Stats.GetComponent<CurrentStats>();
-            foreach (Friendly friend in playerUnits)
-            {
-                switch (friend.name)
-                {
-                    case "Beverly":
-                        if (friend.hp == 0)
-                            friend.hp = 1;
-                        currStats.BeverlyHealth = friend.hp;
-                        break;
-                    case "Jade":
-                        if (friend.hp == 0)
-                            friend.hp = 1;
-                        currStats.JadeHealth = friend.hp;
-                        break;
-                    case "Koralie":
-                        if (friend.hp == 0)
-                            friend.hp = 1;
-                        currStats.KoralieHealth = friend.hp;
-                        break;
-                    case "Seraphim":
-                        if (friend.hp == 0)
-                            friend.hp = 1;
-                        currStats.SeraphimHealth = friend.hp;
-                        break;
-                    case "Amery":
-                        if (friend.hp == 0)
-                            friend.hp = 1;
-                        currStats.AmeryHealth = friend.hp;
-                        break;
-                }
-            }
-            SceneManager.UnloadSceneAsync(sceneName);
-        }
-        
     }
 }

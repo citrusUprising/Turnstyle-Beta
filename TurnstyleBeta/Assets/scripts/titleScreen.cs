@@ -16,7 +16,9 @@ public class titleScreen : MonoBehaviour
     public GameObject creditsText;
     public GameObject exit;
     public GameObject settings;
-    public GameObject start;
+    public GameObject resume;
+    public GameObject newGame;
+    
 
     private int selectedOption = 0;
     public GameObject[] options;
@@ -51,6 +53,10 @@ public class titleScreen : MonoBehaviour
         randomizeRotateDirection();
 
         gameObject.transform.Rotate(0, 0, Random.Range(0, 5) * 72);
+
+        PlayerPrefs.SetInt("Load", 0);
+
+        initMusicVolume();
     }
 
     // Update is called once per frame
@@ -80,9 +86,15 @@ public class titleScreen : MonoBehaviour
                 // Play select sound sfx
                 selectSound.GetComponent<FMODUnity.StudioEventEmitter>().Play();
 
-                if (options[selectedOption] == start)
+                if (options[selectedOption] == newGame)
                 {
-                    StartCoroutine(loadScene(2));
+                    PlayerPrefs.SetInt("Load", 0);
+                    StartCoroutine(loadScene(1));
+                }
+
+                else if (options[selectedOption] == resume){
+                    PlayerPrefs.SetInt("Load", 1);
+                    StartCoroutine(loadScene(1));
                 }
 
                 else if (options[selectedOption] == settings)
@@ -327,5 +339,33 @@ public class titleScreen : MonoBehaviour
         }
 
         isLerping = false;
+    }
+
+    // set initial amplitude on game launch in case default value isn't .5
+    void initMusicVolume()
+    {
+        FMOD.Studio.VCA musicVCA = FMODUnity.RuntimeManager.GetVCA("vca:/Music");
+        FMOD.Studio.VCA sfxVCA = FMODUnity.RuntimeManager.GetVCA("vca:/SFX");
+        
+        float musicPercent = PlayerPrefs.GetFloat("musicPercent");
+        float musicVolume = getMusic(musicPercent, 1, 4);
+        musicVCA.setVolume(musicVolume);
+        float sfxPercent = PlayerPrefs.GetFloat("sfxPercent");
+        float sfxVolume = getSFX(sfxPercent, 1, 4);
+        sfxVCA.setVolume(sfxVolume);
+    }
+
+    // Range 0 to maxAmplitude, with the halfway point being halfAmplitude
+    float getMusic(float musicPercent, float halfAmplitude, float maxAmplitude)
+    {
+        if (musicPercent <= .5) return (musicPercent * 2) * halfAmplitude;
+        else return ((musicPercent - 0.5f) * 2) * (maxAmplitude - 1) + halfAmplitude;
+    }
+
+    // Range 0 to maxAmplitude, with the halfway point being halfAmplitude
+    float getSFX(float sfxPercent, float halfAmplitude, float maxAmplitude)
+    {
+        if (sfxPercent <= .5) return (sfxPercent * 2) * halfAmplitude;
+        else return ((sfxPercent - 0.5f) * 2) * (maxAmplitude - 1) + halfAmplitude;
     }
 }

@@ -48,9 +48,14 @@ public class pauseMenu : MonoBehaviour
 
     public GameObject bioObject;
 
+    private keyPromptManager promptManager;
+
     // Start is called before the first frame update
     void Start()
     {
+        promptManager = GetComponent<keyPromptManager>();
+
+        promptManager.changePrompt(0);
 
         canvas = GameObject.Find("glossaryCanvas");
 
@@ -297,6 +302,8 @@ public class pauseMenu : MonoBehaviour
         }
 
         isItemSelectionAnimating = false;
+
+        promptManager.changePrompt(currentSelectedItem + 1);
     }
 
     IEnumerator lerpCurrentSelectedItemRight()
@@ -341,6 +348,8 @@ public class pauseMenu : MonoBehaviour
         isItemSelectionAnimating = false;
 
         currentSelectedItemObject = null;
+
+        promptManager.changePrompt(0);
     }
 
     // this gets called in the start function of this object and in the context this object is created in to destroy it
