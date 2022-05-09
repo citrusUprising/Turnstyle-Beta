@@ -14,7 +14,7 @@ public class mapTutorialScript : MonoBehaviour
     void Awake(){
         sceneItems[0] = money;
         sceneItems[1] = lines;
-        populateScript(1);
+        populateScript(3);
     }
 
     private void addTutorialText(TutorialSegment[] temp, int book, int pageNumber){
@@ -54,6 +54,30 @@ public class mapTutorialScript : MonoBehaviour
             new string[2]{"If you <b>run out of Money,</b> the Party will have to <b>walk on the tracks</b> to get to their destination.",
                         "You may run into <b>dangerous monsters</b> more often when <b>walking on the tracks.</b>"},
             new int[1]{1},
+            "xDown"
+        );
+        pageFiller++;
+
+        //ends Current tutorials section and writes to allTutorials
+        addTutorialText(temp,bookFiller,pageFiller);
+        bookFiller++;
+        pageFiller = 0;
+
+        temp[pageFiller] = new TutorialSegment(
+            new string[1]{"<b>ALERT</b>: You are low on money."},
+            new int[1]{0},
+            "xDown"
+        );
+        pageFiller++;
+
+        //ends Current tutorials section and writes to allTutorials
+        addTutorialText(temp,bookFiller,pageFiller);
+        bookFiller++;
+        pageFiller = 0;
+
+        temp[pageFiller] = new TutorialSegment(
+            new string[1]{"<b>ALERT</b>: Funds depleted."},
+            new int[1]{0},
             "xDown"
         );
         pageFiller++;
