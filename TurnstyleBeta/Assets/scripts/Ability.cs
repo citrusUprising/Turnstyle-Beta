@@ -407,6 +407,60 @@ public class Soulrip : Ability
     }
 }
 
+public class Soulrip2 : Ability
+{
+    public Soulrip2()
+    {
+        this.name = "Soul Rip";
+        this.text = "Deal 10 damage, but has 50% accuracy if at 1 or more fatigue and gives user Vulnerable for 1 turn";
+        this.multitarget = false;
+        this.selftarget = false;
+        this.allies = false;
+    }
+
+    public override void effect(Unit target, Unit source, MainLoop L)
+    {   double test = 1;
+        if(source.fatigue > 0)test -= 0.5d;
+        float check = UnityEngine.Random.Range(0.0f,1.0f);
+        Debug.Log("Seraphim's accuracy is "+test);
+        Debug.Log("Seraphim rolled "+ check);
+        if(source.fatigue <= 0 || check <= test) target.takeDamage(source, 10);
+        else L.outputQueue.Add(new displayObject(source.unitName+" couldn't manifest",
+        false));
+        source.applyStatus(StatusType.Debuff, StatusName.Vulnerable, 1, 0);
+    }
+
+    public override bool requirement(Unit target, Unit source)
+    {
+        return true;
+    }
+}
+
+public class Soulrip3 : Ability
+{
+    public Soulrip3()
+    {
+        this.name = "Soul Rip";
+        this.text = "Deal 10 damage, but gives target Regen(4) for 2 turn";
+        this.multitarget = false;
+        this.selftarget = false;
+        this.allies = false;
+    }
+
+    public override void effect(Unit target, Unit source, MainLoop L)
+    {   
+        target.takeDamage(source, 10);
+        target.applyStatus(StatusType.Health, StatusName.Regeneration, 2, 4);
+    }
+
+    public override bool requirement(Unit target, Unit source)
+    {
+        return true;
+    }
+}
+
+
+
 public class Dazzle : Ability
 {
     public Dazzle()

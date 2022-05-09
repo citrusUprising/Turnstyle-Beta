@@ -205,6 +205,7 @@ public class dialogueEngine : MonoBehaviour
 
 	void OnDestroy(){
 		musicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT); // fade music out on cutscene end
+		//GameObject.Find("Music").SetActive(true);
 	}
 
     public IEnumerator WriteLine(){

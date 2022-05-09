@@ -35,6 +35,9 @@ public class BattleSpriteHandler : MonoBehaviour
         trans.rotation = Quaternion.Euler(rot);
 
         // trans.scale = new Vector3(1.5f, 1.5f, 1.5f);
+    }
+
+    public void AlphaUpdate(){
 
         //changes layer and color based on location on pentagon 
         nameTag[] players = controller.GetComponent<combatController>().nameTagArray;

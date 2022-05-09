@@ -206,6 +206,7 @@ public class CameraController : MonoBehaviour
                 Stats.GetComponent<CurrentStats>().SeraphimHealth = 10;
                 Stats.GetComponent<CurrentStats>().AmeryHealth = 12;
                 StartCoroutine(loadScene("DialogueScene"));
+                Music.SetActive(false);
             }
 
             if (currentStation.hasCombat&&currentCutScene!=currentStation.cutscene)
@@ -278,6 +279,8 @@ public class CameraController : MonoBehaviour
             money--;
             Debug.Log("Changed lines");
             this.MoneyUpdate();
+            if(money == 3)
+            tutorialPhone.GetComponent<tutorialHandler>().open(1);
         }
         currentStation = currentStation.destinations[s];
         currentLine = 0;
@@ -293,6 +296,7 @@ public class CameraController : MonoBehaviour
         if(money == -1 && hasMoney){
             Music.SetActive(false);
             hasMoney = false;
+            tutorialPhone.GetComponent<tutorialHandler>().open(2);
             foreach(Station h in this.allStations){
                 h.EnableHardMode(); //flag
             }

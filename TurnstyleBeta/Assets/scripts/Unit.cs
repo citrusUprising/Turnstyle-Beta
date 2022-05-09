@@ -211,7 +211,8 @@ public class Unit : MonoBehaviour
 
     public void turnEnd()
     {
-        if(!this.isActive)this.fatigue = 0;
+        if(!this.isActive)this.fatigue -= 2;
+        if(this.fatigue < 0) this.fatigue = 0;
         //gameLoop.outputQueue.Add(new displayObject(this.unitName + " has ended their turn");
         Debug.Log(this.unitName + " has ended their turn");
         //Debug.Log("queuedAction.ability.name: " + this.queuedAction.ability.name);
