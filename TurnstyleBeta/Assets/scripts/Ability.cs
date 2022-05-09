@@ -304,7 +304,7 @@ public class Crush : Ability
     public Crush()
     {
         this.name = "Crush";
-        this.text = "Deal 8 damage to a target and 4 damage to self";
+        this.text = "Deal 8 damage to a target and 6 damage to self";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
@@ -313,10 +313,10 @@ public class Crush : Ability
     public override void effect(Unit target, Unit source, MainLoop L)
     {
         target.takeDamage(source, 8);
-        source.hp = Math.Max(source.hp-4, 0);
-        L.outputQueue.Add(new displayObject(source.unitName+" took 4 damage from recoil",
+        source.hp = Math.Max(source.hp-6, 0);
+        L.outputQueue.Add(new displayObject(source.unitName+" took 6 damage from recoil",
          source,
-         4,
+         6,
          true,
          "damage")
          );
@@ -459,7 +459,61 @@ public class Soulrip3 : Ability
     }
 }
 
+public class Scream : Ability
+{
+    public Scream()
+    {
+        this.name = "Scream";
+        this.text = "Deal 10 damage to all enemies with 33% accuracy";
+        this.multitarget = true;
+        this.selftarget = false;
+        this.allies = false;
+    }
 
+    public override void effect(Unit target, Unit source, MainLoop L)
+    {   
+        double test = 0.33;
+        float check = UnityEngine.Random.Range(0.0f,1.0f);
+        Debug.Log("Seraphim's accuracy is "+test);
+        Debug.Log("Seraphim rolled "+ check);
+        if(check <= test) target.takeDamage(source, 10);
+        else L.outputQueue.Add(new displayObject(target.unitName+" is unconcerned",
+        false));
+    }
+
+    public override bool requirement(Unit target, Unit source)
+    {
+        return true;
+    }
+}
+
+public class Scream2 : Ability
+{
+    public Scream2()
+    {
+        this.name = "Scream";
+        this.text = "Deal 3x user's fatigue in damage to all enemies with 50% accuracy";
+        this.multitarget = true;
+        this.selftarget = false;
+        this.allies = false;
+    }
+
+    public override void effect(Unit target, Unit source, MainLoop L)
+    {   
+        double test = 0.5;
+        float check = UnityEngine.Random.Range(0.0f,1.0f);
+        Debug.Log("Seraphim's accuracy is "+test);
+        Debug.Log("Seraphim rolled "+ check);
+        if(check <= test) target.takeDamage(source, source.fatigue*3);
+        else L.outputQueue.Add(new displayObject(target.unitName+" is unconcerned",
+        false));
+    }
+
+    public override bool requirement(Unit target, Unit source)
+    {
+        return true;
+    }
+}
 
 public class Dazzle : Ability
 {
