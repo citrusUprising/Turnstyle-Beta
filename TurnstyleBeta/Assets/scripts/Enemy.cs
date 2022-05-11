@@ -111,7 +111,7 @@ public class Enemy : Unit
             this.maxHP = 25;
             this.baseSpeed = 4;
             this.immunity = new StatusName[] {StatusName.Vulnerable};
-            this.abilities = new Ability[] { new Unionize(), new Penetrate(), new Ridicule() };
+            this.abilities = new Ability[] { new Ingrain(), new Penetrate(), new Ridicule() };
             icon = Resources.Load<Sprite>("MonsterSprites/Red");
             rend.sprite=icon;
             break;
@@ -121,7 +121,7 @@ public class Enemy : Unit
             this.maxHP = 30;
             this.baseSpeed = 0;
             this.immunity = new StatusName[] {StatusName.Flinch};
-            this.abilities = new Ability[] { new PollenCloud(), new Reflect(), new Ingrain() };
+            this.abilities = new Ability[] { new PollenCloud(), new Reflect(), new Unionize() };
             icon = Resources.Load<Sprite>("MonsterSprites/Blue");
             rend.sprite=icon;
             break;

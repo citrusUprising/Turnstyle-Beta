@@ -743,7 +743,7 @@ public class Ingrain : Ability
 {
     public Ingrain()
     {
-        this.name = "Ingrain";
+        this.name = "Persist";
         this.text = "50% chance give all allies Regen (1) for 5 turns";
         this.multitarget = true;
         this.selftarget = false;
