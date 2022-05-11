@@ -441,7 +441,7 @@ public class Soulrip3 : Ability
     public Soulrip3()
     {
         this.name = "Soul Rip";
-        this.text = "Deal 10 damage, but gives target Regen(4) for 2 turn";
+        this.text = "Deal 10 damage, but gives target Regen(8) for 1 turn";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
@@ -450,7 +450,7 @@ public class Soulrip3 : Ability
     public override void effect(Unit target, Unit source, MainLoop L)
     {   
         target.takeDamage(source, 10);
-        target.applyStatus(StatusType.Health, StatusName.Regeneration, 2, 4);
+        target.applyStatus(StatusType.Health, StatusName.Regeneration, 1, 8);
     }
 
     public override bool requirement(Unit target, Unit source)
