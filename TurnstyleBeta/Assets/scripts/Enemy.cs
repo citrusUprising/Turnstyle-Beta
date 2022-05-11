@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Random = System.Random;
 
 public class Enemy : Unit
 {
@@ -14,6 +15,16 @@ public class Enemy : Unit
 
     private Color transparentColor = new Color(0, 0, 0, 0);
 
+    public GameObject healthStatusTracker;
+    public GameObject buffStatusTracker;
+    public GameObject debuffStatusTracker;
+
+    public int speed;
+
+    Random rand;
+
+    public enemySpeedController speedController;
+
     public Enemy(string name, StatusName[] immunity, Ability[] abilities, int hp) : base(name, immunity, abilities, hp)
     {
         
@@ -22,6 +33,8 @@ public class Enemy : Unit
     // Start is called before the first frame update
     void Start()
     {
+        rand = new Random();
+
         gameObject.tag = "Enemy";         
         this.enemies = GameObject.FindGameObjectsWithTag("Ally");
         this.allies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -33,6 +46,8 @@ public class Enemy : Unit
         var rend = this.GetComponent<Image>();
         Color a = new Color(1f,1f,1f,1f);
         Sprite icon;
+
+        setSpeed();
         
         switch (this.unitName){
 
@@ -152,12 +167,14 @@ public class Enemy : Unit
         {
             healthBar.GetComponent<Image>().color = transparentColor;
             healthBarContainer.GetComponent<Image>().color = transparentColor;
+            healthBarContainer.SetActive(false);
         }
 
         if (gameObject.GetComponent<Image>().color.a == 0)
         {
             healthBar.GetComponent<Image>().color = transparentColor;
             healthBarContainer.GetComponent<Image>().color = transparentColor;
+            healthBarContainer.SetActive(false);
         }
     }
 
@@ -166,5 +183,34 @@ public class Enemy : Unit
     {
         this.enemies = GameObject.FindGameObjectsWithTag("Ally");
         this.allies = GameObject.FindGameObjectsWithTag("Enemy");
+    }
+
+    public void updateAllStatuses()
+    {
+        healthStatusTracker.GetComponent<statusEffectController>().updateStatus(
+            (int)GetComponent<Unit>().statuses[(int)StatusType.Health].name,
+            (int)GetComponent<Unit>().statuses[(int)StatusType.Health].duration,
+            (int)GetComponent<Unit>().statuses[(int)StatusType.Health].magnitude);
+
+        buffStatusTracker.GetComponent<statusEffectController>().updateStatus(
+            (int)GetComponent<Unit>().statuses[(int)StatusType.Buff].name,
+            (int)GetComponent<Unit>().statuses[(int)StatusType.Buff].duration,
+            (int)GetComponent<Unit>().statuses[(int)StatusType.Buff].magnitude);
+
+        debuffStatusTracker.GetComponent<statusEffectController>().updateStatus(
+            (int)GetComponent<Unit>().statuses[(int)StatusType.Debuff].name,
+            (int)GetComponent<Unit>().statuses[(int)StatusType.Debuff].duration,
+            (int)GetComponent<Unit>().statuses[(int)StatusType.Debuff].magnitude);
+    }
+
+    public int setSpeed()
+    {
+        speed = rand.Next(9);
+
+        speedController.speed = speed;
+
+        speedController.updateSpeed();
+
+        return speed;
     }
 }

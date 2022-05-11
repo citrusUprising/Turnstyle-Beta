@@ -586,11 +586,17 @@ public class combatController : MonoBehaviour
                             pauseMenuInstance = Instantiate(pauseMenu, glossaryCanvas.transform);
                         }
                     }
-                    promptManager.currentPrompt.SetActive(true);
+                    if (promptManager.currentPrompt != null)
+                    {
+                        promptManager.currentPrompt.SetActive(true);
+                    }
                 }
                 else
                 {
-                    promptManager.currentPrompt.SetActive(false);
+                    if (promptManager.currentPrompt != null)
+                    {
+                        promptManager.currentPrompt.SetActive(false);
+                    }
                 }
             }
 

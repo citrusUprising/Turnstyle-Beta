@@ -180,6 +180,11 @@ public class MainLoop : MonoBehaviour
     		unit.stopActive();
     	}
     	speedTotal = 12;
+        
+        foreach (Enemy unit in enemyUnits)
+        {
+            unit.setSpeed();
+        }
     }
 
     //Code for handling the enemies
@@ -239,7 +244,7 @@ public class MainLoop : MonoBehaviour
     		else
     			actTarget = activeUnits[chosenTarget];
     		queuedActions.Add(unit);
-    		unit.queuedAction = new QueuedAction(actTarget, unit.abilities[chosenAbility], rand.Next(9));
+    		unit.queuedAction = new QueuedAction(actTarget, unit.abilities[chosenAbility], unit.GetComponent<Enemy>().speed);
     	}
     }
 
@@ -424,6 +429,7 @@ public class MainLoop : MonoBehaviour
                             tempU.GetComponent<Transform>().position.z );
                             if(outputQueue[messageCount].changeHP)tempU.GetComponent<Enemy>().updateHealthBar();
                             tempU.GetComponent<Unit>().Kill();
+                            tempU.GetComponent<Enemy>().updateAllStatuses();
                         }
                         else if(tempU.tag == "Ally"){
                             Image locTrans = tempU.GetComponent<Friendly>().sprite;
@@ -483,6 +489,7 @@ public class MainLoop : MonoBehaviour
             {
                 unit.Kill();
                 unit.updateHealthBar();
+                unit.updateAllStatuses();
             } 
 
         isSkipped = false;

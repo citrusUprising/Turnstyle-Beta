@@ -188,7 +188,6 @@ public class nameTag : MonoBehaviour
             (int)character.GetComponent<Unit>().statuses[(int)StatusType.Health].duration,
             (int)character.GetComponent<Unit>().statuses[(int)StatusType.Health].magnitude);
 
-
         buffStatusTracker.GetComponent<statusEffectController>().updateStatus(
             (int)character.GetComponent<Unit>().statuses[(int)StatusType.Buff].name,
             (int)character.GetComponent<Unit>().statuses[(int)StatusType.Buff].duration,

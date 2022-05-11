@@ -106,8 +106,6 @@ public class statusEffectController : MonoBehaviour, IPointerEnterHandler, IPoin
         {
             changeTurnCount(-1);
         } */
-
-        
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -173,16 +171,7 @@ public class statusEffectController : MonoBehaviour, IPointerEnterHandler, IPoin
             //      destroy this object
             if (turnsLeft < 1)
             {
-
-                if (friendOrFoe == "friend")
-                {
-                    // the default values are "none" and 0
-                    updateStatus();
-                }
-                else
-                {
-                    Destroy(gameObject);
-                }
+                updateStatus();
             }
         }
     }
