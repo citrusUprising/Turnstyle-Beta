@@ -176,6 +176,14 @@ public class comTutorialScript : MonoBehaviour
         pageFiller++;
 
         temp[pageFiller] = new TutorialSegment(
+            new string[2]{"<b>Status Effects</b> come in 3 types, <b>Health</b>, <b>Buff</b>, and <b>Debuff</b>",
+            "<b>Party Members</b> and <b>Monsters</b> cannot be afflicted with a <b>Status Effect</b> of a type they already have"}, 
+            new int[0]{}, 
+            "xDown"
+        );
+        pageFiller++;
+
+        temp[pageFiller] = new TutorialSegment(
             new string[2]{"All the <b>Status Effects</b> are visible in the <b>Glossary</b> by pressing <b>G.</b>",
             "Why don't you check it out?"}, 
             new int[0]{}, 
