@@ -78,9 +78,8 @@ public class combatController : MonoBehaviour
     public GameObject targetPointer;
     private int targetIndex = 0;
 
-    private Vector3[] playerTargets = new Vector3[5] {new Vector3(-65, 8, 0), 
-    new Vector3(43,-110,0), new Vector3(16,-216,0), new Vector3(-260, -201, 0),
-    new Vector3(-260, -31, 0)};
+    private Vector3[] playerTargets = new Vector3[3] {new Vector3(-177, 245, 0), 
+    new Vector3(-100, 227,0), new Vector3(-157, 80,0)};
 
     // --------------------------------------------------------- //
     // variables that interact with the rotate state
@@ -430,6 +429,19 @@ public class combatController : MonoBehaviour
                             else
                             {
                                 numberOfSelectedMoves--;
+                                 // fixing back past KO'd character
+                            // need to test this
+                            while(nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>().dead &&
+                                numberOfSelectedMoves >= 0){
+                                numberOfSelectedMoves--; 
+                            }
+                            if(numberOfSelectedMoves < 0){
+                                numberOfSelectedMoves = 0;
+                                transitionToRotate();
+                            }
+                            else{
+                                transitionToMoveSelect();
+                            }
                                 transitionToMoveSelect();
                             }
                         }
@@ -551,20 +563,23 @@ public class combatController : MonoBehaviour
                             numberOfSelectedMoves = 0;
                             transitionToRotate();
                         }
-                        else {
-                            numberOfSelectedMoves--;
+                        // else {
+                            // numberOfSelectedMoves--;
                             // fixing back past KO'd character
                             // need to test this
-                            while(nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>().dead &&
-                                    numberOfSelectedMoves >= 0){
-                                numberOfSelectedMoves--; 
-                            }
-                            if(numberOfSelectedMoves < 0){
-                                numberOfSelectedMoves = 0;
-                                transitionToRotate();
-                            }
-                            transitionToMoveSelect();
-                        }
+                            // while(nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>().dead &&
+                            //         numberOfSelectedMoves >= 0){
+                            //     numberOfSelectedMoves--; 
+                            // // }
+                            // if(numberOfSelectedMoves < 0){
+                            //     numberOfSelectedMoves = 0;
+                            //     transitionToRotate();
+                            // }
+                            // else{
+                            //     transitionToMoveSelect();
+                            // }
+
+                        // }
                     }
 
                     // THIS NEEDS TO BE DELETED ONCE WE GET FURTHER ALONG
@@ -901,21 +916,24 @@ public class combatController : MonoBehaviour
         targetIndex += change;
         // this is kind of messy but it gets the allied targets in color order of 💙💛💗💚💖 
         if(allied){
-            if(targetIndex == 3)
-                targetIndex = 0;
-            if(targetIndex == -1)
-                targetIndex = 2;
+            targetIndex = (targetIndex + 3) % 3;
+            // if(targetIndex == 3)
+            //     targetIndex = 0;
+            // if(targetIndex == -1)
+            //     targetIndex = 2;
             targetPointer.transform.localPosition = playerTargets[targetIndex];
             selectedTarget = nameTagArray[targetIndex].GetComponent<nameTag>().character.GetComponent<Friendly>();
         }
         else{
-            if(targetIndex == enemies.Length)
-                targetIndex = 0;
-            if(targetIndex == -1)
-                targetIndex = enemies.Length-1;
+            targetIndex = (targetIndex + enemies.Length)% enemies.Length;
+            // 🎯💀 skip targeting dead enemies 
+            // this could cause problems if somehow all enemies are dead but move is selected. seems highly unlikely but who knows
+            while(enemies[targetIndex].GetComponent<Enemy>().dead){
+                targetIndex = (targetIndex + change) % enemies.Length;
+            }
             targetPointer.transform.localPosition = new Vector3(
-                    enemies[targetIndex].transform.localPosition[0] - 100,
-                    enemies[targetIndex].transform.localPosition[1],
+                    enemies[targetIndex].transform.localPosition[0],
+                    enemies[targetIndex].transform.localPosition[1]+100,
                     enemies[targetIndex].transform.localPosition[2]
                 );
 
@@ -952,10 +970,11 @@ public class combatController : MonoBehaviour
             changeSelectedTarget(0, selectedAbility.allies);
             if(selectedAbility.allies){
                 targetPointer.transform.localPosition = playerTargets[0];
-                targetPointer.transform.eulerAngles = new Vector3(0,180,0);
+                // targetPointer.transform.eulerAngles = new Vector3(0,180,0);
             }
             else
-                targetPointer.transform.eulerAngles = new Vector3(0,0,0);
+                Debug.Log("placeholder");
+                // targetPointer.transform.eulerAngles = new Vector3(0,0,0);
             targetPointer.GetComponent<CanvasRenderer>().SetAlpha(1);
         }
 
