@@ -1030,7 +1030,7 @@ public class SelfDestruct : Ability
     public SelfDestruct()
     {
         this.name = "Self-Destruct";
-        this.text = "Give target and self Burn (7) for 1 turn";
+        this.text = "Give target and self Burn for 1 turn, magnitude is equal to user's current health";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
@@ -1038,8 +1038,8 @@ public class SelfDestruct : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        target.applyStatus(StatusType.Health,StatusName.Burn,1,7);
-        source.applyStatus(StatusType.Health,StatusName.Burn,1,7);
+        target.applyStatus(StatusType.Health,StatusName.Burn,1,source.hp);
+        source.applyStatus(StatusType.Health,StatusName.Burn,1,source.hp);
     }
 
     public override bool requirement(Unit target, Unit source)
