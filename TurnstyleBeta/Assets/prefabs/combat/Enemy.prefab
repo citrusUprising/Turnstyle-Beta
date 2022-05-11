@@ -318,6 +318,7 @@ GameObject:
   - component: {fileID: 7047837186779068486}
   - component: {fileID: 601982098807446916}
   - component: {fileID: 2180802507617979605}
+  - component: {fileID: 3484969202247344495}
   m_Layer: 0
   m_Name: hpContainer
   m_TagString: Untagged
@@ -346,7 +347,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -60}
+  m_AnchoredPosition: {x: -30, y: -120}
   m_SizeDelta: {x: 160, y: 24}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &601982098807446916
@@ -387,6 +388,27 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!223 &3484969202247344495
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1355964312451314218}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_SortingLayerID: 0
+  m_SortingOrder: 3
+  m_TargetDisplay: 0
 --- !u!1 &2348889262567115114
 GameObject:
   m_ObjectHideFlags: 0
@@ -505,6 +527,7 @@ GameObject:
   - component: {fileID: 1755506783160690481}
   - component: {fileID: 8217808850339451189}
   - component: {fileID: 8262324769188278417}
+  - component: {fileID: 601171075735878347}
   m_Layer: 0
   m_Name: bottomColor
   m_TagString: Untagged
@@ -569,6 +592,27 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!223 &601171075735878347
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4994100608343233628}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 3
+  m_TargetDisplay: 0
 --- !u!1 &6452477332966604310
 GameObject:
   m_ObjectHideFlags: 0
@@ -1200,13 +1244,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a53e4c2e24f216546ab8b8a824137b0b, type: 3}
---- !u!1 &7063308426047010808 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6267005066099130129, guid: a53e4c2e24f216546ab8b8a824137b0b, type: 3}
-  m_PrefabInstance: {fileID: 3818267915823040745}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &7063308426047010809 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6267005066099130128, guid: a53e4c2e24f216546ab8b8a824137b0b, type: 3}
+  m_PrefabInstance: {fileID: 3818267915823040745}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7063308426047010808 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6267005066099130129, guid: a53e4c2e24f216546ab8b8a824137b0b, type: 3}
   m_PrefabInstance: {fileID: 3818267915823040745}
   m_PrefabAsset: {fileID: 0}
