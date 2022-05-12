@@ -914,15 +914,19 @@ public class combatController : MonoBehaviour
 
     void changeSelectedTarget(int change, bool allied){
         targetIndex += change;
-        // this is kind of messy but it gets the allied targets in color order of 💙💛💗💚💖 
+        // this is kind of messy but it gets the allied targets
         if(allied){
             targetIndex = (targetIndex + 3) % 3;
-            // if(targetIndex == 3)
-            //     targetIndex = 0;
-            // if(targetIndex == -1)
-            //     targetIndex = 2;
-            targetPointer.transform.localPosition = playerTargets[targetIndex];
+            // targetPointer.transform.localPosition = playerTargets[targetIndex];
+            // getting target position from sprites 🤔
+            targetPointer.transform.localPosition = new Vector3(
+                nameTagArray[targetIndex].GetComponent<nameTag>().character.GetComponent<Friendly>().sprite.transform.localPosition[0],
+                nameTagArray[targetIndex].GetComponent<nameTag>().character.GetComponent<Friendly>().sprite.transform.localPosition[1] + 100,
+                nameTagArray[targetIndex].GetComponent<nameTag>().character.GetComponent<Friendly>().sprite.transform.localPosition[2]
+            );
+            
             selectedTarget = nameTagArray[targetIndex].GetComponent<nameTag>().character.GetComponent<Friendly>();
+            Debug.Log("cast on: " + selectedTarget.name);
         }
         else{
             targetIndex = (targetIndex + enemies.Length)% enemies.Length;
@@ -972,8 +976,7 @@ public class combatController : MonoBehaviour
                 targetPointer.transform.localPosition = playerTargets[0];
                 // targetPointer.transform.eulerAngles = new Vector3(0,180,0);
             }
-            else
-                Debug.Log("placeholder");
+            // else
                 // targetPointer.transform.eulerAngles = new Vector3(0,0,0);
             targetPointer.GetComponent<CanvasRenderer>().SetAlpha(1);
         }
