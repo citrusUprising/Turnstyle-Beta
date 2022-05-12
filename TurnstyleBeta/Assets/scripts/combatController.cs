@@ -564,7 +564,7 @@ public class combatController : MonoBehaviour
                     else if (state == "playResults")
                     {
 
-                        if (Input.GetKeyDown(KeyCode.C) && !combatDone)//flag
+                        /*if (Input.GetKeyDown(KeyCode.C) && !combatDone)//flag
                         {
                             mainLoopObject.GetComponent<MainLoop>().isSkipped = true;
                             transitionToRotate();
@@ -573,7 +573,7 @@ public class combatController : MonoBehaviour
                         {
                             transitionToRotate();
                         }
-                        else if (xPress() && combatDone)
+                        else*/ if (xPress() && combatDone)//flag
                         {
                             transitionToRotate();
                         }

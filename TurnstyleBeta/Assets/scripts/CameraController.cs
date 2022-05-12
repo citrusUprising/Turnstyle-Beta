@@ -279,6 +279,10 @@ public class CameraController : MonoBehaviour
             money--;
             Debug.Log("Changed lines");
             this.MoneyUpdate();
+            if (money > 3 && tutorialPhone.GetComponent<tutorialHandler>().bookCount >= 2)
+            tutorialPhone.GetComponent<tutorialHandler>().bookCount = 1;
+            else if (money > 0 && tutorialPhone.GetComponent<tutorialHandler>().bookCount >= 3)
+            tutorialPhone.GetComponent<tutorialHandler>().bookCount = 2;
             if(money == 3)
             tutorialPhone.GetComponent<tutorialHandler>().open(1);
         }

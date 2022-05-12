@@ -245,7 +245,7 @@ PrefabInstance:
     - target: {fileID: 4116079208833663523, guid: 249457b977235c24fb1b31dd891cf8d6, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: fa79dee7c83b0304f829678e5f708023, type: 3}
+      objectReference: {fileID: 21300000, guid: 6172e0aba30c2d04aa67f2f41d0d1d8d, type: 3}
     - target: {fileID: 4551736991819968177, guid: 249457b977235c24fb1b31dd891cf8d6, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1734,7 +1734,7 @@ PrefabInstance:
     - target: {fileID: 3087557339621338828, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 6172e0aba30c2d04aa67f2f41d0d1d8d, type: 3}
+      objectReference: {fileID: 21300000, guid: fa79dee7c83b0304f829678e5f708023, type: 3}
     - target: {fileID: 3087557339621338828, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -1892,6 +1892,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3087557339621338828, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: fa79dee7c83b0304f829678e5f708023, type: 3}
     - target: {fileID: 3087557339621338828, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: m_Color.b
       value: 0.56
@@ -3541,7 +3545,7 @@ PrefabInstance:
     - target: {fileID: 3087557339621338828, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 6172e0aba30c2d04aa67f2f41d0d1d8d, type: 3}
+      objectReference: {fileID: 21300000, guid: fa79dee7c83b0304f829678e5f708023, type: 3}
     - target: {fileID: 4605803206678834361, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: m_Name
       value: Yellow Station 3
@@ -6808,7 +6812,7 @@ PrefabInstance:
     - target: {fileID: 1883089326798494088, guid: 214eea14584a5ff428eb62c8378f2256, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 6172e0aba30c2d04aa67f2f41d0d1d8d, type: 3}
+      objectReference: {fileID: 21300000, guid: fa79dee7c83b0304f829678e5f708023, type: 3}
     - target: {fileID: 2023901092478104858, guid: 214eea14584a5ff428eb62c8378f2256, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
