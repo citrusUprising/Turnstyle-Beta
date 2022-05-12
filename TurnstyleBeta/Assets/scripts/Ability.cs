@@ -441,7 +441,7 @@ public class Soulrip3 : Ability
     public Soulrip3()
     {
         this.name = "Soul Rip";
-        this.text = "Deal 10 damage, but gives target Regen(4) for 2 turn";
+        this.text = "Deal 10 damage, but gives target Regen(8) for 1 turn";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
@@ -450,7 +450,7 @@ public class Soulrip3 : Ability
     public override void effect(Unit target, Unit source, MainLoop L)
     {   
         target.takeDamage(source, 10);
-        target.applyStatus(StatusType.Health, StatusName.Regeneration, 2, 4);
+        target.applyStatus(StatusType.Health, StatusName.Regeneration, 1, 8);
     }
 
     public override bool requirement(Unit target, Unit source)
@@ -743,7 +743,7 @@ public class Ingrain : Ability
 {
     public Ingrain()
     {
-        this.name = "Ingrain";
+        this.name = "Persist";
         this.text = "50% chance give all allies Regen (1) for 5 turns";
         this.multitarget = true;
         this.selftarget = false;
@@ -1030,7 +1030,7 @@ public class SelfDestruct : Ability
     public SelfDestruct()
     {
         this.name = "Self-Destruct";
-        this.text = "Give target and self Burn (7) for 1 turn";
+        this.text = "Give target and self Burn for 1 turn, magnitude is equal to user's current health";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
@@ -1038,8 +1038,8 @@ public class SelfDestruct : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        target.applyStatus(StatusType.Health,StatusName.Burn,1,7);
-        source.applyStatus(StatusType.Health,StatusName.Burn,1,7);
+        target.applyStatus(StatusType.Health,StatusName.Burn,1,source.hp);
+        source.applyStatus(StatusType.Health,StatusName.Burn,1,source.hp);
     }
 
     public override bool requirement(Unit target, Unit source)

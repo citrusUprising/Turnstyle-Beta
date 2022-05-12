@@ -481,6 +481,26 @@ public class Unit : MonoBehaviour
         if(this.statuses[(int) type].name != StatusName.None)
         {
             String cur =this.statuses[(int) type].name.ToString();
+
+            if(this.statuses[(int) type].name == newStatus&&
+            this.statuses[(int) type].magnitude <= magnitude){
+                this.statuses[(int) type].magnitude = Math.Max(magnitude, this.statuses[(int) type].magnitude);
+                this.statuses[(int) type].duration = Math.Max(duration, this.statuses[(int) type].duration);
+                    
+                if(cur.Contains("ed")||cur == "Vulnerable")
+                gameLoop.outputQueue.Add(new displayObject(this.unitName + " remains "+cur,
+                this,
+                this.statuses[(int) type].name,
+                false)
+                );
+                else gameLoop.outputQueue.Add(new displayObject(this.unitName + " continues to have "+cur,
+                this,
+                this.statuses[(int) type].name, 
+                false)
+                );
+                return;
+            }
+            else{
             if(cur.Contains("ed")||cur == "Vulnerable")
             gameLoop.outputQueue.Add(new displayObject(this.unitName + " is already "+cur,
             this,
@@ -493,6 +513,7 @@ public class Unit : MonoBehaviour
             false)
             );
             return;
+            }
         }
         else
         { //again no outputQueue
