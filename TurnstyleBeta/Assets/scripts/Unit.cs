@@ -274,6 +274,12 @@ public class Unit : MonoBehaviour
         { //I have replaced the queue with just printing to the debug log for the moment
             //I have also not set anything to change tint
             this.dead = true;
+            if(this.tag == "allies")
+            gameLoop.outputQueue.Add(new displayObject(this.unitName + " passed out!",
+            false,
+            "damage")
+            );
+            else
             gameLoop.outputQueue.Add(new displayObject(this.unitName + " died!",
             false,
             "damage")

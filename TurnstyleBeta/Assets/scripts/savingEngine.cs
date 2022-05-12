@@ -11,6 +11,7 @@ class SaveData
     public int currentStation;
     public int currentCutscene;
     public int currentTutorial;
+    public int currentMapTutorial;
 }
 
 public class savingEngine : MonoBehaviour
@@ -45,6 +46,7 @@ public bool load;
     data.currentCutscene = GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentCutScene;
     //Debug.Log("the current saved cutscene is #"+data.currentCutscene);
     data.currentTutorial = GameObject.Find("CurrentStats").GetComponent<CurrentStats>().currentTutorial;
+    data.currentMapTutorial = GameObject.Find("Phone").GetComponent<tutorialHandler>().bookCount;
 	bf.Serialize(file, data);
 	file.Close();
 	Debug.Log("Game data saved!");
@@ -71,6 +73,7 @@ public bool load;
         //Debug.Log("the current loaded cutscene is #"+data.currentCutscene);
         GameObject.Find("CurrentStats").GetComponent<CurrentStats>().currentTutorial = data.currentTutorial;
 		Debug.Log("Game data loaded!");
+        GameObject.Find("Phone").GetComponent<tutorialHandler>().bookCount = data.currentMapTutorial;
 	}
 	else
 		Debug.LogError("There is no save data!");

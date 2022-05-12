@@ -322,7 +322,7 @@ public class MainLoop : MonoBehaviour
 
    		//Otherwise continue
    		if(!allDead && !enemyDead){
-            //flag
+ 
    			startTurn();
    		}
         //if allDead, gameOver
@@ -393,7 +393,7 @@ public class MainLoop : MonoBehaviour
            
            while(actionCount <= queuedActions.Count){
                 //resets textspeed to 0 to speed through logic if skipped
-                if(isSkipped) textSpeed = 0;
+                //if(isSkipped) textSpeed = 0;
 
                //resolve Action
                if(actionCount < queuedActions.Count){
@@ -478,13 +478,19 @@ public class MainLoop : MonoBehaviour
                //moves to next action
                actionCount++;
            }
-           
-         //updates UI
-            foreach(nameTag tag in uiController.GetComponent<combatController>().nameTagArray)
+
+        
+        //updates UI
+          foreach (Friendly unit in playerUnits)//flag
             {
-                tag.adjustHealth();
-                tag.updateAllStatuses();
+                unit.Kill();
+            } 
+          foreach(nameTag bar in uiController.GetComponent<combatController>().nameTagArray)
+            {
+                bar.adjustHealth();
+                bar.updateAllStatuses();
             }
+
             foreach (Enemy unit in enemyUnits)
             {
                 unit.Kill();
@@ -492,7 +498,7 @@ public class MainLoop : MonoBehaviour
                 unit.updateAllStatuses();
             } 
 
-        isSkipped = false;
+            //isSkipped = false;
         uiController.GetComponent<combatController>().combatDone = true;
         Debug.Log ("original textspeed is "+textSpeed);
         textSpeed = PlayerPrefs.GetFloat("combatTextSpeed", 1.125f);
@@ -500,5 +506,11 @@ public class MainLoop : MonoBehaviour
         Debug.Log("QueuedActions Cleared");
     	queuedActions.Clear();
         outputQueue.Clear();
+
+        //DO NOT REMOVE, ABOVE CODE DOES NOT RUN IN BUILDS IF THIS ISN'T HERE
+            foreach (Enemy unit in enemyUnits)
+            {
+                unit.updateAllStatuses();
+            } 
     }
 }

@@ -13,9 +13,10 @@ public class comTutorialScript : MonoBehaviour
 [SerializeField] private GameObject[] speedSelect;
 [SerializeField] private GameObject[] totalSpeed;
 [SerializeField] private GameObject[] statusBar;
+[SerializeField] private GameObject[] passiveAbilities;
 
     public TutorialSegment[][] allTutorials;
-    public GameObject[][] sceneItems = new GameObject[8][];
+    public GameObject[][] sceneItems = new GameObject[9][];
 
     void Awake(){
         sceneItems[0] = pentagon;
@@ -26,7 +27,8 @@ public class comTutorialScript : MonoBehaviour
         sceneItems[5] = speedSelect;
         sceneItems[6] = totalSpeed;
         sceneItems[7] = statusBar;
-        populateScript(4);
+        sceneItems[8] = passiveAbilities;
+        populateScript(5);
     }
 
     private void addTutorialText(TutorialSegment[] temp, int book, int pageNumber){
@@ -70,7 +72,7 @@ public class comTutorialScript : MonoBehaviour
         pageFiller++;
 
         temp[pageFiller] = new TutorialSegment(
-            new string[2]{"The three <b>Party Members</b> on the <b>right</b> side of the <b>Pentagon</b> are <b>in combat.</b> "
+            new string[2]{"The three <b>Party Members</b> on the <b>right</b> are <b>in combat.</b> "
                         ,"They get <b>1 Fatigue</b> each turn."},      
             new int[2]{1, 3},   
             "xDown"                     
@@ -78,7 +80,7 @@ public class comTutorialScript : MonoBehaviour
         pageFiller++;
         
         temp[pageFiller] = new TutorialSegment(
-            new string[2]{"The two <b>Party Members</b> on the <b>left</b> side of the <b>Pen/tagon<b> are <b>out of combat.</b>"
+            new string[2]{"The two <b>Party Members</b> on the <b>left</b> are <b>out of combat.</b>"
                         ,"They <b>aren’t affected</b> by any <b>moves</b> and <b>lose 2 Fatigue</b> each turn. "},      
             new int[2]{2, 4},   
             "xDown"                     
@@ -146,14 +148,37 @@ public class comTutorialScript : MonoBehaviour
         );
         pageFiller++;
 
+        temp[pageFiller] = new TutorialSegment(
+            new string[2]{"Each <b>Party Member</b> has their own <b>Passive Ability</b>.", "This gives useful effects if certain conditions are met."},
+            new int[3]{3,4,8},
+            "xDown"                         
+        );
+        pageFiller++;
+
+        temp[pageFiller] = new TutorialSegment(
+            new string[1]{"The <b>Passive Abilities</b> can be viewed under an <b>Active Party Member's Nametag</b>."},
+            new int[1]{8},
+            "xDown"                         
+        );
+        pageFiller++;
+
         //ends Current tutorials section and writes to allTutorials
         addTutorialText(temp,bookFiller,pageFiller);
         bookFiller++;
         pageFiller = 0;
 
+
         temp[pageFiller] = new TutorialSegment(
             new string[1]{"This is where you can see someone’s <b>Status Effects.</b>"}, 
             new int[1]{7}, 
+            "xDown"
+        );
+        pageFiller++;
+
+        temp[pageFiller] = new TutorialSegment(
+            new string[2]{"<b>Status Effects</b> come in 3 types, <b>Health</b>, <b>Buff</b>, and <b>Debuff</b>",
+            "<b>Party Members</b> and <b>Monsters</b> cannot be afflicted with a <b>Status Effect</b> of a type they already have"}, 
+            new int[0]{}, 
             "xDown"
         );
         pageFiller++;

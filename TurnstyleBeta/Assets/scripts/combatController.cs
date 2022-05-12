@@ -355,7 +355,7 @@ public class combatController : MonoBehaviour
                     if (state == "rotate")
                     {
                         // if you press X, advance to the next state, destroying the rotate UI and replacing it with move select UI
-                        if (xPress() && !isRotating)
+                        if ((xPress() && !isRotating)||!rotateAllowed)
                         {
                             menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                             gameLoop.setActiveUnits(nameTagArray);
@@ -564,7 +564,7 @@ public class combatController : MonoBehaviour
                     else if (state == "playResults")
                     {
 
-                        if (Input.GetKeyDown(KeyCode.C) && !combatDone)//flag
+                        /*if (Input.GetKeyDown(KeyCode.C) && !combatDone)//flag
                         {
                             mainLoopObject.GetComponent<MainLoop>().isSkipped = true;
                             transitionToRotate();
@@ -573,7 +573,7 @@ public class combatController : MonoBehaviour
                         {
                             transitionToRotate();
                         }
-                        else if (xPress() && combatDone)
+                        else*/ if (xPress() && combatDone)//flag
                         {
                             transitionToRotate();
                         }

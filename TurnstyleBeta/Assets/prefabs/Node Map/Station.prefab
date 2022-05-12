@@ -53,11 +53,20 @@ MonoBehaviour:
   destinations: []
   line: {r: 0, g: 0, b: 0, a: 0}
   hasCombat: 0
+  isTutorial: 0
   hasHardMode: 0
   Enemies: []
-  standard: {fileID: 21300000, guid: fa79dee7c83b0304f829678e5f708023, type: 3}
+  yellow: 0
+  orange: 0
+  blue: 0
+  pink: 0
+  green: 0
+  red: 0
+  lines: 
+  standard: {fileID: 21300000, guid: 6172e0aba30c2d04aa67f2f41d0d1d8d, type: 3}
   encounter: {fileID: 21300000, guid: 4f8221fb7d01e484a973be02b7b28fbe, type: 3}
   hardEncounter: {fileID: 21300000, guid: aba01384b0231b44b95149c87494edf8, type: 3}
+  destination: {fileID: 21300000, guid: fa79dee7c83b0304f829678e5f708023, type: 3}
   cutscene: 0
 --- !u!222 &7388706324845970812
 CanvasRenderer:
@@ -87,7 +96,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fa79dee7c83b0304f829678e5f708023, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6172e0aba30c2d04aa67f2f41d0d1d8d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

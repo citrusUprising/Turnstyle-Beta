@@ -27,6 +27,7 @@ public class Station : MonoBehaviour
     public Sprite standard;
     public Sprite encounter;
     public Sprite hardEncounter;
+    public Sprite destination; 
     public int cutscene = 0;
 
     // Start is called before the first frame update
@@ -34,6 +35,8 @@ public class Station : MonoBehaviour
     {
         if(hasCombat && cutscene < 1){
             this.GetComponent<Image>().sprite = encounter;
+        }else if(cutscene>0){
+            this.GetComponent<Image>().sprite = destination;
         }else{
             this.GetComponent<Image>().sprite = standard;
         }
