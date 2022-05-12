@@ -410,11 +410,11 @@ public class Unit : MonoBehaviour
         {
             amount = (int) Math.Ceiling((double) amount / 2);
         }
-        if(this.unitName.Equals("Seraphim") && this.queuedAction.speed >= 5)
+        if(this.unitName.Equals("Seraphim"))
         { //again no output queue just printing to debug log
             float check = UnityEngine.Random.Range(0.0f,1.0f);
             Debug.Log("Seraphim's dodge check is" + check);
-            if(check > 0.5){
+            if(check > 1.0f-(this.queuedAction.speed/10)){
                 gameLoop.outputQueue.Add(new displayObject(this.unitName + " dodged the attack",
                 this,
                 StatusName.None,
@@ -442,6 +442,8 @@ public class Unit : MonoBehaviour
             );
             if(source.unitName.Equals("Beverly"))
             {
+                source.fatigue -= 2;
+                if (source.fatigue < 0)
                 source.fatigue = 0;
             gameLoop.outputQueue.Add(new displayObject(source.unitName+" gets a second wind",
             source,

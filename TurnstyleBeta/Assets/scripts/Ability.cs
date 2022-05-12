@@ -441,7 +441,7 @@ public class Soulrip3 : Ability
     public Soulrip3()
     {
         this.name = "Soul Rip";
-        this.text = "Deal 10 damage, but gives target Regen(8) for 1 turn";
+        this.text = "Deal 8 damage, but gives target Regen(6) for 1 turn";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
@@ -449,8 +449,8 @@ public class Soulrip3 : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {   
-        target.takeDamage(source, 10);
-        target.applyStatus(StatusType.Health, StatusName.Regeneration, 1, 8);
+        target.takeDamage(source, 8);
+        target.applyStatus(StatusType.Health, StatusName.Regeneration, 1, 6);
     }
 
     public override bool requirement(Unit target, Unit source)
@@ -492,7 +492,7 @@ public class Scream2 : Ability
     public Scream2()
     {
         this.name = "Scream";
-        this.text = "Deal 3x user's fatigue in damage to all enemies with 50% accuracy";
+        this.text = "Deal 2x user's fatigue in damage to all enemies with 50% accuracy";
         this.multitarget = true;
         this.selftarget = false;
         this.allies = false;
@@ -504,7 +504,7 @@ public class Scream2 : Ability
         float check = UnityEngine.Random.Range(0.0f,1.0f);
         Debug.Log("Seraphim's accuracy is "+test);
         Debug.Log("Seraphim rolled "+ check);
-        if(check <= test) target.takeDamage(source, source.fatigue*3);
+        if(check <= test) target.takeDamage(source, source.fatigue*2);
         else L.outputQueue.Add(new displayObject(target.unitName+" is unconcerned",
         false));
     }

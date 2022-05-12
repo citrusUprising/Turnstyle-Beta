@@ -2608,7 +2608,7 @@ PrefabInstance:
     - target: {fileID: 8084932009237154912, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
       propertyPath: m_text
       value: 'Second Wind: <font="Roboto-Regular SDF">When Beverly defeats a monster,
-        her Fatigue goes to 0.</font>'
+        her Fatigue goes down by 2.</font>'
       objectReference: {fileID: 0}
     - target: {fileID: 8335385524166467868, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
       propertyPath: m_SizeDelta.x
@@ -3935,8 +3935,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8084932009237154912, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
       propertyPath: m_text
-      value: 'Dodge: <font="Roboto-Regular SDF">If Seraphim''s Speed is greater than
-        5, they gets a 50% chance to dodge incoming attacks.</font>'
+      value: 'Dodge: <font="Roboto-Regular SDF">Seraphim has a 10% chance to dodge
+        incoming attacks for each point of speed they''re assigned.</font>'
       objectReference: {fileID: 0}
     - target: {fileID: 8335385524166467868, guid: 581d5c53dbc192c489f73b006cead580, type: 3}
       propertyPath: m_SizeDelta.x
