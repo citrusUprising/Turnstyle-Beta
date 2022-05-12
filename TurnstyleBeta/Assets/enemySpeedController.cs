@@ -11,11 +11,11 @@ public class enemySpeedController : MonoBehaviour
 
     public Enemy enemy;
 
-    private Color topColor0 = new Color(188, 63, 38, 1);
-    private Color topColor12 = new Color(123, 32, 145, 1);
+    private Color topColor0 = new Color((float)188/255, (float)63/255, (float)38/255, 1);
+    private Color topColor12 = new Color((float)123/255, (float)32/255, (float)145/255, 1);
 
-    private Color bottomColor0 = new Color(221, 142, 111, 1);
-    private Color bottomColor12 = new Color(191, 99, 224, 1);
+    private Color bottomColor0 = new Color((float)221/255, (float)142/255, (float)111/255, 1);
+    private Color bottomColor12 = new Color((float)191/255, (float)99/255, (float)224/255, 1);
 
     private Color currentTopColor;
     private Color currentBottomColor;
@@ -39,13 +39,16 @@ public class enemySpeedController : MonoBehaviour
     public void updateSpeed()
     {
         // this is all broken right now and i don't know why T-T
-        float speedPercent = speed / 12;
+        float speedPercent = (float) speed / 12f;
+
+        Debug.Log("speed: " + speed);
+        Debug.Log("speed percent: " + speedPercent);
 
         currentTopColor = Color.Lerp(topColor0, topColor12, speedPercent);
         currentBottomColor = Color.Lerp(bottomColor0, bottomColor12, speedPercent);
 
-        topColorSprite.GetComponent<Image>().color = topColor12;
-        bottomColorSprite.GetComponent<Image>().color = bottomColor12;
+        topColorSprite.GetComponent<Image>().color = currentTopColor;
+        bottomColorSprite.GetComponent<Image>().color = currentBottomColor;
 
         textObject.text = speed.ToString();
     }

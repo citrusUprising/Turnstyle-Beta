@@ -6915,7 +6915,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4581770094146128242, guid: 214eea14584a5ff428eb62c8378f2256, type: 3}
       propertyPath: m_Name
-      value: generalHorizontalKeyPrompt
+      value: nodeMapStations
       objectReference: {fileID: 0}
     - target: {fileID: 8954059980684123739, guid: 214eea14584a5ff428eb62c8378f2256, type: 3}
       propertyPath: m_Enabled
