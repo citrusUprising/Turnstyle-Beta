@@ -4201,6 +4201,7 @@ MonoBehaviour:
   - {fileID: 0}
   speedTotal: 12
   textSpeed: 1
+  background: {fileID: 1764584812}
   uiController: {fileID: 61845105}
   damagePopUp: {fileID: 291208394382174078, guid: dbb238d43eaec1045aeb9e001f93318f, type: 3}
   statusPopUp: {fileID: 5252046437299869608, guid: 2892503929f43f948b40365ae63f56d3, type: 3}

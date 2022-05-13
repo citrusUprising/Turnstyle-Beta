@@ -86,6 +86,7 @@ public class MainLoop : MonoBehaviour
 	private List<Unit> queuedActions;
 	public int speedTotal;
     public float textSpeed;
+    public GameObject background;
 
     public GameObject uiController;
     public GameObject damagePopUp;
@@ -147,6 +148,11 @@ public class MainLoop : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(!Stats.GetComponent<CurrentStats>().hasMoney){
+            background.GetComponent<Image>().sprite = Resources.Load<Sprite>("Backgrounds/Track");
+        }else{
+            background.GetComponent<Image>().sprite = Resources.Load<Sprite>("Backgrounds/Train");
+        }
         textSpeed = PlayerPrefs.GetFloat("combatTextSpeed", 1.125f);
         isSkipped = false;
         foreach (Enemy unit in enemyUnits)

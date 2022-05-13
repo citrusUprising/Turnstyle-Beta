@@ -25,7 +25,7 @@ public class CameraController : MonoBehaviour
     public GameObject Music;
     //determines which cutscene node is active
     public int currentCutScene =0;
-    private bool hasMoney;
+    public bool hasMoney;
 
     public GameObject moneyTxt;
     public GameObject objective;
@@ -66,6 +66,9 @@ public class CameraController : MonoBehaviour
             Music.SetActive(false);
             SceneManager.LoadScene("DialogueScene", LoadSceneMode.Additive);
         }
+        if (money>0)hasMoney = true;
+        GameObject Stats = GameObject.Find("CurrentStats");
+        Stats.GetComponent<CurrentStats>().hasMoney = hasMoney;
     }
 
     // Update is called once per frame
@@ -295,11 +298,13 @@ public class CameraController : MonoBehaviour
     }
 
     void MoneyUpdate(){
+        GameObject Stats = GameObject.Find("CurrentStats");
         if (money >= 0)
         moneyTxt.GetComponent<TextMeshProUGUI>().text = "$" + money + "<size=54.4><sup><u>00";
         if(money == -1 && hasMoney){
             Music.SetActive(false);
             hasMoney = false;
+            Stats.GetComponent<CurrentStats>().hasMoney = false;
             tutorialPhone.GetComponent<tutorialHandler>().open(2);
             foreach(Station h in this.allStations){
                 h.EnableHardMode(); //flag
@@ -307,6 +312,7 @@ public class CameraController : MonoBehaviour
         }else if (money > 0 && !hasMoney){
             Music.SetActive(true);
             hasMoney = true;
+            Stats.GetComponent<CurrentStats>().hasMoney = true;
             foreach(Station h in this.allStations){
                 h.DisableHardMode(); //flag
             }
