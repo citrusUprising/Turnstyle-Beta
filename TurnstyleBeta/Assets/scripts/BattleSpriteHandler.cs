@@ -13,6 +13,10 @@ public class BattleSpriteHandler : MonoBehaviour
 
     private float outAlpha = .5f;
 
+    private int topLayer = 4;
+    private int midLayer = 3;
+    private int botLayer = 2;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,19 +46,19 @@ public class BattleSpriteHandler : MonoBehaviour
         //changes layer and color based on location on pentagon 
         nameTag[] players = controller.GetComponent<combatController>().nameTagArray;
         if(players[2].name == profile.name){
-            this.GetComponent<Canvas>().sortingOrder = 3;
+            this.GetComponent<Canvas>().sortingOrder = topLayer;
             shade.a = 1;
         }else if(players[3].name == profile.name){
-            this.GetComponent<Canvas>().sortingOrder = 2;
+            this.GetComponent<Canvas>().sortingOrder = midLayer;
             shade.a = outAlpha;
         }else if(players[1].name == profile.name){
-            this.GetComponent<Canvas>().sortingOrder = 2;
+            this.GetComponent<Canvas>().sortingOrder = midLayer;
             shade.a = 1.0f;
         }else if(players[0].name == profile.name){
-            this.GetComponent<Canvas>().sortingOrder = 1;
+            this.GetComponent<Canvas>().sortingOrder = botLayer;
             shade.a = 1.0f;
         }else{
-            this.GetComponent<Canvas>().sortingOrder = 1;
+            this.GetComponent<Canvas>().sortingOrder = botLayer;
             shade.a = outAlpha;
         }
 
