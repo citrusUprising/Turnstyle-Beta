@@ -396,16 +396,14 @@ public class MainLoop : MonoBehaviour
                 //if(isSkipped) textSpeed = 0;
 
                //resolve Action
-               if(actionCount < queuedActions.Count){
-                    if(!queuedActions[actionCount].dead){
+               if(actionCount < queuedActions.Count&&!queuedActions[actionCount].dead){
                         Debug.Log(queuedActions[actionCount].name
                         +" used "+queuedActions[actionCount].queuedAction.ability.name+"!");
                         queuedActions[actionCount].act();
                         Debug.Log("Actor has Acted");
-                    }
-                }else{
-                    endTurn();
+                    
                 }
+
                 //Prints Messages
                while(messageCount < outputQueue.Count){
                    //Creates Output text
@@ -479,10 +477,8 @@ public class MainLoop : MonoBehaviour
                actionCount++;
            }
 
-        
-        
-
             //isSkipped = false;
+        endTurn();
         uiController.GetComponent<combatController>().combatDone = true;
         Debug.Log ("original textspeed is "+textSpeed);
         textSpeed = PlayerPrefs.GetFloat("combatTextSpeed", 1.125f);
