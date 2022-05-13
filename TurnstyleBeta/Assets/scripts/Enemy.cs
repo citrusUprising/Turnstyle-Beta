@@ -46,8 +46,6 @@ public class Enemy : Unit
         var rend = this.GetComponent<Image>();
         Color a = new Color(1f,1f,1f,1f);
         Sprite icon;
-
-        setSpeed();
         
         switch (this.unitName){
 
@@ -148,6 +146,7 @@ public class Enemy : Unit
 
         }
         rend.color=a;
+        setSpeed();
         this.updateHealthBar();
         this.Kill();
     }
