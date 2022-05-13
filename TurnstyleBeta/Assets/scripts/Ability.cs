@@ -313,13 +313,7 @@ public class Crush : Ability
     public override void effect(Unit target, Unit source, MainLoop L)
     {
         target.takeDamage(source, 8);
-        source.hp = Math.Max(source.hp-6, 0);
-        L.outputQueue.Add(new displayObject(source.unitName+" took 6 damage from recoil",
-         source,
-         6,
-         true,
-         "damage")
-         );
+        source.takeDamage(source, 6);
     }
 
     public override bool requirement(Unit target, Unit source)
