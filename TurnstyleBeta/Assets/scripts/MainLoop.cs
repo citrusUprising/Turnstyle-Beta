@@ -479,25 +479,6 @@ public class MainLoop : MonoBehaviour
                actionCount++;
            }
 
-        
-        //updates UI
-          foreach (Friendly unit in playerUnits)//flag
-            {
-                unit.Kill();
-            } 
-          foreach(nameTag bar in uiController.GetComponent<combatController>().nameTagArray)
-            {
-                bar.adjustHealth();
-                bar.updateAllStatuses();
-            }
-
-            foreach (Enemy unit in enemyUnits)
-            {
-                unit.Kill();
-                unit.updateHealthBar();
-                unit.updateAllStatuses();
-            } 
-
             //isSkipped = false;
         uiController.GetComponent<combatController>().combatDone = true;
         Debug.Log ("original textspeed is "+textSpeed);
@@ -507,10 +488,20 @@ public class MainLoop : MonoBehaviour
     	queuedActions.Clear();
         outputQueue.Clear();
 
-        //DO NOT REMOVE, ABOVE CODE DOES NOT RUN IN BUILDS IF THIS ISN'T HERE
-            foreach (Enemy unit in enemyUnits)
+        //DO NOT MOVE, ABOVE CODE DOES NOT RUN IN BUILDS IF THIS ISN'T HERE
+            //updates UI
+            
+          foreach(nameTag bar in uiController.GetComponent<combatController>().nameTagArray)
             {
-                unit.updateAllStatuses();
+                bar.adjustHealth();
+                bar.updateAllStatuses();
+            }
+
+            foreach (Enemy dude in enemyUnits)
+            {
+                dude.Kill();
+                dude.updateHealthBar();
+                dude.updateAllStatuses();
             } 
     }
 }

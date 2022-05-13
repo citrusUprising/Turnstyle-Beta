@@ -27,6 +27,7 @@ public class BattleSpriteHandler : MonoBehaviour
         if (profile.GetComponent<nameTag>().character.GetComponent<Unit>().dead){
             shade = new Color (0.5f,0.5f,0.5f);
         }
+        this.GetComponent<Image>().color = shade;
 
         //reverses rotation from pentagon and skew
         var trans = this.GetComponent<Transform>();
