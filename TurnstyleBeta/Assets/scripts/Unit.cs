@@ -446,7 +446,7 @@ public class Unit : MonoBehaviour
             gameLoop.outputQueue.Add(new displayObject(source.unitName+" gets a second wind",
             source,
             StatusName.None,
-            false,
+            true,
             "buff")
             );
             }
