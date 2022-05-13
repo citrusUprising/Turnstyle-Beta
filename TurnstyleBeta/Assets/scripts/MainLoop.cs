@@ -86,6 +86,7 @@ public class MainLoop : MonoBehaviour
 	private List<Unit> queuedActions;
 	public int speedTotal;
     public float textSpeed;
+    public GameObject background;
 
     public GameObject uiController;
     public GameObject damagePopUp;
@@ -147,6 +148,11 @@ public class MainLoop : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(!Stats.GetComponent<CurrentStats>().hasMoney){
+            background.GetComponent<Image>().sprite = Resources.Load<Sprite>("Backgrounds/Track");
+        }else{
+            background.GetComponent<Image>().sprite = Resources.Load<Sprite>("Backgrounds/Train");
+        }
         textSpeed = PlayerPrefs.GetFloat("combatTextSpeed", 1.125f);
         isSkipped = false;
         foreach (Enemy unit in enemyUnits)
@@ -396,16 +402,14 @@ public class MainLoop : MonoBehaviour
                 //if(isSkipped) textSpeed = 0;
 
                //resolve Action
-               if(actionCount < queuedActions.Count){
-                    if(!queuedActions[actionCount].dead){
+               if(actionCount < queuedActions.Count&&!queuedActions[actionCount].dead){
                         Debug.Log(queuedActions[actionCount].name
                         +" used "+queuedActions[actionCount].queuedAction.ability.name+"!");
                         queuedActions[actionCount].act();
                         Debug.Log("Actor has Acted");
-                    }
-                }else{
-                    endTurn();
+                    
                 }
+
                 //Prints Messages
                while(messageCount < outputQueue.Count){
                    //Creates Output text
@@ -480,6 +484,7 @@ public class MainLoop : MonoBehaviour
            }
 
             //isSkipped = false;
+        endTurn();
         uiController.GetComponent<combatController>().combatDone = true;
         Debug.Log ("original textspeed is "+textSpeed);
         textSpeed = PlayerPrefs.GetFloat("combatTextSpeed", 1.125f);

@@ -167,6 +167,13 @@ public class nameTag : MonoBehaviour
         }
     }
 
+    public void KillGray(){
+        Image[] temp = this.GetComponentsInChildren<Image>();
+        for (int i = 0; i < temp.Length; i++){
+            Debug.Log(temp[i]+" is now changing colors");
+            temp[i].color = new Color (0.35f,0.35f,0.35f,1.0f);
+        }
+    }
     public void updateAllStatuses()
     {
         // this was the code i was using to test the duration on the status effects before

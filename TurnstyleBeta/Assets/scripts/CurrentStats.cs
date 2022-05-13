@@ -13,6 +13,7 @@ public class CurrentStats : MonoBehaviour
     // Start is called before the first frame update
     public int isTutorial;
     public int currentTutorial;
+    public bool hasMoney;
     void Start()
     {
         

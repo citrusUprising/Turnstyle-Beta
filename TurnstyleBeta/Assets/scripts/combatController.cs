@@ -78,9 +78,10 @@ public class combatController : MonoBehaviour
     public GameObject targetPointer;
     private int targetIndex = 0;
 
-    private Vector3[] playerTargets = new Vector3[5] {new Vector3(-65, 8, 0), 
-    new Vector3(43,-110,0), new Vector3(16,-216,0), new Vector3(-260, -201, 0),
-    new Vector3(-260, -31, 0)};
+    private Vector3[] playerTargets = new Vector3[3] {new Vector3(-177, 245, 0), 
+    new Vector3(-100, 227,0), new Vector3(-157, 80,0)};
+
+    public GameObject targetShadow;
 
     // --------------------------------------------------------- //
     // variables that interact with the rotate state
@@ -434,12 +435,24 @@ public class combatController : MonoBehaviour
                             else
                             {
                                 numberOfSelectedMoves--;
+                                 // fixing back past KO'd character
+                            // need to test this
+                            while(nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>().dead &&
+                                numberOfSelectedMoves >= 0){
+                                numberOfSelectedMoves--; 
+                            }
+                            if(numberOfSelectedMoves < 0){
+                                numberOfSelectedMoves = 0;
+                                transitionToRotate();
+                            }
+                            else{
+                                transitionToMoveSelect();
+                            }
                                 transitionToMoveSelect();
                             }
                         }
                     }
 
-                    // needs to be implemented
                     else if (state == "targetSelect")
                     {
                         // when the down arrow is pressed, move the selection down
@@ -461,7 +474,6 @@ public class combatController : MonoBehaviour
                         if (xPress() && !selectedTarget.dead)
                         {
                             menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
-                            targetPointer.GetComponent<CanvasRenderer>().SetAlpha(0);
                             transitionToSpeedSelect();
                         }
                         else if (xPress())
@@ -555,6 +567,23 @@ public class combatController : MonoBehaviour
                             numberOfSelectedMoves = 0;
                             transitionToRotate();
                         }
+                        // else {
+                            // numberOfSelectedMoves--;
+                            // fixing back past KO'd character
+                            // need to test this
+                            // while(nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>().dead &&
+                            //         numberOfSelectedMoves >= 0){
+                            //     numberOfSelectedMoves--; 
+                            // // }
+                            // if(numberOfSelectedMoves < 0){
+                            //     numberOfSelectedMoves = 0;
+                            //     transitionToRotate();
+                            // }
+                            // else{
+                            //     transitionToMoveSelect();
+                            // }
+
+                        // }
                     }
 
                     // THIS NEEDS TO BE DELETED ONCE WE GET FURTHER ALONG
@@ -610,7 +639,8 @@ public class combatController : MonoBehaviour
 
                         glossaryObject.GetComponent<glossaryScript>().hide();
                     }
-                    else if (glossaryObject.GetComponent<glossaryScript>().isShowing == false)
+                    else if (glossaryObject.GetComponent<glossaryScript>().isShowing == false&&
+                    (isTutorial == 0 ||tutorialHandler.GetComponent<tutorialHandler>().bookCount >= 3))//flag
                     {
                         speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
 
@@ -868,6 +898,8 @@ public class combatController : MonoBehaviour
         //gameLoop.setActiveUnits(rotationState);
 
         promptManager.changePrompt(1);
+
+        editTargetSpritesAlpha(0f);
     }
 
     void changeSelectedAbilityIndex(int change)
@@ -894,29 +926,70 @@ public class combatController : MonoBehaviour
 
     void changeSelectedTarget(int change, bool allied){
         targetIndex += change;
-        // this is kind of messy but it gets the allied targets in color order of 💙💛💗💚💖 
+        // this is kind of messy but it gets the allied targets
         if(allied){
-            if(targetIndex == 3)
-                targetIndex = 0;
-            if(targetIndex == -1)
-                targetIndex = 2;
-            targetPointer.transform.localPosition = playerTargets[targetIndex];
+            targetIndex = (targetIndex + 3) % 3;
+            // targetPointer.transform.localPosition = playerTargets[targetIndex];
+            // getting target position from sprites 🤔
+            targetPointer.transform.position = new Vector3(
+                nameTagArray[targetIndex].GetComponent<nameTag>().character.GetComponent<Friendly>().sprite.transform.position[0],
+                nameTagArray[targetIndex].GetComponent<nameTag>().character.GetComponent<Friendly>().sprite.transform.position[1] + 450,
+                nameTagArray[targetIndex].GetComponent<nameTag>().character.GetComponent<Friendly>().sprite.transform.position[2]
+            );
+
+            targetShadow.transform.position = new Vector3(
+                nameTagArray[targetIndex].GetComponent<nameTag>().character.GetComponent<Friendly>().sprite.transform.position[0],
+                nameTagArray[targetIndex].GetComponent<nameTag>().character.GetComponent<Friendly>().sprite.transform.position[1],
+                nameTagArray[targetIndex].GetComponent<nameTag>().character.GetComponent<Friendly>().sprite.transform.position[2]
+            );
+
             selectedTarget = nameTagArray[targetIndex].GetComponent<nameTag>().character.GetComponent<Friendly>();
+            Debug.Log("cast on: " + selectedTarget.name);
         }
         else{
-            if(targetIndex == enemies.Length)
-                targetIndex = 0;
-            if(targetIndex == -1)
-                targetIndex = enemies.Length-1;
-            targetPointer.transform.localPosition = new Vector3(
-                    enemies[targetIndex].transform.localPosition[0] - 100,
-                    enemies[targetIndex].transform.localPosition[1],
-                    enemies[targetIndex].transform.localPosition[2]
-                );
+            targetIndex = (targetIndex + enemies.Length)% enemies.Length;
+            // 🎯💀 skip targeting dead enemies 
+            // this could cause problems if somehow all enemies are dead but move is selected. seems highly unlikely but who knows
+            while(enemies[targetIndex].GetComponent<Enemy>().dead){
+
+                if (change == 0)
+                {
+                    change = 1;
+                }
+
+                targetIndex += change;
+
+                if (targetIndex > enemies.Length - 1)
+                {
+                    targetIndex = 0;
+                }
+                else if (targetIndex < 0)
+                {
+                    targetIndex = enemies.Length - 1;
+                }
+
+            }
+            targetPointer.transform.position = new Vector3(
+                    enemies[targetIndex].transform.position[0],
+                    enemies[targetIndex].transform.position[1]+100,
+                    enemies[targetIndex].transform.position[2]
+            );
+
+            targetShadow.transform.position = new Vector3(
+                    enemies[targetIndex].transform.position[0],
+                    enemies[targetIndex].transform.position[1] - 150,
+                    enemies[targetIndex].transform.position[2]
+            );
 
             selectedTarget = enemies[targetIndex].GetComponent<Enemy>();
             Debug.Log("Target = " + selectedTarget.name);
         }
+    }
+
+    void editTargetSpritesAlpha(float alpha)
+    {
+        targetPointer.GetComponent<CanvasRenderer>().SetAlpha(alpha);
+        targetShadow.GetComponent<CanvasRenderer>().SetAlpha(alpha);
     }
 
     // because we have not implemented this yet, it will go automatically to the speedSelect
@@ -947,14 +1020,16 @@ public class combatController : MonoBehaviour
             changeSelectedTarget(0, selectedAbility.allies);
             if(selectedAbility.allies){
                 targetPointer.transform.localPosition = playerTargets[0];
-                targetPointer.transform.eulerAngles = new Vector3(0,180,0);
+                // targetPointer.transform.eulerAngles = new Vector3(0,180,0);
             }
-            else
-                targetPointer.transform.eulerAngles = new Vector3(0,0,0);
+            // else
+                // targetPointer.transform.eulerAngles = new Vector3(0,0,0);
             targetPointer.GetComponent<CanvasRenderer>().SetAlpha(1);
         }
 
         promptManager.changePrompt(2);
+
+        editTargetSpritesAlpha(1f);
     }
 
     // a lot of things have to happen here
@@ -1107,6 +1182,8 @@ public class combatController : MonoBehaviour
             currentDrawnBox.transform.GetChild(i+4).gameObject.GetComponent<TextMeshProUGUI>().text = actionDescription;   
         }
         promptManager.changePrompt(4);
+
+        editTargetSpritesAlpha(0f);
     }
 
     // playResults is also not really implemented yet
@@ -1133,7 +1210,7 @@ public class combatController : MonoBehaviour
     void transitionFromPause()
     {
         Debug.Log("transitioned from pause");
-
+        gameLoop.textSpeed = PlayerPrefs.GetFloat("combatTextSpeed", 1.125f);
         switch (previousState)
         {
 

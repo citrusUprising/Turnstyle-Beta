@@ -335,7 +335,7 @@ public class Rally : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        source.hp = Math.Min(source.hp-3, source.maxHP);
+        source.hp = Math.Max(source.hp-3, 0);
         L.outputQueue.Add(new displayObject(source.unitName+" sacrificed 3 health",
         source,
         3,

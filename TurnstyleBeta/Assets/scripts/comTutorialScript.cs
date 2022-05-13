@@ -28,7 +28,7 @@ public class comTutorialScript : MonoBehaviour
         sceneItems[6] = totalSpeed;
         sceneItems[7] = statusBar;
         sceneItems[8] = passiveAbilities;
-        populateScript(5);
+        populateScript(4);
     }
 
     private void addTutorialText(TutorialSegment[] temp, int book, int pageNumber){

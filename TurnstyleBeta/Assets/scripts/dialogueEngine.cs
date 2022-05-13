@@ -209,6 +209,7 @@ public class dialogueEngine : MonoBehaviour
 	}
 
     public IEnumerator WriteLine(){
+		textSpeed = PlayerPrefs.GetFloat("dialogueTextSpeed", .055f);
     	writing = true;
     	dialogueEntry currentEntry = chosenDialogue.lines[currentLine];
     	for(int i = 1; i < currentEntry.line.Length; i++){

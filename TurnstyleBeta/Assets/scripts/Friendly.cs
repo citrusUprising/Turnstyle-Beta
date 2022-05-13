@@ -31,6 +31,10 @@ public class Friendly : Unit
         
     }
 
+    public void dimNameTag(){
+        nameTag.GetComponent<nameTag>().KillGray();
+    }
+
     void getTeams()
     {
         this.allies = GameObject.FindGameObjectsWithTag("Ally");

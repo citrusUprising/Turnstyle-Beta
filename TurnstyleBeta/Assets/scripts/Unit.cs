@@ -204,6 +204,7 @@ public class Unit : MonoBehaviour
             "damage")
             );
         }
+        checkDead(); 
         this.fatigue += 1;
         if(this.statuses[(int)StatusType.Debuff].name == StatusName.FatigueUP) this.fatigue += 1;
         
@@ -270,21 +271,7 @@ public class Unit : MonoBehaviour
                 }
             }
         }
-        if(this.hp <= 0 && !this.dead)
-        { //I have replaced the queue with just printing to the debug log for the moment
-            //I have also not set anything to change tint
-            this.dead = true;
-            if(this.tag == "allies")
-            gameLoop.outputQueue.Add(new displayObject(this.unitName + " passed out!",
-            false,
-            "damage")
-            );
-            else
-            gameLoop.outputQueue.Add(new displayObject(this.unitName + " died!",
-            false,
-            "damage")
-            );            
-        }
+        checkDead(); 
         if(this.unitName.Equals("Jade")&&this.fatigue < 2&&this.isActive&& !this.dead){
             foreach(GameObject o in this.allies){
                 Unit temp = o.GetComponent<Unit>();
@@ -431,19 +418,10 @@ public class Unit : MonoBehaviour
             true,
             "damage")
             );
-        if (this.hp == 0 && !this.dead){ //No output queue just printing to debug log
-                                           //No tint changing either
-            this.dead = true;
-            gameLoop.outputQueue.Add(new displayObject(this.unitName + " died!",
-            this,
-            StatusName.None,
-            false,
-            "damage")
-            );
-            if(source.unitName.Equals("Beverly"))
-            {
-                source.fatigue -= 2;
-                if (source.fatigue < 0)
+        checkDead();    
+        if (this.hp <= 0 && !this.dead&&source.unitName.Equals("Beverly")){
+            source.fatigue -= 2;
+            if (source.fatigue < 0)
                 source.fatigue = 0;
             gameLoop.outputQueue.Add(new displayObject(source.unitName+" gets a second wind",
             source,
@@ -451,8 +429,25 @@ public class Unit : MonoBehaviour
             true,
             "buff")
             );
-            }
         }
+    }
+
+    private void checkDead(){
+        if (this.hp <= 0 && !this.dead){
+        this.dead = true;
+            if(this.tag == "Ally"){
+            gameLoop.outputQueue.Add(new displayObject(this.unitName + " passed out!",
+            false,
+            "damage")
+            );
+            this.GetComponent<Friendly>().dimNameTag();
+            }
+            else
+            gameLoop.outputQueue.Add(new displayObject(this.unitName + " died!",
+            false,
+            "damage")
+            );
+        }  
     }
 
    public void applyStatus(StatusType type, StatusName newStatus, int duration, int magnitude)
