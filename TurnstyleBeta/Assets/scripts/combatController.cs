@@ -610,7 +610,8 @@ public class combatController : MonoBehaviour
 
                         glossaryObject.GetComponent<glossaryScript>().hide();
                     }
-                    else if (glossaryObject.GetComponent<glossaryScript>().isShowing == false)
+                    else if (glossaryObject.GetComponent<glossaryScript>().isShowing == false&&
+                    (isTutorial == 0 ||tutorialHandler.GetComponent<tutorialHandler>().bookCount >= 3))//flag
                     {
                         speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
 
