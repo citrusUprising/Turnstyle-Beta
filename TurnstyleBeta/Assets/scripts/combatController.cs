@@ -222,9 +222,9 @@ public class combatController : MonoBehaviour
         nameTagArray[4] = nameTagAmery;
 
         // init each player's moves here ⬇ this code is ugly but it works
-        nameTagArray[0].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Repel(), new Hunker(), new Crush()};
+        nameTagArray[0].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Hunker(), new Crush(), new Repel()};
         nameTagArray[1].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Stunnerclap(), new Rally(), new Motivate()};
-        nameTagArray[2].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Soulrip(), new Scry(), new Slump()};
+        nameTagArray[2].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Scry(), new Soulrip3(), new Scream2()};
         nameTagArray[3].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Smolder(), new Dazzle(), new Imbibe()}; 
         nameTagArray[4].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = new Ability[]{new Mitigate(), new Unionize(), new Scrum()};
 

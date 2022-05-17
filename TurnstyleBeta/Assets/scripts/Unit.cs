@@ -397,11 +397,11 @@ public class Unit : MonoBehaviour
         {
             amount = (int) Math.Ceiling((double) amount / 2);
         }
-        if(this.unitName.Equals("Seraphim") && this.queuedAction.speed >= 5)
+        if(this.unitName.Equals("Seraphim"))
         { //again no output queue just printing to debug log
             float check = UnityEngine.Random.Range(0.0f,1.0f);
             Debug.Log("Seraphim's dodge check is" + check);
-            if(check > 0.5){
+            if(check > 1.0f-(this.queuedAction.speed/10)){
                 gameLoop.outputQueue.Add(new displayObject(this.unitName + " dodged the attack",
                 this,
                 StatusName.None,
@@ -420,6 +420,8 @@ public class Unit : MonoBehaviour
             );
         checkDead();    
         if (this.hp <= 0 && !this.dead&&source.unitName.Equals("Beverly")){
+            source.fatigue -= 2;
+            if (source.fatigue < 0)
                 source.fatigue = 0;
             gameLoop.outputQueue.Add(new displayObject(source.unitName+" gets a second wind",
             source,
@@ -476,6 +478,26 @@ public class Unit : MonoBehaviour
         if(this.statuses[(int) type].name != StatusName.None)
         {
             String cur =this.statuses[(int) type].name.ToString();
+
+            if(this.statuses[(int) type].name == newStatus&&
+            this.statuses[(int) type].magnitude <= magnitude){
+                this.statuses[(int) type].magnitude = Math.Max(magnitude, this.statuses[(int) type].magnitude);
+                this.statuses[(int) type].duration = Math.Max(duration, this.statuses[(int) type].duration);
+                    
+                if(cur.Contains("ed")||cur == "Vulnerable")
+                gameLoop.outputQueue.Add(new displayObject(this.unitName + " remains "+cur,
+                this,
+                this.statuses[(int) type].name,
+                false)
+                );
+                else gameLoop.outputQueue.Add(new displayObject(this.unitName + " continues to have "+cur,
+                this,
+                this.statuses[(int) type].name, 
+                false)
+                );
+                return;
+            }
+            else{
             if(cur.Contains("ed")||cur == "Vulnerable")
             gameLoop.outputQueue.Add(new displayObject(this.unitName + " is already "+cur,
             this,
@@ -488,6 +510,7 @@ public class Unit : MonoBehaviour
             false)
             );
             return;
+            }
         }
         else
         { //again no outputQueue

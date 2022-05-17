@@ -184,6 +184,13 @@ public class comTutorialScript : MonoBehaviour
         pageFiller++;
 
         temp[pageFiller] = new TutorialSegment(
+            new string[1]{"However, if a <b>Status Effect</b> matches the current effect and is at least as strong, it will reset the <b>Duration</b> of that status"}, 
+            new int[0]{}, 
+            "xDown"
+        );
+        pageFiller++;
+
+        temp[pageFiller] = new TutorialSegment(
             new string[2]{"All the <b>Status Effects</b> are visible in the <b>Glossary</b> by pressing <b>G.</b>",
             "Why don't you check it out?"}, 
             new int[0]{}, 

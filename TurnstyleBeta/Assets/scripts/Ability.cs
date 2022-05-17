@@ -313,13 +313,7 @@ public class Crush : Ability
     public override void effect(Unit target, Unit source, MainLoop L)
     {
         target.takeDamage(source, 8);
-        source.hp = Math.Max(source.hp-6, 0);
-        L.outputQueue.Add(new displayObject(source.unitName+" took 6 damage from recoil",
-         source,
-         6,
-         true,
-         "damage")
-         );
+        source.takeDamage(source, 6);
     }
 
     public override bool requirement(Unit target, Unit source)
@@ -441,7 +435,7 @@ public class Soulrip3 : Ability
     public Soulrip3()
     {
         this.name = "Soul Rip";
-        this.text = "Deal 10 damage, but gives target Regen(4) for 2 turn";
+        this.text = "Deal 8 damage, but gives target Regen(6) for 1 turn";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
@@ -449,8 +443,8 @@ public class Soulrip3 : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {   
-        target.takeDamage(source, 10);
-        target.applyStatus(StatusType.Health, StatusName.Regeneration, 2, 4);
+        target.takeDamage(source, 8);
+        target.applyStatus(StatusType.Health, StatusName.Regeneration, 1, 6);
     }
 
     public override bool requirement(Unit target, Unit source)
@@ -492,7 +486,7 @@ public class Scream2 : Ability
     public Scream2()
     {
         this.name = "Scream";
-        this.text = "Deal 3x user's fatigue in damage to all enemies with 50% accuracy";
+        this.text = "Deal 2x user's fatigue in damage to all enemies with 50% accuracy";
         this.multitarget = true;
         this.selftarget = false;
         this.allies = false;
@@ -504,7 +498,7 @@ public class Scream2 : Ability
         float check = UnityEngine.Random.Range(0.0f,1.0f);
         Debug.Log("Seraphim's accuracy is "+test);
         Debug.Log("Seraphim rolled "+ check);
-        if(check <= test) target.takeDamage(source, source.fatigue*3);
+        if(check <= test) target.takeDamage(source, source.fatigue*2);
         else L.outputQueue.Add(new displayObject(target.unitName+" is unconcerned",
         false));
     }
@@ -743,7 +737,7 @@ public class Ingrain : Ability
 {
     public Ingrain()
     {
-        this.name = "Ingrain";
+        this.name = "Persist";
         this.text = "50% chance give all allies Regen (1) for 5 turns";
         this.multitarget = true;
         this.selftarget = false;
@@ -1030,7 +1024,7 @@ public class SelfDestruct : Ability
     public SelfDestruct()
     {
         this.name = "Self-Destruct";
-        this.text = "Give target and self Burn (7) for 1 turn";
+        this.text = "Give target and self Burn for 1 turn, magnitude is equal to user's current health";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
@@ -1038,8 +1032,8 @@ public class SelfDestruct : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        target.applyStatus(StatusType.Health,StatusName.Burn,1,7);
-        source.applyStatus(StatusType.Health,StatusName.Burn,1,7);
+        target.applyStatus(StatusType.Health,StatusName.Burn,1,source.hp);
+        source.applyStatus(StatusType.Health,StatusName.Burn,1,source.hp);
     }
 
     public override bool requirement(Unit target, Unit source)

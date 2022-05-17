@@ -308,8 +308,10 @@ public class MainLoop : MonoBehaviour
    			unit.turnEnd();
    		}
    		//display output
+   	}
 
-   		//is game over?
+    public void checkGameEnd(){
+        //is game over?
    		bool allDead = true;
    		foreach(Unit unit in playerUnits){
    			if(!unit.dead){
@@ -374,7 +376,7 @@ public class MainLoop : MonoBehaviour
             }
             SceneManager.UnloadSceneAsync(sceneName);
         }
-   	}
+    }
 
     public void statused(){
         uiController.GetComponent<combatController>().statused = true;
@@ -402,12 +404,15 @@ public class MainLoop : MonoBehaviour
                 //if(isSkipped) textSpeed = 0;
 
                //resolve Action
-               if(actionCount < queuedActions.Count&&!queuedActions[actionCount].dead){
+               if(actionCount < queuedActions.Count){
+                    if(!queuedActions[actionCount].dead){
                         Debug.Log(queuedActions[actionCount].name
                         +" used "+queuedActions[actionCount].queuedAction.ability.name+"!");
                         queuedActions[actionCount].act();
                         Debug.Log("Actor has Acted");
-                    
+                    }
+                }else{
+                    endTurn();
                 }
 
                 //Prints Messages
@@ -484,7 +489,6 @@ public class MainLoop : MonoBehaviour
            }
 
             //isSkipped = false;
-        endTurn();
         uiController.GetComponent<combatController>().combatDone = true;
         Debug.Log ("original textspeed is "+textSpeed);
         textSpeed = PlayerPrefs.GetFloat("combatTextSpeed", 1.125f);
@@ -492,9 +496,11 @@ public class MainLoop : MonoBehaviour
         Debug.Log("QueuedActions Cleared");
     	queuedActions.Clear();
         outputQueue.Clear();
+        checkGameEnd();
 
-        //DO NOT REMOVE, ABOVE CODE DOES NOT RUN IN BUILDS IF THIS ISN'T HERE
+        //DO NOT MOVE, ABOVE CODE DOES NOT RUN IN BUILDS IF THIS ISN'T HERE
             //updates UI
+            
           foreach(nameTag bar in uiController.GetComponent<combatController>().nameTagArray)
             {
                 bar.adjustHealth();
