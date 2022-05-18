@@ -204,7 +204,6 @@ public class Unit : MonoBehaviour
             "damage")
             );
         }
-        checkDead(); 
         this.fatigue += 1;
         if(this.statuses[(int)StatusType.Debuff].name == StatusName.FatigueUP) this.fatigue += 1;
         
@@ -245,33 +244,30 @@ public class Unit : MonoBehaviour
             "damage")
             );
         }
-        if(this.tag == "Enemy"){
-            foreach(Status s in this.statuses)
+        foreach(Status s in this.statuses)
+        {
+            if(s.duration > 0)
             {
-                if(s.duration > 0)
+                s.duration -= 1;
+                Debug.Log(s.name+" has "+s.duration+" turns left");
+                if(s.duration == 0 && !this.dead)
                 {
-                    s.duration -= 1;
-                    Debug.Log(s.name+" has "+s.duration+" turns left");
-                    if(s.duration == 0 && !this.dead)
-                    {
-                        String test = s.name.ToString();
-                        if(test.Contains("ed")||test == "Vulnerable")gameLoop.outputQueue.Add(new displayObject(this.unitName + " is no longer " + s.name,
-                            this,
-                            s.name,
-                            false)
-                            );
-                        else gameLoop.outputQueue.Add(new displayObject(this.unitName + "'s " + s.name + " wore off",
-                            this,
-                            s.name,
-                            false)
-                            );
-                        s.name = StatusName.None;
-                        s.magnitude = 0;
-                    }
+                    String test = s.name.ToString();
+                    if(test.Contains("ed")||test == "Vulnerable")gameLoop.outputQueue.Add(new displayObject(this.unitName + " is no longer " + s.name,
+                        this,
+                        s.name,
+                        false)
+                        );
+                    else gameLoop.outputQueue.Add(new displayObject(this.unitName + "'s " + s.name + " wore off",
+                        this,
+                        s.name,
+                        false)
+                        );
+                    s.name = StatusName.None;
+                    s.magnitude = 0;
                 }
             }
         }
-        checkDead(); 
         if(this.unitName.Equals("Jade")&&this.fatigue < 2&&this.isActive&& !this.dead){
             foreach(GameObject o in this.allies){
                 Unit temp = o.GetComponent<Unit>();
@@ -321,7 +317,7 @@ public class Unit : MonoBehaviour
                             false)
                             );
                             highest.hp = Math.Max(highest.hp-transfer, 0);
-                            highest.Kill();
+                            highest.GetComponent<Friendly>().nameTag.GetComponent<nameTag>().adjustHealth();
                             gameLoop.outputQueue.Add(new displayObject(highest.unitName+" gave "+transfer+" health",
                             highest,
                             transfer,
@@ -417,8 +413,7 @@ public class Unit : MonoBehaviour
             amount,
             true,
             "damage")
-            );
-        checkDead();    
+            );   
         if (this.hp <= 0 && !this.dead&&source.unitName.Equals("Beverly")){
             source.fatigue -= 2;
             if (source.fatigue < 0)
@@ -432,21 +427,27 @@ public class Unit : MonoBehaviour
         }
     }
 
-    private void checkDead(){
+    public void checkDead(){
         if (this.hp <= 0 && !this.dead){
         this.dead = true;
             if(this.tag == "Ally"){
-            gameLoop.outputQueue.Add(new displayObject(this.unitName + " passed out!",
-            false,
-            "damage")
+            gameLoop.outputQueue.Add(new displayObject(
+                this.unitName + " passed out!",
+                this,
+                StatusName.None,
+                false,
+                "damage")
             );
-            this.GetComponent<Friendly>().dimNameTag();
             }
-            else
-            gameLoop.outputQueue.Add(new displayObject(this.unitName + " died!",
-            false,
-            "damage")
+            else{
+            gameLoop.outputQueue.Add(new displayObject(
+                this.unitName + " died!",
+                this,
+                StatusName.None,
+                false,
+                "damage")
             );
+            }
         }  
     }
 

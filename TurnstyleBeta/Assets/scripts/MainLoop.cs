@@ -157,7 +157,7 @@ public class MainLoop : MonoBehaviour
         isSkipped = false;
         foreach (Enemy unit in enemyUnits)
             {
-                unit.Kill();
+                unit.checkDead();
                 unit.updateHealthBar();
             } 
         foreach (Friendly unit in playerUnits)
@@ -431,13 +431,20 @@ public class MainLoop : MonoBehaviour
                     Vector3 tempLoc; //flag
                     if(outputQueue[messageCount].origin != null&&!isSkipped){
                         Unit tempU = outputQueue[messageCount].origin;
+                        string tempLine = outputQueue[messageCount].text;
                         
                         if(tempU.tag == "Enemy"){
                             tempLoc = new Vector3 (tempU.GetComponent<Transform>().position.x,
                             tempU.GetComponent<Transform>().position.y+100,
                             tempU.GetComponent<Transform>().position.z );
-                            if(outputQueue[messageCount].changeHP)tempU.GetComponent<Enemy>().updateHealthBar();
-                            tempU.GetComponent<Unit>().Kill();
+                            if(outputQueue[messageCount].changeHP){
+                                tempU.GetComponent<Enemy>().updateHealthBar();
+                                tempU.checkDead();
+                            }
+                            if(tempLine.Contains(" died!")){
+                                tempU.Kill();
+                                tempU.GetComponent<Enemy>().updateHealthBar();
+                            }
                             tempU.GetComponent<Enemy>().updateAllStatuses();
                         }
                         else if(tempU.tag == "Ally"){
@@ -445,7 +452,12 @@ public class MainLoop : MonoBehaviour
                             tempLoc = new Vector3 (locTrans.GetComponent<Transform>().position.x,
                             locTrans.GetComponent<Transform>().position.y+500,
                             locTrans.GetComponent<Transform>().position.z );
-                            if(outputQueue[messageCount].changeHP)tempU.GetComponent<Friendly>().nameTag.GetComponent<nameTag>().adjustHealth();
+                            if(outputQueue[messageCount].changeHP){
+                                tempU.GetComponent<Friendly>().nameTag.GetComponent<nameTag>().adjustHealth();
+                                tempU.checkDead();
+                            }
+                            if(tempLine.Contains(" passed out!"))tempU.GetComponent<Friendly>().dimNameTag();
+                                        
                             tempU.GetComponent<Friendly>().nameTag.GetComponent<nameTag>().updateAllStatuses();
                             
                         }
@@ -509,7 +521,7 @@ public class MainLoop : MonoBehaviour
 
             foreach (Enemy dude in enemyUnits)
             {
-                dude.Kill();
+                dude.checkDead();
                 dude.updateHealthBar();
                 dude.updateAllStatuses();
             } 

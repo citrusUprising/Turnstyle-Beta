@@ -28,7 +28,7 @@ public class BattleSpriteHandler : MonoBehaviour
     {
         shade = this.GetComponent<Image>().color;
         //changes color based on dead
-        if (profile.GetComponent<nameTag>().character.GetComponent<Unit>().dead){
+        if (profile.GetComponent<nameTag>().isDead){
             shade = new Color (0.5f,0.5f,0.5f);
         }
         this.GetComponent<Image>().color = shade;

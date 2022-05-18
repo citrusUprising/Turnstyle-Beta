@@ -37,6 +37,7 @@ public class nameTag : MonoBehaviour
     public Sprite totalSpeedImage;
 
     public Color confirmColor;
+    public bool isDead = false;
 
     // Start is called before the first frame update
     void Start()
@@ -168,6 +169,7 @@ public class nameTag : MonoBehaviour
     }
 
     public void KillGray(){
+        isDead = true;
         Image[] temp = this.GetComponentsInChildren<Image>();
         for (int i = 0; i < temp.Length; i++){
             Debug.Log(temp[i]+" is now changing colors");

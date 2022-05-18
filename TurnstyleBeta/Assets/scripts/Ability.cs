@@ -279,7 +279,7 @@ public class Fallguy : Ability
     public Fallguy()
     {
         this.name = "Fall Guy";
-        this.text = "Give self Vulnerable and all allies Shielded for 1 turn.";//flag
+        this.text = "Give self Vulnerable and all allies Shielded for this turn.";//flag
         this.multitarget = true;
         this.selftarget = false;
         this.allies = true;
@@ -355,7 +355,7 @@ public class Stunnerclap : Ability
     public Stunnerclap()
     {
         this.name = "Stunner Clap";
-        this.text = "Deal 2 damage to targeted enemy and inflict Weakened for 1 turn";//flag
+        this.text = "Deal 2 damage to targeted enemy and inflict Weakened for this turn";//flag
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
@@ -406,7 +406,7 @@ public class Soulrip2 : Ability
     public Soulrip2()
     {
         this.name = "Soul Rip";
-        this.text = "Deal 10 damage, but has 50% accuracy if at 1 or more fatigue and gives user Vulnerable for 1 turn";
+        this.text = "Deal 10 damage, but has 50% accuracy if at 1 or more fatigue and gives user Vulnerable for this turn";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
@@ -435,7 +435,7 @@ public class Soulrip3 : Ability
     public Soulrip3()
     {
         this.name = "Soul Rip";
-        this.text = "Deal 8 damage, but gives target Regen(6) for 1 turn";
+        this.text = "Deal 8 damage, but gives target Regen(6) for this turn";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
@@ -566,7 +566,7 @@ public class Motivate : Ability
     public Motivate()
     {
         this.name = "Motivate";
-        this.text = "Gives an ally Strengthened for 1 turn, Shielded for 1 turn, or Haste (3) for 2 turns.";//flag
+        this.text = "Gives an ally Strengthened for this turn, Shielded for this turn, or Haste (3) for 2 turns.";//flag
         this.multitarget = false;
         this.selftarget = false;
         this.allies = true;
@@ -597,7 +597,7 @@ public class Slump : Ability
     public Slump()
     {
         this.name = "Slump";
-        this.text = "Grants user Regen (6) for 1 turn";
+        this.text = "Grants user Regen (6) for this turn";
         this.multitarget = false;
         this.selftarget = true;
         this.allies = false;
@@ -641,7 +641,7 @@ public class FlamingRing : Ability
     public FlamingRing()
     {
         this.name = "Flaming Ring";
-        this.text = "Inflict Target with either Burn (8) for 1 turn or Burn (2) for 5 turns";
+        this.text = "Inflict Target with either Burn (8) for this turn or Burn (2) for 5 turns";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
@@ -761,7 +761,7 @@ public class Unionize : Ability
     public Unionize()
     {
         this.name = "Unionize";
-        this.text = "Grants party Shielded for 1 turn";//flag
+        this.text = "Grants party Shielded for this turn";//flag
         this.multitarget = true;
         this.selftarget = false;
         this.allies = true;
@@ -1001,7 +1001,7 @@ public class OverExtend : Ability
     public OverExtend()
     {
         this.name = "Over-Extend";
-        this.text = "Hit all enemies for 3 damage, give self Vulnerable for 1 turn";//flag
+        this.text = "Hit all enemies for 3 damage, give self Vulnerable for this turn";//flag
         this.multitarget = true;
         this.selftarget = false;
         this.allies = false;
@@ -1024,7 +1024,7 @@ public class SelfDestruct : Ability
     public SelfDestruct()
     {
         this.name = "Self-Destruct";
-        this.text = "Give target and self Burn for 1 turn, magnitude is equal to user's current health";
+        this.text = "Give target and self Burn for this turn, magnitude is equal to user's current health";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
@@ -1091,7 +1091,7 @@ public class Habituate : Ability
     public Habituate()
     {
         this.name = "Habituate";
-        this.text = "Cure an ally of debuffs, then inflict them with Null for 1 turn";
+        this.text = "Cure an ally of debuffs, then inflict them with Null for this turn";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = true;
@@ -1146,7 +1146,7 @@ public class Venom : Ability
     public Venom()
     {
         this.name = "Venom";
-        this.text = "Inflicts target with Vulnerable for 1 turn";//flag
+        this.text = "Inflicts target with Vulnerable for this turn";//flag
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
