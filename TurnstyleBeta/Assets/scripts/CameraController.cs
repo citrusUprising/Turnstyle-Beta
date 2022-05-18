@@ -26,6 +26,9 @@ public class CameraController : MonoBehaviour
     //determines which cutscene node is active
     public int currentCutScene =0;
     public bool hasMoney;
+    public float zoomSpeed;
+    public float minZoom;
+    public float maxZoom;
 
     public GameObject moneyTxt;
     public GameObject objective;
@@ -229,6 +232,17 @@ public class CameraController : MonoBehaviour
             }
         }
 
+        if(Input.GetKey(KeyCode.C) && SceneManager.sceneCount == 1 && !loading){
+            Debug.Log("Pressed C");
+            zoomIn();
+        } 
+        if(Input.GetKey(KeyCode.D) && SceneManager.sceneCount == 1 && !loading ){
+            Debug.Log("Pressed D");
+            zoomOut();
+        } 
+
+        
+
         pointer.transform.localPosition = Vector3.zero;
         pointer.transform.position = gameObject.transform.position;
         pointer.transform.position = new Vector3(pointer.transform.position[0], pointer.transform.position[1], 0);
@@ -295,6 +309,34 @@ public class CameraController : MonoBehaviour
         Color temp2 = currentStation.GetComponent<Image>().color;
         temp2 = new Color (0.5f,0.43f,0.56f);
         currentStation.GetComponent<Image>().color = temp2;
+    }
+
+    void zoomIn(){
+        Camera cam = this.GetComponent<Camera>();
+        if(cam.orthographicSize >= minZoom){
+            cam.orthographicSize -= zoomSpeed;
+        }
+    }
+
+    void zoomOut(){
+        Camera cam = this.GetComponent<Camera>();
+        if(cam.orthographicSize < maxZoom){
+            cam.orthographicSize += zoomSpeed;
+        }
+    }
+
+    void autoZoomOut(){
+         Camera cam = this.GetComponent<Camera>();
+         bool allVisible = true;
+        do {
+            foreach(Station s in currentStation.destinations){
+                Vector3 viewport = cam.WorldToScreenPoint(s.transform.position);
+                if(viewport.x < 0 || viewport.x > 1 || viewport.y < 0 || viewport.y > 1){
+                    zoomOut();
+                    allVisible = false;
+                }
+            }
+        } while(allVisible == false);
     }
 
     void MoneyUpdate(){
