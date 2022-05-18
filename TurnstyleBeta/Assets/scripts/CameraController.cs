@@ -233,11 +233,11 @@ public class CameraController : MonoBehaviour
         }
 
         if(Input.GetKey(KeyCode.C) && SceneManager.sceneCount == 1 && !loading){
-            Debug.Log("Pressed C");
+            //Debug.Log("Pressed C");
             zoomIn();
         } 
         if(Input.GetKey(KeyCode.D) && SceneManager.sceneCount == 1 && !loading ){
-            Debug.Log("Pressed D");
+            //Debug.Log("Pressed D");
             zoomOut();
         } 
 
