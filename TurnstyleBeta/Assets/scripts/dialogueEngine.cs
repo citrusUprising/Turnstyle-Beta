@@ -59,6 +59,10 @@ public class dialogueEngine : MonoBehaviour
 	public GameObject rightFace;
 	public GameObject leftName;
 	public GameObject rightName;
+
+	private float yUp = -59.1f;
+	private float yDown = -100f;
+	private bool sceneStart = true;
 	public GameObject backGround;
 	TextMeshProUGUI mainBoxText;
 	overallDialogue[] dialogueVarieties;
@@ -111,8 +115,8 @@ public class dialogueEngine : MonoBehaviour
 		this.leftFace.GetComponent<faceHandler>().changeFace(chosenDialogue.speakerA,"");
 		this.rightFace.GetComponent<faceHandler>().changeFace(chosenDialogue.speakerB,"");
 		this.backGround.GetComponent<backGroundHandler>().changeBackground(chosenDialogue.background);
-        leftName.GetComponent<TextMeshProUGUI>().text = chosenDialogue.speakerA;
-        rightName.GetComponent<TextMeshProUGUI>().text = chosenDialogue.speakerB;
+        leftName.GetComponentInChildren<TextMeshProUGUI>().text = chosenDialogue.speakerA;
+        rightName.GetComponentInChildren<TextMeshProUGUI>().text = chosenDialogue.speakerB;
     }
 
     // Update is called once per frame
@@ -131,9 +135,8 @@ public class dialogueEngine : MonoBehaviour
 				SceneManager.UnloadSceneAsync(sceneName);
 			}
 
-			if (Input.GetKeyDown(KeyCode.X))
+			if (Input.GetKeyDown(KeyCode.X)||sceneStart)
 			{
-
 				if (writing)
 				{
 					//if they hit the button again while text is writing, write all of it
@@ -176,18 +179,21 @@ public class dialogueEngine : MonoBehaviour
 						currentLine = 0;
 
 						this.swapAndSound();
-						leftName.GetComponent<TextMeshProUGUI>().text = chosenDialogue.speakerA;
-						rightName.GetComponent<TextMeshProUGUI>().text = chosenDialogue.speakerB;
+						leftName.GetComponentInChildren<TextMeshProUGUI>().text = chosenDialogue.speakerA;
+						rightName.GetComponentInChildren<TextMeshProUGUI>().text = chosenDialogue.speakerB;
+
 
 						Debug.Log("dialogueChoice at end is " + dialogueChoice);
 						Debug.Log("dialogueVarieties.Length at end is " + dialogueVarieties.Length);
 						StartCoroutine("WriteLine");
+						showCorrectNameTag();
 					}
 				}
 				else
 				{
 					this.swapAndSound();
 					StartCoroutine("WriteLine");
+					showCorrectNameTag();
 				}
 			}
 
@@ -201,6 +207,7 @@ public class dialogueEngine : MonoBehaviour
         {
 			keyPrompt.SetActive(false);
 		}
+		sceneStart = false;
     }
 
 	void OnDestroy(){
@@ -229,6 +236,43 @@ public class dialogueEngine : MonoBehaviour
 	private void playSfx(string path){
 		sfxInstance = RuntimeManager.CreateInstance("event:/"+path); 
 		sfxInstance.start();
+	}
+
+	private void showCorrectNameTag(){
+		if(chosenDialogue.lines[currentLine].speaker&&chosenDialogue.speakerB != ""){
+			leftName.GetComponent<Transform>().localPosition = new Vector3 (
+				leftName.GetComponent<Transform>().localPosition.x,
+				yDown,
+				leftName.GetComponent<Transform>().localPosition.z
+			);
+			rightName.GetComponent<Transform>().localPosition = new Vector3 (
+				rightName.GetComponent<Transform>().localPosition.x,
+				yUp,
+				rightName.GetComponent<Transform>().localPosition.z
+			);
+		}else if (chosenDialogue.speakerA != ""){
+			leftName.GetComponent<Transform>().localPosition = new Vector3 (
+				leftName.GetComponent<Transform>().localPosition.x,
+				yUp,
+				leftName.GetComponent<Transform>().localPosition.z
+			);
+			rightName.GetComponent<Transform>().localPosition = new Vector3 (
+				rightName.GetComponent<Transform>().localPosition.x,
+				yDown,
+				rightName.GetComponent<Transform>().localPosition.z
+			);
+		}else{
+			leftName.GetComponent<Transform>().localPosition = new Vector3 (
+				leftName.GetComponent<Transform>().localPosition.x,
+				yDown,
+				leftName.GetComponent<Transform>().localPosition.z
+			);
+			rightName.GetComponent<Transform>().localPosition = new Vector3 (
+				rightName.GetComponent<Transform>().localPosition.x,
+				yDown,
+				rightName.GetComponent<Transform>().localPosition.z
+			);
+		}
 	}
 
 	/* All cutscene sounds

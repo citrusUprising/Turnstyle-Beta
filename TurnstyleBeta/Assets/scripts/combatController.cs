@@ -430,7 +430,7 @@ public class combatController : MonoBehaviour
                             //menuBack.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                             if (numberOfSelectedMoves == 0)
                             {
-                                transitionToRotate();
+                                if(rotateAllowed)transitionToRotate();
                             }
                             else
                             {
@@ -443,7 +443,7 @@ public class combatController : MonoBehaviour
                             }
                             if(numberOfSelectedMoves < 0){
                                 numberOfSelectedMoves = 0;
-                                transitionToRotate();
+                                if(rotateAllowed)transitionToRotate();
                             }
                             else{
                                 transitionToMoveSelect();
