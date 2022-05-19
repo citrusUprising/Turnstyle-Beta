@@ -4806,7 +4806,7 @@ PrefabInstance:
     - target: {fileID: 6480507838678960161, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 0e7b7e91e15fc18478279a7e1cfae9e8, type: 3}
+      objectReference: {fileID: 21300000, guid: 0bc279586cd6d46499c188e33ca90e26, type: 3}
     - target: {fileID: 6480507838678960161, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_PreserveAspect
       value: 1
@@ -5043,7 +5043,7 @@ PrefabInstance:
     - target: {fileID: 6480507838678960161, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: e7c8e71e49ec72a4a8efc88954ac0d24, type: 3}
+      objectReference: {fileID: 21300000, guid: cb0fc105df262c14cbf2216eea4a5fbf, type: 3}
     - target: {fileID: 6480507838678960161, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_PreserveAspect
       value: 1
@@ -5317,7 +5317,7 @@ PrefabInstance:
     - target: {fileID: 6480507838678960161, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: a23667f47745963449b5144e206ef985, type: 3}
+      objectReference: {fileID: 21300000, guid: 9531e3957c902964e89c11643097b4fe, type: 3}
     - target: {fileID: 6645970059734120962, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_text
       value: 'Rally <font="Roboto-Regular SDF"><size=24>
