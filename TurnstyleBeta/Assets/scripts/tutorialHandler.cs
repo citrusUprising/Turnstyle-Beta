@@ -79,7 +79,7 @@ public class tutorialHandler : MonoBehaviour
         backgroundToggle(false);
         Transform transform = this.GetComponent<Transform>();
         Vector3 phonePos = transform.localPosition;
-        phonePos = new Vector3 (phonePos.x, phonePos.y+550, phonePos.z);
+        phonePos = new Vector3 (phonePos.x, phonePos.y+590, phonePos.z);
         transform.localPosition = phonePos;
         isOpen = true;
         for(int i = 0; i < sceneObjects.Length; i++){
@@ -98,7 +98,7 @@ public class tutorialHandler : MonoBehaviour
         backgroundToggle(true);
         Transform transform = this.GetComponent<Transform>();
         Vector3 phonePos = transform.localPosition;
-        phonePos = new Vector3 (phonePos.x, phonePos.y-550, phonePos.z);
+        phonePos = new Vector3 (phonePos.x, phonePos.y-590, phonePos.z);
         transform.localPosition = phonePos;
         isOpen = false;
         for(int i = 0; i < sceneObjects.Length; i++){

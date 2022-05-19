@@ -2215,7 +2215,7 @@ PrefabInstance:
     - target: {fileID: 1056276400059071128, guid: 6f674d4b992b2a2408ef015dd8143183, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 7f886163a1f460c4283439eb1f6d675a, type: 3}
+      objectReference: {fileID: 21300000, guid: c8efd4878bf7f1e43a8401c6c8322a58, type: 3}
     - target: {fileID: 1604941255631368400, guid: 6f674d4b992b2a2408ef015dd8143183, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
