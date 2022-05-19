@@ -203,7 +203,7 @@ public class CameraController : MonoBehaviour
                     objective.GetComponent<TextMeshProUGUI>().text = "";
                     break;
                 }
-                money +=2; //flag
+                money ++; //flag
                 this.MoneyUpdate();
                 GameObject Stats = GameObject.Find("CurrentStats");
                 Stats.GetComponent<CurrentStats>().BeverlyHealth = 16;
