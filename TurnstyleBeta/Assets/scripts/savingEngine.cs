@@ -12,6 +12,7 @@ class SaveData
     public int currentCutscene;
     public int currentTutorial;
     public int currentMapTutorial;
+    public int currentDay;
 }
 
 public class savingEngine : MonoBehaviour

@@ -302,7 +302,7 @@ public class combatController : MonoBehaviour
                 break;
             }
 
-            if (Input.GetKeyDown(KeyCode.X))
+            if (Input.GetKeyDown(KeyCode.Z))
             {
                 xDown = true;
             }
@@ -425,7 +425,7 @@ public class combatController : MonoBehaviour
                         // back function needs to be implemented
                         // should go back to rotate if numberOfSelectedMoves is 0 and back to moveSelect if it is greater than zero
                         // if it goes back to moveSelect, then it should -- numberOfSelectedMoves
-                        else if (Input.GetKeyDown(KeyCode.Z))
+                        else if (Input.GetKeyDown(KeyCode.X))
                         {
                             //menuBack.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                             if (numberOfSelectedMoves == 0)
@@ -480,7 +480,7 @@ public class combatController : MonoBehaviour
                         {
                             speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX //flag
                         }
-                        else if (Input.GetKeyDown(KeyCode.Z))
+                        else if (Input.GetKeyDown(KeyCode.X))
                         {
                             // possibly hide cursor here
                             targetPointer.GetComponent<CanvasRenderer>().SetAlpha(0);
@@ -524,7 +524,7 @@ public class combatController : MonoBehaviour
 
                         // back function: needs to be implemented
                         // should go back to the target select and reset the speed that was set for that move
-                        else if (Input.GetKeyDown(KeyCode.Z))
+                        else if (Input.GetKeyDown(KeyCode.X))
                         {
                             selectedSpeeds[numberOfSelectedMoves] = 0;
                             transitionToTargetSelect();
@@ -561,7 +561,7 @@ public class combatController : MonoBehaviour
                             menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                             transitionToPlayResults();
                         }
-                        else if (Input.GetKeyDown(KeyCode.Z))
+                        else if (Input.GetKeyDown(KeyCode.X))
                         {
                             menuBack.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                             numberOfSelectedMoves = 0;
@@ -648,7 +648,7 @@ public class combatController : MonoBehaviour
                     }
                 }
 
-                if (Input.GetKeyDown(KeyCode.Escape) || xPress() || Input.GetKeyDown(KeyCode.Z))
+                if (Input.GetKeyDown(KeyCode.Escape) || xPress() || Input.GetKeyDown(KeyCode.X))
                 {
                     if (glossaryObject.GetComponent<glossaryScript>().isShowing)
                     {

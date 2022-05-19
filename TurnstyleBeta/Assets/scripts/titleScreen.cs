@@ -81,7 +81,7 @@ public class titleScreen : MonoBehaviour
                 Application.Quit();
             }
 
-            if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
+            if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
             {
                 // Play select sound sfx
                 selectSound.GetComponent<FMODUnity.StudioEventEmitter>().Play();

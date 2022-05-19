@@ -254,7 +254,7 @@ public class CameraController : MonoBehaviour
     }
 
     bool xPress(){
-        if(Input.GetKeyDown(KeyCode.X)&&!xDown){
+        if(Input.GetKeyDown(KeyCode.Z)&&!xDown){
         xDown = true;
         return true;
         }

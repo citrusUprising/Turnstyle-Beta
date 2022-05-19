@@ -135,7 +135,7 @@ public class dialogueEngine : MonoBehaviour
 				SceneManager.UnloadSceneAsync(sceneName);
 			}
 
-			if (Input.GetKeyDown(KeyCode.X)||sceneStart)
+			if (Input.GetKeyDown(KeyCode.Z)||sceneStart)
 			{
 				if (writing)
 				{

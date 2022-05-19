@@ -100,7 +100,7 @@ public class pauseMenuBio : MonoBehaviour
         {
             if (isLerping == false)
             {
-                if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Escape))
+                if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Escape))
                 {
                     pauseMenu.goBack();
                 }

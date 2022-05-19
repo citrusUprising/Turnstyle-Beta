@@ -102,7 +102,7 @@ public class pauseMenu : MonoBehaviour
                     rotateSound.GetComponent<FMODUnity.StudioEventEmitter>().Play();
                 }
 
-                if (Input.GetKeyDown(KeyCode.X) && isItemSelectionAnimating == false)
+                if (Input.GetKeyDown(KeyCode.Z) && isItemSelectionAnimating == false)
                 {
                     pauseMenuItemsShowing[currentSelectedItem] = true;
                     currentSelectedItemObject = items[currentSelectedItem];
@@ -112,7 +112,7 @@ public class pauseMenu : MonoBehaviour
                     selectSound.GetComponent<FMODUnity.StudioEventEmitter>().Play();
                 }
 
-                if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Z))
+                if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.X))
                 {
                     StartCoroutine(lerpEverything("off screen"));
                 }

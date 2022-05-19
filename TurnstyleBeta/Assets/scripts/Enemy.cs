@@ -19,8 +19,9 @@ public class Enemy : Unit
     public GameObject buffStatusTracker;
     public GameObject debuffStatusTracker;
    
-    public int speed;
+    private int speed;
     private int baseSpeed;
+    public int deFactoSpeed;
 
     Random rand;
 
@@ -159,8 +160,8 @@ public class Enemy : Unit
         }
         rend.color=a;
         
-        setSpeed();
         this.updateHealthBar();
+        this.setSpeed();
         this.Kill();
     }
 
@@ -215,14 +216,16 @@ public class Enemy : Unit
             (int)GetComponent<Unit>().statuses[(int)StatusType.Debuff].magnitude);
     }
 
-    public int setSpeed()
+    public int setSpeed(int haste = 0)
     {
         speed = rand.Next(3);
 
-        speedController.speed = baseSpeed + speed;
+        deFactoSpeed = baseSpeed + speed + haste;
+
+        speedController.speed = deFactoSpeed;
 
         speedController.updateSpeed();
 
-        return (baseSpeed + speed);
+        return (speedController.speed);
     }
 }

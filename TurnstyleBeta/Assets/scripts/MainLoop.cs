@@ -189,7 +189,10 @@ public class MainLoop : MonoBehaviour
         
         foreach (Enemy unit in enemyUnits)
         {
-            unit.setSpeed();
+            int hasteMod = 0;
+            if(unit.statuses[(int)StatusType.Buff].name == StatusName.Haste)
+			    hasteMod = unit.statuses[(int)StatusType.Buff].magnitude;
+            unit.setSpeed(hasteMod);
         }
     }
 
@@ -249,8 +252,9 @@ public class MainLoop : MonoBehaviour
     			actTarget = enemyUnits[chosenTarget];
     		else
     			actTarget = activeUnits[chosenTarget];
+
     		queuedActions.Add(unit);
-    		unit.queuedAction = new QueuedAction(actTarget, unit.abilities[chosenAbility], unit.GetComponent<Enemy>().speed);
+    		unit.queuedAction = new QueuedAction(actTarget, unit.abilities[chosenAbility], unit.GetComponent<Enemy>().deFactoSpeed);
     	}
     }
 

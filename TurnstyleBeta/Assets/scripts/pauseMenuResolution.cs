@@ -80,14 +80,14 @@ public class pauseMenuResolution : MonoBehaviour
         {
             if (isPopUpShowing)
             {
-                if (Input.GetKeyDown(KeyCode.X))
+                if (Input.GetKeyDown(KeyCode.Z))
                 {
                     hidePopUp();
                     applyChanges();
                     isGoingBack = true;
                     pauseMenu.goBack();
                 }
-                else if (Input.GetKeyDown(KeyCode.Z))
+                else if (Input.GetKeyDown(KeyCode.X))
                 {
                     hidePopUp();
                     isGoingBack = true;
@@ -96,7 +96,7 @@ public class pauseMenuResolution : MonoBehaviour
             }
             else
             {
-                if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Escape))
+                if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Escape))
                 {
                     if (checkForChanges())
                     {
@@ -132,14 +132,14 @@ public class pauseMenuResolution : MonoBehaviour
                 }
                 else if (selectedLabel == labelFullScreen)
                 {
-                    if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.X))
+                    if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.Z))
                     {
                         toggleFullScreen();
                     }
                 }
                 else if (selectedLabel == labelApplyChanges)
                 {
-                    if (checkForChanges() && Input.GetKeyDown(KeyCode.X))
+                    if (checkForChanges() && Input.GetKeyDown(KeyCode.Z))
                     {
                         applyChanges();
                     }

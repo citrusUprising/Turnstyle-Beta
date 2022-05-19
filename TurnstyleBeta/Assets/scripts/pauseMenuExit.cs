@@ -22,11 +22,11 @@ public class pauseMenuExit : MonoBehaviour
 
         if (isShowing)
         {
-            if (Input.GetKeyDown(KeyCode.X))
+            if (Input.GetKeyDown(KeyCode.Z))
             {
                 Application.Quit();
             }
-            else if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Escape))
+            else if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Escape))
             {
                 pauseMenu.goBack();
             }

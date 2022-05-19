@@ -53,7 +53,7 @@ public class gameOverScene : MonoBehaviour
                 toggleSelectedLabel();
             }
 
-            if (Input.GetKeyDown(KeyCode.X))
+            if (Input.GetKeyDown(KeyCode.Z))
             {
 
                 selectSound.GetComponent<FMODUnity.StudioEventEmitter>().Play();
