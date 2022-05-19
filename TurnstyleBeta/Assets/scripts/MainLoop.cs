@@ -258,6 +258,15 @@ public class MainLoop : MonoBehaviour
     	}
     }
 
+    public void cleanQueuedActions(){
+        Debug.Log("Queue Cleared of Players");
+        Debug.Log("Queued Actions pre clear is "+queuedActions.Count);
+        for(int i = 0; i < queuedActions.Count; i++){
+            Debug.Log(queuedActions[i].unitName+" is being removed from queue");
+        }
+        queuedActions.Clear();
+    }
+
     //set player action.
     public void setPlayerAction(Unit unit, Unit target, Ability abil, int speed){
 		int hasteMod = 0;

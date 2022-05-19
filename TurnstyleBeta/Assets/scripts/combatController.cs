@@ -430,7 +430,10 @@ public class combatController : MonoBehaviour
                             //menuBack.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                             if (numberOfSelectedMoves == 0)
                             {
-                                if(rotateAllowed)transitionToRotate();
+                                if(rotateAllowed){
+                                    gameLoop.cleanQueuedActions();
+                                    transitionToRotate();
+                                }
                             }
                             else
                             {
@@ -443,7 +446,10 @@ public class combatController : MonoBehaviour
                             }
                             if(numberOfSelectedMoves < 0){
                                 numberOfSelectedMoves = 0;
-                                if(rotateAllowed)transitionToRotate();
+                                if(rotateAllowed){
+                                    gameLoop.cleanQueuedActions();
+                                    transitionToRotate();
+                                    }
                             }
                             else{
                                 transitionToMoveSelect();
@@ -565,6 +571,7 @@ public class combatController : MonoBehaviour
                         {
                             menuBack.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                             numberOfSelectedMoves = 0;
+                            gameLoop.cleanQueuedActions();
                             transitionToRotate();
                         }
                         // else {
@@ -833,7 +840,6 @@ public class combatController : MonoBehaviour
 
     public void transitionToRotate()
     {
-
         combatDone = false;
         Color temp = this.pentagonSprite.GetComponent<Image>().color;
         temp.a = 1.0f;
