@@ -57,11 +57,18 @@ public class dialogueEngine : MonoBehaviour
 	public GameObject leftSprite;
 	public GameObject leftFace;
 	public GameObject rightFace;
-	public GameObject leftName;
-	public GameObject rightName;
+	
+	public GameObject leftNameSprite;
+	public GameObject rightNameSprite;
 
-	private float yUp = -59.1f;
-	private float yDown = -100f;
+	public GameObject leftNameParent;
+	public GameObject rightNameParent;
+
+	public GameObject leftPentagon;
+	public GameObject rightPentagon;
+
+	private float yUp;
+	private float yDown = -1600;
 	private bool sceneStart = true;
 	public GameObject backGround;
 	TextMeshProUGUI mainBoxText;
@@ -82,9 +89,17 @@ public class dialogueEngine : MonoBehaviour
 
 	public GameObject keyPrompt;
 
-    // Start is called before the first frame update
+	public Color[] beverlyColors;
+	public Color[] ameryColors;
+	public Color[] koralieColors;
+	public Color[] jadeColors;
+	public Color[] seraphimColors;
+
+	// Start is called before the first frame update
 	void Start()
     {
+
+		yUp = leftNameParent.transform.localPosition[1];
 
 		textSpeed = PlayerPrefs.GetFloat("dialogueTextSpeed", .055f);
 
@@ -115,8 +130,8 @@ public class dialogueEngine : MonoBehaviour
 		this.leftFace.GetComponent<faceHandler>().changeFace(chosenDialogue.speakerA,"");
 		this.rightFace.GetComponent<faceHandler>().changeFace(chosenDialogue.speakerB,"");
 		this.backGround.GetComponent<backGroundHandler>().changeBackground(chosenDialogue.background);
-        leftName.GetComponentInChildren<TextMeshProUGUI>().text = chosenDialogue.speakerA;
-        rightName.GetComponentInChildren<TextMeshProUGUI>().text = chosenDialogue.speakerB;
+        leftNameSprite.GetComponentInChildren<TextMeshProUGUI>().text = chosenDialogue.speakerA;
+        rightNameSprite.GetComponentInChildren<TextMeshProUGUI>().text = chosenDialogue.speakerB;
     }
 
     // Update is called once per frame
@@ -179,8 +194,8 @@ public class dialogueEngine : MonoBehaviour
 						currentLine = 0;
 
 						this.swapAndSound();
-						leftName.GetComponentInChildren<TextMeshProUGUI>().text = chosenDialogue.speakerA;
-						rightName.GetComponentInChildren<TextMeshProUGUI>().text = chosenDialogue.speakerB;
+						leftNameSprite.GetComponentInChildren<TextMeshProUGUI>().text = chosenDialogue.speakerA;
+						rightNameSprite.GetComponentInChildren<TextMeshProUGUI>().text = chosenDialogue.speakerB;
 
 
 						Debug.Log("dialogueChoice at end is " + dialogueChoice);
@@ -240,38 +255,47 @@ public class dialogueEngine : MonoBehaviour
 
 	private void showCorrectNameTag(){
 		if(chosenDialogue.lines[currentLine].speaker&&chosenDialogue.speakerB != ""){
-			leftName.GetComponent<Transform>().localPosition = new Vector3 (
-				leftName.GetComponent<Transform>().localPosition.x,
+			leftNameParent.GetComponent<Transform>().localPosition = new Vector3 (
+				leftNameParent.GetComponent<Transform>().localPosition.x,
 				yDown,
-				leftName.GetComponent<Transform>().localPosition.z
+				leftNameParent.GetComponent<Transform>().localPosition.z
 			);
-			rightName.GetComponent<Transform>().localPosition = new Vector3 (
-				rightName.GetComponent<Transform>().localPosition.x,
+			rightNameParent.GetComponent<Transform>().localPosition = new Vector3 (
+				rightNameParent.GetComponent<Transform>().localPosition.x,
 				yUp,
-				rightName.GetComponent<Transform>().localPosition.z
+				rightNameParent.GetComponent<Transform>().localPosition.z
 			);
+
+			setColors(chosenDialogue.speakerB);
+
 		}else if (chosenDialogue.speakerA != ""){
-			leftName.GetComponent<Transform>().localPosition = new Vector3 (
-				leftName.GetComponent<Transform>().localPosition.x,
+			leftNameParent.GetComponent<Transform>().localPosition = new Vector3 (
+				leftNameParent.GetComponent<Transform>().localPosition.x,
 				yUp,
-				leftName.GetComponent<Transform>().localPosition.z
+				leftNameParent.GetComponent<Transform>().localPosition.z
 			);
-			rightName.GetComponent<Transform>().localPosition = new Vector3 (
-				rightName.GetComponent<Transform>().localPosition.x,
+			rightNameParent.GetComponent<Transform>().localPosition = new Vector3 (
+				rightNameParent.GetComponent<Transform>().localPosition.x,
 				yDown,
-				rightName.GetComponent<Transform>().localPosition.z
+				rightNameParent.GetComponent<Transform>().localPosition.z
 			);
-		}else{
-			leftName.GetComponent<Transform>().localPosition = new Vector3 (
-				leftName.GetComponent<Transform>().localPosition.x,
+
+			setColors(chosenDialogue.speakerA);
+
+		}
+		else{
+			leftNameParent.GetComponent<Transform>().localPosition = new Vector3 (
+				leftNameParent.GetComponent<Transform>().localPosition.x,
 				yDown,
-				leftName.GetComponent<Transform>().localPosition.z
+				leftNameParent.GetComponent<Transform>().localPosition.z
 			);
-			rightName.GetComponent<Transform>().localPosition = new Vector3 (
-				rightName.GetComponent<Transform>().localPosition.x,
+			rightNameParent.GetComponent<Transform>().localPosition = new Vector3 (
+				rightNameParent.GetComponent<Transform>().localPosition.x,
 				yDown,
-				rightName.GetComponent<Transform>().localPosition.z
+				rightNameParent.GetComponent<Transform>().localPosition.z
 			);
+
+			setColors("");
 		}
 	}
 
@@ -316,5 +340,44 @@ public class dialogueEngine : MonoBehaviour
 					sfxInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
 					this.playSfx(chosenDialogue.lines[currentLine].sfx);
 				}
+	}
+
+	private void setColors(string character)
+    {
+		Color[] currentColors = new Color[3];
+
+		for (int i = 0; i < 3; i++)
+        {
+			currentColors[i] = new Color(1, 1, 1, 1);
+        }
+
+		if (character == "Beverly")
+        {
+			currentColors = beverlyColors;
+        }
+		else if (character == "Amery")
+		{
+			currentColors = ameryColors;
+		}
+		else if (character == "Koralie")
+		{
+			currentColors = koralieColors;
+		}
+		else if (character == "Jade")
+		{
+			currentColors = jadeColors;
+		}
+		else if (character == "Seraphim")
+		{
+			currentColors = seraphimColors;
+		}
+
+		leftPentagon.GetComponent<Image>().color = currentColors[0];
+		rightPentagon.GetComponent<Image>().color = currentColors[0];
+
+		leftNameSprite.GetComponent<Image>().color = currentColors[1];
+		rightNameSprite.GetComponent<Image>().color = currentColors[1];
+
+		GetComponent<Image>().color = currentColors[2];
 	}
 }
