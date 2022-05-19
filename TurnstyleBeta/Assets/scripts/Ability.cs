@@ -486,7 +486,7 @@ public class Scream2 : Ability
     public Scream2()
     {
         this.name = "Scream";
-        this.text = "Deal 2x user's fatigue in damage to all enemies with 50% accuracy";
+        this.text = "Deal 2x user's fatigue in damage to all enemies. 50% accuracy";
         this.multitarget = true;
         this.selftarget = false;
         this.allies = false;
