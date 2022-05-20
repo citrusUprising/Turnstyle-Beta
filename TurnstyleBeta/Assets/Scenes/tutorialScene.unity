@@ -599,6 +599,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3484969202247344495, guid: 98b04edebba616c4284d57617a3632bb, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7047837186779068486, guid: 98b04edebba616c4284d57617a3632bb, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -2149,7 +2153,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!1 &1104327839
 GameObject:
