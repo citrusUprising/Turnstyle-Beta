@@ -32,13 +32,13 @@ public class CameraController : MonoBehaviour
 
     public GameObject moneyTxt;
     public GameObject objective;
-    public GameObject pointer;
     private bool xDown;
 
     public GameObject pauseMenu;
     private GameObject pauseMenuObject;
     public Canvas canvas;
     public GameObject tutorialPhone;
+    public GameObject Pointer;
 
     private bool loading = false;
     private bool pulseUp = true;
@@ -240,17 +240,6 @@ public class CameraController : MonoBehaviour
             //Debug.Log("Pressed D");
             zoomOut();
         } 
-
-        
-
-        pointer.transform.localPosition = Vector3.zero;
-        pointer.transform.position = gameObject.transform.position;
-        pointer.transform.position = new Vector3(pointer.transform.position[0], pointer.transform.position[1], 0);
-
-        var direction = objective.transform.position - gameObject.GetComponent<Camera>().WorldToScreenPoint(pointer.transform.position);
-        var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-        pointer.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
     bool xPress(){

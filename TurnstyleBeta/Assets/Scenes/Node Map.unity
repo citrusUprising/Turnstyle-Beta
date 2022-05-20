@@ -3766,10 +3766,10 @@ MonoBehaviour:
   maxZoom: 19
   moneyTxt: {fileID: 1545491297}
   objective: {fileID: 947137285}
-  pointer: {fileID: 1370863490}
   pauseMenu: {fileID: 7457042368697883701, guid: eed798127ef69b149858f9eb24c58f81, type: 3}
   canvas: {fileID: 929340987}
   tutorialPhone: {fileID: 702265084}
+  Pointer: {fileID: 1370863490}
   keyPrompt: {fileID: 1513489542}
 --- !u!224 &1113270148 stripped
 RectTransform:
@@ -4766,6 +4766,8 @@ GameObject:
   - component: {fileID: 1370863491}
   - component: {fileID: 1370863493}
   - component: {fileID: 1370863492}
+  - component: {fileID: 1370863494}
+  - component: {fileID: 1370863495}
   m_Layer: 0
   m_Name: pointer
   m_TagString: Untagged
@@ -4782,16 +4784,16 @@ RectTransform:
   m_GameObject: {fileID: 1370863490}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children: []
   m_Father: {fileID: 1208892395}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 39.600006, y: 0}
-  m_SizeDelta: {x: 3.6, y: 2}
-  m_Pivot: {x: -2, y: 0.5}
+  m_AnchoredPosition: {x: -25.39999, y: -10.000001}
+  m_SizeDelta: {x: 7.3, y: 4.1}
+  m_Pivot: {x: 0.5000002, y: 0.49999994}
 --- !u!114 &1370863492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4830,6 +4832,48 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1370863490}
   m_CullTransparentMesh: 1
+--- !u!114 &1370863494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1370863490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f6fa31b20798024fa0057d289c6d37c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targets:
+  - {fileID: 1280769765}
+  - {fileID: 263259554}
+  - {fileID: 900250771}
+  cam: {fileID: 1112358694}
+  xMinJump: -19
+  xMaxJump: 19
+  yMinJump: -31
+  yMaxJump: 3
+--- !u!223 &1370863495
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1370863490}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!224 &1404415634 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2542197937122844512, guid: 5e97d9770980f964cb8307ad50ae2839, type: 3}
