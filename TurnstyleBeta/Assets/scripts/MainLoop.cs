@@ -179,7 +179,7 @@ public class MainLoop : MonoBehaviour
     void startTurn(){
     	//Make sure that all the active units are active and all bench units are benched.
     	foreach (Friendly unit in activeUnits){
-    		unit.turnStart();
+    		//unit.turnStart();
     		unit.makeActive();
     	}
     	foreach (Friendly unit in benchUnits){

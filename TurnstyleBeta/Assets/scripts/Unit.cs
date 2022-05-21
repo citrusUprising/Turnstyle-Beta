@@ -542,7 +542,7 @@ public class Unit : MonoBehaviour
         }
     }
 
-   public void turnStart()
+   /*public void turnStart()
     {
         foreach(Status s in this.statuses)
         {
@@ -567,7 +567,7 @@ public class Unit : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
 
     public void Kill()
     {
