@@ -38,6 +38,8 @@ public class CameraController : MonoBehaviour
     private int isZooming = 0;
     private bool destCamera = false;
 
+    [SerializeField] private float tiltRatio;   //The ratio of current station to destination in camera pos, 
+                                                //the higher it is, the closer to current station
     public GameObject moneyTxt;
     public GameObject objective;
     private bool xDown;
@@ -261,7 +263,7 @@ public class CameraController : MonoBehaviour
         if(!destCamera){
             moveToPosition = currentStation.transform.position + new Vector3(0, 0, height);
         }else{
-            moveToPosition = (2*currentStation.transform.position+currentStation.destinations[currentLine].transform.position)/3
+            moveToPosition = (tiltRatio*currentStation.transform.position+currentStation.destinations[currentLine].transform.position)/(tiltRatio+1)
              + new Vector3(0, 0, height);
         }
         transform.position = Vector3.Lerp(transform.position, moveToPosition, speed/1.5f);

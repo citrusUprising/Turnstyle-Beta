@@ -3763,11 +3763,12 @@ MonoBehaviour:
   hasMoney: 0
   zoomSpeed: 0.05
   minZoom: 5
-  maxZoom: 25
+  maxZoom: 19
   xOuter: 20
   xInner: 5
   yOuter: 15
   yInner: 2.5
+  tiltRatio: 2
   moneyTxt: {fileID: 1545491297}
   objective: {fileID: 947137285}
   pauseMenu: {fileID: 7457042368697883701, guid: eed798127ef69b149858f9eb24c58f81, type: 3}
@@ -7951,7 +7952,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1064991062868039333, guid: 5e97d9770980f964cb8307ad50ae2839, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 88
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1064991062868039333, guid: 5e97d9770980f964cb8307ad50ae2839, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -8127,7 +8128,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5861359229703040466, guid: 5e97d9770980f964cb8307ad50ae2839, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 88
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5861359229703040466, guid: 5e97d9770980f964cb8307ad50ae2839, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -8151,7 +8152,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5861359230955618132, guid: 5e97d9770980f964cb8307ad50ae2839, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 88
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5861359230955618132, guid: 5e97d9770980f964cb8307ad50ae2839, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -8175,7 +8176,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5861359231252046856, guid: 5e97d9770980f964cb8307ad50ae2839, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 88
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5861359231252046856, guid: 5e97d9770980f964cb8307ad50ae2839, type: 3}
       propertyPath: m_AnchoredPosition.y
