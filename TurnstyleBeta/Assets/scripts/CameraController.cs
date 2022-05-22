@@ -30,6 +30,13 @@ public class CameraController : MonoBehaviour
     public float minZoom;
     public float maxZoom;
 
+    //autozoom variables
+    [SerializeField] private float xOuter;
+    [SerializeField] private float xInner;
+    [SerializeField] private float yOuter;
+    [SerializeField] private float yInner;
+    private bool isZooming = false;
+
     public GameObject moneyTxt;
     public GameObject objective;
     private bool xDown;
@@ -152,6 +159,7 @@ public class CameraController : MonoBehaviour
                     {
                         currentLine = 0;
                     }
+                    autoZoom();
                 }
 
                 if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.RightArrow))
@@ -162,12 +170,14 @@ public class CameraController : MonoBehaviour
                     {
                         currentLine = currentStation.destinations.Length - 1;
                     }
+                    autoZoom();
                 }
 
                 if (xPress())
                 {
                     currentStation.transform.localScale = new Vector3(1, 1, 1);
                     moveToStation(currentLine);
+                    autoZoom();
                 }
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
@@ -314,18 +324,31 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    void autoZoomOut(){
-         Camera cam = this.GetComponent<Camera>();
-         bool allVisible = true;
-        do {
-            foreach(Station s in currentStation.destinations){
-                Vector3 viewport = cam.WorldToScreenPoint(s.transform.position);
-                if(viewport.x < 0 || viewport.x > 1 || viewport.y < 0 || viewport.y > 1){
-                    zoomOut();
-                    allVisible = false;
-                }
+    void autoZoom(){
+         float scale = this.GetComponent<Camera>().orthographicSize / 19f;
+         Vector2 checkposition = new Vector2 (
+            this.GetComponent<Transform>().position.x,
+            this.GetComponent<Transform>().position.y);
+        Transform stationCheck = currentStation.destinations[currentLine].transform;
+        Vector2 destination = new Vector2 (
+            stationCheck.position.x,
+            stationCheck.position.y
+        );
+        if(destination.x+xOuter*scale > checkposition.x||
+            destination.x-xOuter*scale < checkposition.x||
+            destination.y+yOuter*scale > checkposition.y||
+            destination.y-yOuter*scale < checkposition.y
+        ){
+            zoomOut();
+
             }
-        } while(allVisible == false);
+
+        if(destination.x+xInner*scale < checkposition.x||
+            destination.x-xInner*scale > checkposition.x||
+            destination.y+yInner*scale < checkposition.y||
+            destination.y-yInner*scale > checkposition.y
+        ){zoomIn();}
+        autoZoom();
     }
 
     void MoneyUpdate(){
