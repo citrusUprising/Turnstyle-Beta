@@ -35,7 +35,8 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float xInner;
     [SerializeField] private float yOuter;
     [SerializeField] private float yInner;
-    private bool isZooming = false;
+    private int isZooming = 0;
+    private bool destCamera = false;
 
     public GameObject moneyTxt;
     public GameObject objective;
@@ -160,6 +161,7 @@ public class CameraController : MonoBehaviour
                         currentLine = 0;
                     }
                     autoZoom();
+                    destCamera = true;
                 }
 
                 if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.RightArrow))
@@ -171,6 +173,7 @@ public class CameraController : MonoBehaviour
                         currentLine = currentStation.destinations.Length - 1;
                     }
                     autoZoom();
+                    destCamera = true;
                 }
 
                 if (xPress())
@@ -178,6 +181,7 @@ public class CameraController : MonoBehaviour
                     currentStation.transform.localScale = new Vector3(1, 1, 1);
                     moveToStation(currentLine);
                     autoZoom();
+                    destCamera = false;
                 }
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
@@ -193,8 +197,7 @@ public class CameraController : MonoBehaviour
 
             
             currentStation.destinations[currentLine].transform.localScale = scale;
-            moveToPosition = currentStation.transform.position + new Vector3(0, 0, height);
-            transform.position = Vector3.Lerp(transform.position, moveToPosition, speed);
+            moveCamera();
 
             if (currentStation.cutscene == currentCutScene){
                 onLine = new bool[]{false,false,false,false,false,false};
@@ -242,14 +245,26 @@ public class CameraController : MonoBehaviour
             }
         }
 
-        if(Input.GetKey(KeyCode.C) && SceneManager.sceneCount == 1 && !loading){
+        if((Input.GetKey(KeyCode.C)||isZooming > 0) && SceneManager.sceneCount == 1 && !loading){
             //Debug.Log("Pressed C");
             zoomIn();
+            autoZoom();
         } 
-        if(Input.GetKey(KeyCode.D) && SceneManager.sceneCount == 1 && !loading ){
+        if((Input.GetKey(KeyCode.D)||isZooming < 0)&& SceneManager.sceneCount == 1 && !loading ){
             //Debug.Log("Pressed D");
             zoomOut();
+            autoZoom();
         } 
+    }
+
+    void moveCamera(){
+        if(!destCamera){
+            moveToPosition = currentStation.transform.position + new Vector3(0, 0, height);
+        }else{
+            moveToPosition = (2*currentStation.transform.position+currentStation.destinations[currentLine].transform.position)/3
+             + new Vector3(0, 0, height);
+        }
+        transform.position = Vector3.Lerp(transform.position, moveToPosition, speed/1.5f);
     }
 
     bool xPress(){
@@ -334,21 +349,17 @@ public class CameraController : MonoBehaviour
             stationCheck.position.x,
             stationCheck.position.y
         );
-        if(destination.x+xOuter*scale > checkposition.x||
-            destination.x-xOuter*scale < checkposition.x||
-            destination.y+yOuter*scale > checkposition.y||
-            destination.y-yOuter*scale < checkposition.y
-        ){
-            zoomOut();
-
-            }
-
-        if(destination.x+xInner*scale < checkposition.x||
-            destination.x-xInner*scale > checkposition.x||
-            destination.y+yInner*scale < checkposition.y||
-            destination.y-yInner*scale > checkposition.y
-        ){zoomIn();}
-        autoZoom();
+        if(destination.x-xOuter*scale > checkposition.x||
+            destination.x+xOuter*scale < checkposition.x||
+            destination.y-yOuter*scale > checkposition.y||
+            destination.y+yOuter*scale < checkposition.y
+        ){isZooming = -1;}
+        else if(destination.x > checkposition.x-xInner*scale&&
+            destination.x < checkposition.x+xInner*scale&&
+            destination.y > checkposition.y-yInner*scale&&
+            destination.y < checkposition.y+yInner*scale
+        ){isZooming = 1;}
+        else isZooming = 0;
     }
 
     void MoneyUpdate(){

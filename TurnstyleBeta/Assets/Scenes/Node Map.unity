@@ -3763,7 +3763,11 @@ MonoBehaviour:
   hasMoney: 0
   zoomSpeed: 0.05
   minZoom: 5
-  maxZoom: 19
+  maxZoom: 25
+  xOuter: 20
+  xInner: 5
+  yOuter: 15
+  yInner: 2.5
   moneyTxt: {fileID: 1545491297}
   objective: {fileID: 947137285}
   pauseMenu: {fileID: 7457042368697883701, guid: eed798127ef69b149858f9eb24c58f81, type: 3}
@@ -5735,7 +5739,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: hasCombat
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: isTutorial
@@ -7377,7 +7381,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: hasCombat
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6777632447324439953, guid: ff99d6e6b422da144b52ee858dbb1733, type: 3}
       propertyPath: isTutorial
