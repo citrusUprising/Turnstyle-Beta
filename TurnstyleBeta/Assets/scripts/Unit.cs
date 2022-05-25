@@ -522,6 +522,7 @@ public class Unit : MonoBehaviour
             String test = newStatus.ToString();
             String sound = "null";
             if(type == StatusType.Buff) sound = "buff";
+            if(type == StatusType.Debuff) sound = "debuff";
 
             if(test.Contains("ed")||test == "Vulnerable")gameLoop.outputQueue.Add(new displayObject(
                 this.unitName + " is " + newStatus,
