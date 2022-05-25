@@ -223,7 +223,8 @@ MonoBehaviour:
   - {fileID: 752763428}
   - {fileID: 1090882965}
   - {fileID: 1894227885}
-  turnstyleRotate: {fileID: 827034851}
+  turnstyleRotateForward: {fileID: 827034851}
+  turnstyleRotateBack: {fileID: 1301448290}
   menuForward: {fileID: 1246513608}
   menuBack: {fileID: 1520052566}
   menuScroll: {fileID: 238596066}
@@ -453,7 +454,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1945407844}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &238596068
 MonoBehaviour:
@@ -914,7 +915,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1945407844}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &350053442
 MonoBehaviour:
@@ -980,7 +981,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1945407844}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &500707178
 MonoBehaviour:
@@ -1615,7 +1616,7 @@ GameObject:
   - component: {fileID: 827034852}
   - component: {fileID: 827034853}
   m_Layer: 0
-  m_Name: TurnstyleRotate
+  m_Name: TurnstyleRotateForward
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1650,11 +1651,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: -235620426
-      Data2: 1295185207
-      Data3: 1128423097
-      Data4: -699912499
-    Path: event:/Battle/turnstile_rotate
+      Data1: 1677326350
+      Data2: 1150490385
+      Data3: 1516808889
+      Data4: -382977850
+    Path: event:/Battle/rotate_forward
   Event: 
   PlayEvent: 0
   StopEvent: 0
@@ -3125,7 +3126,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1945407844}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1246513610
 MonoBehaviour:
@@ -3229,6 +3230,67 @@ MonoBehaviour:
   gameLoop: {fileID: 1743770249}
   sprite: {fileID: 1311216002}
   nameTag: {fileID: 1458302070}
+--- !u!1 &1301448290
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1301448291}
+  - component: {fileID: 1301448292}
+  m_Layer: 0
+  m_Name: TurnstyleRotateBack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1301448291
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301448290}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1945407844}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1301448292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301448290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -203272177
+      Data2: 1167424878
+      Data3: -2122226007
+      Data4: -716470056
+    Path: event:/Battle/rotate_back
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &1311215999
 GameObject:
   m_ObjectHideFlags: 0
@@ -3589,7 +3651,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1945407844}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1520052568
 MonoBehaviour:
@@ -4700,6 +4762,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 827034852}
+  - {fileID: 1301448291}
   - {fileID: 1246513609}
   - {fileID: 1520052567}
   - {fileID: 238596067}

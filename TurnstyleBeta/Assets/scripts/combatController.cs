@@ -194,7 +194,8 @@ public class combatController : MonoBehaviour
     // --------------------------------------------------------- //
     // GameObjects that hold FMOD Studio Event Emitters for playing SFX
     // --------------------------------------------------------- //
-    public GameObject turnstyleRotate;
+    public GameObject turnstyleRotateForward;
+    public GameObject turnstyleRotateBack;
     public GameObject menuForward;
     public GameObject menuBack;
     public GameObject menuScroll;
@@ -378,7 +379,7 @@ public class combatController : MonoBehaviour
                                 beginRotatingPentagon(-1);
                                 BattleSpriteHandler[] temp = pentagonSprite.GetComponentsInChildren<BattleSpriteHandler>();
                                 for (int i= 0; i < temp.Length; i++)temp[i].AlphaUpdate();
-                                turnstyleRotate.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
+                                turnstyleRotateForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                             }
 
                         }
@@ -390,7 +391,7 @@ public class combatController : MonoBehaviour
                                 beginRotatingPentagon(1);
                                 BattleSpriteHandler[] temp = pentagonSprite.GetComponentsInChildren<BattleSpriteHandler>();
                                 for (int i= 0; i < temp.Length; i++)temp[i].AlphaUpdate();
-                                turnstyleRotate.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
+                                turnstyleRotateBack.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                             }
                         }
                         // here is all the logic 
