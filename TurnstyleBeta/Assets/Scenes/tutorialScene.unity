@@ -216,6 +216,7 @@ MonoBehaviour:
   - {fileID: 1252358152}
   - {fileID: 791818962}
   - {fileID: 17120531}
+  rotateAllowed: 0
   totalSpeedEachTurn: 12
   totalSpeedThisTurn: 12
   enemies:
@@ -491,6 +492,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1382596080}
     m_Modifications:
+    - target: {fileID: 601171075735878347, guid: 98b04edebba616c4284d57617a3632bb, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2348889262567115110, guid: 98b04edebba616c4284d57617a3632bb, type: 3}
       propertyPath: gameLoop
       value: 
@@ -605,7 +610,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3484969202247344495, guid: 98b04edebba616c4284d57617a3632bb, type: 3}
       propertyPath: m_SortingOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7047837186779068486, guid: 98b04edebba616c4284d57617a3632bb, type: 3}
       propertyPath: m_LocalScale.x
@@ -2872,7 +2877,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 6
   m_TargetDisplay: 0
 --- !u!114 &1200914356
 MonoBehaviour:

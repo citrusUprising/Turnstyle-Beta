@@ -147,7 +147,7 @@ public class combatController : MonoBehaviour
     // this is an array of the above objects
     public nameTag[] nameTagArray;
 
-    private bool rotateAllowed;
+    public bool rotateAllowed;
     private bool correctColor = false;
 
     // --------------------------------------------------------- //
@@ -358,24 +358,27 @@ public class combatController : MonoBehaviour
                         // if you press X, advance to the next state, destroying the rotate UI and replacing it with move select UI
                         if ((xPress() && !isRotating)||!rotateAllowed)
                         {
-                            menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
-                            gameLoop.setActiveUnits(nameTagArray);
-                            Debug.Log("Setting Active Units");
-                            Color temp = this.pentagonSprite.GetComponent<Image>().color;
-                            temp.a = 0.0f;
-                            this.pentagonSprite.GetComponent<Image>().color = temp;
-                            transitionToMoveSelect();
+                            if(checkPartyValid()){
+                                menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
+                                gameLoop.setActiveUnits(nameTagArray);
+                                Debug.Log("Setting Active Units");
+                                Color temp = this.pentagonSprite.GetComponent<Image>().color;
+                                temp.a = 0.0f;
+                                this.pentagonSprite.GetComponent<Image>().color = temp;
+                                transitionToMoveSelect();
+                            }else{
+                                speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+                            }
                         }
                         if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
                         {
                             // if the pentagon is NOT rotating, then begin rotating DOWN
                             if (!isRotating&&rotateAllowed)
                             {
-                                turnstyleRotate.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                                 beginRotatingPentagon(-1);
                                 BattleSpriteHandler[] temp = pentagonSprite.GetComponentsInChildren<BattleSpriteHandler>();
                                 for (int i= 0; i < temp.Length; i++)temp[i].AlphaUpdate();
-                                //flag
+                                turnstyleRotate.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                             }
 
                         }
@@ -384,10 +387,10 @@ public class combatController : MonoBehaviour
                             // if the pentagon IS rotating, then begin rotating UP
                             if (!isRotating&&rotateAllowed)
                             {
-                                turnstyleRotate.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                                 beginRotatingPentagon(1);
                                 BattleSpriteHandler[] temp = pentagonSprite.GetComponentsInChildren<BattleSpriteHandler>();
                                 for (int i= 0; i < temp.Length; i++)temp[i].AlphaUpdate();
+                                turnstyleRotate.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                             }
                         }
                         // here is all the logic 
@@ -667,6 +670,17 @@ public class combatController : MonoBehaviour
 
             justUnpaused = false;
         }
+    }
+
+    bool checkPartyValid(){
+        bool temp = false;
+        for (int i = 0; i < 3; i++){
+            if(!nameTagArray[i].isDead){
+                temp = true;
+                break;
+            }
+        }
+        return temp;
     }
 
     // gets called once at the beginning of the pentagon rotation when the player presses up or down
