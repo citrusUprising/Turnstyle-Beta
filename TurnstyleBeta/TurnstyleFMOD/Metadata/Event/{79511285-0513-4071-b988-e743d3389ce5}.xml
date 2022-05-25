@@ -65,7 +65,7 @@
 	<object class="MarkerTrack" id="{1e4f0ac5-81b4-4161-b3a2-0ca40e16c9a0}" />
 	<object class="GroupTrack" id="{c79156a8-dea6-470f-8b36-02ba9a2c33b8}">
 		<relationship name="modules">
-			<destination>{c1cbc359-1808-41a1-b8b7-340430556aeb}</destination>
+			<destination>{121aac37-9337-4e50-a4af-4d82155c2413}</destination>
 		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{c917af42-db74-401f-823a-0ef32e29dafe}</destination>
@@ -73,7 +73,7 @@
 	</object>
 	<object class="Timeline" id="{ba6df1c3-7098-4f33-890c-ace70c8b031d}">
 		<relationship name="modules">
-			<destination>{c1cbc359-1808-41a1-b8b7-340430556aeb}</destination>
+			<destination>{121aac37-9337-4e50-a4af-4d82155c2413}</destination>
 		</relationship>
 		<relationship name="markers">
 			<destination>{e6aeec4d-b20a-4fc9-94b0-1062f2fa2616}</destination>
@@ -97,9 +97,12 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{1712b8f5-4128-47b4-9662-63c6ff69cfde}" />
-	<object class="SingleSound" id="{c1cbc359-1808-41a1-b8b7-340430556aeb}">
+	<object class="SingleSound" id="{121aac37-9337-4e50-a4af-4d82155c2413}">
 		<property name="length">
-			<value>61.935487528344673</value>
+			<value>149.43145271011619</value>
+		</property>
+		<property name="timelockedOffset">
+			<value>0.77419354838709675</value>
 		</property>
 		<relationship name="audioFile">
 			<destination>{59440f67-9be2-440f-bbcd-1d8c581e3011}</destination>
@@ -127,10 +130,10 @@
 	</object>
 	<object class="LoopRegion" id="{e6aeec4d-b20a-4fc9-94b0-1062f2fa2616}">
 		<property name="position">
-			<value>0</value>
+			<value>0.77419354838709675</value>
 		</property>
 		<property name="length">
-			<value>61.935487528344673</value>
+			<value>148.6572591617292</value>
 		</property>
 		<relationship name="timeline">
 			<destination>{ba6df1c3-7098-4f33-890c-ace70c8b031d}</destination>
@@ -141,7 +144,7 @@
 	</object>
 	<object class="TempoMarker" id="{331f6ff7-95ba-493e-9a06-e87fdfd38a6a}">
 		<property name="position">
-			<value>0</value>
+			<value>0.77419354838709675</value>
 		</property>
 		<property name="tempo">
 			<value>155</value>
