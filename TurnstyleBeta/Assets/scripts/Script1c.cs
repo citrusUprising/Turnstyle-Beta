@@ -34,7 +34,7 @@ public class Script1c : MonoBehaviour
 
         temp[dialogueVarietyCount]=(new overallDialogue("Koralie","Beverly","Station", 
         new dialogueEntry[]{
-            new dialogueEntry("Hey Koralie! Didn’t expect you to be at the subway station so early! Whatcha playing? Seems like you’re really into that game.",true,"Happy","Happy","null","stop"),
+            new dialogueEntry("Hey Koralie! Didn’t expect you to be at the subway station so early! Whatcha playing? Seems like you’re really into that game.",true,"Happy","Happy","Music/TenseTheme","stop"),
             new dialogueEntry("Oh! Wow, didn’t notice you there…it’s just a silly mobile game, haha. Do you uhm…always get here this early?",false,"Shy","Happy","null","null"),
             new dialogueEntry("Yeah! My last class ends pretty early, so I usually just stick around here until the rest of y’all show up.",true,"Happy","Happy","null","null"),
             new dialogueEntry("I see…I didn’t realize that you always come at this time…I wouldn’t have come if I knew that.",false,"Angry","Happy","null","null"),
