@@ -74,7 +74,7 @@ public class CameraController : MonoBehaviour
         temp = new Color (0.5f,0.43f,0.56f);
         currentStation.GetComponent<Image>().color = temp;
 
-        if(currentCutScene == 2)
+        if(currentCutScene == 0)
         {
             Music.SetActive(false);
             SceneManager.LoadScene("DialogueScene", LoadSceneMode.Additive);
