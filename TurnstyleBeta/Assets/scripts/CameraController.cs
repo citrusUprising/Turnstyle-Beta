@@ -218,6 +218,7 @@ public class CameraController : MonoBehaviour
                     objective.GetComponent<TextMeshProUGUI>().text = "";
                     break;
                 }
+                Pointer.GetComponent<rotatePointer>().NewDestination(currentCutScene-1);
                 money ++; //flag
                 this.MoneyUpdate();
                 GameObject Stats = GameObject.Find("CurrentStats");
