@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{f8673e19-e65e-4d71-919a-a47327e226a9}">
 		<property name="name">
-			<value>menu_forward_5</value>
+			<value>menu_forward</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>
