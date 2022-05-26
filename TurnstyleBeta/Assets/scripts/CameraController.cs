@@ -78,6 +78,8 @@ public class CameraController : MonoBehaviour
         {
             Music.SetActive(false);
             SceneManager.LoadScene("DialogueScene", LoadSceneMode.Additive);
+        }else{
+            Pointer.GetComponent<rotatePointer>().NewDestination(currentCutScene-1);
         }
         if (money>0)hasMoney = true;
         GameObject Stats = GameObject.Find("CurrentStats");
