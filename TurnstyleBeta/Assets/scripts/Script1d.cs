@@ -15,7 +15,7 @@ public class Script1d : MonoBehaviour
 
         temp[dialogueVarietyCount]=new overallDialogue("","","ApartmentDark", 
         new dialogueEntry[]{
-            new dialogueEntry("The next day",false,"null","null")
+            new dialogueEntry("The next day...",false,"null","null")
             }
 
         );
@@ -56,7 +56,7 @@ public class Script1d : MonoBehaviour
 
         temp[dialogueVarietyCount]=new overallDialogue("","","ApartmentLight", 
         new dialogueEntry[]{
-            new dialogueEntry("After some time",false,"null","null")
+            new dialogueEntry("After some time...",false,"null","null")
             }
         );
         dialogueVarietyCount++;
