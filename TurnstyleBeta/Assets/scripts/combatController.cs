@@ -132,7 +132,6 @@ public class combatController : MonoBehaviour
     // is visible and when the tutorial pops up
     // --------------------------------------------------------- //
         private GameObject Stats;
-        private int currentTutorial;
         public bool statused;
 
     // --------------------------------------------------------- //
@@ -244,7 +243,7 @@ public class combatController : MonoBehaviour
 
         Stats = GameObject.Find("CurrentStats");
 
-        targetPointer.GetComponent<CanvasRenderer>().SetAlpha(0);
+        editTargetSpritesAlpha(0f);
         
         // the available states so far are "rotate", "moveSelect", "targetSelect", "confirm", "playResults", "paused" (in that order)
         // "rotate" is for rotating the pentagon 
@@ -498,7 +497,7 @@ public class combatController : MonoBehaviour
                         else if (Input.GetKeyDown(KeyCode.X))
                         {
                             // possibly hide cursor here
-                            targetPointer.GetComponent<CanvasRenderer>().SetAlpha(0);
+                            editTargetSpritesAlpha(0f);
                             transitionToMoveSelect();
                         }
                     }
@@ -930,12 +929,11 @@ public class combatController : MonoBehaviour
             pointerCoords[selectedAbilityIndex],
             moveSelectPointer.transform.localPosition[2]);
 
-        if (previousState == "rotate")
-        {
             nameTagArray[0].hidePassive(); // hide
             nameTagArray[1].hidePassive(); // hide
             nameTagArray[2].hidePassive(); // hide
-        }
+            if(isTutorial != 1)
+            nameTagArray[numberOfSelectedMoves].showPassive();
         
         selectedUnit = nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>();
         actions[numberOfSelectedMoves] += selectedUnit.name+ ": ";//flag
@@ -1047,11 +1045,14 @@ public class combatController : MonoBehaviour
         Debug.Log(selectedAbility);
         if (selectedAbility.selftarget&&forward) {
             selectedTarget = nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>();
-            targetPointer.GetComponent<CanvasRenderer>().SetAlpha(0);
+
+            targetPointer.transform.localPosition = playerTargets[numberOfSelectedMoves];
+            editTargetSpritesAlpha(1f);//flag
             transitionToSpeedSelect();
-        } else if (selectedAbility.multitarget&&forward)
+        } 
+        else if (selectedAbility.multitarget&&forward)
         {
-            targetPointer.GetComponent<CanvasRenderer>().SetAlpha(0);
+            editTargetSpritesAlpha(0f);
             if (selectedAbility.allies) 
             {
                 selectedTarget = nameTagArray[0].GetComponent<nameTag>().character.GetComponent<Friendly>();
@@ -1061,10 +1062,13 @@ public class combatController : MonoBehaviour
                 selectedTarget = enemies[0].GetComponent<Enemy>();
             }
             transitionToSpeedSelect();
-        } else if(selectedAbility.selftarget||selectedAbility.multitarget){
+        } 
+        else if
+        (selectedAbility.selftarget||selectedAbility.multitarget){
             transitionToMoveSelect();
         }
-        else{
+        else
+        {
             changeSelectedTarget(0, selectedAbility.allies);
             if(selectedAbility.allies){
                 targetPointer.transform.localPosition = playerTargets[0];
@@ -1072,12 +1076,12 @@ public class combatController : MonoBehaviour
             }
             // else
                 // targetPointer.transform.eulerAngles = new Vector3(0,0,0);
-            targetPointer.GetComponent<CanvasRenderer>().SetAlpha(1);
+            editTargetSpritesAlpha(1f);
         }
 
         promptManager.changePrompt(2);
 
-        editTargetSpritesAlpha(1f);
+        //editTargetSpritesAlpha(1f);
     }
 
     // a lot of things have to happen here
@@ -1194,6 +1198,9 @@ public class combatController : MonoBehaviour
 
     void transitionToConfirm()
     {
+        nameTagArray[0].hidePassive(); // hide
+        nameTagArray[1].hidePassive(); // hide
+        nameTagArray[2].hidePassive(); // hide
         setPreviousState();
         state = "confirm";
         Destroy(currentDrawnBox);
