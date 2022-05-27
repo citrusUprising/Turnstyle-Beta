@@ -13,15 +13,15 @@ public class Script1d : MonoBehaviour
     {
         overallDialogue[] temp = new overallDialogue [100];
 
-        temp[dialogueVarietyCount]=new overallDialogue("","","ApartmentLight", 
+        temp[dialogueVarietyCount]=new overallDialogue("","","ApartmentDark", 
         new dialogueEntry[]{
-            new dialogueEntry("",false,"null","null")
+            new dialogueEntry("The next day",false,"null","null")
             }
 
         );
         dialogueVarietyCount++;
 
-        temp[dialogueVarietyCount]=new overallDialogue("Amery","","ApartmentLight", 
+        temp[dialogueVarietyCount]=new overallDialogue("Amery","","ApartmentDark", 
         new dialogueEntry[]{
             new dialogueEntry("Let's see, I need to add the egg to the batter now...",false,"Happy","Sad", "null", "null"),
             new dialogueEntry("Hrm, some of the egg shell got in there…",false,"Sad", "Sad", "null","null"),
@@ -49,7 +49,20 @@ public class Script1d : MonoBehaviour
             new dialogueEntry("I just…I know that everyone missed out on pancakes because of my interview and I wanted to do something to make up for that…", false,"Sad", "Shy", "null","null"),
             new dialogueEntry("Hey, you know that’s…really nice of you to do that for us.", true,"Sad", "Happy", "null","null"),
             new dialogueEntry("This honestly wasn’t bad for your first try! I’m down to help you out with cooking the rest of these. Mind if I show you the ropes?", true,"Sad", "Happy", "null","null"),
-            new dialogueEntry("Not at all!", false,"Happy", "Happy", "null","null"),
+            new dialogueEntry("Not at all!", false,"Happy", "Happy", "null","null")
+            }
+        );
+        dialogueVarietyCount++;
+
+        temp[dialogueVarietyCount]=new overallDialogue("","","ApartmentLight", 
+        new dialogueEntry[]{
+            new dialogueEntry("After some time",false,"null","null")
+            }
+        );
+        dialogueVarietyCount++;
+
+        temp[dialogueVarietyCount]=new overallDialogue("Amery","Seraphim","ApartmentLight", 
+        new dialogueEntry[]{
             new dialogueEntry("Okay! Yeah, that’s really all there is to it. Wanna give it a go?", true,"Happy", "Happy", "null","null"),
             new dialogueEntry("Absolutely! I’ll do my best.", false,"Happy", "Happy", "null","null"),
             new dialogueEntry("Hey, I think I’m really starting to get the hang o-", false,"Happy", "Happy", "null","null"),
@@ -60,8 +73,8 @@ public class Script1d : MonoBehaviour
             new dialogueEntry("I’ll let you in on a secret, Seraphim…I don’t actually need glasses! They’re just fashion frames. I think they give me a more…professional feel, wouldn’t you agree?", false,"Happy", "Sad", "null","null"),
             new dialogueEntry("…Please don’t tell the others about this, though. That’d be really embarrassing.", false,"Sad", "Sad", "null","null"),
             new dialogueEntry("Ha! That’s just like you!", true,"Sad", "Happy", "null","null"),
-            new dialogueEntry("…", false,"Sad", "Happy", "null","null"),
-            new dialogueEntry("…", true,"Sad", "Shy", "null","null"),
+            new dialogueEntry("…", true,"Sad", "Happy", "null","null"),
+            new dialogueEntry("…", false,"Sad", "Shy", "null","null"),
             new dialogueEntry("Seraphim… about everything that happened a while back.", false,"Sad", "Shy", "null","null"),
             new dialogueEntry("I’ve been avoiding talking to you about it but…you didn’t deserve all the insults I threw at you. ", false,"Sad", "Shy", "null","null"),
             new dialogueEntry("I used to berate you because it made me feel better about my own insecurities…but that’s no excuse for my behavior.", false,"Sad", "Shy", "null","null"),
@@ -76,36 +89,56 @@ public class Script1d : MonoBehaviour
         );
         dialogueVarietyCount++;
 
-        temp[dialogueVarietyCount]=new overallDialogue("Koralie","Beverly","ApartmentLight", 
+        temp[dialogueVarietyCount]=new overallDialogue("Amery","Koralie","ApartmentLight", 
         new dialogueEntry[]{
-            new dialogueEntry("I knew I smelled pancakes!",false,"Happy", "Happy","null","null"),
+            new dialogueEntry("I knew I smelled pancakes!",true,"Happy", "Happy","null","null")
+            }
+
+        );
+        dialogueVarietyCount++;
+
+        temp[dialogueVarietyCount]=new overallDialogue("Seraphim","Beverly","ApartmentLight", 
+        new dialogueEntry[]{
             new dialogueEntry("Looks like your pancakes turned out great as always, Sera!", true, "Happy", "Happy","null","null")
             }
 
         );
         dialogueVarietyCount++;
 
-        temp[dialogueVarietyCount]=new overallDialogue("Amery","Seraphim","ApartmentLight", 
+        temp[dialogueVarietyCount]=new overallDialogue("Seraphim","Beverly","ApartmentLight", 
         new dialogueEntry[]{
-            new dialogueEntry("Oh, I can’t take full credit for these! It was Amery’s idea to make pancakes, I just helped him out a little.", true, "Happy", "Happy","null","null"),
+            new dialogueEntry("Oh, I can’t take full credit for these! It was Amery’s idea to make pancakes, I just helped him out a little.", false, "Happy", "Happy","null","null")
+            }
+        );
+        dialogueVarietyCount++;
+
+        temp[dialogueVarietyCount]=new overallDialogue("Amery","Beverly","ApartmentLight", 
+        new dialogueEntry[]{
             new dialogueEntry("Heh, that’s true! Couldn’t have done it without your help though.", false,"Happy", "Happy", "null","null")
             }
         );
         dialogueVarietyCount++;
 
-        temp[dialogueVarietyCount]=new overallDialogue("Jade","Seraphim","ApartmentLight", 
+        temp[dialogueVarietyCount]=new overallDialogue("Amery","Jade","ApartmentLight", 
         new dialogueEntry[]{
-            new dialogueEntry("You worked together to make these? Wow, it looks like you two are really getting along now.", false,"Happy", "Happy", "null","null"),
-            new dialogueEntry("Yeah…guess we are, huh?", true,"Happy", "Happy", "null","null")
+            new dialogueEntry("You worked together to make these? Wow, it looks like you two are really getting along now.", true,"Happy", "Happy", "null","null")
             }
 
         );
         dialogueVarietyCount++;
 
-        temp[dialogueVarietyCount]=new overallDialogue("Jade","Koralie","ApartmentLight", 
+        temp[dialogueVarietyCount]=new overallDialogue("Seraphim","Jade","ApartmentLight", 
         new dialogueEntry[]{
-            new dialogueEntry("Well, come on, let’s eat! I’m gonna absolutely drench these pancakes in syrup!", true,"Happy", "Happy", "null","null"),
-            new dialogueEntry("Hell yeah! I’m starving.", false,"Happy", "Happy", "null","null")
+            new dialogueEntry("Yeah…guess we are, huh?", false,"Happy", "Happy", "null","null")
+            }
+
+        );
+        dialogueVarietyCount++;
+
+        temp[dialogueVarietyCount]=new overallDialogue("Koralie","Jade","ApartmentLight", 
+        new dialogueEntry[]{
+            new dialogueEntry("Well, come on, let’s eat! I’m gonna absolutely drench these pancakes in syrup!", false,"Happy", "Happy", "null","null"),
+            new dialogueEntry("Hell yeah! I’m starving.", true,"Happy", "Happy", "null","null")
             }
 
         );
