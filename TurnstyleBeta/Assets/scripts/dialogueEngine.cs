@@ -268,7 +268,7 @@ public class dialogueEngine : MonoBehaviour
 
 			setColors(chosenDialogue.speakerB);
 
-		}else if (chosenDialogue.speakerA != ""){
+		}else if (!chosenDialogue.lines[currentLine].speaker&&chosenDialogue.speakerA != ""){
 			leftNameParent.GetComponent<Transform>().localPosition = new Vector3 (
 				leftNameParent.GetComponent<Transform>().localPosition.x,
 				yUp,

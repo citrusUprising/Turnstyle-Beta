@@ -39,7 +39,8 @@ public class pauseMenu : MonoBehaviour
     public bool[] pauseMenuItemsShowing = new bool[5];
 
     public GameObject selectSound;
-    public GameObject rotateSound;
+    public GameObject rotateForwardSound;
+    public GameObject rotateBackSound;
     public GameObject backSound;
 
     private bool isLerpingOnScreen = false;
@@ -93,13 +94,13 @@ public class pauseMenu : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.UpArrow))
                 {
                     rotate(-1);
-                    rotateSound.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+                    rotateBackSound.GetComponent<FMODUnity.StudioEventEmitter>().Play();
                 }
 
                 else if (Input.GetKeyDown(KeyCode.DownArrow))
                 {
                     rotate(1);
-                    rotateSound.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+                    rotateForwardSound.GetComponent<FMODUnity.StudioEventEmitter>().Play();
                 }
 
                 if (Input.GetKeyDown(KeyCode.Z) && isItemSelectionAnimating == false)

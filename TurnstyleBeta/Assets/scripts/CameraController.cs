@@ -30,6 +30,16 @@ public class CameraController : MonoBehaviour
     public float minZoom;
     public float maxZoom;
 
+    //autozoom variables
+    [SerializeField] private float xOuter;
+    [SerializeField] private float xInner;
+    [SerializeField] private float yOuter;
+    [SerializeField] private float yInner;
+    private int isZooming = 0;
+    private bool destCamera = false;
+
+    [SerializeField] private float tiltRatio;   //The ratio of current station to destination in camera pos, 
+                                                //the higher it is, the closer to current station
     public GameObject moneyTxt;
     public GameObject objective;
     private bool xDown;
@@ -68,6 +78,8 @@ public class CameraController : MonoBehaviour
         {
             Music.SetActive(false);
             SceneManager.LoadScene("DialogueScene", LoadSceneMode.Additive);
+        }else{
+            Pointer.GetComponent<rotatePointer>().NewDestination(currentCutScene-1);
         }
         if (money>0)hasMoney = true;
         GameObject Stats = GameObject.Find("CurrentStats");
@@ -152,6 +164,8 @@ public class CameraController : MonoBehaviour
                     {
                         currentLine = 0;
                     }
+                    autoZoom();
+                    destCamera = true;
                 }
 
                 if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.RightArrow))
@@ -162,12 +176,16 @@ public class CameraController : MonoBehaviour
                     {
                         currentLine = currentStation.destinations.Length - 1;
                     }
+                    autoZoom();
+                    destCamera = true;
                 }
 
                 if (xPress())
                 {
                     currentStation.transform.localScale = new Vector3(1, 1, 1);
                     moveToStation(currentLine);
+                    autoZoom();
+                    destCamera = false;
                 }
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
@@ -183,8 +201,7 @@ public class CameraController : MonoBehaviour
 
             
             currentStation.destinations[currentLine].transform.localScale = scale;
-            moveToPosition = currentStation.transform.position + new Vector3(0, 0, height);
-            transform.position = Vector3.Lerp(transform.position, moveToPosition, speed);
+            moveCamera();
 
             if (currentStation.cutscene == currentCutScene){
                 onLine = new bool[]{false,false,false,false,false,false};
@@ -203,6 +220,7 @@ public class CameraController : MonoBehaviour
                     objective.GetComponent<TextMeshProUGUI>().text = "";
                     break;
                 }
+                Pointer.GetComponent<rotatePointer>().NewDestination(currentCutScene);
                 money ++; //flag
                 this.MoneyUpdate();
                 GameObject Stats = GameObject.Find("CurrentStats");
@@ -232,14 +250,26 @@ public class CameraController : MonoBehaviour
             }
         }
 
-        if(Input.GetKey(KeyCode.C) && SceneManager.sceneCount == 1 && !loading){
+        if((Input.GetKey(KeyCode.C)||isZooming > 0) && SceneManager.sceneCount == 1 && !loading){
             //Debug.Log("Pressed C");
             zoomIn();
+            autoZoom();
         } 
-        if(Input.GetKey(KeyCode.D) && SceneManager.sceneCount == 1 && !loading ){
+        if((Input.GetKey(KeyCode.D)||isZooming < 0)&& SceneManager.sceneCount == 1 && !loading ){
             //Debug.Log("Pressed D");
             zoomOut();
+            autoZoom();
         } 
+    }
+
+    void moveCamera(){
+        if(!destCamera){
+            moveToPosition = currentStation.transform.position + new Vector3(0, 0, height);
+        }else{
+            moveToPosition = (tiltRatio*currentStation.transform.position+currentStation.destinations[currentLine].transform.position)/(tiltRatio+1)
+             + new Vector3(0, 0, height);
+        }
+        transform.position = Vector3.Lerp(transform.position, moveToPosition, speed/1.5f);
     }
 
     bool xPress(){
@@ -314,18 +344,27 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    void autoZoomOut(){
-         Camera cam = this.GetComponent<Camera>();
-         bool allVisible = true;
-        do {
-            foreach(Station s in currentStation.destinations){
-                Vector3 viewport = cam.WorldToScreenPoint(s.transform.position);
-                if(viewport.x < 0 || viewport.x > 1 || viewport.y < 0 || viewport.y > 1){
-                    zoomOut();
-                    allVisible = false;
-                }
-            }
-        } while(allVisible == false);
+    void autoZoom(){
+         float scale = this.GetComponent<Camera>().orthographicSize / 19f;
+         Vector2 checkposition = new Vector2 (
+            this.GetComponent<Transform>().position.x,
+            this.GetComponent<Transform>().position.y);
+        Transform stationCheck = currentStation.destinations[currentLine].transform;
+        Vector2 destination = new Vector2 (
+            stationCheck.position.x,
+            stationCheck.position.y
+        );
+        if(destination.x-xOuter*scale > checkposition.x||
+            destination.x+xOuter*scale < checkposition.x||
+            destination.y-yOuter*scale > checkposition.y||
+            destination.y+yOuter*scale < checkposition.y
+        ){isZooming = -1;}
+        else if(destination.x > checkposition.x-xInner*scale&&
+            destination.x < checkposition.x+xInner*scale&&
+            destination.y > checkposition.y-yInner*scale&&
+            destination.y < checkposition.y+yInner*scale
+        ){isZooming = 1;}
+        else isZooming = 0;
     }
 
     void MoneyUpdate(){

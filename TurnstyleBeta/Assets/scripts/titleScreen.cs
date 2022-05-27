@@ -347,10 +347,10 @@ public class titleScreen : MonoBehaviour
         FMOD.Studio.VCA musicVCA = FMODUnity.RuntimeManager.GetVCA("vca:/Music");
         FMOD.Studio.VCA sfxVCA = FMODUnity.RuntimeManager.GetVCA("vca:/SFX");
         
-        float musicPercent = PlayerPrefs.GetFloat("musicPercent");
+        float musicPercent = PlayerPrefs.GetFloat("musicPercent", 0.5f);
         float musicVolume = getMusic(musicPercent, 1, 4);
         musicVCA.setVolume(musicVolume);
-        float sfxPercent = PlayerPrefs.GetFloat("sfxPercent");
+        float sfxPercent = PlayerPrefs.GetFloat("sfxPercent", 0.5f);
         float sfxVolume = getSFX(sfxPercent, 1, 4);
         sfxVCA.setVolume(sfxVolume);
     }

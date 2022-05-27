@@ -70,4 +70,8 @@ public class rotatePointer : MonoBehaviour
             transform.rotation = Quaternion.Euler(direction);
         }
     }
+
+    public void NewDestination(int dest){
+        destination = dest;
+    }
 }

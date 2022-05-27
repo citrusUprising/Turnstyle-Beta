@@ -132,7 +132,6 @@ public class combatController : MonoBehaviour
     // is visible and when the tutorial pops up
     // --------------------------------------------------------- //
         private GameObject Stats;
-        private int currentTutorial;
         public bool statused;
 
     // --------------------------------------------------------- //
@@ -147,7 +146,7 @@ public class combatController : MonoBehaviour
     // this is an array of the above objects
     public nameTag[] nameTagArray;
 
-    private bool rotateAllowed;
+    public bool rotateAllowed;
     private bool correctColor = false;
 
     // --------------------------------------------------------- //
@@ -174,6 +173,11 @@ public class combatController : MonoBehaviour
     private int selectedSpeed;
 
     // --------------------------------------------------------- //
+    // variables for holdBack()
+    // --------------------------------------------------------- //
+    private int keyHeld = 0;
+
+    // --------------------------------------------------------- //
     // used in the paused state
     // --------------------------------------------------------- //
     private GameObject pauseMenuInstance;
@@ -194,7 +198,8 @@ public class combatController : MonoBehaviour
     // --------------------------------------------------------- //
     // GameObjects that hold FMOD Studio Event Emitters for playing SFX
     // --------------------------------------------------------- //
-    public GameObject turnstyleRotate;
+    public GameObject turnstyleRotateForward;
+    public GameObject turnstyleRotateBack;
     public GameObject menuForward;
     public GameObject menuBack;
     public GameObject menuScroll;
@@ -238,7 +243,7 @@ public class combatController : MonoBehaviour
 
         Stats = GameObject.Find("CurrentStats");
 
-        targetPointer.GetComponent<CanvasRenderer>().SetAlpha(0);
+        editTargetSpritesAlpha(0f);
         
         // the available states so far are "rotate", "moveSelect", "targetSelect", "confirm", "playResults", "paused" (in that order)
         // "rotate" is for rotating the pentagon 
@@ -358,24 +363,27 @@ public class combatController : MonoBehaviour
                         // if you press X, advance to the next state, destroying the rotate UI and replacing it with move select UI
                         if ((xPress() && !isRotating)||!rotateAllowed)
                         {
-                            menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
-                            gameLoop.setActiveUnits(nameTagArray);
-                            Debug.Log("Setting Active Units");
-                            Color temp = this.pentagonSprite.GetComponent<Image>().color;
-                            temp.a = 0.0f;
-                            this.pentagonSprite.GetComponent<Image>().color = temp;
-                            transitionToMoveSelect();
+                            if(checkPartyValid()){
+                                menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
+                                gameLoop.setActiveUnits(nameTagArray);
+                                Debug.Log("Setting Active Units");
+                                Color temp = this.pentagonSprite.GetComponent<Image>().color;
+                                temp.a = 0.0f;
+                                this.pentagonSprite.GetComponent<Image>().color = temp;
+                                transitionToMoveSelect();
+                            }else{
+                                speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+                            }
                         }
                         if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
                         {
                             // if the pentagon is NOT rotating, then begin rotating DOWN
                             if (!isRotating&&rotateAllowed)
                             {
-                                turnstyleRotate.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                                 beginRotatingPentagon(-1);
                                 BattleSpriteHandler[] temp = pentagonSprite.GetComponentsInChildren<BattleSpriteHandler>();
                                 for (int i= 0; i < temp.Length; i++)temp[i].AlphaUpdate();
-                                //flag
+                                turnstyleRotateForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                             }
 
                         }
@@ -384,10 +392,10 @@ public class combatController : MonoBehaviour
                             // if the pentagon IS rotating, then begin rotating UP
                             if (!isRotating&&rotateAllowed)
                             {
-                                turnstyleRotate.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                                 beginRotatingPentagon(1);
                                 BattleSpriteHandler[] temp = pentagonSprite.GetComponentsInChildren<BattleSpriteHandler>();
                                 for (int i= 0; i < temp.Length; i++)temp[i].AlphaUpdate();
+                                turnstyleRotateBack.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                             }
                         }
                         // here is all the logic 
@@ -420,7 +428,7 @@ public class combatController : MonoBehaviour
                             menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                             selectedAbility = nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities[selectedAbilityIndex];
                             actions[numberOfSelectedMoves] += selectedAbility.name + " on ";
-                            transitionToTargetSelect();
+                            transitionToTargetSelect(true);
                         }
                         // back function needs to be implemented
                         // should go back to rotate if numberOfSelectedMoves is 0 and back to moveSelect if it is greater than zero
@@ -489,7 +497,7 @@ public class combatController : MonoBehaviour
                         else if (Input.GetKeyDown(KeyCode.X))
                         {
                             // possibly hide cursor here
-                            targetPointer.GetComponent<CanvasRenderer>().SetAlpha(0);
+                            editTargetSpritesAlpha(0f);
                             transitionToMoveSelect();
                         }
                     }
@@ -533,7 +541,7 @@ public class combatController : MonoBehaviour
                         else if (Input.GetKeyDown(KeyCode.X))
                         {
                             selectedSpeeds[numberOfSelectedMoves] = 0;
-                            transitionToTargetSelect();
+                            transitionToTargetSelect(false);
                         }
 
                         // changes the speed of the selected move up by one
@@ -567,12 +575,23 @@ public class combatController : MonoBehaviour
                             menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                             transitionToPlayResults();
                         }
-                        else if (Input.GetKeyDown(KeyCode.X))
-                        {
-                            menuBack.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
+                        else if(holdBack()){
+                            menuBack.GetComponent<FMODUnity.StudioEventEmitter>().Play();
                             numberOfSelectedMoves = 0;
                             gameLoop.cleanQueuedActions();
                             transitionToRotate();
+                        }
+                        else if (Input.GetKeyUp(KeyCode.X))
+                        {
+                            menuBack.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
+                            numberOfSelectedMoves--;
+                            // fixing back past KO'd character
+                            // need to test this
+                            while(nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>().dead &&
+                                numberOfSelectedMoves >= 0){
+                                numberOfSelectedMoves--; 
+                            }
+                            transitionToMoveSelect();
                         }
                         // else {
                             // numberOfSelectedMoves--;
@@ -667,6 +686,26 @@ public class combatController : MonoBehaviour
 
             justUnpaused = false;
         }
+    }
+
+    bool holdBack (){
+        if(Input.GetKey(KeyCode.X)) keyHeld++;
+        else keyHeld = 0;
+
+        bool temp = false;
+        if(keyHeld >= 500) temp = true;
+        return temp;
+    }
+
+    bool checkPartyValid(){
+        bool temp = false;
+        for (int i = 0; i < 3; i++){
+            if(!nameTagArray[i].isDead){
+                temp = true;
+                break;
+            }
+        }
+        return temp;
     }
 
     // gets called once at the beginning of the pentagon rotation when the player presses up or down
@@ -890,12 +929,11 @@ public class combatController : MonoBehaviour
             pointerCoords[selectedAbilityIndex],
             moveSelectPointer.transform.localPosition[2]);
 
-        if (previousState == "rotate")
-        {
             nameTagArray[0].hidePassive(); // hide
             nameTagArray[1].hidePassive(); // hide
             nameTagArray[2].hidePassive(); // hide
-        }
+            if(isTutorial != 1)
+            nameTagArray[numberOfSelectedMoves].showPassive();
         
         selectedUnit = nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>();
         actions[numberOfSelectedMoves] += selectedUnit.name+ ": ";//flag
@@ -999,19 +1037,22 @@ public class combatController : MonoBehaviour
     }
 
     // because we have not implemented this yet, it will go automatically to the speedSelect
-    void transitionToTargetSelect()
+    void transitionToTargetSelect(bool forward)
     {
         setPreviousState();
         state = "targetSelect";
         // this state does not have a box associated with it. therefore, the old box should not be destroyed
         Debug.Log(selectedAbility);
-        if (selectedAbility.selftarget) {
+        if (selectedAbility.selftarget&&forward) {
             selectedTarget = nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>();
-            targetPointer.GetComponent<CanvasRenderer>().SetAlpha(0);
+
+            targetPointer.transform.localPosition = playerTargets[numberOfSelectedMoves];
+            editTargetSpritesAlpha(1f);//flag
             transitionToSpeedSelect();
-        } else if (selectedAbility.multitarget)
+        } 
+        else if (selectedAbility.multitarget&&forward)
         {
-            targetPointer.GetComponent<CanvasRenderer>().SetAlpha(0);
+            editTargetSpritesAlpha(0f);
             if (selectedAbility.allies) 
             {
                 selectedTarget = nameTagArray[0].GetComponent<nameTag>().character.GetComponent<Friendly>();
@@ -1021,8 +1062,13 @@ public class combatController : MonoBehaviour
                 selectedTarget = enemies[0].GetComponent<Enemy>();
             }
             transitionToSpeedSelect();
+        } 
+        else if
+        (selectedAbility.selftarget||selectedAbility.multitarget){
+            transitionToMoveSelect();
         }
-        else{
+        else
+        {
             changeSelectedTarget(0, selectedAbility.allies);
             if(selectedAbility.allies){
                 targetPointer.transform.localPosition = playerTargets[0];
@@ -1030,12 +1076,12 @@ public class combatController : MonoBehaviour
             }
             // else
                 // targetPointer.transform.eulerAngles = new Vector3(0,0,0);
-            targetPointer.GetComponent<CanvasRenderer>().SetAlpha(1);
+            editTargetSpritesAlpha(1f);
         }
 
         promptManager.changePrompt(2);
 
-        editTargetSpritesAlpha(1f);
+        //editTargetSpritesAlpha(1f);
     }
 
     // a lot of things have to happen here
@@ -1077,12 +1123,13 @@ public class combatController : MonoBehaviour
         bottomSquare = currentDrawnBox.transform.GetChild(3).gameObject;
         speedSelectTextObject = currentDrawnBox.transform.GetChild(0).gameObject;
 
+        speedForCurrentMove = selectedSpeeds[numberOfSelectedMoves];
         int hasteSpeed = 0;
             if(nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Unit>().statuses[(int)StatusType.Buff].name == StatusName.Haste)
             hasteSpeed = nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Unit>().statuses[(int)StatusType.Buff].magnitude;
-        int tempSpeed = hasteSpeed - nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Unit>().fatigue;;
+        int tempSpeed = hasteSpeed - nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Unit>().fatigue+speedForCurrentMove;
         speedSelectTextObject.GetComponent<TextMeshProUGUI>().text = tempSpeed.ToString();
-        speedForCurrentMove = 0;
+        //needs to change based on who's currently selected
 
         //glossaryPopUp(1);
         if(isTutorial>0) tutorialHandler.GetComponent<tutorialHandler>().open(1);
@@ -1151,6 +1198,9 @@ public class combatController : MonoBehaviour
 
     void transitionToConfirm()
     {
+        nameTagArray[0].hidePassive(); // hide
+        nameTagArray[1].hidePassive(); // hide
+        nameTagArray[2].hidePassive(); // hide
         setPreviousState();
         state = "confirm";
         Destroy(currentDrawnBox);
@@ -1229,7 +1279,7 @@ public class combatController : MonoBehaviour
                 break;
 
             case "targetSelect":
-                transitionToTargetSelect();
+                transitionToTargetSelect(true);
                 break;
 
             case "confirm":
