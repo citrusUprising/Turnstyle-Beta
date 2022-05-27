@@ -3143,10 +3143,10 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: 1829469115
-      Data2: 1294726751
-      Data3: 1901288090
-      Data4: 900598962
+      Data1: -127451623
+      Data2: 1299310174
+      Data3: 1940167313
+      Data4: -1457069529
     Path: event:/UI/menu_forward
   Event: 
   PlayEvent: 0
@@ -3668,10 +3668,10 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: -1273493964
-      Data2: 1330756818
-      Data3: 1794707643
-      Data4: -1034383369
+      Data1: 2145380211
+      Data2: 1097607972
+      Data3: 1407734930
+      Data4: -695954202
     Path: event:/UI/menu_back
   Event: 
   PlayEvent: 0

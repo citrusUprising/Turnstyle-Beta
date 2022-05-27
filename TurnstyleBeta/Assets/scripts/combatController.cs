@@ -174,6 +174,11 @@ public class combatController : MonoBehaviour
     private int selectedSpeed;
 
     // --------------------------------------------------------- //
+    // variables for holdBack()
+    // --------------------------------------------------------- //
+    private int keyHeld = 0;
+
+    // --------------------------------------------------------- //
     // used in the paused state
     // --------------------------------------------------------- //
     private GameObject pauseMenuInstance;
@@ -424,7 +429,7 @@ public class combatController : MonoBehaviour
                             menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                             selectedAbility = nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities[selectedAbilityIndex];
                             actions[numberOfSelectedMoves] += selectedAbility.name + " on ";
-                            transitionToTargetSelect();
+                            transitionToTargetSelect(true);
                         }
                         // back function needs to be implemented
                         // should go back to rotate if numberOfSelectedMoves is 0 and back to moveSelect if it is greater than zero
@@ -537,7 +542,7 @@ public class combatController : MonoBehaviour
                         else if (Input.GetKeyDown(KeyCode.X))
                         {
                             selectedSpeeds[numberOfSelectedMoves] = 0;
-                            transitionToTargetSelect();
+                            transitionToTargetSelect(false);
                         }
 
                         // changes the speed of the selected move up by one
@@ -571,12 +576,23 @@ public class combatController : MonoBehaviour
                             menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                             transitionToPlayResults();
                         }
-                        else if (Input.GetKeyDown(KeyCode.X))
-                        {
-                            menuBack.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
+                        else if(holdBack()){
+                            menuBack.GetComponent<FMODUnity.StudioEventEmitter>().Play();
                             numberOfSelectedMoves = 0;
                             gameLoop.cleanQueuedActions();
                             transitionToRotate();
+                        }
+                        else if (Input.GetKeyUp(KeyCode.X))
+                        {
+                            menuBack.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
+                            numberOfSelectedMoves--;
+                            // fixing back past KO'd character
+                            // need to test this
+                            while(nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>().dead &&
+                                numberOfSelectedMoves >= 0){
+                                numberOfSelectedMoves--; 
+                            }
+                            transitionToMoveSelect();
                         }
                         // else {
                             // numberOfSelectedMoves--;
@@ -671,6 +687,15 @@ public class combatController : MonoBehaviour
 
             justUnpaused = false;
         }
+    }
+
+    bool holdBack (){
+        if(Input.GetKey(KeyCode.X)) keyHeld++;
+        else keyHeld = 0;
+
+        bool temp = false;
+        if(keyHeld >= 500) temp = true;
+        return temp;
     }
 
     bool checkPartyValid(){
@@ -1014,17 +1039,17 @@ public class combatController : MonoBehaviour
     }
 
     // because we have not implemented this yet, it will go automatically to the speedSelect
-    void transitionToTargetSelect()
+    void transitionToTargetSelect(bool forward)
     {
         setPreviousState();
         state = "targetSelect";
         // this state does not have a box associated with it. therefore, the old box should not be destroyed
         Debug.Log(selectedAbility);
-        if (selectedAbility.selftarget) {
+        if (selectedAbility.selftarget&&forward) {
             selectedTarget = nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>();
             targetPointer.GetComponent<CanvasRenderer>().SetAlpha(0);
             transitionToSpeedSelect();
-        } else if (selectedAbility.multitarget)
+        } else if (selectedAbility.multitarget&&forward)
         {
             targetPointer.GetComponent<CanvasRenderer>().SetAlpha(0);
             if (selectedAbility.allies) 
@@ -1036,6 +1061,8 @@ public class combatController : MonoBehaviour
                 selectedTarget = enemies[0].GetComponent<Enemy>();
             }
             transitionToSpeedSelect();
+        } else if(selectedAbility.selftarget||selectedAbility.multitarget){
+            transitionToMoveSelect();
         }
         else{
             changeSelectedTarget(0, selectedAbility.allies);
@@ -1092,12 +1119,13 @@ public class combatController : MonoBehaviour
         bottomSquare = currentDrawnBox.transform.GetChild(3).gameObject;
         speedSelectTextObject = currentDrawnBox.transform.GetChild(0).gameObject;
 
+        speedForCurrentMove = selectedSpeeds[numberOfSelectedMoves];
         int hasteSpeed = 0;
             if(nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Unit>().statuses[(int)StatusType.Buff].name == StatusName.Haste)
             hasteSpeed = nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Unit>().statuses[(int)StatusType.Buff].magnitude;
-        int tempSpeed = hasteSpeed - nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Unit>().fatigue;;
+        int tempSpeed = hasteSpeed - nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Unit>().fatigue+speedForCurrentMove;
         speedSelectTextObject.GetComponent<TextMeshProUGUI>().text = tempSpeed.ToString();
-        speedForCurrentMove = 0;
+        //needs to change based on who's currently selected
 
         //glossaryPopUp(1);
         if(isTutorial>0) tutorialHandler.GetComponent<tutorialHandler>().open(1);
@@ -1244,7 +1272,7 @@ public class combatController : MonoBehaviour
                 break;
 
             case "targetSelect":
-                transitionToTargetSelect();
+                transitionToTargetSelect(true);
                 break;
 
             case "confirm":
