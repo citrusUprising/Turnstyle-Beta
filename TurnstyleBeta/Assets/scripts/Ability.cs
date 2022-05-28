@@ -156,7 +156,7 @@ public class Mitigate : Ability
     public Mitigate()
     {
         this.name = "Mitigate";
-        this.text = "Give ally Regen (2) for 4 turns";
+        this.text = "Heal an ally for 2 health and give them Regen (2) for 3 turns";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = true;
@@ -164,7 +164,8 @@ public class Mitigate : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        target.applyStatus(StatusType.Health, StatusName.Regeneration, 4, 2);
+        target.healSelf(2);
+        target.applyStatus(StatusType.Health, StatusName.Regeneration, 3, 2);
     }
 
     public override bool requirement(Unit target, Unit source)
