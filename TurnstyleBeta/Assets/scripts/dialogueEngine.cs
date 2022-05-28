@@ -260,6 +260,7 @@ public class dialogueEngine : MonoBehaviour
 				yDown,
 				leftNameParent.GetComponent<Transform>().localPosition.z
 			);
+
 			rightNameParent.GetComponent<Transform>().localPosition = new Vector3 (
 				rightNameParent.GetComponent<Transform>().localPosition.x,
 				yUp,
@@ -274,6 +275,7 @@ public class dialogueEngine : MonoBehaviour
 				yUp,
 				leftNameParent.GetComponent<Transform>().localPosition.z
 			);
+
 			rightNameParent.GetComponent<Transform>().localPosition = new Vector3 (
 				rightNameParent.GetComponent<Transform>().localPosition.x,
 				yDown,

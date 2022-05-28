@@ -62,7 +62,7 @@ public class titleScreen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        gameObject.transform.Rotate(0, 0, .25f*rotateDirection);
+        gameObject.transform.Rotate(0, 0, .15f*rotateDirection);
 
         if (creditsObject == null && pauseMenuObject == null)
         {
