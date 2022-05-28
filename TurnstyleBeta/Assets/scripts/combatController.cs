@@ -448,8 +448,8 @@ public class combatController : MonoBehaviour
                                 numberOfSelectedMoves--;
                                  // fixing back past KO'd character
                             // need to test this
-                            while(nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>().dead &&
-                                numberOfSelectedMoves >= 0){
+                            while(numberOfSelectedMoves >= 0 &&
+                                nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>().dead){
                                 numberOfSelectedMoves--; 
                             }
                             if(numberOfSelectedMoves < 0){
@@ -460,9 +460,8 @@ public class combatController : MonoBehaviour
                                     }
                             }
                             else{
-                                transitionToMoveSelect();
+                                transitionToMoveSelect(false);
                             }
-                                transitionToMoveSelect();
                             }
                         }
                     }
@@ -498,7 +497,7 @@ public class combatController : MonoBehaviour
                         {
                             // possibly hide cursor here
                             editTargetSpritesAlpha(0f);
-                            transitionToMoveSelect();
+                            transitionToMoveSelect(false);
                         }
                     }
 
@@ -540,7 +539,7 @@ public class combatController : MonoBehaviour
                         // should go back to the target select and reset the speed that was set for that move
                         else if (Input.GetKeyDown(KeyCode.X))
                         {
-                            selectedSpeeds[numberOfSelectedMoves] = 0;
+                            //selectedSpeeds[numberOfSelectedMoves] = 0;
                             transitionToTargetSelect(false);
                         }
 
@@ -591,7 +590,7 @@ public class combatController : MonoBehaviour
                                 numberOfSelectedMoves >= 0){
                                 numberOfSelectedMoves--; 
                             }
-                            transitionToMoveSelect();
+                            transitionToMoveSelect(false);
                         }
                         // else {
                             // numberOfSelectedMoves--;
@@ -880,9 +879,11 @@ public class combatController : MonoBehaviour
     public void transitionToRotate()
     {
         combatDone = false;
+        if(rotateAllowed){
         Color temp = this.pentagonSprite.GetComponent<Image>().color;
         temp.a = 1.0f;
         this.pentagonSprite.GetComponent<Image>().color = temp;
+        }
 
         numberOfSelectedMoves = 0;
         Destroy(currentDrawnBox);
@@ -903,7 +904,7 @@ public class combatController : MonoBehaviour
 
     }
 
-    void transitionToMoveSelect()
+    void transitionToMoveSelect(bool forward = true)
     {
         setPreviousState();
         state = "moveSelect";
@@ -911,11 +912,21 @@ public class combatController : MonoBehaviour
         Debug.Log("Dead Move Select: " + nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>().dead);
         while (nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>().dead)
         {
-            numberOfSelectedMoves++;
-            if (numberOfSelectedMoves == 3)
-            {
-                transitionToConfirm();
-                return;
+            if(forward){
+                numberOfSelectedMoves++;
+                if (numberOfSelectedMoves == 3)
+                {
+                    transitionToConfirm();
+                    return;
+                }
+            }
+            else{
+                numberOfSelectedMoves--;
+                if (numberOfSelectedMoves == -1)
+                {
+                    transitionToRotate();
+                    return;
+                }
             }
         }
         // 🎨 setting draw box color & move names 
@@ -1065,7 +1076,7 @@ public class combatController : MonoBehaviour
         } 
         else if
         (selectedAbility.selftarget||selectedAbility.multitarget){
-            transitionToMoveSelect();
+            transitionToMoveSelect(false);
         }
         else
         {
