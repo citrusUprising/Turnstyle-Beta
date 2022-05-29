@@ -13,24 +13,19 @@ class SaveData
     public int currentTutorial;
     public int currentMapTutorial;
     public int currentDay;
+    public int[] AmeryMoves;
+    public int[] BeverlyMoves;
+    public int[] JadeMoves;
+    public int[] KoralieMoves;
+    public int[] SeraphimMoves;
+    
 }
 
 public class savingEngine : MonoBehaviour
 {
 
-public bool load;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-     load = false;   
-    }
+public bool load = false;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     //----------------------------------------------------------------------------------------------//
     //code borrowed from Lance Talbert at Redgate
     //https://www.red-gate.com/simple-talk/development/dotnet-development/saving-game-data-with-unity/
