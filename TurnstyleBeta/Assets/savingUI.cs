@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class savingUI : MonoBehaviour
 {
@@ -16,11 +17,7 @@ public class savingUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         StartCoroutine(lerpOnScreen());
-
-        Debug.Log(firstPosition);
-        Debug.Log(secondPosition);
     }
 
     // Update is called once per frame
@@ -31,9 +28,6 @@ public class savingUI : MonoBehaviour
 
     IEnumerator lerpOnScreen()
     {
-
-        yield return null;
-
         float time = 0f;
         float duration = lerpDuration;
 

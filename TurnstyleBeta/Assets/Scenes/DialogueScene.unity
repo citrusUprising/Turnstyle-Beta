@@ -1381,6 +1381,7 @@ MonoBehaviour:
   - {r: 1, g: 0.08235294, b: 0.08235294, a: 1}
   - {r: 1, g: 0.3921569, b: 0.3921569, a: 1}
   - {r: 1, g: 0.75294125, b: 0.75294125, a: 1}
+  loadingAnimation: {fileID: 2120021968404766251, guid: 8493fa3b93e694f43895e5efef359023, type: 3}
 --- !u!1 &1360006232
 GameObject:
   m_ObjectHideFlags: 0

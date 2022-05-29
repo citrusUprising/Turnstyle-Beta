@@ -78,7 +78,8 @@ public class CameraController : MonoBehaviour
         {
             Music.SetActive(false);
             SceneManager.LoadScene("DialogueScene", LoadSceneMode.Additive);
-        }else{
+        }
+        else{
             Pointer.GetComponent<rotatePointer>().NewDestination(currentCutScene-1);
         }
         if (money>0)hasMoney = true;
@@ -205,7 +206,6 @@ public class CameraController : MonoBehaviour
 
             if (currentStation.cutscene == currentCutScene){
                 onLine = new bool[]{false,false,false,false,false,false};
-                Debug.Log("Opening Cutscene #"+currentCutScene);
                 //Music.SetActive(false);
                 switch(currentCutScene){
                     case 1:
@@ -231,6 +231,7 @@ public class CameraController : MonoBehaviour
                 Stats.GetComponent<CurrentStats>().AmeryHealth = 12;
                 StartCoroutine(loadScene("DialogueScene"));
                 Music.SetActive(false);
+
             }
 
             if (currentStation.hasCombat&&currentCutScene!=currentStation.cutscene)

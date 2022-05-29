@@ -95,6 +95,8 @@ public class dialogueEngine : MonoBehaviour
 	public Color[] jadeColors;
 	public Color[] seraphimColors;
 
+	public GameObject loadingAnimation;
+
 	// Start is called before the first frame update
 	void Start()
     {
@@ -147,6 +149,7 @@ public class dialogueEngine : MonoBehaviour
 				PlayerPrefs.SetInt("Load", 0);
 				GameObject.Find("CurrentStats").GetComponent<savingEngine>().reset();
 				GameObject.Find("CurrentStats").GetComponent<savingEngine>().checkpoint();
+				showSavingAnimation();
 				SceneManager.UnloadSceneAsync(sceneName);
 			}
 
@@ -175,7 +178,10 @@ public class dialogueEngine : MonoBehaviour
 						PlayerPrefs.SetInt("Load", 0);
 						GameObject.Find("CurrentStats").GetComponent<savingEngine>().reset();
 						GameObject.Find("CurrentStats").GetComponent<savingEngine>().checkpoint();
+
+						
 						SceneManager.UnloadSceneAsync(sceneName);
+						showSavingAnimation();
 					}
 					else
 					{
@@ -381,5 +387,11 @@ public class dialogueEngine : MonoBehaviour
 		rightNameSprite.GetComponent<Image>().color = currentColors[1];
 
 		GetComponent<Image>().color = currentColors[2];
+	}
+
+	void showSavingAnimation()
+	{
+		SceneManager.SetActiveScene(SceneManager.GetSceneByName("Node Map"));
+		Instantiate(loadingAnimation);
 	}
 }

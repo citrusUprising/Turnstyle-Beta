@@ -30,7 +30,6 @@ public class LineDrawer : MonoBehaviour
         render.positionCount = stations.Length;
         for(int i = 0; i < stations.Length; i++)
         {
-            Debug.Log(lineColor + " Station " + i + ": " + stations[i].transform.position);
             Vector3 vector = stations[i].transform.position + offset;
             render.SetPosition(i, vector);
         }
