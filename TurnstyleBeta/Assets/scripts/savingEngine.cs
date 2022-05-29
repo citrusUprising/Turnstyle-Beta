@@ -13,11 +13,11 @@ class SaveData
     public int currentTutorial;
     public int currentMapTutorial;
     public int currentDay;
-    public int[] AmeryMoves;
-    public int[] BeverlyMoves;
-    public int[] JadeMoves;
-    public int[] KoralieMoves;
-    public int[] SeraphimMoves;
+    public int[] AmeryMoves = new int[3];
+    public int[] BeverlyMoves = new int[3];
+    public int[] JadeMoves = new int[3];
+    public int[] KoralieMoves = new int[3];
+    public int[] SeraphimMoves = new int[3];
     
 }
 
