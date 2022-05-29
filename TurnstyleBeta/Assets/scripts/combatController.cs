@@ -512,7 +512,7 @@ public class combatController : MonoBehaviour
 
                             // destroy the old speedIndicator2 (the one on top of the speed select sprite)
                             // i had to make a custom function for some reason idk
-                            totalSpeedIndicator2.destroySelf();
+                            destroyTotalSpeed2();
 
                             selectedSpeed = selectedSpeeds[numberOfSelectedMoves];
                             Debug.Log("Selected Unit: " + selectedUnit.name);
@@ -909,6 +909,7 @@ public class combatController : MonoBehaviour
         setPreviousState();
         state = "moveSelect";
         Destroy(currentDrawnBox);
+        destroyTotalSpeed2();
         Debug.Log("Dead Move Select: " + nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>().dead);
         while (nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>().dead)
         {
@@ -1260,6 +1261,8 @@ public class combatController : MonoBehaviour
         state = "playResults";
         Destroy(currentDrawnBox);
 
+        destroyTotalSpeed2();
+
         currentDrawnBox = Instantiate(playResultsBox, canvas.transform);
         gameLoop.queueEnemyActions();
         StartCoroutine(gameLoop.OutputText());
@@ -1348,5 +1351,13 @@ public class combatController : MonoBehaviour
 
     public void setPage (int page){
         glossaryObject.GetComponent<glossaryScript>().setPage(page);
+    }
+
+    void destroyTotalSpeed2()
+    {
+        if (totalSpeedIndicator2 != null)
+        {
+            totalSpeedIndicator2.destroySelf();
+        }
     }
 }
