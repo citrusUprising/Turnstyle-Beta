@@ -49,6 +49,7 @@ public class CameraController : MonoBehaviour
     public Canvas canvas;
     public GameObject tutorialPhone;
     public GameObject Pointer;
+    public GameObject background;
 
     private bool loading = false;
     private bool pulseUp = true;
@@ -157,7 +158,7 @@ public class CameraController : MonoBehaviour
 
             if (pauseMenuObject == null)
             {
-                if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
+                if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.RightArrow))
                 {
                     currentStation.destinations[currentLine].transform.localScale = new Vector3(1, 1, 1);
                     currentLine++;
@@ -169,7 +170,7 @@ public class CameraController : MonoBehaviour
                     destCamera = true;
                 }
 
-                if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.RightArrow))
+                if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
                 {
                     currentStation.destinations[currentLine].transform.localScale = new Vector3(1, 1, 1);
                     currentLine = currentLine - 1;
@@ -221,7 +222,7 @@ public class CameraController : MonoBehaviour
                     break;
                 }
                 Pointer.GetComponent<rotatePointer>().NewDestination(currentCutScene);
-                money ++; //flag
+                money ++;
                 this.MoneyUpdate();
                 GameObject Stats = GameObject.Find("CurrentStats");
                 Stats.GetComponent<CurrentStats>().BeverlyHealth = 16;
@@ -298,7 +299,7 @@ public class CameraController : MonoBehaviour
             }
         }
 
-        //if(currentStation.transform.parent.gameObject != currentStation.destinations[s].transform.parent.gameObject){//flag
+        //if(currentStation.transform.parent.gameObject != currentStation.destinations[s].transform.parent.gameObject){
         if(stayLine){
             for(int l =0;l<6;l++){
                 if(this.onLine[l]&&!currentStation.destinations[s].lines[l]){
@@ -379,15 +380,22 @@ public class CameraController : MonoBehaviour
             Stats.GetComponent<CurrentStats>().hasMoney = false;
             tutorialPhone.GetComponent<tutorialHandler>().open(2);
             foreach(Station h in this.allStations){
-                h.EnableHardMode(); //flag
+                h.EnableHardMode();
             }
-        }else if (money > 0 && !hasMoney){
+            Color pigment;//flag
+            pigment = new Color (0.5f,0.5f,0.5f,1.0f);
+            background.GetComponent<SpriteRenderer>().color *= pigment;
+        }
+        else if (money > 0 && !hasMoney){
             Music.SetActive(true);
             hasMoney = true;
             Stats.GetComponent<CurrentStats>().hasMoney = true;
             foreach(Station h in this.allStations){
-                h.DisableHardMode(); //flag
+                h.DisableHardMode();
             }
+            Color pigment;
+            pigment = new Color (2.0f,2.0f,2.0f,1.0f);
+            background.GetComponent<SpriteRenderer>().color *= pigment;//flag
         }
         if(money < 0) money = 0;
     }
