@@ -247,7 +247,8 @@ public class CameraController : MonoBehaviour
                 StartCoroutine(loadScene("tutorialScene"));
                 Music.SetActive(false);
                 currentStation.endCombat();
-                tutorialPhone.GetComponent<tutorialHandler>().open(0);
+                StartCoroutine(firstTutorial());
+                //tutorialPhone.GetComponent<tutorialHandler>().open(0);
             }
         }
 
@@ -389,6 +390,11 @@ public class CameraController : MonoBehaviour
             }
         }
         if(money < 0) money = 0;
+    }
+    
+    IEnumerator firstTutorial(){
+        yield return new WaitForSeconds(1.0f);
+        tutorialPhone.GetComponent<tutorialHandler>().open(0);
     }
 
     IEnumerator loadScene(string Scene)
