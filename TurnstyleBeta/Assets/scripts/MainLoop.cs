@@ -387,7 +387,8 @@ public class MainLoop : MonoBehaviour
                         break;
                 }
             }
-            SceneManager.UnloadSceneAsync(sceneName);
+
+            uiController.GetComponent<combatController>().introController.startOutroAnimation1();
         }
     }
 
