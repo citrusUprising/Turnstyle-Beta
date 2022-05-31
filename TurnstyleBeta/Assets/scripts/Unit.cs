@@ -521,8 +521,8 @@ public class Unit : MonoBehaviour
             this.statuses[(int) type].magnitude = magnitude;
             String test = newStatus.ToString();
             String sound = "null";
-            if(type == StatusType.Buff) sound = "buff";
-            if(type == StatusType.Debuff) sound = "debuff";
+            if(type == StatusType.Buff || newStatus == StatusName.Regeneration) sound = "buff";
+            if(type == StatusType.Debuff || newStatus == StatusName.Burn) sound = "debuff";
 
             if(test.Contains("ed")||test == "Vulnerable")gameLoop.outputQueue.Add(new displayObject(
                 this.unitName + " is " + newStatus,
