@@ -83,9 +83,6 @@
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{df8fabc0-9018-4321-bf2a-4bcabc3b196d}">
-		<property name="volume">
-			<value>4.5</value>
-		</property>
 		<relationship name="effectChain">
 			<destination>{b29c137f-b4e3-4c6a-bc1b-1eeb80efade7}</destination>
 		</relationship>
@@ -144,7 +141,7 @@
 	<object class="MixerBusFader" id="{ff22ac7f-bbb1-4b15-882d-a1a80a1cbc38}" />
 	<object class="CompressorEffect" id="{5a84556d-33b6-492c-a797-11898df9f4f0}">
 		<property name="threshold">
-			<value>-34</value>
+			<value>-36.5</value>
 		</property>
 		<property name="ratio">
 			<value>3.20000005</value>

@@ -205,6 +205,9 @@ public class combatController : MonoBehaviour
     public GameObject menuScroll;
     public GameObject speedScroll;
     public GameObject selectSound;
+    public GameObject glossaryOpen;
+    public GameObject glossaryClose;
+    public GameObject confirm;
 
     private bool isSceneOverlayActive = false;
 
@@ -526,7 +529,7 @@ public class combatController : MonoBehaviour
                             // if there have not, it goes to move select
                             if (xPress())
                             {
-                                menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
+                                confirm.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
 
                                 // destroy the old speedIndicator2 (the one on top of the speed select sprite)
                                 // i had to make a custom function for some reason idk
@@ -589,7 +592,7 @@ public class combatController : MonoBehaviour
                                 {
                                     actions[numberOfSelectedMoves - 1] += enemies[targetIndex].GetComponent<Enemy>().name;
                                 }
-                                menuForward.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
+                                confirm.GetComponent<FMODUnity.StudioEventEmitter>().Play(); //play SFX
                                 transitionToPlayResults();
                             }
                             else if (holdBack())
@@ -681,14 +684,14 @@ public class combatController : MonoBehaviour
                     {
                         if (glossaryObject.GetComponent<glossaryScript>().isShowing)
                         {
-                            speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+                            glossaryClose.GetComponent<FMODUnity.StudioEventEmitter>().Play();
 
                             glossaryObject.GetComponent<glossaryScript>().hide();
                         }
                         else if (glossaryObject.GetComponent<glossaryScript>().isShowing == false &&
                         (isTutorial == 0 || tutorialHandler.GetComponent<tutorialHandler>().bookCount >= 3))//flag
                         {
-                            speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+                            glossaryOpen.GetComponent<FMODUnity.StudioEventEmitter>().Play();
 
                             glossaryObject.GetComponent<glossaryScript>().show();
                         }
@@ -698,7 +701,7 @@ public class combatController : MonoBehaviour
                     {
                         if (glossaryObject.GetComponent<glossaryScript>().isShowing)
                         {
-                            speedScroll.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+                            glossaryClose.GetComponent<FMODUnity.StudioEventEmitter>().Play();
                             glossaryObject.GetComponent<glossaryScript>().hide();
                         }
                     }
