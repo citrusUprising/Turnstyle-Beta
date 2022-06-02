@@ -3977,7 +3977,7 @@ MonoBehaviour:
   transitionObject: {fileID: 107019225}
   transitionAnimator: {fileID: 107019226}
   Music: {fileID: 490167745}
-  currentCutScene: 2
+  currentCutScene: 0
   hasMoney: 0
   zoomSpeed: 0.2
   minZoom: 5

@@ -88,7 +88,7 @@ public class CameraController : MonoBehaviour
 
         blackBox.GetComponent<Image>().color = new Color(0, 0, 0, 1);
 
-        if (currentCutScene == 2)
+        if (currentCutScene == 0)
         {
             Music.SetActive(false);
             SceneManager.LoadScene("DialogueScene", LoadSceneMode.Additive);
