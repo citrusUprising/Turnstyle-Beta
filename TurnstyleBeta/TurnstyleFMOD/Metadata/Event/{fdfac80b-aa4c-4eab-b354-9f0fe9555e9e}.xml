@@ -156,7 +156,7 @@
 			<value>14</value>
 		</property>
 		<property name="gain">
-			<value>4</value>
+			<value>6</value>
 		</property>
 	</object>
 	<object class="LimiterEffect" id="{3f32c5df-fce0-412d-900b-5958244df093}" />

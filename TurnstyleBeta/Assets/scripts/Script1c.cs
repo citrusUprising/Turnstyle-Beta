@@ -147,7 +147,7 @@ public class Script1c : MonoBehaviour
 
         temp[dialogueVarietyCount]=(new overallDialogue("Beverly","Seraphim","Station", 
         new dialogueEntry[]{
-            new dialogueEntry("He…he really went on the subway alone!",true,"Sad","Angry","null","null")
+            new dialogueEntry("He…he really went on the subway alone!",true,"Sad","Angry","null","stop")
             }
 
         ));
@@ -171,7 +171,7 @@ public class Script1c : MonoBehaviour
 
         temp[dialogueVarietyCount]=(new overallDialogue("Beverly","Koralie","Train", 
         new dialogueEntry[]{
-            new dialogueEntry("There he is!",true,"Sad","Angry","null","null")
+            new dialogueEntry("There he is!",true,"Sad","Angry","null","stop")
             }
 
         ));
