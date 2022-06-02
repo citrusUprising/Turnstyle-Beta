@@ -5079,6 +5079,7 @@ MonoBehaviour:
   xMaxJump: 19
   yMinJump: -31
   yMaxJump: 3
+  yOffset: 10
 --- !u!223 &1370863495
 Canvas:
   m_ObjectHideFlags: 0

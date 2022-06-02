@@ -88,7 +88,7 @@ public class comTutorialScript : MonoBehaviour
         pageFiller++;
 
         temp[pageFiller] = new TutorialSegment(
-            new string[1]{"You can view each <b>Party Member’s Moves</b> and <b>Passive</b> in the <b>Pause Menu</b> by pressing <b>Escape.</b>"}, 
+            new string[1]{"You can view each <b>Party Member’s Moves</b> in the <b>Pause Menu</b> by pressing <b>Escape.</b>"}, 
             new int[0]{}, 
             "xDown"
         );

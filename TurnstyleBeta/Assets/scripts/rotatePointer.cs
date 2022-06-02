@@ -15,6 +15,7 @@ public class rotatePointer : MonoBehaviour
     [SerializeField] private float  xMaxJump;
     [SerializeField] private float yMinJump;
     [SerializeField] private float  yMaxJump;
+    [SerializeField] private float  yOffset;
     private bool rotating = true;
     private bool onScreen;
     private int destination = 0;
@@ -36,8 +37,8 @@ public class rotatePointer : MonoBehaviour
         if (
             targets[destination].position.x - currentLoc.position.x >= xMinJump*scale &&
             targets[destination].position.x - currentLoc.position.x <= xMaxJump*scale &&
-            targets[destination].position.y - (currentLoc.position.y+8f) >= yMinJump*scale &&
-            targets[destination].position.y - (currentLoc.position.y+8f) <= yMaxJump*scale
+            targets[destination].position.y - (currentLoc.position.y+yOffset) >= yMinJump*scale &&
+            targets[destination].position.y - (currentLoc.position.y+yOffset) <= yMaxJump*scale
         ){onScreen = true;}
         else onScreen = false;
 

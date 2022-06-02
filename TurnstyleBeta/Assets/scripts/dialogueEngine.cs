@@ -215,8 +215,8 @@ public class dialogueEngine : MonoBehaviour
 				else
 				{
 					this.swapAndSound();
-					StartCoroutine("WriteLine");
 					showCorrectNameTag();
+					StartCoroutine("WriteLine");
 				}
 			}
 
