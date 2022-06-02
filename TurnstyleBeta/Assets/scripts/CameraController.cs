@@ -104,14 +104,7 @@ public class CameraController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            transitionAnimator.SetTrigger("fadeFromBlack");
-        }
-        
-
+    {  
 
         xDown = false;
         //cancels out of game after final cutscene
@@ -176,7 +169,7 @@ public class CameraController : MonoBehaviour
                 }
             }
 
-            if(money >=0)Music.SetActive(true);
+            // if(money >=0)Music.SetActive(true);
 
             if (pauseMenuObject == null)
             {
@@ -258,7 +251,7 @@ public class CameraController : MonoBehaviour
                 Stats.GetComponent<CurrentStats>().AmeryHealth = 12;
 
                 StartCoroutine(loadScene("DialogueScene"));
-                Music.SetActive(false);
+                
 
             }
 
@@ -287,6 +280,8 @@ public class CameraController : MonoBehaviour
             {
                 // it's set to false here so that this only happens once
                 isTransitioningFromAnotherScene = false;
+
+                Music.SetActive(true);
 
                 transitionAnimator.SetTrigger("fromBlack");
             }
@@ -450,6 +445,8 @@ public class CameraController : MonoBehaviour
         preloading = true;
         // we add a delay so that the camera settles on the newly selected node
         yield return new WaitForSeconds(.75f);
+
+        Music.SetActive(false);
 
         loading = true;
         transitionAnimator.SetTrigger("toBlack");

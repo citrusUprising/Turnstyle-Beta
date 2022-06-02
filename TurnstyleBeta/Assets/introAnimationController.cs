@@ -257,7 +257,7 @@ public class introAnimationController : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
 
-        GameObject.Find("NodeMapCamera").GetComponent<CameraController>().transitionAnimator.SetTrigger("fromBlack");
+        GameObject.Find("NodeMapCamera").GetComponent<CameraController>().isTransitioningFromAnotherScene = true;
         Destroy(gameObject);
 
         // so these are all useless because the game object is being destroyed but it feels tidy to include them anyway
