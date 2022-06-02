@@ -23,18 +23,18 @@ public class Script1d : MonoBehaviour
 
         temp[dialogueVarietyCount]=new overallDialogue("Amery","","ApartmentDark", 
         new dialogueEntry[]{
-            new dialogueEntry("Let's see, I need to add the egg to the batter now...",false,"Happy","Sad", "Music/ChillTheme", "null"),
+            new dialogueEntry("Let's see, I need to add the egg to the batter now...",false,"Happy","Sad", "Music/ChillTheme", "Cutscene/rustling"),
             new dialogueEntry("Hrm, some of the egg shell got in there…",false,"Sad", "Sad", "null","Cutscene/egg"),
-            new dialogueEntry("Well, no matter, I’ll crush it up while I mix it in and no one will notice!",false,"Happy", "Sad", "null", "null"),
+            new dialogueEntry("Well, no matter, I’ll crush it up while I mix it in and no one will notice!",false,"Happy", "Sad", "null", "Cutscene/batter_splashing"),
             new dialogueEntry("Alright, looks ready to me!",false,"Happy", "Sad", "null","Cutscene/stove"),
-            new dialogueEntry("Hm, this is so inefficient. I’ll turn the heat u-",false,"Angry", "Sad", "null", "Cutscene/pan_sizzle")
+            new dialogueEntry("Hm, this is so inefficient. I’ll turn the heat u-",false,"Angry", "Sad", "null", "Cutscene/door_open")
             }
 
         );
         dialogueVarietyCount++;
         temp[dialogueVarietyCount]=new overallDialogue("Amery","Seraphim","ApartmentLight", 
         new dialogueEntry[]{
-            new dialogueEntry("Oh hey! Didn’t know you were up already.", true,"Angry", "Happy", "null","null"),
+            new dialogueEntry("Oh hey! Didn’t know you were up already.", true,"Angry", "Happy", "null","Cutscene/pan_sizzle"),
             new dialogueEntry("Are you…cooking?", true,"Angry", "Shy", "null","null"),
             new dialogueEntry("Yes, I am!", false,"Happy", "Shy", "null","null"),
             new dialogueEntry("I didn’t mean to wake you though, my apologies.", false,"Sad", "Shy", "null","null"),
@@ -72,7 +72,7 @@ public class Script1d : MonoBehaviour
             new dialogueEntry("Yes…normally, that would shield my eyes, wouldn’t it…?", false,"Sad", "Sad", "null","null"),
             new dialogueEntry("I’ll let you in on a secret, Seraphim…I don’t actually need glasses! They’re just fashion frames. I think they give me a more…professional feel, wouldn’t you agree?", false,"Happy", "Sad", "null","null"),
             new dialogueEntry("…Please don’t tell the others about this, though. That’d be really embarrassing.", false,"Sad", "Sad", "null","null"),
-            new dialogueEntry("Ha! That’s just like you!", true,"Sad", "Happy", "null","null"),
+            new dialogueEntry("Ha! That’s just like you!", true,"Sad", "Happy", "null","Cutscene/cooking_noises"),
             new dialogueEntry("…", true,"Sad", "Happy", "stop","null"),
             new dialogueEntry("…", false,"Sad", "Shy", "null","null"),
             new dialogueEntry("Seraphim… about everything that happened a while back.", false,"Sad", "Shy", "Music/EmoTheme","null"),
@@ -83,7 +83,7 @@ public class Script1d : MonoBehaviour
             new dialogueEntry("I know I said a lot of hurtful things to try and get back at you too. I’m also really sorry about that…I mean it.", true,"Sad", "Shy", "null","null"),
             new dialogueEntry("And…it’ll take a while to get used to…", true,"Sad", "Shy", "null","null"),
             new dialogueEntry("But, I think I’d like to get along better from now on.", true,"Sad", "Happy", "null","null"),
-            new dialogueEntry("Yeah.…I would like that as well.", false,"Happy", "Happy", "stop","null")
+            new dialogueEntry("Yeah.…I would like that as well.", false,"Happy", "Happy", "stop","Cutscene/door_open")
             }
 
         );

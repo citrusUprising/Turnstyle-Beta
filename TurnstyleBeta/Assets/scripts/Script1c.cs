@@ -48,7 +48,7 @@ public class Script1c : MonoBehaviour
             new dialogueEntry("I know that place is expensive but I’m willing to pay! How does Wednesday sound?",false,"Happy","Shy","null","null"),
             new dialogueEntry("Yeah, I would totally love that! It’s a date!",true,"Happy","Happy","null","null"),
             new dialogueEntry("A…date. Yeah…",false,"Shy","Happy","null","null"),
-            new dialogueEntry("…",true,"Shy","Shy","null","null")
+            new dialogueEntry("…",true,"Shy","Shy","null","Cutscene/footsteps")
             }
 
         ));
@@ -56,7 +56,7 @@ public class Script1c : MonoBehaviour
 
         temp[dialogueVarietyCount]=(new overallDialogue("Koralie","Jade","Station", 
         new dialogueEntry[]{
-            new dialogueEntry("Hey you two, how’s it going?",true,"Shy","Happy","Music/MapTheme","null")
+            new dialogueEntry("Hey you two, how’s it going?",true,"Shy","Happy","Music/MapTheme","stop")
             }
 
         ));
@@ -112,7 +112,7 @@ public class Script1c : MonoBehaviour
 
         temp[dialogueVarietyCount]=(new overallDialogue("Koralie","","Station", 
         new dialogueEntry[]{
-            new dialogueEntry("*footsteps*",true,"Angry","Happy","null","Cutscene/footsteps")
+            new dialogueEntry("*footsteps*",true,"Angry","Happy","stop","Cutscene/footsteps")
             }
 
         ));
@@ -131,7 +131,7 @@ public class Script1c : MonoBehaviour
 
         temp[dialogueVarietyCount]=(new overallDialogue("Koralie","","Station", 
         new dialogueEntry[]{
-            new dialogueEntry("*Amery ran away*",true,"Angry","Angry","null","Cutscene/footsteps")
+            new dialogueEntry("*Amery ran away*",true,"Angry","Angry","Cutscene/subway_ambience","Cutscene/footsteps")
             }
 
         ));
