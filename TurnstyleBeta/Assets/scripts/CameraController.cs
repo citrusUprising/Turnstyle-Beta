@@ -356,7 +356,7 @@ public class CameraController : MonoBehaviour
             tutorialPhone.GetComponent<tutorialHandler>().bookCount = 1;
             else if (money > 0 && tutorialPhone.GetComponent<tutorialHandler>().bookCount >= 3)
             tutorialPhone.GetComponent<tutorialHandler>().bookCount = 2;
-            if(money == 3)
+            if(money == 1)
             tutorialPhone.GetComponent<tutorialHandler>().open(1);
         }
         currentStation = currentStation.destinations[s];
