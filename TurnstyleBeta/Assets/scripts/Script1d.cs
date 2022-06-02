@@ -23,7 +23,7 @@ public class Script1d : MonoBehaviour
 
         temp[dialogueVarietyCount]=new overallDialogue("Amery","","ApartmentDark", 
         new dialogueEntry[]{
-            new dialogueEntry("Let's see, I need to add the egg to the batter now...",false,"Happy","Sad", "null", "null"),
+            new dialogueEntry("Let's see, I need to add the egg to the batter now...",false,"Happy","Sad", "Music/ChillTheme", "null"),
             new dialogueEntry("Hrm, some of the egg shell got in there…",false,"Sad", "Sad", "null","null"),
             new dialogueEntry("Well, no matter, I’ll crush it up while I mix it in and no one will notice!",false,"Happy", "Sad", "null", "null"),
             new dialogueEntry("Alright, looks ready to me!",false,"Happy", "Sad", "null","null"),
