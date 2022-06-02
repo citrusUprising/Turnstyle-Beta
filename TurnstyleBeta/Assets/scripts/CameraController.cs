@@ -224,7 +224,7 @@ public class CameraController : MonoBehaviour
             currentStation.destinations[currentLine].transform.localScale = scale;
             moveCamera();
 
-            if (currentStation.cutscene == currentCutScene){
+            if (currentStation.cutscene == currentCutScene&&SceneManager.sceneCount == 1&&!preloading){
                 onLine = new bool[]{false,false,false,false,false,false};
                 //Music.SetActive(false);
                 switch(currentCutScene){
@@ -240,7 +240,7 @@ public class CameraController : MonoBehaviour
                     objective.GetComponent<TextMeshProUGUI>().text = "";
                     break;
                 }
-                Pointer.GetComponent<rotatePointer>().NewDestination(currentCutScene);
+                if(currentCutScene < 3)Pointer.GetComponent<rotatePointer>().NewDestination(currentCutScene);
                 money ++;
                 this.MoneyUpdate();
                 GameObject Stats = GameObject.Find("CurrentStats");

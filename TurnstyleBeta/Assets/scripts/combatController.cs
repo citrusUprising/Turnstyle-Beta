@@ -196,6 +196,11 @@ public class combatController : MonoBehaviour
     private GameObject glossaryObject;
 
     // --------------------------------------------------------- //
+    // Debugging variables
+    // --------------------------------------------------------- //
+    bool debugQuit = false;
+
+    // --------------------------------------------------------- //
     // GameObjects that hold FMOD Studio Event Emitters for playing SFX
     // --------------------------------------------------------- //
     public GameObject turnstyleRotateForward;
@@ -324,6 +329,13 @@ public class combatController : MonoBehaviour
             {
                 xDown = false;
             }
+
+            ///*FOR DEBUGGING!! comment out on final builds
+            if (Input.GetKeyDown(KeyCode.S)&&!debugQuit){
+                debugQuit = true;
+                gameLoop.checkGameEnd(true);
+            }
+            ///////////////////////////////////////////////*/
 
             //Disables Tutorial Logic if there is no tutorial
             if (isTutorial > 0)

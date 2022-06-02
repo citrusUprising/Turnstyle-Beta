@@ -323,7 +323,7 @@ public class MainLoop : MonoBehaviour
    		//display output
    	}
 
-    public void checkGameEnd(){
+    public void checkGameEnd(bool forceSkip = false){
         //is game over?
    		bool allDead = true;
    		foreach(Unit unit in playerUnits){
@@ -342,17 +342,17 @@ public class MainLoop : MonoBehaviour
            }
 
    		//Otherwise continue
-   		if(!allDead && !enemyDead){
+   		if(!allDead && !enemyDead && !forceSkip){
  
    			startTurn();
    		}
         //if allDead, gameOver
-        else if (allDead){
+        else if (allDead && !forceSkip){
             SceneManager.LoadSceneAsync("gameOver");
             SceneManager.UnloadSceneAsync(sceneName);
         }
         //if enemyDead, win
-        else if (enemyDead)
+        else if (enemyDead || forceSkip)
         {
             Stats = GameObject.Find("CurrentStats");
             CurrentStats currStats = Stats.GetComponent<CurrentStats>();
