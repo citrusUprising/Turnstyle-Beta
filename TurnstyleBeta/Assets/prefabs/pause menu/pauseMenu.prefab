@@ -4911,7 +4911,7 @@ PrefabInstance:
     - target: {fileID: 8826224465526085861, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_text
       value: "Second Wind<font=\"Roboto-Regular SDF\"><size=24>\nWhen Beverly defeats
-        a monster, her Fatigue goes \r\nto 0."
+        a monster, her Fatigue goes \r\ndown by 2."
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
@@ -5526,7 +5526,7 @@ PrefabInstance:
       value: 'Rally <font="Roboto-Regular SDF"><size=24>
 
         Heal an ally for
-        6 damage and deal 3 damage to user.'
+        6 damage and deal 2 damage to user.'
       objectReference: {fileID: 0}
     - target: {fileID: 7301671282474752484, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Sprite
@@ -5777,8 +5777,10 @@ PrefabInstance:
       propertyPath: m_text
       value: 'Mitigate <font="Roboto-Regular SDF"><size=24>
 
-        Give ally Regen
-        (4) for 2 turns.'
+        Heal an Ally
+        for 2 damage and give them Regen (2) for 3 turns
+
+'
       objectReference: {fileID: 0}
     - target: {fileID: 6395455071587730179, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Sprite

@@ -328,7 +328,7 @@ public class Rally : Ability
     public Rally()
     {
         this.name = "Rally";
-        this.text = "Heal an ally for 6 damage and deal 3 damage to user";
+        this.text = "Heal an ally for 6 damage and deal 2 damage to user";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = true;
@@ -336,10 +336,10 @@ public class Rally : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        source.hp = Math.Max(source.hp-3, 0);
-        L.outputQueue.Add(new displayObject(source.unitName+" sacrificed 3 health",
+        source.hp = Math.Max(source.hp-2, 0);
+        L.outputQueue.Add(new displayObject(source.unitName+" sacrificed 2 health",
         source,
-        3,
+        2,
         true)
         );
         target.healSelf(6);
