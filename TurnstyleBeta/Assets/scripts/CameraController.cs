@@ -20,8 +20,11 @@ public class CameraController : MonoBehaviour
     public Station[] allStations;
     public float height;
     public Vector3 scale;
+
     public float transitionTime = .5f;
+    public GameObject transitionObject;
     public Animator transitionAnimator;
+
     public GameObject Music;
     //determines which cutscene node is active
     public int currentCutScene =0;
@@ -57,6 +60,14 @@ public class CameraController : MonoBehaviour
 
     public GameObject keyPrompt;
 
+    public GameObject blackBox;
+
+    public bool isTransitioningFromAnotherScene = false;
+
+    // this is used seperate from the variable loading so that i can add a time in the transition before loading starts
+    // if this is true then the game does not check for inputs
+    private bool preloading = false;
+
     void Awake(){
         if(PlayerPrefs.GetInt("Load", 0) == 1){
             GameObject.Find("CurrentStats").GetComponent<savingEngine>().retry();
@@ -75,10 +86,13 @@ public class CameraController : MonoBehaviour
         temp = new Color (0.5f,0.43f,0.56f);
         currentStation.GetComponent<Image>().color = temp;
 
-        if(currentCutScene == 0)
+        blackBox.GetComponent<Image>().color = new Color(0, 0, 0, 1);
+
+        if (currentCutScene == 0)
         {
             Music.SetActive(false);
             SceneManager.LoadScene("DialogueScene", LoadSceneMode.Additive);
+            blackBox.GetComponent<Image>().color = new Color(0, 0, 0, 0);
         }
         else{
             Pointer.GetComponent<rotatePointer>().NewDestination(currentCutScene-1);
@@ -91,6 +105,14 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            transitionAnimator.SetTrigger("fadeFromBlack");
+        }
+        
+
+
         xDown = false;
         //cancels out of game after final cutscene
         if(currentCutScene == 4){
@@ -121,7 +143,7 @@ public class CameraController : MonoBehaviour
         }
         
         //Debug.Log("Actice Scene Count: " + SceneManager.sceneCount);
-        if (SceneManager.sceneCount == 1&&!loading) 
+        if (SceneManager.sceneCount == 1 && !loading) 
         {
             if(tutorialPhone.GetComponent<tutorialHandler>().isOpen){
             int bookTemp = tutorialPhone.GetComponent<tutorialHandler>().bookCount;
@@ -158,41 +180,45 @@ public class CameraController : MonoBehaviour
 
             if (pauseMenuObject == null)
             {
-                if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.RightArrow))
+                if (preloading == false)
                 {
-                    currentStation.destinations[currentLine].transform.localScale = new Vector3(1, 1, 1);
-                    currentLine++;
-                    if (currentLine == currentStation.destinations.Length)
+                    if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.RightArrow))
                     {
-                        currentLine = 0;
+                        currentStation.destinations[currentLine].transform.localScale = new Vector3(1, 1, 1);
+                        currentLine++;
+                        if (currentLine == currentStation.destinations.Length)
+                        {
+                            currentLine = 0;
+                        }
+                        autoZoom();
+                        destCamera = true;
                     }
-                    autoZoom();
-                    destCamera = true;
-                }
 
-                if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
-                {
-                    currentStation.destinations[currentLine].transform.localScale = new Vector3(1, 1, 1);
-                    currentLine = currentLine - 1;
-                    if (currentLine == -1)
+                    if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
                     {
-                        currentLine = currentStation.destinations.Length - 1;
+                        currentStation.destinations[currentLine].transform.localScale = new Vector3(1, 1, 1);
+                        currentLine = currentLine - 1;
+                        if (currentLine == -1)
+                        {
+                            currentLine = currentStation.destinations.Length - 1;
+                        }
+                        autoZoom();
+                        destCamera = true;
                     }
-                    autoZoom();
-                    destCamera = true;
-                }
 
-                if (xPress())
-                {
-                    currentStation.transform.localScale = new Vector3(1, 1, 1);
-                    moveToStation(currentLine);
-                    autoZoom();
-                    destCamera = false;
+                    if (xPress())
+                    {
+                        currentStation.transform.localScale = new Vector3(1, 1, 1);
+                        moveToStation(currentLine);
+                        autoZoom();
+                        destCamera = false;
+                    }
+                    if (Input.GetKeyDown(KeyCode.Escape))
+                    {
+                        pauseMenuObject = Instantiate(pauseMenu, canvas.transform);
+                    }
                 }
-                if (Input.GetKeyDown(KeyCode.Escape))
-                {
-                    pauseMenuObject = Instantiate(pauseMenu, canvas.transform);
-                }
+                
 
                 keyPrompt.SetActive(true);
             }
@@ -230,6 +256,7 @@ public class CameraController : MonoBehaviour
                 Stats.GetComponent<CurrentStats>().KoralieHealth = 20;
                 Stats.GetComponent<CurrentStats>().SeraphimHealth = 10;
                 Stats.GetComponent<CurrentStats>().AmeryHealth = 12;
+
                 StartCoroutine(loadScene("DialogueScene"));
                 Music.SetActive(false);
 
@@ -245,11 +272,23 @@ public class CameraController : MonoBehaviour
                     currStats.isTutorial = currentStation.isTutorial;
                     currStats.currentTutorial++;
                 } else currStats.isTutorial = 0;
+
                 StartCoroutine(loadScene("tutorialScene"));
                 Music.SetActive(false);
                 currentStation.endCombat();
                 StartCoroutine(firstTutorial());
                 //tutorialPhone.GetComponent<tutorialHandler>().open(0);
+            }
+
+
+            // checks if the scene just changed from another scene, and if it did applies a transition
+            // this variable is set to true in the combat scene and dialogue scene
+            if (isTransitioningFromAnotherScene)
+            {
+                // it's set to false here so that this only happens once
+                isTransitioningFromAnotherScene = false;
+
+                transitionAnimator.SetTrigger("fromBlack");
             }
         }
 
@@ -401,12 +440,17 @@ public class CameraController : MonoBehaviour
     }
     
     IEnumerator firstTutorial(){
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(5.0f);
+        tutorialPhone.GetComponent<Canvas>().sortingOrder = 0;
         tutorialPhone.GetComponent<tutorialHandler>().open(0);
     }
 
     IEnumerator loadScene(string Scene)
     {
+        preloading = true;
+        // we add a delay so that the camera settles on the newly selected node
+        yield return new WaitForSeconds(.75f);
+
         loading = true;
         transitionAnimator.SetTrigger("toBlack");
 
@@ -414,5 +458,6 @@ public class CameraController : MonoBehaviour
 
         SceneManager.LoadScene(Scene, LoadSceneMode.Additive);
         loading = false;
+        preloading = false;
     }
 }

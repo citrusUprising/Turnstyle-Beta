@@ -97,6 +97,10 @@ public class dialogueEngine : MonoBehaviour
 
 	public GameObject loadingAnimation;
 
+	public GameObject transitionObject;
+	public Animator transitionAnimator;
+	public float transitionTime = .5f;
+
 	// Start is called before the first frame update
 	void Start()
     {
@@ -149,8 +153,8 @@ public class dialogueEngine : MonoBehaviour
 				PlayerPrefs.SetInt("Load", 0);
 				GameObject.Find("CurrentStats").GetComponent<savingEngine>().reset();
 				GameObject.Find("CurrentStats").GetComponent<savingEngine>().checkpoint();
-				showSavingAnimation();
-				SceneManager.UnloadSceneAsync(sceneName);
+
+				StartCoroutine(transitionToNodeMap());
 			}
 
 			if (Input.GetKeyDown(KeyCode.Z)||sceneStart)
@@ -179,9 +183,7 @@ public class dialogueEngine : MonoBehaviour
 						GameObject.Find("CurrentStats").GetComponent<savingEngine>().reset();
 						GameObject.Find("CurrentStats").GetComponent<savingEngine>().checkpoint();
 
-						
-						SceneManager.UnloadSceneAsync(sceneName);
-						showSavingAnimation();
+						StartCoroutine(transitionToNodeMap());
 					}
 					else
 					{
@@ -393,5 +395,16 @@ public class dialogueEngine : MonoBehaviour
 	{
 		SceneManager.SetActiveScene(SceneManager.GetSceneByName("Node Map"));
 		Instantiate(loadingAnimation);
+	}
+
+	IEnumerator transitionToNodeMap()
+    {
+		transitionAnimator.SetTrigger("toBlack");
+
+		yield return new WaitForSeconds(transitionTime);
+
+		showSavingAnimation();
+		GameObject.Find("NodeMapCamera").GetComponent<CameraController>().isTransitioningFromAnotherScene = true;
+		SceneManager.UnloadSceneAsync(sceneName);
 	}
 }

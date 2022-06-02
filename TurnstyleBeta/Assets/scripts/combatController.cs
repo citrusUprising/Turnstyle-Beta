@@ -317,6 +317,9 @@ public class combatController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Z))
             {
                 xDown = true;
+            } else
+            {
+                xDown = false;
             }
 
             //Disables Tutorial Logic if there is no tutorial
@@ -326,7 +329,7 @@ public class combatController : MonoBehaviour
                 int pageTemp = tutorialHandler.GetComponent<tutorialHandler>().pageCount;
 
 
-                if (tutorialHandler.GetComponent<tutorialHandler>().isOpen)
+                if (tutorialHandler.GetComponent<tutorialHandler>().isOpen && (isIntroAnimating == false))
                 {
                     //Changes accepted input to continue
                     switch (tutorialHandler.GetComponent<tutorialHandler>().allTutorials[bookTemp][pageTemp].trigger)
@@ -367,6 +370,7 @@ public class combatController : MonoBehaviour
 
                     if (pauseMenuInstance == null)
                     {
+
                         // if the state is "rotate," than the available controls are up and down to rotate and Z to advance to move select
                         if (state == "rotate")
                         {
@@ -1381,5 +1385,18 @@ public class combatController : MonoBehaviour
         {
             totalSpeedIndicator2.destroySelf();
         }
+    }
+
+    void skipCombat()
+    {
+        Enemy[] enemyUnits = gameLoop.enemyUnits;
+
+        foreach (Enemy enemy in enemyUnits)
+        {
+            enemy.hp = 0;
+            enemy.Kill();
+        }
+
+        transitionToConfirm();
     }
 }

@@ -15,6 +15,8 @@ public class introTriangle : MonoBehaviour
     public Vector3 outPos;
     private Vector3 inPos = Vector3.zero;
 
+    public introAnimationController animationController;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,7 +58,7 @@ public class introTriangle : MonoBehaviour
 
             transform.localPosition = Vector3.Lerp(oldPos, newPos, t);
 
-            time += Time.deltaTime;
+            time += Time.deltaTime * animationController.timeMultiplier;
 
             yield return null;
         }

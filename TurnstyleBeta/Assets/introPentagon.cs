@@ -16,6 +16,8 @@ public class introPentagon : MonoBehaviour
 
     private bool isFirstRotation = true;
 
+    public introAnimationController animationController;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -67,7 +69,7 @@ public class introPentagon : MonoBehaviour
 
             transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, zRotation);
 
-            rotateTime += Time.deltaTime;
+            rotateTime += Time.deltaTime * animationController.timeMultiplier;
 
             yield return null;
         }
@@ -93,16 +95,18 @@ public class introPentagon : MonoBehaviour
             newPos = offScreen;
         }
 
+        Debug.Log("old pos: " + oldPos);
+        Debug.Log("new pos: " + newPos);
+
         while (time < duration)
         {
-
             float t = time / duration;
 
             t = t * t * (3f - 2f * t);
 
-            transform.localPosition = Vector3.Lerp(oldPos, newPos, t);
+            time += Time.deltaTime * animationController.timeMultiplier;
 
-            time += Time.deltaTime;
+            transform.localPosition = Vector3.Lerp(oldPos, newPos, t);
 
             yield return null;
         }

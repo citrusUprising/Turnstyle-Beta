@@ -73,7 +73,7 @@ public class MainLoop : MonoBehaviour
 	//player units
 	Friendly[] playerUnits;
 	//And enemy
-	Enemy[] enemyUnits;
+	public Enemy[] enemyUnits;
 
 	//Seperate arrays for units on bench and off
 	public Friendly[] activeUnits = new Friendly[3];

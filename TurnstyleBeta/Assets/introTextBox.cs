@@ -11,6 +11,8 @@ public class introTextBox : MonoBehaviour
     public Vector3 pos2;
     public Vector3 pos3;
 
+    public introAnimationController animationController;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -55,7 +57,7 @@ public class introTextBox : MonoBehaviour
 
             transform.localPosition = Vector3.Lerp(oldPos, newPos, t);
 
-            time += Time.deltaTime;
+            time += Time.deltaTime * animationController.timeMultiplier;
 
             yield return null;
         }
