@@ -46,6 +46,7 @@ public class CameraController : MonoBehaviour
     public GameObject moneyTxt;
     public GameObject objective;
     private bool xDown;
+    private bool combatEnabled = true;
 
     public GameObject pauseMenu;
     private GameObject pauseMenuObject;
@@ -56,7 +57,7 @@ public class CameraController : MonoBehaviour
 
     private bool loading = false;
     private bool pulseUp = true;
-    int money = 5;
+    public int money;
 
     public GameObject keyPrompt;
 
@@ -107,6 +108,8 @@ public class CameraController : MonoBehaviour
     {  
 
         xDown = false;
+        //DISABLE FOR FINAL GAME, skip combat for debugging
+        if (Input.GetKeyDown(KeyCode.S)) combatEnabled = !combatEnabled;
         //cancels out of game after final cutscene
         if(currentCutScene == 4){
             Music.SetActive(false);
@@ -241,8 +244,7 @@ public class CameraController : MonoBehaviour
                     break;
                 }
                 if(currentCutScene < 3)Pointer.GetComponent<rotatePointer>().NewDestination(currentCutScene);
-                money ++;
-                this.MoneyUpdate();
+                StartCoroutine(addMoney());
                 GameObject Stats = GameObject.Find("CurrentStats");
                 Stats.GetComponent<CurrentStats>().BeverlyHealth = 16;
                 Stats.GetComponent<CurrentStats>().JadeHealth = 15;
@@ -255,7 +257,7 @@ public class CameraController : MonoBehaviour
 
             }
 
-            if (currentStation.hasCombat&&currentCutScene!=currentStation.cutscene)
+            if (currentStation.hasCombat&&currentCutScene!=currentStation.cutscene&&combatEnabled)
             {
                 //StartCoroutine(loadScene(currentStation.combatSceneName));
                 GameObject Stats = GameObject.Find("CurrentStats");
@@ -352,7 +354,7 @@ public class CameraController : MonoBehaviour
             money--;
             Debug.Log("Changed lines");
             this.MoneyUpdate();
-            if (money > 3 && tutorialPhone.GetComponent<tutorialHandler>().bookCount >= 2)
+            if (money > 1 && tutorialPhone.GetComponent<tutorialHandler>().bookCount >= 2)
             tutorialPhone.GetComponent<tutorialHandler>().bookCount = 1;
             else if (money > 0 && tutorialPhone.GetComponent<tutorialHandler>().bookCount >= 3)
             tutorialPhone.GetComponent<tutorialHandler>().bookCount = 2;
@@ -421,7 +423,7 @@ public class CameraController : MonoBehaviour
             background.GetComponent<SpriteRenderer>().color *= pigment;
         }
         else if (money > 0 && !hasMoney){
-            Music.SetActive(true);
+            if(SceneManager.sceneCount == 1)Music.SetActive(true);
             hasMoney = true;
             Stats.GetComponent<CurrentStats>().hasMoney = true;
             foreach(Station h in this.allStations){
@@ -432,6 +434,12 @@ public class CameraController : MonoBehaviour
             background.GetComponent<SpriteRenderer>().color *= pigment;//flag
         }
         if(money < 0) money = 0;
+    }
+
+    IEnumerator addMoney(){
+        yield return new WaitForSeconds (1f+transitionTime);
+        money++;
+        this.MoneyUpdate();
     }
     
     IEnumerator firstTutorial(){

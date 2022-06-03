@@ -2556,7 +2556,7 @@ RectTransform:
   m_GameObject: {fileID: 722258253}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 120, y: 120, z: 1}
+  m_LocalScale: {x: 140, y: 120, z: 1}
   m_Children: []
   m_Father: {fileID: 99019095}
   m_RootOrder: 1
@@ -3939,7 +3939,7 @@ MonoBehaviour:
   - {fileID: 1786686803}
   speed: 0.03
   pulseSpeed: 0.003
-  onLine: 000000000100
+  onLine: 000000000000
   allStations:
   - {fileID: 1700469575}
   - {fileID: 992003681}
@@ -3994,6 +3994,7 @@ MonoBehaviour:
   tutorialPhone: {fileID: 702265084}
   Pointer: {fileID: 1370863490}
   background: {fileID: 722258253}
+  money: 3
   keyPrompt: {fileID: 1513489542}
   blackBox: {fileID: 858162238}
   isTransitioningFromAnotherScene: 0
