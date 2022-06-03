@@ -93,12 +93,13 @@ public class CameraController : MonoBehaviour
         {
             Music.SetActive(false);
             SceneManager.LoadScene("DialogueScene", LoadSceneMode.Additive);
-            blackBox.GetComponent<Image>().color = new Color(0, 0, 0, 0);
         }
         else{
             Pointer.GetComponent<rotatePointer>().NewDestination(currentCutScene-1);
         }
+        blackBox.GetComponent<Image>().color = new Color(0, 0, 0, 0);
         if (money>0)hasMoney = true;
+        this.MoneyUpdate();
         GameObject Stats = GameObject.Find("CurrentStats");
         Stats.GetComponent<CurrentStats>().hasMoney = hasMoney;
     }

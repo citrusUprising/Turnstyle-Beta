@@ -13,6 +13,7 @@ class SaveData
     public int currentTutorial;
     public int currentMapTutorial;
     public int currentDay;
+    public int money;
     public int[] AmeryMoves = new int[3];
     public int[] BeverlyMoves = new int[3];
     public int[] JadeMoves = new int[3];
@@ -43,6 +44,7 @@ public bool load = false;
     //Debug.Log("the current saved cutscene is #"+data.currentCutscene);
     data.currentTutorial = GameObject.Find("CurrentStats").GetComponent<CurrentStats>().currentTutorial;
     data.currentMapTutorial = GameObject.Find("Phone").GetComponent<tutorialHandler>().bookCount;
+    data.money = GameObject.Find("NodeMapCamera").GetComponent<CameraController>().money;
 	bf.Serialize(file, data);
 	file.Close();
 	Debug.Log("Game data saved!");
@@ -70,6 +72,7 @@ public bool load = false;
         GameObject.Find("CurrentStats").GetComponent<CurrentStats>().currentTutorial = data.currentTutorial;
 		Debug.Log("Game data loaded!");
         GameObject.Find("Phone").GetComponent<tutorialHandler>().bookCount = data.currentMapTutorial;
+        GameObject.Find("NodeMapCamera").GetComponent<CameraController>().money = data.money;
 	}
 	else
 		Debug.LogError("There is no save data!");
