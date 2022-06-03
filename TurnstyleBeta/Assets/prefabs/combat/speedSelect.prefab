@@ -67,7 +67,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'How much speed for MOVE?
 
-    X to confirm.'
+    Z to confirm.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 82f475ca820e7bf4186f550673997a04, type: 2}
   m_sharedMaterial: {fileID: 6720260575455018710, guid: 82f475ca820e7bf4186f550673997a04, type: 2}
