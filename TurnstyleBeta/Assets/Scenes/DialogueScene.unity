@@ -1494,6 +1494,7 @@ MonoBehaviour:
   - {r: 1, g: 0.3921569, b: 0.3921569, a: 1}
   - {r: 1, g: 0.75294125, b: 0.75294125, a: 1}
   loadingAnimation: {fileID: 2120021968404766251, guid: 8493fa3b93e694f43895e5efef359023, type: 3}
+  realDialogueBox: {fileID: 40919210}
   transitionObject: {fileID: 145023543}
   transitionAnimator: {fileID: 243359508}
   transitionTime: 0.5

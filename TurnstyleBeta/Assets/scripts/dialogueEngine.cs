@@ -96,6 +96,7 @@ public class dialogueEngine : MonoBehaviour
 	public Color[] seraphimColors;
 
 	public GameObject loadingAnimation;
+	public GameObject realDialogueBox;
 
 	public GameObject transitionObject;
 	public Animator transitionAnimator;
@@ -361,25 +362,29 @@ public class dialogueEngine : MonoBehaviour
 			currentColors[i] = new Color(1, 1, 1, 1);
         }
 
-		if (character == "Beverly")
-        {
-			currentColors = beverlyColors;
-        }
-		else if (character == "Amery")
-		{
-			currentColors = ameryColors;
-		}
-		else if (character == "Koralie")
-		{
-			currentColors = koralieColors;
-		}
-		else if (character == "Jade")
-		{
-			currentColors = jadeColors;
-		}
-		else if (character == "Seraphim")
-		{
-			currentColors = seraphimColors;
+		switch(character){
+			case "Beverly":
+				currentColors = beverlyColors;
+				break;
+			
+			case "Amery":
+				currentColors = ameryColors;
+				break;
+
+			case "Jade":
+				currentColors = jadeColors;
+				break;
+
+			case "Koralie":
+				currentColors = koralieColors;
+				break;
+
+			case "Seraphim":
+				currentColors = seraphimColors;
+				break;
+
+			default:
+				break;
 		}
 
 		leftPentagon.GetComponent<Image>().color = currentColors[0];
@@ -388,7 +393,7 @@ public class dialogueEngine : MonoBehaviour
 		leftNameSprite.GetComponent<Image>().color = currentColors[1];
 		rightNameSprite.GetComponent<Image>().color = currentColors[1];
 
-		GetComponent<Image>().color = currentColors[2];
+		realDialogueBox.GetComponent<Image>().color = currentColors[2];
 	}
 
 	void showSavingAnimation()
