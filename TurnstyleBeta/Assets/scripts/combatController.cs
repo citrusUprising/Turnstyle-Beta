@@ -230,7 +230,6 @@ public class combatController : MonoBehaviour
         promptManager = GetComponent<keyPromptManager>();
 
         totalSpeedIndicator1 = Instantiate(totalSpeedPrefab, canvas.transform);
-        totalSpeedIndicator1.GetComponent<Transform>().position = new Vector3(224, 310, 0);
 
         // 3 and 4 are inactive, 0, 1, and 2 are active
         nameTagArray[0] = nameTagKoralie;
@@ -1162,8 +1161,8 @@ public class combatController : MonoBehaviour
         
         // puts it right into place. please excuse my magic numbers
         totalSpeedIndicator2.transform.localPosition = new Vector3(
-            currentDrawnBox.transform.localPosition[0] - 133,
-            currentDrawnBox.transform.localPosition[1] - 104,
+            currentDrawnBox.transform.localPosition[0] - (133f * 1.25f),
+            currentDrawnBox.transform.localPosition[1] - (104f * 1.25f),
             0);
 
         // updates the text on the indicators 

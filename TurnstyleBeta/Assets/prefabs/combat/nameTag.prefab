@@ -1169,7 +1169,7 @@ RectTransform:
   m_GameObject: {fileID: 6194342817783395099}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1.1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2999693411606405223}
   - {fileID: 7591001946416498025}
@@ -1251,6 +1251,7 @@ MonoBehaviour:
   speedSelectImage: {fileID: 0}
   totalSpeedImage: {fileID: 0}
   confirmColor: {r: 0, g: 0, b: 0, a: 0}
+  isDead: 0
 --- !u!114 &2736015246434819403
 MonoBehaviour:
   m_ObjectHideFlags: 0
