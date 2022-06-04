@@ -19,6 +19,7 @@ class SaveData
     public int[] JadeMoves = new int[3];
     public int[] KoralieMoves = new int[3];
     public int[] SeraphimMoves = new int[3];
+    public bool[] monsterLoc = new bool[30];
     
 }
 
@@ -45,6 +46,11 @@ public bool load = false;
     data.currentTutorial = GameObject.Find("CurrentStats").GetComponent<CurrentStats>().currentTutorial;
     data.currentMapTutorial = GameObject.Find("Phone").GetComponent<tutorialHandler>().bookCount;
     data.money = GameObject.Find("NodeMapCamera").GetComponent<CameraController>().money;
+
+    for (int i = 0; i < GameObject.Find("NodeMapCamera").GetComponent<CameraController>().allStations.Length; i++){
+        data.monsterLoc[i] = GameObject.Find("NodeMapCamera").GetComponent<CameraController>().allStations[i].hasCombat;
+    }
+
 	bf.Serialize(file, data);
 	file.Close();
 	Debug.Log("Game data saved!");
@@ -73,6 +79,10 @@ public bool load = false;
 		Debug.Log("Game data loaded!");
         GameObject.Find("Phone").GetComponent<tutorialHandler>().bookCount = data.currentMapTutorial;
         GameObject.Find("NodeMapCamera").GetComponent<CameraController>().money = data.money;
+
+        for (int i = 0; i < GameObject.Find("NodeMapCamera").GetComponent<CameraController>().allStations.Length; i++){
+            GameObject.Find("NodeMapCamera").GetComponent<CameraController>().allStations[i].hasCombat = data.monsterLoc[i];
+        }
 	}
 	else
 		Debug.LogError("There is no save data!");

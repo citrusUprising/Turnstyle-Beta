@@ -244,7 +244,7 @@ public class CameraController : MonoBehaviour
                     objective.GetComponent<TextMeshProUGUI>().text = "";
                     break;
                 }
-                if(currentCutScene < 3)Pointer.GetComponent<rotatePointer>().NewDestination(currentCutScene);
+                if(currentCutScene < 3)StartCoroutine(pointerDelay());
                 StartCoroutine(addMoney());
                 GameObject Stats = GameObject.Find("CurrentStats");
                 Stats.GetComponent<CurrentStats>().BeverlyHealth = 16;
@@ -447,6 +447,11 @@ public class CameraController : MonoBehaviour
         yield return new WaitForSeconds(5.0f);
         tutorialPhone.GetComponent<Canvas>().sortingOrder = 0;
         tutorialPhone.GetComponent<tutorialHandler>().open(0);
+    }
+
+    IEnumerator pointerDelay(){
+        yield return new WaitForSeconds (1f +transitionTime);
+        Pointer.GetComponent<rotatePointer>().NewDestination(currentCutScene);
     }
 
     IEnumerator loadScene(string Scene)
