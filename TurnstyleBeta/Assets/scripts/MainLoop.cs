@@ -170,8 +170,8 @@ public class MainLoop : MonoBehaviour
     void Update()
     {
     	//Debug, can remove if wanted
-        if (Input.GetKeyDown(KeyCode.I))
-        	StartCoroutine(OutputText());
+        //if (Input.GetKeyDown(KeyCode.I))
+        	//StartCoroutine(OutputText());
     }
 
     //Pretty much all code will be in functions hooked up to UI elements

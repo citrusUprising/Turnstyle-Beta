@@ -110,7 +110,7 @@ public class CameraController : MonoBehaviour
 
         xDown = false;
         //DISABLE FOR FINAL GAME, skip combat for debugging
-        if (Input.GetKeyDown(KeyCode.S)) combatEnabled = !combatEnabled;
+        //if (Input.GetKeyDown(KeyCode.S)) combatEnabled = !combatEnabled;
         //cancels out of game after final cutscene
         if(currentCutScene == 4){
             Music.SetActive(false);

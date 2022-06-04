@@ -329,7 +329,7 @@ public class combatController : MonoBehaviour
                 xDown = false;
             }
 
-            ///*FOR DEBUGGING!! comment out on final builds
+            /*FOR DEBUGGING!! comment out on final builds
             if (Input.GetKeyDown(KeyCode.S)&&!debugQuit){
                 debugQuit = true;
                 gameLoop.checkGameEnd(true);
