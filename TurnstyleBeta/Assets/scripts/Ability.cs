@@ -893,7 +893,7 @@ public class Cleave : Ability
 
     public override void effect(Unit target, Unit source, MainLoop L)
     {
-        int tempHP
+        int tempHP;
         tempHP = target.hp;
         target.hp = Math.Max(target.hp-target.hp/2, 0);
         L.outputQueue.Add(new displayObject(target.unitName+"'s health was halved",
