@@ -55,6 +55,9 @@ public class pauseMenuBio : MonoBehaviour
 
     public bool countingPreview = false;
 
+    public GameObject rotateForwardSFX;
+    public GameObject rotateBackSFX;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -310,6 +313,15 @@ public class pauseMenuBio : MonoBehaviour
         else if (pageIndex < 0)
         {
             pageIndex = pages.Length - 1;
+        }
+
+        if (direction == 1)
+        {
+            rotateForwardSFX.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+        }
+        else
+        {
+            rotateBackSFX.GetComponent<FMODUnity.StudioEventEmitter>().Play();
         }
 
         currentPage = pages[pageIndex];

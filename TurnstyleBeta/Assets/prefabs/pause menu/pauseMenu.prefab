@@ -1114,6 +1114,8 @@ MonoBehaviour:
   previewPentagon: {fileID: 4888960355877478536}
   cornerPentagon: {fileID: 2546788901315255133}
   countingPreview: 0
+  rotateForwardSFX: {fileID: 5018023289800817879}
+  rotateBackSFX: {fileID: 6424149933748563524}
 --- !u!1 &2119928615395046789
 GameObject:
   m_ObjectHideFlags: 0

@@ -42,6 +42,9 @@ public class introAnimationController : MonoBehaviour
 
     private bool isNotOnOutroAnimation2 = true;
 
+    public GameObject buffSFX;
+    public GameObject tickSFX;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -132,6 +135,25 @@ public class introAnimationController : MonoBehaviour
         combatController.isIntroAnimating = value;
     }
 
+    IEnumerator repeatSFX(GameObject SFX, float duration, int numOfTimes)
+    {
+        float t = 0f;
+
+        for (int i = 0; i < numOfTimes; i++)
+        {
+            SFX.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+
+            while (t < duration/ numOfTimes)
+            {
+                t += Time.deltaTime * timeMultiplier;
+
+                yield return null;
+            }
+
+            t = 0;
+        }
+    }
+
     public void startOutroAnimation1()
     {
         StartCoroutine(outroAnimation1());
@@ -149,6 +171,8 @@ public class introAnimationController : MonoBehaviour
 
         introPentagon.startTriAnimation(animationInterval, true);
 
+        buffSFX.GetComponent<FMODUnity.StudioEventEmitter>().Play();
+
         while (t < animationInterval + animationGap)
         {
             t += Time.deltaTime * timeMultiplier;
@@ -156,7 +180,7 @@ public class introAnimationController : MonoBehaviour
             yield return null;
         }
 
-        t = 0f;
+        StartCoroutine(repeatSFX(tickSFX, animationInterval + animationGap, 5));
 
         introPentagon.startRotateAnimation(animationInterval * 2, 4);
 
@@ -207,6 +231,8 @@ public class introAnimationController : MonoBehaviour
         introPentagon.isGoingOnScreen = true;
         introPentagon.startMoveAnimation(animationInterval);
 
+        StartCoroutine(repeatSFX(tickSFX, animationInterval + animationGap, 5));
+
         while (t < animationInterval + animationGap)
         {
             t += Time.deltaTime * timeMultiplier;
@@ -225,6 +251,8 @@ public class introAnimationController : MonoBehaviour
         isNotOnOutroAnimation2 = false;
 
         introPentagon.startRotateAnimation(animationInterval, 2);
+
+        buffSFX.GetComponent<FMODUnity.StudioEventEmitter>().Play();
 
         while (t < animationInterval)
         {
