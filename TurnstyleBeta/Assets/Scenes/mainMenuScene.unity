@@ -794,8 +794,8 @@ RectTransform:
   - {fileID: 295674152}
   - {fileID: 842537570}
   - {fileID: 1421824457}
-  - {fileID: 1427486277}
   - {fileID: 264895346}
+  - {fileID: 1427486277}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1809,43 +1809,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9017956464396516356, guid: a3342c13ef0122547a47ee636bc14559, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9017956464396516356, guid: a3342c13ef0122547a47ee636bc14559, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9017956464396516356, guid: a3342c13ef0122547a47ee636bc14559, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9017956464396516356, guid: a3342c13ef0122547a47ee636bc14559, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9017956464396516356, guid: a3342c13ef0122547a47ee636bc14559, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9017956464396516356, guid: a3342c13ef0122547a47ee636bc14559, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 2000
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9017956464396516356, guid: a3342c13ef0122547a47ee636bc14559, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 1125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9017956464396516356, guid: a3342c13ef0122547a47ee636bc14559, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.8
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9017956464396516356, guid: a3342c13ef0122547a47ee636bc14559, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.8
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9017956464396516356, guid: a3342c13ef0122547a47ee636bc14559, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.8
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9017956464396516356, guid: a3342c13ef0122547a47ee636bc14559, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2122,7 +2122,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 586121412441703939, guid: 6f674d4b992b2a2408ef015dd8143183, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 586121412441703939, guid: 6f674d4b992b2a2408ef015dd8143183, type: 3}
       propertyPath: m_AnchorMax.x

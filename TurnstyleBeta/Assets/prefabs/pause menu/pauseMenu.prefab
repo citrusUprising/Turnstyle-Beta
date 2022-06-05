@@ -4921,7 +4921,7 @@ PrefabInstance:
       value: 'Second Wind<font="Roboto-Regular SDF"><size=24>
 
         When Beverly
-        defeats an Enemy, her fatigue goes down by 2.'
+        defeats an Enemy, her Fatigue goes down by 2.'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
