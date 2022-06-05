@@ -525,11 +525,11 @@ public class Dazzle : Ability
     {
         float check1 = UnityEngine.Random.Range(0.0f,1.0f);
         float check2 = UnityEngine.Random.Range(0.0f,1.0f);
-        if(check1 <= 0.35){
+        if(check1 <= 0.35)
             target.applyStatus(StatusType.Debuff,StatusName.Flinch, 1, 0);
-        }else if(check2 <= 0.35){
+        if(check2 <= 0.35)
             target.applyStatus(StatusType.Health, StatusName.Burn, 2, 4);
-        }else L.outputQueue.Add(new displayObject(target.unitName+" avoided the "+this.name,
+        if(check2 > 0.35 && check1 > 0.35) L.outputQueue.Add(new displayObject(target.unitName+" avoided the "+this.name,
         false)
         );
     }

@@ -4651,8 +4651,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8826224465526085861, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_text
-      value: "Dodge\r <font=\"Roboto-Regular SDF\"><size=24>\nIf Seraphim\u2019s
-        Speed is greater than 5, they get a 50% chance to dodge incoming attacks."
+      value: "Dodge\r <font=\"Roboto-Regular SDF\"><size=24>\nSeraphim has a 10%
+        chance to dodge incoming attacks. This number is multiplied by their current
+        Speed."
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
