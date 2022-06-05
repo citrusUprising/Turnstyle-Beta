@@ -17,6 +17,9 @@ public class savingUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        firstPosition = new Vector3(Screen.width / 2, firstPosition[1], firstPosition[2]);
+        secondPosition = new Vector3(Screen.width / 2, secondPosition[1], secondPosition[2]);
+
         StartCoroutine(lerpOnScreen());
     }
 

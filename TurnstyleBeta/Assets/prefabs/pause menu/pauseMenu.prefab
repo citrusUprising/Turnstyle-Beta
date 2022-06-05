@@ -777,7 +777,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 246, y: 772}
-  m_SizeDelta: {x: 336, y: 144}
+  m_SizeDelta: {x: 336, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5174350446202986863
 CanvasRenderer:
@@ -4652,7 +4652,7 @@ PrefabInstance:
     - target: {fileID: 8826224465526085861, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_text
       value: "Dodge\r <font=\"Roboto-Regular SDF\"><size=24>\nIf Seraphim\u2019s
-        speed is greater than 5, they get a 50% chance to dodge incoming attacks."
+        Speed is greater than 5, they get a 50% chance to dodge incoming attacks."
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
@@ -4918,8 +4918,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8826224465526085861, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_text
-      value: "Second Wind<font=\"Roboto-Regular SDF\"><size=24>\nWhen Beverly defeats
-        a monster, her Fatigue goes \r\ndown by 2."
+      value: 'Second Wind<font="Roboto-Regular SDF"><size=24>
+
+        When Beverly
+        defeats an Enemy, her fatigue goes down by 2.'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
@@ -5302,6 +5304,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -208
       objectReference: {fileID: 0}
+    - target: {fileID: 8826224465526085861, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_text
+      value: "Decompress\r <font=\"Roboto-Regular SDF\"><size=24>\nKoralie gains
+        Regen (3) when they start the turn inactive."
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
 --- !u!1 &2080170847333852872 stripped
@@ -5578,8 +5585,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8826224465526085861, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_text
-      value: "Support\r <font=\"Roboto-Regular SDF\"><size=24>\nIf Jade\u2019s at
-        less than 2 Fatigue at the end of the turn, he cures all ally Debuffs."
+      value: "Support\r <font=\"Roboto-Regular SDF\"><size=24>\nIf Jade is at less
+        than 2 Fatigue at the end of the turn, he cures all ally Debuffs."
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
@@ -5892,8 +5899,8 @@ PrefabInstance:
     - target: {fileID: 8826224465526085861, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_text
       value: "Delegate\r <font=\"Roboto-Regular SDF\"><size=24>\nEach turn, Amery
-        heals the lowest health ally for 4 and deals 4 damage to the highest health
-        ally. "
+        heals the lowest health Ally for 4 and deals 4 damage to the highest health
+        Ally. "
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
