@@ -4400,7 +4400,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 130373340576238253, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 466
+      value: 482
       objectReference: {fileID: 0}
     - target: {fileID: 130373340576238253, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -4408,7 +4408,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 130373340576238253, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -376
+      value: -392
       objectReference: {fileID: 0}
     - target: {fileID: 137167551957325351, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_SizeDelta.y
@@ -4440,11 +4440,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1048582530542957359, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 106
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 1048582530542957359, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -328
+      value: -352
       objectReference: {fileID: 0}
     - target: {fileID: 1913134562507730970, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Pivot.x
@@ -4534,8 +4534,8 @@ PrefabInstance:
       propertyPath: m_text
       value: 'Scream <font="Roboto-Regular SDF"><size=24>
 
-        Deals 2x user''s
-        fatigue in damage to all enemies. 50% accuracy.'
+        Deals 2x the User''s
+        fatigue to all Enemies. 50% accuracy.'
       objectReference: {fileID: 0}
     - target: {fileID: 3389193972863487417, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_SizeDelta.y
@@ -4603,8 +4603,8 @@ PrefabInstance:
       propertyPath: m_text
       value: 'Scry <font="Roboto-Regular SDF"><size=24>
 
-        Afflicts one targeted
-        enemy with Vulnerable for 2 turns.'
+        Afflicts an Enemy
+        with Vulnerable for 2 turns.'
       objectReference: {fileID: 0}
     - target: {fileID: 6395455071587730179, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Sprite
@@ -4618,8 +4618,8 @@ PrefabInstance:
       propertyPath: m_text
       value: 'Soul Rip<font="Roboto-Regular SDF"><size=24>
 
-        Deal 8 damage,
-        but gives target Regen (6) for this turn.'
+        Deals 8 damage
+        to an Enemy, but also gives them Regen (6) for this turn.'
       objectReference: {fileID: 0}
     - target: {fileID: 7301671282474752484, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Sprite
@@ -4636,6 +4636,10 @@ PrefabInstance:
     - target: {fileID: 8207806611650452735, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -143
+      objectReference: {fileID: 0}
+    - target: {fileID: 8772789440583524666, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 112
       objectReference: {fileID: 0}
     - target: {fileID: 8772789440583524666, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -4675,7 +4679,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 130373340576238253, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 464
+      value: 496
       objectReference: {fileID: 0}
     - target: {fileID: 130373340576238253, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -4683,7 +4687,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 130373340576238253, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -368
+      value: -384
       objectReference: {fileID: 0}
     - target: {fileID: 137167551957325351, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_SizeDelta.y
@@ -4711,7 +4715,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1048582530542957359, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -352
+      value: -384
       objectReference: {fileID: 0}
     - target: {fileID: 1913134562507730970, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Pivot.x
@@ -4801,8 +4805,8 @@ PrefabInstance:
       propertyPath: m_text
       value: 'Imbibe <font="Roboto-Regular SDF"><size=24>
 
-        Give self Haste
-        (3) and Weakened for 2 turns.'
+        Gives the user
+        Haste (3) and Weakened for 2 turns.'
       objectReference: {fileID: 0}
     - target: {fileID: 3389193972863487417, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_SizeDelta.y
@@ -4814,7 +4818,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3389193972863487417, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 128
+      value: 144
       objectReference: {fileID: 0}
     - target: {fileID: 3892526753406117818, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Sprite
@@ -4864,8 +4868,10 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 4bf8efe18281de34fab90c53c3704cbc, type: 3}
     - target: {fileID: 6177517627026555516, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_text
-      value: "Smolder <font=\"Roboto-Regular SDF\"><size=24>\nHit enemy with fire,
-        damaging them based on user\u2019s speed."
+      value: 'Smolder <font="Roboto-Regular SDF"><size=24>
+
+        Damages an Enemy
+        based on the user''s Speed.'
       objectReference: {fileID: 0}
     - target: {fileID: 6395455071587730179, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Sprite
@@ -4883,8 +4889,8 @@ PrefabInstance:
       propertyPath: m_text
       value: 'Dazzle <font="Roboto-Regular SDF"><size=24>
 
-        Targets all enemies,
-        35% chance to Flinch, 35% chance to Burn.'
+        For each Enemy,
+        has a 35% chance to make them Flinch and a 35% chance to Burn them.'
       objectReference: {fileID: 0}
     - target: {fileID: 7301671282474752484, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Sprite
@@ -4904,7 +4910,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8772789440583524666, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 112
+      value: 144
       objectReference: {fileID: 0}
     - target: {fileID: 8772789440583524666, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -5080,12 +5086,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 130373340576238253, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 432
+      objectReference: {fileID: 0}
+    - target: {fileID: 130373340576238253, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 272
       objectReference: {fileID: 0}
     - target: {fileID: 130373340576238253, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -328
+      value: -336
       objectReference: {fileID: 0}
     - target: {fileID: 188020568662879549, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Name
@@ -5113,7 +5123,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1048582530542957359, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 64
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 1048582530542957359, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -5207,8 +5217,8 @@ PrefabInstance:
       propertyPath: m_text
       value: 'Repel <font="Roboto-Regular SDF"><size=24>
 
-        Hit all enemies
-        for 2 damage.'
+        Deals 2 damage
+        to all Enemies.'
       objectReference: {fileID: 0}
     - target: {fileID: 3389193972863487417, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_RootOrder
@@ -5220,7 +5230,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3389193972863487417, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 120
+      value: 128
       objectReference: {fileID: 0}
     - target: {fileID: 4248260983611928317, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Pivot.x
@@ -5250,8 +5260,8 @@ PrefabInstance:
       propertyPath: m_text
       value: 'Hunker <font="Roboto-Regular SDF"><size=24>
 
-        Grants self shielded
-        for 2 turns.'
+        Give the user
+        Shielded for 2 turns.'
       objectReference: {fileID: 0}
     - target: {fileID: 6395455071587730179, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Sprite
@@ -5269,8 +5279,8 @@ PrefabInstance:
       propertyPath: m_text
       value: 'Crush <font="Roboto-Regular SDF"><size=24>
 
-        Deal 8 damage to
-        a target and 6 damage to self.'
+        Deals 8 damage
+        to an Enemy and 6 damage to the User.'
       objectReference: {fileID: 0}
     - target: {fileID: 8207806611650452735, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_RootOrder
@@ -5459,8 +5469,8 @@ PrefabInstance:
       propertyPath: m_text
       value: 'Motivate <font="Roboto-Regular SDF"><size=24>
 
-        Gives ally Strengthened
-        for this turn, Shielded for this turn, or Haste (3) for 2 turns.'
+        Gives an Ally
+        Strengthened for this turn, Shielded for this turn, or Haste (3) for 2 turns.'
       objectReference: {fileID: 0}
     - target: {fileID: 3389193972863487417, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Pivot.y
@@ -5528,8 +5538,8 @@ PrefabInstance:
       propertyPath: m_text
       value: 'Stunner Clap <font="Roboto-Regular SDF"><size=24>
 
-        Deal 2 damage
-        to target enemy and infliced Weakened for 1 turn.'
+        Deals 2
+        damage to an Enemy and inflicts Weakened for this turn.'
       objectReference: {fileID: 0}
     - target: {fileID: 6395455071587730179, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Sprite
@@ -5543,8 +5553,8 @@ PrefabInstance:
       propertyPath: m_text
       value: 'Rally <font="Roboto-Regular SDF"><size=24>
 
-        Heal an ally for
-        6 damage and deal 2 damage to user.'
+        Heals an Ally for
+        6 health and deals 2 damage to the User.'
       objectReference: {fileID: 0}
     - target: {fileID: 7301671282474752484, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Sprite
@@ -5604,7 +5614,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 130373340576238253, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 496
+      value: 480
       objectReference: {fileID: 0}
     - target: {fileID: 130373340576238253, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -5612,7 +5622,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 130373340576238253, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -400
+      value: -392
       objectReference: {fileID: 0}
     - target: {fileID: 137167551957325351, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_SizeDelta.y
@@ -5652,7 +5662,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1048582530542957359, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 112
+      value: 96
       objectReference: {fileID: 0}
     - target: {fileID: 1048582530542957359, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -5746,8 +5756,8 @@ PrefabInstance:
       propertyPath: m_text
       value: 'Scrum <font="Roboto-Regular SDF"><size=24>
 
-        Cure an ally of
-        debuffs, then inflict them with Null for 3 turns.'
+        Cures an Ally''s
+        Debuffs, then gives them Null for 3 turns.'
       objectReference: {fileID: 0}
     - target: {fileID: 3389193972863487417, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_RootOrder
@@ -5763,7 +5773,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3389193972863487417, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 128
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 3790125253247517159, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_SizeDelta.y
@@ -5827,8 +5837,8 @@ PrefabInstance:
       propertyPath: m_text
       value: 'Mitigate <font="Roboto-Regular SDF"><size=24>
 
-        Heal an Ally
-        for 2 damage and give them Regen (2) for 3 turns.
+        Heals an Ally
+        for 2 health and gives them Regen (2) for 3 turns.
 
 '
       objectReference: {fileID: 0}
@@ -5848,7 +5858,7 @@ PrefabInstance:
       propertyPath: m_text
       value: 'Unionize <font="Roboto-Regular SDF"><size=24>
 
-        Grants party
+        Gives the Party
         Shielded for this turn.'
       objectReference: {fileID: 0}
     - target: {fileID: 7301671282474752484, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
@@ -5870,6 +5880,10 @@ PrefabInstance:
     - target: {fileID: 8207806611650452735, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -71
+      objectReference: {fileID: 0}
+    - target: {fileID: 8772789440583524666, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 8772789440583524666, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_AnchoredPosition.y

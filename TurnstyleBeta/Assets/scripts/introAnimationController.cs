@@ -180,6 +180,8 @@ public class introAnimationController : MonoBehaviour
             yield return null;
         }
 
+        t = 0f;
+
         StartCoroutine(repeatSFX(tickSFX, animationInterval + animationGap, 5));
 
         introPentagon.startRotateAnimation(animationInterval * 2, 4);

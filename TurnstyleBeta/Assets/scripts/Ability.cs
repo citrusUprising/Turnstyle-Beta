@@ -133,7 +133,7 @@ public class SelfHeal : Ability
     public SelfHeal()
     {
         this.name = "Self Heal";
-        this.text = "Heal 8 damage from user";
+        this.text = "Heal 8 damage from User";
         this.multitarget = false;
         this.selftarget = true;
         this.allies = false;
@@ -156,7 +156,7 @@ public class Mitigate : Ability
     public Mitigate()
     {
         this.name = "Mitigate";
-        this.text = "Heal an ally for 2 health and give them Regen (2) for 3 turns";
+        this.text = "Heals an Ally for 2 health and gives them Regen (2) for 3 turns.";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = true;
@@ -212,7 +212,7 @@ public class Smolder : Ability
     public Smolder()
     {
         this.name = "Smolder";
-        this.text = "Hit enemy with fire, damaging them based on user's speed";
+        this.text = "Damages an Enemy based on the User's Speed.";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
@@ -234,7 +234,7 @@ public class Imbibe : Ability
     public Imbibe()
     {
         this.name = "Imbibe";
-        this.text = "Give self Haste (3) and Weakened for 2 turns";//flag
+        this.text = "Cures an Ally's Debuffs, then gives them Null for 3 turns.";//flag
         this.multitarget = false;
         this.selftarget = true;
         this.allies = false;
@@ -258,7 +258,7 @@ public class Repel : Ability
     public Repel()
     {
         this.name = "Repel";
-        this.text = "Hit all enemies for 2 damage";
+        this.text = "Deals 2 damage to all Enemies.";
         this.multitarget = true;
         this.selftarget = false;
         this.allies = false;
@@ -305,7 +305,7 @@ public class Crush : Ability
     public Crush()
     {
         this.name = "Crush";
-        this.text = "Deal 8 damage to a target and 6 damage to self";
+        this.text = "Deals 8 damage to an Enemy and 6 damage to the User.";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
@@ -328,7 +328,7 @@ public class Rally : Ability
     public Rally()
     {
         this.name = "Rally";
-        this.text = "Heal an ally for 6 damage and deal 2 damage to user";
+        this.text = "Heals an Ally for 6 health and deals 2 damage to the User.";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = true;
@@ -356,7 +356,7 @@ public class Stunnerclap : Ability
     public Stunnerclap()
     {
         this.name = "Stunner Clap";
-        this.text = "Deal 2 damage to targeted enemy and inflict Weakened for this turn";//flag
+        this.text = "Deals 2 damage to an Enemy and inflicts Weakened for this turn.";//flag
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
@@ -407,7 +407,7 @@ public class Soulrip2 : Ability
     public Soulrip2()
     {
         this.name = "Soul Rip";
-        this.text = "Deal 10 damage, but has 50% accuracy if at 1 or more fatigue and gives user Vulnerable for this turn";
+        this.text = "Deal 10 damage, but has 50% accuracy if at 1 or more fatigue and gives User Vulnerable for this turn";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
@@ -436,7 +436,7 @@ public class Soulrip3 : Ability
     public Soulrip3()
     {
         this.name = "Soul Rip";
-        this.text = "Deal 8 damage, but gives target Regen(6) for this turn";
+        this.text = "Deals 8 damage to an Enemy, but also gives them Regen (6) for this turn.";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
@@ -487,7 +487,7 @@ public class Scream2 : Ability
     public Scream2()
     {
         this.name = "Scream";
-        this.text = "Deal 2x user's fatigue in damage to all enemies. 50% accuracy";
+        this.text = "Deals 2x the User's fatigue to all Enemies. 50% accuracy.";
         this.multitarget = true;
         this.selftarget = false;
         this.allies = false;
@@ -515,7 +515,7 @@ public class Dazzle : Ability
     public Dazzle()
     {
         this.name = "Dazzle";
-        this.text = "Targets all enemies, 35% chance to Flinch, 35% chance to Burn";
+        this.text = "For each Enemy, has a 35% chance to make them Flinch and a 35% chance to Burn them.";
         this.multitarget = true;
         this.selftarget = false;
         this.allies = false;
@@ -545,7 +545,7 @@ public class Scry : Ability
     public Scry()
     {
         this.name = "Scry";
-        this.text = "Afflicts one targeted enemy with Vulnerable for 2 turns.";//flag
+        this.text = "Afflicts an Enemy with Vulnerable for 2 turns.";//flag
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
@@ -567,7 +567,7 @@ public class Motivate : Ability
     public Motivate()
     {
         this.name = "Motivate";
-        this.text = "Gives an ally Strengthened for this turn, Shielded for this turn, or Haste (3) for 2 turns.";//flag
+        this.text = "Gives an Ally Strengthened for this turn, Shielded for this turn, or Haste (3) for 2 turns.";//flag
         this.multitarget = false;
         this.selftarget = false;
         this.allies = true;
@@ -598,7 +598,7 @@ public class Slump : Ability
     public Slump()
     {
         this.name = "Slump";
-        this.text = "Grants user Regen (6) for this turn";
+        this.text = "Grants the User Regen (6) for this turn";
         this.multitarget = false;
         this.selftarget = true;
         this.allies = false;
@@ -620,7 +620,7 @@ public class Hunker : Ability
     public Hunker()
     {
         this.name = "Hunker";
-        this.text = "Grants self Shielded for 2 turns";//flag
+        this.text = "Give the User Shielded for 2 turns.";//flag
         this.multitarget = false;
         this.selftarget = true;
         this.allies = false;
@@ -715,7 +715,7 @@ public class Reflect : Ability
     public Reflect()
     {
         this.name = "Reflect";
-        this.text = "Deals damage to a target equal to half the user's accrued damage.";
+        this.text = "Deals damage to a target equal to half the User's accrued damage.";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
@@ -762,7 +762,7 @@ public class Unionize : Ability
     public Unionize()
     {
         this.name = "Unionize";
-        this.text = "Grants party Shielded for this turn";//flag
+        this.text = "Gives the Party Shielded for this turn.";//flag
         this.multitarget = true;
         this.selftarget = false;
         this.allies = true;
@@ -1027,7 +1027,7 @@ public class SelfDestruct : Ability
     public SelfDestruct()
     {
         this.name = "Self-Destruct";
-        this.text = "Give target and self Burn for this turn, magnitude is equal to user's current health";
+        this.text = "Give target and self Burn for this turn, magnitude is equal to User's current health";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = false;
