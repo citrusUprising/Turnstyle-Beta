@@ -179,7 +179,7 @@ public class Scrum : Ability
     public Scrum()
     {
         this.name = "Scrum";
-        this.text = "Cure an ally of debuffs, then inflict them with Null for 3 turns";
+        this.text = "Cure an ally of debuffs, then give them with Null for 3 turns.";
         this.multitarget = false;
         this.selftarget = false;
         this.allies = true;
@@ -234,7 +234,7 @@ public class Imbibe : Ability
     public Imbibe()
     {
         this.name = "Imbibe";
-        this.text = "Cures an Ally's Debuffs, then gives them Null for 3 turns.";//flag
+        this.text = "Gives the User Haste (3) and Weakened for 2 turns.";//flag
         this.multitarget = false;
         this.selftarget = true;
         this.allies = false;

@@ -226,7 +226,6 @@ public class combatController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         promptManager = GetComponent<keyPromptManager>();
 
         totalSpeedIndicator1 = Instantiate(totalSpeedPrefab, canvas.transform);
@@ -1027,17 +1026,8 @@ public class combatController : MonoBehaviour
             targetIndex = (targetIndex + 3) % 3;
             // targetPointer.transform.localPosition = playerTargets[targetIndex];
             // getting target position from sprites 🤔
-            targetPointer.transform.position = new Vector3(
-                nameTagArray[targetIndex].GetComponent<nameTag>().character.GetComponent<Friendly>().sprite.transform.position[0],
-                nameTagArray[targetIndex].GetComponent<nameTag>().character.GetComponent<Friendly>().sprite.transform.position[1] + 450,
-                nameTagArray[targetIndex].GetComponent<nameTag>().character.GetComponent<Friendly>().sprite.transform.position[2]
-            );
 
-            targetShadow.transform.position = new Vector3(
-                nameTagArray[targetIndex].GetComponent<nameTag>().character.GetComponent<Friendly>().sprite.transform.position[0],
-                nameTagArray[targetIndex].GetComponent<nameTag>().character.GetComponent<Friendly>().sprite.transform.position[1],
-                nameTagArray[targetIndex].GetComponent<nameTag>().character.GetComponent<Friendly>().sprite.transform.position[2]
-            );
+            updatePointerPos(targetIndex, true);
 
             selectedTarget = nameTagArray[targetIndex].GetComponent<nameTag>().character.GetComponent<Friendly>();
             Debug.Log("cast on: " + selectedTarget.name);
@@ -1065,17 +1055,8 @@ public class combatController : MonoBehaviour
                 }
 
             }
-            targetPointer.transform.position = new Vector3(
-                    enemies[targetIndex].transform.position[0],
-                    enemies[targetIndex].transform.position[1]+100,
-                    enemies[targetIndex].transform.position[2]
-            );
 
-            targetShadow.transform.position = new Vector3(
-                    enemies[targetIndex].transform.position[0],
-                    enemies[targetIndex].transform.position[1] - 150,
-                    enemies[targetIndex].transform.position[2]
-            );
+            updatePointerPos(targetIndex, false);
 
             selectedTarget = enemies[targetIndex].GetComponent<Enemy>();
             Debug.Log("Target = " + selectedTarget.name);
@@ -1088,6 +1069,38 @@ public class combatController : MonoBehaviour
         targetShadow.GetComponent<CanvasRenderer>().SetAlpha(alpha);
     }
 
+    void updatePointerPos(int index, bool party)
+    {
+        if (party)
+        {
+            targetPointer.transform.position = new Vector3(
+                nameTagArray[index].GetComponent<nameTag>().character.GetComponent<Friendly>().sprite.transform.position[0],
+                nameTagArray[index].GetComponent<nameTag>().character.GetComponent<Friendly>().sprite.transform.position[1] + 450,
+                nameTagArray[index].GetComponent<nameTag>().character.GetComponent<Friendly>().sprite.transform.position[2]
+            );
+
+            targetShadow.transform.position = new Vector3(
+                nameTagArray[index].GetComponent<nameTag>().character.GetComponent<Friendly>().sprite.transform.position[0],
+                nameTagArray[index].GetComponent<nameTag>().character.GetComponent<Friendly>().sprite.transform.position[1],
+                nameTagArray[index].GetComponent<nameTag>().character.GetComponent<Friendly>().sprite.transform.position[2]
+            );
+        }
+        else
+        {
+            targetPointer.transform.position = new Vector3(
+                    enemies[targetIndex].transform.position[0],
+                    enemies[targetIndex].transform.position[1] + 100,
+                    enemies[targetIndex].transform.position[2]
+            );
+
+            targetShadow.transform.position = new Vector3(
+                    enemies[targetIndex].transform.position[0],
+                    enemies[targetIndex].transform.position[1] - 150,
+                    enemies[targetIndex].transform.position[2]
+            );
+        }
+    }
+
     // because we have not implemented this yet, it will go automatically to the speedSelect
     void transitionToTargetSelect(bool forward)
     {
@@ -1098,7 +1111,11 @@ public class combatController : MonoBehaviour
         if (selectedAbility.selftarget&&forward) {
             selectedTarget = nameTagArray[numberOfSelectedMoves].GetComponent<nameTag>().character.GetComponent<Friendly>();
 
-            targetPointer.transform.localPosition = playerTargets[numberOfSelectedMoves];
+            // targetPointer.transform.localPosition = playerTargets[numberOfSelectedMoves];
+            // targetShadow.transform.localPosition = playerTargets[numberOfSelectedMoves];
+
+            updatePointerPos(numberOfSelectedMoves, true);
+
             editTargetSpritesAlpha(1f);//flag
             transitionToSpeedSelect();
         } 
@@ -1123,8 +1140,10 @@ public class combatController : MonoBehaviour
         {
             changeSelectedTarget(0, selectedAbility.allies);
             if(selectedAbility.allies){
-                targetPointer.transform.localPosition = playerTargets[0];
-                // targetPointer.transform.eulerAngles = new Vector3(0,180,0);
+
+                updatePointerPos(targetIndex, true);
+
+                Debug.Log("POINTER POS UPDATED");
             }
             // else
                 // targetPointer.transform.eulerAngles = new Vector3(0,0,0);

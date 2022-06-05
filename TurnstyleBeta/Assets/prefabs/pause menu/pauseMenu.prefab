@@ -4806,7 +4806,7 @@ PrefabInstance:
       propertyPath: m_text
       value: 'Imbibe <font="Roboto-Regular SDF"><size=24>
 
-        Gives the user
+        Gives the User
         Haste (3) and Weakened for 2 turns.'
       objectReference: {fileID: 0}
     - target: {fileID: 3389193972863487417, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
@@ -4872,7 +4872,7 @@ PrefabInstance:
       value: 'Smolder <font="Roboto-Regular SDF"><size=24>
 
         Damages an Enemy
-        based on the user''s Speed.'
+        based on the User''s Speed.'
       objectReference: {fileID: 0}
     - target: {fileID: 6395455071587730179, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
       propertyPath: m_Sprite
@@ -5263,7 +5263,7 @@ PrefabInstance:
       propertyPath: m_text
       value: 'Hunker <font="Roboto-Regular SDF"><size=24>
 
-        Give the user
+        Give the User
         Shielded for 2 turns.'
       objectReference: {fileID: 0}
     - target: {fileID: 6395455071587730179, guid: 16378164c3dacfc4f9e506eae5f1a2d6, type: 3}
