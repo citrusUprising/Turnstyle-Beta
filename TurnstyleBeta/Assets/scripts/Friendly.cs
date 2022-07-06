@@ -23,6 +23,7 @@ public class Friendly : Unit
         Status buff = new Status(StatusType.Buff, StatusName.None, 0, 0);
         Status debuff = new Status(StatusType.Debuff, StatusName.None, 0, 0);
         this.statuses = new Status[] { health, buff, debuff };
+        nameTag.GetComponent<nameTag>().Gone();
     }
 
     // Update is called once per frame

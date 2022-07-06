@@ -134,11 +134,11 @@ public class dialogueEngine : MonoBehaviour
 
 		this.leftSprite.GetComponent<talkSpriteHandler>().changeCharacter(chosenDialogue.speakerA);
 		this.rightSprite.GetComponent<talkSpriteHandler>().changeCharacter(chosenDialogue.speakerB);
-		this.leftFace.GetComponent<faceHandler>().changeFace(chosenDialogue.speakerA,"");
-		this.rightFace.GetComponent<faceHandler>().changeFace(chosenDialogue.speakerB,"");
+		this.leftFace.GetComponent<faceHandler>().changeFace(Truncate(chosenDialogue.speakerA),"");
+		this.rightFace.GetComponent<faceHandler>().changeFace(Truncate(chosenDialogue.speakerB),"");
 		this.backGround.GetComponent<backGroundHandler>().changeBackground(chosenDialogue.background);
-        leftNameSprite.GetComponentInChildren<TextMeshProUGUI>().text = chosenDialogue.speakerA;
-        rightNameSprite.GetComponentInChildren<TextMeshProUGUI>().text = chosenDialogue.speakerB;
+        leftNameSprite.GetComponentInChildren<TextMeshProUGUI>().text = Truncate(chosenDialogue.speakerA);
+        rightNameSprite.GetComponentInChildren<TextMeshProUGUI>().text = Truncate(chosenDialogue.speakerB);
     }
 
     // Update is called once per frame
@@ -203,8 +203,8 @@ public class dialogueEngine : MonoBehaviour
 						currentLine = 0;
 
 						this.swapAndSound();
-						leftNameSprite.GetComponentInChildren<TextMeshProUGUI>().text = chosenDialogue.speakerA;
-						rightNameSprite.GetComponentInChildren<TextMeshProUGUI>().text = chosenDialogue.speakerB;
+						leftNameSprite.GetComponentInChildren<TextMeshProUGUI>().text = Truncate(chosenDialogue.speakerA);
+						rightNameSprite.GetComponentInChildren<TextMeshProUGUI>().text = Truncate(chosenDialogue.speakerB);
 
 
 						Debug.Log("dialogueChoice at end is " + dialogueChoice);
@@ -276,7 +276,7 @@ public class dialogueEngine : MonoBehaviour
 				rightNameParent.GetComponent<Transform>().localPosition.z
 			);
 
-			setColors(chosenDialogue.speakerB);
+			setColors(Truncate(chosenDialogue.speakerB));
 
 		}else if (!chosenDialogue.lines[currentLine].speaker&&chosenDialogue.speakerA != ""){
 			leftNameParent.GetComponent<Transform>().localPosition = new Vector3 (
@@ -291,7 +291,7 @@ public class dialogueEngine : MonoBehaviour
 				rightNameParent.GetComponent<Transform>().localPosition.z
 			);
 
-			setColors(chosenDialogue.speakerA);
+			setColors(Truncate(chosenDialogue.speakerA));
 
 		}
 		else{
@@ -321,18 +321,18 @@ public class dialogueEngine : MonoBehaviour
 		if(chosenDialogue.lines[currentLine].speaker){
 					leftSprite.GetComponent<talkSpriteHandler>().makeIdle();
 					leftFace.GetComponent<faceHandler>().makeIdle();
-					leftFace.GetComponent<faceHandler>().changeFace(chosenDialogue.speakerA,chosenDialogue.lines[currentLine].faceL);
+					leftFace.GetComponent<faceHandler>().changeFace(Truncate(chosenDialogue.speakerA),chosenDialogue.lines[currentLine].faceL);
 					rightSprite.GetComponent<talkSpriteHandler>().makeActive();
 					rightFace.GetComponent<faceHandler>().makeActive();
-					rightFace.GetComponent<faceHandler>().changeFace(chosenDialogue.speakerB,chosenDialogue.lines[currentLine].faceR);
+					rightFace.GetComponent<faceHandler>().changeFace(Truncate(chosenDialogue.speakerB),chosenDialogue.lines[currentLine].faceR);
         		}
         		else{
 					rightSprite.GetComponent<talkSpriteHandler>().makeIdle();
 					rightFace.GetComponent<faceHandler>().makeIdle();
-					rightFace.GetComponent<faceHandler>().changeFace(chosenDialogue.speakerB,chosenDialogue.lines[currentLine].faceR);
+					rightFace.GetComponent<faceHandler>().changeFace(Truncate(chosenDialogue.speakerB),chosenDialogue.lines[currentLine].faceR);
 					leftSprite.GetComponent<talkSpriteHandler>().makeActive();
 					leftFace.GetComponent<faceHandler>().makeActive();				
-					leftFace.GetComponent<faceHandler>().changeFace(chosenDialogue.speakerA,chosenDialogue.lines[currentLine].faceL);	
+					leftFace.GetComponent<faceHandler>().changeFace(Truncate(chosenDialogue.speakerA),chosenDialogue.lines[currentLine].faceL);	
         		}
 				
 				// music
@@ -351,6 +351,16 @@ public class dialogueEngine : MonoBehaviour
 					sfxInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
 					this.playSfx(chosenDialogue.lines[currentLine].sfx);
 				}
+	}
+
+	private string Truncate(string name){
+		//Handles names for alternate character images
+		//format for alternates is "SeraphimAlt0"
+		if (name.Contains("Alt")){
+			int temp = name.Length - 4;
+			return name.substring(0,temp);
+		} else
+			return name;
 	}
 
 	private void setColors(string character)

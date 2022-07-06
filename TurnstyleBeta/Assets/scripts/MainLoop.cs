@@ -110,18 +110,23 @@ public class MainLoop : MonoBehaviour
             {
                 case "Beverly":
                     playerUnits[i].hp = currStats.BeverlyHealth;
+                    playerUnits[i].nameTag.GetComponent<nameTag>().isGone = currStats.BeverlyGone;
                     break;
                 case "Jade":
                     playerUnits[i].hp = currStats.JadeHealth;
+                    playerUnits[i].nameTag.GetComponent<nameTag>().isGone = currStats.JadeGone;
                     break;
                 case "Koralie":
                     playerUnits[i].hp = currStats.KoralieHealth;
+                    playerUnits[i].nameTag.GetComponent<nameTag>().isGone = currStats.KoralieGone;
                     break;
                 case "Seraphim":
                     playerUnits[i].hp = currStats.SeraphimHealth;
+                    playerUnits[i].nameTag.GetComponent<nameTag>().isGone = currStats.SeraphimGone;
                     break;
                 case "Amery":
                     playerUnits[i].hp = currStats.AmeryHealth;
+                    playerUnits[i].nameTag.GetComponent<nameTag>().isGone = currStats.AmeryGone;
                     break;
             }
         }
@@ -163,6 +168,7 @@ public class MainLoop : MonoBehaviour
         foreach (Friendly unit in playerUnits)
             {
                 unit.GetComponent<Friendly>().nameTag.GetComponent<nameTag>().adjustHealth();
+                unit.GetComponent<Friendly>().nameTag.GetComponent<nameTag>().Gone();
             }
     }
 

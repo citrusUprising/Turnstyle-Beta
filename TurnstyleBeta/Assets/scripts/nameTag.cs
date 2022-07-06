@@ -38,6 +38,7 @@ public class nameTag : MonoBehaviour
 
     public Color confirmColor;
     public bool isDead = false;
+    public bool isGone = false;
 
     // Start is called before the first frame update
     void Start()
@@ -176,6 +177,16 @@ public class nameTag : MonoBehaviour
             temp[i].color = new Color (0.35f,0.35f,0.35f,1.0f);
         }
     }
+
+    public void Gone(){
+        if(isGone){
+            isDead = true;
+            Image[] temp = this.GetComponentsInChildren<Image>();
+            for (int i = 0; i < temp.Length; i++)
+            temp[i].color = new Color (1f,1f,1f,0f);
+        }
+    }
+
     public void updateAllStatuses()
     {
         // this was the code i was using to test the duration on the status effects before

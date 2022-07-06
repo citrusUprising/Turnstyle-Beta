@@ -10,10 +10,16 @@ public class CurrentStats : MonoBehaviour
     public int SeraphimHealth;
     public int AmeryHealth;
     public string[] CurrentEnemies;
-    // Start is called before the first frame update
+    public bool AmeryGone;
+    public bool BeverlyGone;
+    public bool KoralieGone;
+    public bool JadeGone;
+    public bool SeraphimGone;
     public int isTutorial;
     public int currentTutorial;
     public bool hasMoney;
+    public int currentDay;
+    public int currentCutScene;
     void Start()
     {
         

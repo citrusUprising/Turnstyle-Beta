@@ -32,6 +32,7 @@ public class CameraController : MonoBehaviour
     public float zoomSpeed;
     public float minZoom;
     public float maxZoom;
+    public int currentDay = 0;
 
     //autozoom variables
     [SerializeField] private float xOuter;
@@ -254,6 +255,7 @@ public class CameraController : MonoBehaviour
                 Stats.GetComponent<CurrentStats>().AmeryHealth = 12;
 
                 StartCoroutine(loadScene("DialogueScene"));
+                checkPresent(0,currentCutScene);
                 
 
             }
@@ -300,6 +302,22 @@ public class CameraController : MonoBehaviour
             zoomOut();
             autoZoom();
         } 
+    }
+
+    void checkPresent(int day = 0, int curCutscene = 0){
+        if(){}
+        else if(){}
+        else{
+            Stats.GetComponent<CurrentStats>().BeverlyGone = false;
+            Stats.GetComponent<CurrentStats>().JadeGone = false;
+            Stats.GetComponent<CurrentStats>().KoralieGone = false;
+            Stats.GetComponent<CurrentStats>().SeraphimGone = false;
+            Stats.GetComponent<CurrentStats>().AmeryGone = false;
+        }
+    }
+
+    void changeDay(){
+
     }
 
     void moveCamera(){
