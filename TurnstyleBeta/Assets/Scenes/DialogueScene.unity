@@ -1174,8 +1174,12 @@ GameObject:
   - component: {fileID: 961661891}
   - component: {fileID: 961661890}
   - component: {fileID: 961661889}
+  - component: {fileID: 961661896}
+  - component: {fileID: 961661895}
+  - component: {fileID: 961661894}
+  - component: {fileID: 961661893}
   m_Layer: 5
-  m_Name: Cutscene1Holder
+  m_Name: CutsceneHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1249,6 +1253,58 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1eea3fa1133b06e4c9dafa55e949e4f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueVarietyCount: 0
+--- !u!114 &961661893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961661887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a74bd427defec1340898b0f21728d8cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueVarietyCount: 0
+--- !u!114 &961661894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961661887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe48e39978b81c844aa1fdb166516b2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueVarietyCount: 0
+--- !u!114 &961661895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961661887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3cc65920d6888c449c0b6463522e0bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueVarietyCount: 0
+--- !u!114 &961661896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961661887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4071beeac602c9040b27705b49c17bd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueVarietyCount: 0

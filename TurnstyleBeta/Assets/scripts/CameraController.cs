@@ -113,10 +113,6 @@ public class CameraController : MonoBehaviour
         //DISABLE FOR FINAL GAME, skip combat for debugging
         //if (Input.GetKeyDown(KeyCode.S)) combatEnabled = !combatEnabled;
         //cancels out of game after final cutscene
-        if(currentCutScene == 4){
-            Music.SetActive(false);
-            SceneManager.LoadScene("mainMenuScene",LoadSceneMode.Single);
-        }
         //Line Pulsing animation
         for(int i = 0; i < 6; i++){
             LineRenderer temp = lines[i].GetComponent<LineRenderer>();
@@ -255,7 +251,7 @@ public class CameraController : MonoBehaviour
                 Stats.GetComponent<CurrentStats>().AmeryHealth = 12;
 
                 StartCoroutine(loadScene("DialogueScene"));
-                checkPresent(0,currentCutScene);
+                checkPresent(currentDay,currentCutScene);
                 
 
             }
@@ -304,20 +300,30 @@ public class CameraController : MonoBehaviour
         } 
     }
 
+    public void nextDay(){
+        Music.SetActive(false);
+        SceneManager.LoadScene("mainMenuScene",LoadSceneMode.Single); // To Remove
+        currentDay++;
+        if (currentDay>=5)
+            SceneManager.LoadScene("mainMenuScene",LoadSceneMode.Single); //replace with credits??
+        else{  //do we want a save&Quit or Continue screen?
+            this.currentCutScene = 0;
+            this.currentStation = this.allStations[16];
+            //code to change map
+        }
+    }
+
     void checkPresent(int day = 0, int curCutscene = 0){
-        if(){}
+            GameObject Stats = GameObject.Find("CurrentStats");
+        /*if(){}
         else if(){}
-        else{
+        else{*/
             Stats.GetComponent<CurrentStats>().BeverlyGone = false;
             Stats.GetComponent<CurrentStats>().JadeGone = false;
             Stats.GetComponent<CurrentStats>().KoralieGone = false;
             Stats.GetComponent<CurrentStats>().SeraphimGone = false;
             Stats.GetComponent<CurrentStats>().AmeryGone = false;
-        }
-    }
-
-    void changeDay(){
-
+        //}
     }
 
     void moveCamera(){

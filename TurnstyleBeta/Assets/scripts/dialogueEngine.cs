@@ -76,6 +76,7 @@ public class dialogueEngine : MonoBehaviour
 	public GameObject PlayScripts;
 	bool writing;
 	private int dialogueChoice = 0;
+	private bool endOfDay = false;
 
 	private float textSpeed;
 
@@ -116,19 +117,63 @@ public class dialogueEngine : MonoBehaviour
         //Need to figure out how to take input
         */
 		mainBoxText = mainBox.GetComponent<TextMeshProUGUI>();
-		switch(GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentCutScene){
-			case 0: default:
-			dialogueVarieties = PlayScripts.GetComponent<Script1a>().script;
+		//handles which cutscenes to open
+		switch(GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentDay){
+			
+			case 0: default: //day 1
+			switch(GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentCutScene){
+				case 0: default:
+				dialogueVarieties = PlayScripts.GetComponent<Script1a>().script;
+				break;
+
+				case 1:
+				dialogueVarieties = PlayScripts.GetComponent<Script1b>().script;
+				break;
+
+				case 2:
+				dialogueVarieties = PlayScripts.GetComponent<Script1c>().script;
+				break;
+
+				case 3:
+				dialogueVarieties = PlayScripts.GetComponent<Script1d>().script;
+				endOfDay = true;
+				break; 
+			}
 			break;
+
 			case 1:
-			dialogueVarieties = PlayScripts.GetComponent<Script1b>().script;
+				switch(GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentCutScene){
+					case 0: default:
+					dialogueVarieties = PlayScripts.GetComponent<Script2a>().script;
+					endOfDay = true;
+					break;
+				}
 			break;
+
 			case 2:
-			dialogueVarieties = PlayScripts.GetComponent<Script1c>().script;
+				switch(GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentCutScene){
+					default:
+					endOfDay = true;
+					break;
+				}
 			break;
+
 			case 3:
-			dialogueVarieties = PlayScripts.GetComponent<Script1d>().script;
-			break; 
+				switch(GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentCutScene){
+					default:
+					endOfDay = true;
+					break;					
+				}
+			break;
+
+			case 4:
+				switch(GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentCutScene){
+					default:
+					endOfDay = true;
+					break;					
+				}
+			break;
+
 		}
         chosenDialogue = dialogueVarieties[dialogueChoice];//flag
 
@@ -184,6 +229,10 @@ public class dialogueEngine : MonoBehaviour
 						GameObject.Find("CurrentStats").GetComponent<savingEngine>().reset();
 						GameObject.Find("CurrentStats").GetComponent<savingEngine>().checkpoint();
 
+						if(endOfDay){
+							endOfDay = false;
+							GameObject.Find("NodeMapCamera").GetComponent<CameraController>().nextDay();
+						} 
 						StartCoroutine(transitionToNodeMap());
 					}
 					else
@@ -358,7 +407,7 @@ public class dialogueEngine : MonoBehaviour
 		//format for alternates is "SeraphimAlt0"
 		if (name.Contains("Alt")){
 			int temp = name.Length - 4;
-			return name.substring(0,temp);
+			return name.Substring(0,temp);
 		} else
 			return name;
 	}
