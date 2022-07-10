@@ -7,6 +7,41 @@ using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using TMPro;
 
+public class stationDataHolder{
+    public String[] monsters;
+    public bool combat;
+    public bool hardMode;
+    public int cutscene;
+
+    public stationDataHolder(){
+        this.monsters = new String[0];
+        this.combat = false;
+        this.hardMode = false;
+        this.cutscene = 0;
+    }
+
+    public stationDataHolder (int cutscene){
+        this.monsters = new String[0];
+        this.combat = false;
+        this.hardMode = false;
+        this.cutscene = cutscene;
+    }
+
+    public stationDataHolder (String[] monsters, bool combat){
+        this.monsters = monsters;
+        this.combat = combat;
+        this.hardMode = !combat;
+        this.cutscene = 0;
+    }
+
+    public stationDataHolder (String[] monsters, bool combat, int cutscene){
+        this.monsters = monsters;
+        this.combat = combat;
+        this.hardMode = !combat;
+        this.cutscene = cutscene;
+    }
+}
+
 public class CameraController : MonoBehaviour
 {
     public Station currentStation;
@@ -302,14 +337,28 @@ public class CameraController : MonoBehaviour
 
     public void nextDay(){
         Music.SetActive(false);
-        SceneManager.LoadScene("mainMenuScene",LoadSceneMode.Single); // To Remove
+        //SceneManager.LoadScene("mainMenuScene",LoadSceneMode.Single); // To Remove
         currentDay++;
         if (currentDay>=5)
             SceneManager.LoadScene("mainMenuScene",LoadSceneMode.Single); //replace with credits??
         else{  //do we want a save&Quit or Continue screen?
             this.currentCutScene = 0;
             this.currentStation = this.allStations[16];
-            //code to change map
+            Music.SetActive(false);
+            StartCoroutine(loadScene("DialogueScene"));
+            changeMap(currentDay);
+            //add money (could be in change map)
+        }
+    }
+
+    void changeMap (int day){;
+        for (int i =0; i < this.allStations.Length; i++){
+            stationDataHolder temp = this.GetComponent<DailyMapsHolder>().masterlist[day-1][i];
+            allStations[i].Enemies = temp.monsters;
+            allStations[i].hasCombat = temp.combat;
+            allStations[i].hasHardMode = temp.hardMode;
+            allStations[i].cutscene = temp.cutscene;
+            allStations[i].initStation();
         }
     }
 

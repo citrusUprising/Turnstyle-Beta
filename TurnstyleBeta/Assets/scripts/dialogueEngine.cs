@@ -153,6 +153,7 @@ public class dialogueEngine : MonoBehaviour
 			case 2:
 				switch(GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentCutScene){
 					default:
+					dialogueVarieties = PlayScripts.GetComponent<Script3a>().script;
 					endOfDay = true;
 					break;
 				}
@@ -161,6 +162,7 @@ public class dialogueEngine : MonoBehaviour
 			case 3:
 				switch(GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentCutScene){
 					default:
+					dialogueVarieties = PlayScripts.GetComponent<Script4a>().script;
 					endOfDay = true;
 					break;					
 				}
@@ -169,6 +171,7 @@ public class dialogueEngine : MonoBehaviour
 			case 4:
 				switch(GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentCutScene){
 					default:
+					dialogueVarieties = PlayScripts.GetComponent<Script5a>().script;
 					endOfDay = true;
 					break;					
 				}
@@ -199,6 +202,10 @@ public class dialogueEngine : MonoBehaviour
 				PlayerPrefs.SetInt("Load", 0);
 				GameObject.Find("CurrentStats").GetComponent<savingEngine>().reset();
 				GameObject.Find("CurrentStats").GetComponent<savingEngine>().checkpoint();
+				if(endOfDay){
+					endOfDay = false;
+					GameObject.Find("NodeMapCamera").GetComponent<CameraController>().nextDay();
+				}
 
 				StartCoroutine(transitionToNodeMap());
 			}

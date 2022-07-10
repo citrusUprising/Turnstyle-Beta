@@ -33,6 +33,12 @@ public class Station : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        initStation();
+        lines = new bool[] {yellow, orange, blue, pink, green, red};
+    }
+
+    public void initStation()
+    {
         if(hasCombat && cutscene < 1){
             this.GetComponent<Image>().sprite = encounter;
         }else if(cutscene>0){
@@ -40,13 +46,6 @@ public class Station : MonoBehaviour
         }else{
             this.GetComponent<Image>().sprite = standard;
         }
-        lines = new bool[] {yellow, orange, blue, pink, green, red};
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void EnableHardMode(){
