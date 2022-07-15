@@ -138,6 +138,7 @@ public class CameraController : MonoBehaviour
         this.MoneyUpdate();
         GameObject Stats = GameObject.Find("CurrentStats");
         Stats.GetComponent<CurrentStats>().hasMoney = hasMoney;
+        checkPresent(currentDay,currentCutScene);
     }
 
     // Update is called once per frame
@@ -263,7 +264,7 @@ public class CameraController : MonoBehaviour
             if (currentStation.cutscene == currentCutScene&&SceneManager.sceneCount == 1&&!preloading){
                 onLine = new bool[]{false,false,false,false,false,false};
                 //Music.SetActive(false);
-                switch(currentCutScene){
+                switch(currentCutScene){ //move to seperate routine, add final cutscene and day checks
                     case 1:
                     objective.GetComponent<TextMeshProUGUI>().text = "Everyone needs to get to class. University is to the South.";
                     break;
@@ -364,15 +365,22 @@ public class CameraController : MonoBehaviour
 
     void checkPresent(int day = 0, int curCutscene = 0){
             GameObject Stats = GameObject.Find("CurrentStats");
-        /*if(){}
-        else if(){}
-        else{*/
-            Stats.GetComponent<CurrentStats>().BeverlyGone = false;
-            Stats.GetComponent<CurrentStats>().JadeGone = false;
-            Stats.GetComponent<CurrentStats>().KoralieGone = false;
-            Stats.GetComponent<CurrentStats>().SeraphimGone = false;
-            Stats.GetComponent<CurrentStats>().AmeryGone = false;
-        //}
+        /*switch(day){
+            case 0: default:*/
+            defaultPresent(Stats);
+        /*  break;
+
+            case 1:
+            break;
+        }*/
+    }
+
+    void defaultPresent(GameObject Stats){
+        Stats.GetComponent<CurrentStats>().BeverlyGone = false;
+        Stats.GetComponent<CurrentStats>().JadeGone = false;
+        Stats.GetComponent<CurrentStats>().KoralieGone = false;
+        Stats.GetComponent<CurrentStats>().SeraphimGone = false;
+        Stats.GetComponent<CurrentStats>().AmeryGone = false;
     }
 
     void moveCamera(){

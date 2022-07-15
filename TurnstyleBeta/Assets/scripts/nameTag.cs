@@ -181,9 +181,17 @@ public class nameTag : MonoBehaviour
     public void Gone(){
         if(isGone){
             isDead = true;
-            Image[] temp = this.GetComponentsInChildren<Image>();
-            for (int i = 0; i < temp.Length; i++)
-            temp[i].color = new Color (1f,1f,1f,0f);
+            character.GetComponent<Unit>().dead = true;
+            Image[] tempImage = this.GetComponentsInChildren<Image>();
+            TextMeshProUGUI[] tempText = this.GetComponentsInChildren<TextMeshProUGUI>();
+            Color tempColor;
+            for (int i = 0; i < tempImage.Length; i++)
+            tempImage[i].color = new Color (1f,1f,1f,0f);
+            for (int i = 0; i < tempText.Length; i++){
+            tempColor = tempText[i].color;
+            tempColor.a = 0f;
+            tempText[i].color = tempColor;
+            }
         }
     }
 

@@ -29,7 +29,8 @@ public class BattleSpriteHandler : MonoBehaviour
         shade = this.GetComponent<Image>().color;
         //changes color based on dead
         if (profile.GetComponent<nameTag>().isDead){
-            shade = new Color (0.5f,0.5f,0.5f);
+            float temp = shade.a;
+            shade = new Color (0.5f,0.5f,0.5f,temp);
         }
         this.GetComponent<Image>().color = shade;
 
@@ -46,7 +47,9 @@ public class BattleSpriteHandler : MonoBehaviour
 
         //changes layer and color based on location on pentagon 
         nameTag[] players = controller.GetComponent<combatController>().nameTagArray;
-        if(players[2].name == profile.name){
+        if(profile.GetComponent<nameTag>().isGone){
+            shade.a = 0;
+        }else if(players[2].name == profile.name){
             this.GetComponent<Canvas>().sortingOrder = topLayer;
             shade.a = 1;
         }else if(players[3].name == profile.name){
