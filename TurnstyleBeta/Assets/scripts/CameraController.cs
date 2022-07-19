@@ -138,6 +138,7 @@ public class CameraController : MonoBehaviour
         this.MoneyUpdate();
         GameObject Stats = GameObject.Find("CurrentStats");
         Stats.GetComponent<CurrentStats>().hasMoney = hasMoney;
+        checkPresent(currentDay,currentCutScene);
     }
 
     // Update is called once per frame
@@ -263,19 +264,6 @@ public class CameraController : MonoBehaviour
             if (currentStation.cutscene == currentCutScene&&SceneManager.sceneCount == 1&&!preloading){
                 onLine = new bool[]{false,false,false,false,false,false};
                 //Music.SetActive(false);
-                switch(currentCutScene){
-                    case 1:
-                    objective.GetComponent<TextMeshProUGUI>().text = "Everyone needs to get to class. University is to the South.";
-                    break;
-
-                    case 2:
-                    objective.GetComponent<TextMeshProUGUI>().text = "It's been a long day. Head back home.";
-                    break;
-
-                    default:
-                    objective.GetComponent<TextMeshProUGUI>().text = "";
-                    break;
-                }
                 if(currentCutScene < 3)StartCoroutine(pointerDelay());
                 StartCoroutine(addMoney());
                 GameObject Stats = GameObject.Find("CurrentStats");
@@ -351,6 +339,66 @@ public class CameraController : MonoBehaviour
         }
     }
 
+    public void changeObjective (int day, int cutscene){
+        switch(day){
+            case 0:
+            switch(currentCutScene){
+                case 1:
+                objective.GetComponent<TextMeshProUGUI>().text = "Amery needs to get to his job interview in the North.";
+                break;
+
+                case 2:
+                objective.GetComponent<TextMeshProUGUI>().text = "Everyone needs to get to class. University is to the South.";
+                break;
+
+                case 3:
+                objective.GetComponent<TextMeshProUGUI>().text = "It's been a long day. Head back home.";
+                break;
+
+                default:
+                objective.GetComponent<TextMeshProUGUI>().text = "";
+                break;
+            }
+            break;
+
+            case 1:
+            switch(currentCutScene){
+                default:
+                objective.GetComponent<TextMeshProUGUI>().text = "";
+                break;
+            }
+            break;
+
+            case 2:
+            switch(currentCutScene){
+                default:
+                objective.GetComponent<TextMeshProUGUI>().text = "";
+                break;
+            }
+            break;
+
+            case 3:
+            switch(currentCutScene){
+                default:
+                objective.GetComponent<TextMeshProUGUI>().text = "";
+                break;
+            }
+            break;
+
+            case 4:
+            switch(currentCutScene){
+                default:
+                objective.GetComponent<TextMeshProUGUI>().text = "";
+                break;
+            }
+            break;
+
+            default:
+                objective.GetComponent<TextMeshProUGUI>().text = "";
+            break;
+        }
+    }
+
     void changeMap (int day){;
         for (int i =0; i < this.allStations.Length; i++){
             stationDataHolder temp = this.GetComponent<DailyMapsHolder>().masterlist[day-1][i];
@@ -364,15 +412,22 @@ public class CameraController : MonoBehaviour
 
     void checkPresent(int day = 0, int curCutscene = 0){
             GameObject Stats = GameObject.Find("CurrentStats");
-        /*if(){}
-        else if(){}
-        else{*/
-            Stats.GetComponent<CurrentStats>().BeverlyGone = false;
-            Stats.GetComponent<CurrentStats>().JadeGone = false;
-            Stats.GetComponent<CurrentStats>().KoralieGone = false;
-            Stats.GetComponent<CurrentStats>().SeraphimGone = false;
-            Stats.GetComponent<CurrentStats>().AmeryGone = false;
-        //}
+        /*switch(day){
+            case 0: default:*/
+            defaultPresent(Stats);
+        /*  break;
+
+            case 1:
+            break;
+        }*/
+    }
+
+    void defaultPresent(GameObject Stats){
+        Stats.GetComponent<CurrentStats>().BeverlyGone = false;
+        Stats.GetComponent<CurrentStats>().JadeGone = false;
+        Stats.GetComponent<CurrentStats>().KoralieGone = false;
+        Stats.GetComponent<CurrentStats>().SeraphimGone = false;
+        Stats.GetComponent<CurrentStats>().AmeryGone = false;
     }
 
     void moveCamera(){
