@@ -313,6 +313,7 @@ public class combatController : MonoBehaviour
             for (int i= 0; i < temp.Length; i++)temp[i].AlphaUpdate();
             correctColor = true;
         }
+        
         if (isSceneOverlayActive == false)
         {
             switch (isTutorial){
