@@ -1252,6 +1252,10 @@ MonoBehaviour:
   totalSpeedImage: {fileID: 0}
   confirmColor: {r: 0, g: 0, b: 0, a: 0}
   isDead: 0
+  isGone: 0
+  playerAbilities: {fileID: 0}
+  name: 
+  passiveTextObject: {fileID: 8084932009237154912}
 --- !u!114 &2736015246434819403
 MonoBehaviour:
   m_ObjectHideFlags: 0

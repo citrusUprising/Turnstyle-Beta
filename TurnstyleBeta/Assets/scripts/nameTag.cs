@@ -40,6 +40,12 @@ public class nameTag : MonoBehaviour
     public bool isDead = false;
     public bool isGone = false;
 
+    public PlayerAbilities playerAbilities;
+    public string name;
+    private Passive passive;
+    private string passiveText = "";
+    public TextMeshProUGUI passiveTextObject;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -64,6 +70,8 @@ public class nameTag : MonoBehaviour
         // tooltipA = transform.GetChild(9).statusTooltip;
         // tooltipA.hide();
         adjustHealth();
+
+        setPassiveText();
     }
 
     // Update is called once per frame
@@ -217,5 +225,35 @@ public class nameTag : MonoBehaviour
             (int)character.GetComponent<Unit>().statuses[(int)StatusType.Debuff].name,
             (int)character.GetComponent<Unit>().statuses[(int)StatusType.Debuff].duration,
             (int)character.GetComponent<Unit>().statuses[(int)StatusType.Debuff].magnitude);
+    }
+
+    void setPassiveText()
+    {
+        if (name == "koralie")
+        {
+            passive = playerAbilities.koralie.passive;
+        }
+        else if (name == "beverly")
+        {
+            passive = playerAbilities.beverly.passive;
+        }
+        else if (name == "amery")
+        {
+            passive = playerAbilities.amery.passive;
+        }
+        else if (name == "jade")
+        {
+            passive = playerAbilities.jade.passive;
+        }
+        else if (name == "seraphim")
+        {
+            passive = playerAbilities.seraphim.passive;
+        }
+
+        passiveText += passive.name + ": ";
+        passiveText += "<font=Roboto-Regular SDF>";
+        passiveText += passive.description;
+
+        passiveTextObject.text = passiveText;
     }
 }
