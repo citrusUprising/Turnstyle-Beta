@@ -7,41 +7,6 @@ using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class stationDataHolder{
-    public String[] monsters;
-    public bool combat;
-    public bool hardMode;
-    public int cutscene;
-
-    public stationDataHolder(){
-        this.monsters = new String[0];
-        this.combat = false;
-        this.hardMode = false;
-        this.cutscene = 0;
-    }
-
-    public stationDataHolder (int cutscene){
-        this.monsters = new String[0];
-        this.combat = false;
-        this.hardMode = false;
-        this.cutscene = cutscene;
-    }
-
-    public stationDataHolder (String[] monsters, bool combat){
-        this.monsters = monsters;
-        this.combat = combat;
-        this.hardMode = !combat;
-        this.cutscene = 0;
-    }
-
-    public stationDataHolder (String[] monsters, bool combat, int cutscene){
-        this.monsters = monsters;
-        this.combat = combat;
-        this.hardMode = !combat;
-        this.cutscene = cutscene;
-    }
-}
-
 public class CameraController : MonoBehaviour
 {
     public Station currentStation;
@@ -150,6 +115,7 @@ public class CameraController : MonoBehaviour
         //if (Input.GetKeyDown(KeyCode.S)) combatEnabled = !combatEnabled;
         //cancels out of game after final cutscene
         //Line Pulsing animation
+        //Make into own Function - Josh
         for(int i = 0; i < 6; i++){
             LineRenderer temp = lines[i].GetComponent<LineRenderer>();
             if(onLine[i]){
@@ -173,8 +139,10 @@ public class CameraController : MonoBehaviour
         }
         
         //Debug.Log("Actice Scene Count: " + SceneManager.sceneCount);
+        //if you're on the map and not loading 
         if (SceneManager.sceneCount == 1 && !loading) 
         {
+            //Navigate tutorial
             if(tutorialPhone.GetComponent<tutorialHandler>().isOpen){
             int bookTemp = tutorialPhone.GetComponent<tutorialHandler>().bookCount;
             int pageTemp = tutorialPhone.GetComponent<tutorialHandler>().pageCount;
@@ -212,6 +180,7 @@ public class CameraController : MonoBehaviour
             {
                 if (preloading == false)
                 {
+                    //Changing Lines
                     if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.RightArrow))
                     {
                         currentStation.destinations[currentLine].transform.localScale = new Vector3(1, 1, 1);
@@ -235,7 +204,9 @@ public class CameraController : MonoBehaviour
                         autoZoom();
                         destCamera = true;
                     }
+                    //
 
+                    //move to next station
                     if (xPress())
                     {
                         currentStation.transform.localScale = new Vector3(1, 1, 1);
@@ -243,13 +214,12 @@ public class CameraController : MonoBehaviour
                         autoZoom();
                         destCamera = false;
                     }
+                    //Create Pause Menu
                     if (Input.GetKeyDown(KeyCode.Escape))
                     {
                         pauseMenuObject = Instantiate(pauseMenu, canvas.transform);
                     }
                 }
-                
-
                 keyPrompt.SetActive(true);
             }
             else
@@ -323,7 +293,8 @@ public class CameraController : MonoBehaviour
                 transitionAnimator.SetTrigger("fromBlack");
             }
         }
-
+        
+        //Zooming
         if((Input.GetKey(KeyCode.C)||isZooming > 0) && SceneManager.sceneCount == 1 && !loading){
             //Debug.Log("Pressed C");
             zoomIn();
