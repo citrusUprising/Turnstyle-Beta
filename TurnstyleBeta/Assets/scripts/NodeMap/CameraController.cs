@@ -264,6 +264,19 @@ public class CameraController : MonoBehaviour
             if (currentStation.cutscene == currentCutScene&&SceneManager.sceneCount == 1&&!preloading){
                 onLine = new bool[]{false,false,false,false,false,false};
                 //Music.SetActive(false);
+                switch(currentCutScene){ //move to seperate routine, add final cutscene and day checks
+                    case 1:
+                    objective.GetComponent<TextMeshProUGUI>().text = "Everyone needs to get to class. University is to the South.";
+                    break;
+
+                    case 2:
+                    objective.GetComponent<TextMeshProUGUI>().text = "It's been a long day. Head back home.";
+                    break;
+
+                    default:
+                    objective.GetComponent<TextMeshProUGUI>().text = "";
+                    break;
+                }
                 if(currentCutScene < 3)StartCoroutine(pointerDelay());
                 StartCoroutine(addMoney());
                 GameObject Stats = GameObject.Find("CurrentStats");
@@ -336,66 +349,6 @@ public class CameraController : MonoBehaviour
             StartCoroutine(loadScene("DialogueScene"));
             changeMap(currentDay);
             //add money (could be in change map)
-        }
-    }
-
-    public void changeObjective (int day, int cutscene){
-        switch(day){
-            case 0:
-            switch(currentCutScene){
-                case 1:
-                objective.GetComponent<TextMeshProUGUI>().text = "Amery needs to get to his job interview in the North.";
-                break;
-
-                case 2:
-                objective.GetComponent<TextMeshProUGUI>().text = "Everyone needs to get to class. University is to the South.";
-                break;
-
-                case 3:
-                objective.GetComponent<TextMeshProUGUI>().text = "It's been a long day. Head back home.";
-                break;
-
-                default:
-                objective.GetComponent<TextMeshProUGUI>().text = "";
-                break;
-            }
-            break;
-
-            case 1:
-            switch(currentCutScene){
-                default:
-                objective.GetComponent<TextMeshProUGUI>().text = "";
-                break;
-            }
-            break;
-
-            case 2:
-            switch(currentCutScene){
-                default:
-                objective.GetComponent<TextMeshProUGUI>().text = "";
-                break;
-            }
-            break;
-
-            case 3:
-            switch(currentCutScene){
-                default:
-                objective.GetComponent<TextMeshProUGUI>().text = "";
-                break;
-            }
-            break;
-
-            case 4:
-            switch(currentCutScene){
-                default:
-                objective.GetComponent<TextMeshProUGUI>().text = "";
-                break;
-            }
-            break;
-
-            default:
-                objective.GetComponent<TextMeshProUGUI>().text = "";
-            break;
         }
     }
 

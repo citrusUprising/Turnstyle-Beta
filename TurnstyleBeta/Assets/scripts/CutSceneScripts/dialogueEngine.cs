@@ -196,8 +196,20 @@ public class dialogueEngine : MonoBehaviour
         {
 			//skip dialogue (Debugging)
 			if (Input.GetKeyDown(KeyCode.S))
-				endCutscene();
-			
+			{
+				GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentCutScene++;
+				dialogueChoice = 0;
+				PlayerPrefs.SetInt("Load", 0);
+				GameObject.Find("CurrentStats").GetComponent<savingEngine>().reset();
+				GameObject.Find("CurrentStats").GetComponent<savingEngine>().checkpoint();
+				if(endOfDay){
+					endOfDay = false;
+					GameObject.Find("NodeMapCamera").GetComponent<CameraController>().nextDay();
+				}
+
+				StartCoroutine(transitionToNodeMap());
+			}
+
 			if (Input.GetKeyDown(KeyCode.Z)||sceneStart)
 			{
 				if (writing)
@@ -216,7 +228,20 @@ public class dialogueEngine : MonoBehaviour
 
 					//catch if at end of cutscene
 					if (dialogueChoice >= dialogueVarieties.Length)
-						endCutscene();
+					{
+						GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentCutScene++;
+						
+						dialogueChoice = 0;
+						PlayerPrefs.SetInt("Load", 0);
+						GameObject.Find("CurrentStats").GetComponent<savingEngine>().reset();
+						GameObject.Find("CurrentStats").GetComponent<savingEngine>().checkpoint();
+
+						if(endOfDay){
+							endOfDay = false;
+							GameObject.Find("NodeMapCamera").GetComponent<CameraController>().nextDay();
+						} 
+						StartCoroutine(transitionToNodeMap());
+					}
 					else
 					{
 
@@ -268,23 +293,6 @@ public class dialogueEngine : MonoBehaviour
 	void OnDestroy(){
 		musicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT); // fade music out on cutscene end
 		//GameObject.Find("Music").SetActive(true);
-	}
-
-	void endCutscene (){
-		GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentCutScene++;
-		GameObject.Find("NodeMapCamera").GetComponent<CameraController>().changeObjective(
-			GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentDay,
-			GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentCutScene);
-		dialogueChoice = 0;
-		PlayerPrefs.SetInt("Load", 0);
-		GameObject.Find("CurrentStats").GetComponent<savingEngine>().reset();
-		GameObject.Find("CurrentStats").GetComponent<savingEngine>().checkpoint();
-		if(endOfDay){
-			endOfDay = false;
-			GameObject.Find("NodeMapCamera").GetComponent<CameraController>().nextDay();
-		}
-
-		StartCoroutine(transitionToNodeMap());
 	}
 
     public IEnumerator WriteLine(){
