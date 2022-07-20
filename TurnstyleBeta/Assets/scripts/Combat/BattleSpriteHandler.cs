@@ -45,29 +45,41 @@ public class BattleSpriteHandler : MonoBehaviour
 
     public void AlphaUpdate(){
 
+        
+
         //changes layer and color based on location on pentagon 
         nameTag[] players = controller.GetComponent<combatController>().nameTagArray;
-        if(profile.GetComponent<nameTag>().isGone){
+        
+        if (profile.GetComponent<nameTag>().isGone)
+        {
             shade.a = 0;
-        }else if(players[2].name == profile.name){
+        }
+        else if (players[2].name == profile.GetComponent<nameTag>().name)
+        {
             this.GetComponent<Canvas>().sortingOrder = topLayer;
             shade.a = 1;
-        }else if(players[3].name == profile.name){
+        }
+        else if (players[3].name == profile.GetComponent<nameTag>().name)
+        {
             this.GetComponent<Canvas>().sortingOrder = midLayer;
             shade.a = outAlpha;
-        }else if(players[1].name == profile.name){
+        }
+        else if (players[1].name == profile.GetComponent<nameTag>().name)
+        {
             this.GetComponent<Canvas>().sortingOrder = midLayer;
             shade.a = 1.0f;
-        }else if(players[0].name == profile.name){
+        }
+        else if (players[0].name == profile.GetComponent<nameTag>().name)
+        {
             this.GetComponent<Canvas>().sortingOrder = botLayer;
             shade.a = 1.0f;
-        }else{
+        }
+        else {
             this.GetComponent<Canvas>().sortingOrder = botLayer;
             shade.a = outAlpha;
         }
 
         this.GetComponent<Image>().color = shade;
-
     }
 
 }

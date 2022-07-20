@@ -246,14 +246,6 @@ public class combatController : MonoBehaviour
         nameTagArray[3].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = playerAbilities.beverly.abilities;
         nameTagArray[4].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities = playerAbilities.amery.abilities;
 
-        for (int i = 0; i < 5; i++)
-        {
-            for (int j = 0; j < 3; j++)
-            {
-                Debug.Log(nameTagArray[i].GetComponent<nameTag>().character.GetComponent<Friendly>().abilities[j]);
-            }
-        }
-
         //enemies = GameObject.FindGameObjectsWithTag("Enemy");
         for (int i = 0; i < 5; i++)
         {
@@ -309,6 +301,13 @@ public class combatController : MonoBehaviour
     void Update()
     {
         if (!correctColor){
+
+            for (int i = 0; i < 5; i++)
+            {
+                Debug.Log(nameTagArray[i].name);
+            }
+
+
             BattleSpriteHandler[] temp = pentagonSprite.GetComponentsInChildren<BattleSpriteHandler>();
             for (int i= 0; i < temp.Length; i++)temp[i].AlphaUpdate();
             correctColor = true;
