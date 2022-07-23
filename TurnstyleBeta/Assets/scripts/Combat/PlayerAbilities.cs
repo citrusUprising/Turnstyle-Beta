@@ -63,21 +63,21 @@ public class PlayerAbilities : MonoBehaviour
 
     void populateArray(){
         allAbilities = new Ability[]{
-            new Hunker(), 
-            new Crush(), 
-            new Repel(), 
-            new Stunnerclap(), 
-            new Rally(),
-            new Motivate(),
-            new Scry(),
-            new Soulrip3(),
-            new Scream2(),
-            new Smolder(),
-            new Dazzle(),
-            new Imbibe(),
-            new Mitigate(),
-            new Unionize(),
-            new Scrum()
+            new Hunker(),       //0
+            new Crush(),        //1
+            new Repel(),        //2
+            new Stunnerclap(),  //3
+            new Rally(),        //4
+            new Motivate(),     //5
+            new Scry(),         //6
+            new Soulrip3(),     //7
+            new Scream2(),      //8
+            new Smolder(),      //9
+            new Dazzle(),       //10
+            new Imbibe(),       //11
+            new Mitigate(),     //12
+            new Unionize(),     //13
+            new Scrum()         //14
             };
     }
 }
