@@ -15,6 +15,11 @@ public class CurrentStats : MonoBehaviour
     public bool KoralieGone;
     public bool JadeGone;
     public bool SeraphimGone;
+    public int[] BeverlyAbilities = new int[3];
+    public int[] JadeAbilities = new int[3];
+    public int[] KoralieAbilities = new int[3];
+    public int[] SeraphimAbilities = new int[3];
+    public int[] AmeryAbilities = new int[3];
     public int isTutorial;
     public int currentTutorial;
     public bool hasMoney;

@@ -52,6 +52,12 @@ public bool load = false;
         data.monsterLoc[i] = GameObject.Find("NodeMapCamera").GetComponent<CameraController>().allStations[i].hasCombat;
     }
 
+    data.BeverlyMoves = GameObject.Find("CurrentStats").GetComponent<CurrentStats>().BeverlyAbilities;
+    data.JadeMoves = GameObject.Find("CurrentStats").GetComponent<CurrentStats>().JadeAbilities;
+    data.KoralieMoves = GameObject.Find("CurrentStats").GetComponent<CurrentStats>().KoralieAbilities;
+    data.SeraphimMoves = GameObject.Find("CurrentStats").GetComponent<CurrentStats>().SeraphimAbilities;
+    data.AmeryMoves = GameObject.Find("CurrentStats").GetComponent<CurrentStats>().AmeryAbilities;
+
 	bf.Serialize(file, data);
 	file.Close();
 	Debug.Log("Game data saved!");
@@ -85,9 +91,20 @@ public bool load = false;
         for (int i = 0; i < GameObject.Find("NodeMapCamera").GetComponent<CameraController>().allStations.Length; i++){
             GameObject.Find("NodeMapCamera").GetComponent<CameraController>().allStations[i].hasCombat = data.monsterLoc[i];
         }
+
+        GameObject.Find("CurrentStats").GetComponent<CurrentStats>().BeverlyAbilities = data.BeverlyMoves;
+        GameObject.Find("CurrentStats").GetComponent<CurrentStats>().JadeAbilities = data.JadeMoves;
+        GameObject.Find("CurrentStats").GetComponent<CurrentStats>().KoralieAbilities = data.KoralieMoves;
+        GameObject.Find("CurrentStats").GetComponent<CurrentStats>().SeraphimAbilities = data.SeraphimMoves;
+        GameObject.Find("CurrentStats").GetComponent<CurrentStats>().AmeryAbilities = data.AmeryMoves;
 	}
 	else
 		Debug.LogError("There is no save data!");
+        GameObject.Find("CurrentStats").GetComponent<CurrentStats>().BeverlyAbilities = new int[3]{9,10,11};
+        GameObject.Find("CurrentStats").GetComponent<CurrentStats>().JadeAbilities = new int[3]{3,4,5};
+        GameObject.Find("CurrentStats").GetComponent<CurrentStats>().KoralieAbilities = new int[3]{0,1,2};
+        GameObject.Find("CurrentStats").GetComponent<CurrentStats>().SeraphimAbilities = new int[3]{6,7,8};
+        GameObject.Find("CurrentStats").GetComponent<CurrentStats>().AmeryAbilities = new int[3]{12,13,14};
     }
 
     //----------------------------------------------------------------------------------------------//
@@ -106,5 +123,10 @@ public bool load = false;
 	}
 	else
 		Debug.LogError("No save data to delete.");
+        GameObject.Find("CurrentStats").GetComponent<CurrentStats>().BeverlyAbilities = new int[3]{9,10,11};
+        GameObject.Find("CurrentStats").GetComponent<CurrentStats>().JadeAbilities = new int[3]{3,4,5};
+        GameObject.Find("CurrentStats").GetComponent<CurrentStats>().KoralieAbilities = new int[3]{0,1,2};
+        GameObject.Find("CurrentStats").GetComponent<CurrentStats>().SeraphimAbilities = new int[3]{6,7,8};
+        GameObject.Find("CurrentStats").GetComponent<CurrentStats>().AmeryAbilities = new int[3]{12,13,14};
     }
 }

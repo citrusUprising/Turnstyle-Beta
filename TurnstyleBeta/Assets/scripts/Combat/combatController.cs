@@ -24,6 +24,7 @@ public class combatController : MonoBehaviour
     // --------------------------------------------------------- //
     public int isTutorial;
     public GameObject tutorialHandler;
+    private bool openTutorialInit = false;
 
     // --------------------------------------------------------- //
     // variables that interact with states in general
@@ -284,7 +285,7 @@ public class combatController : MonoBehaviour
 
         //Sets tutorial
         this.isTutorial = Stats.GetComponent<CurrentStats>().isTutorial;
-        if (isTutorial == 2) tutorialHandler.GetComponent<tutorialHandler>().bookCount = 2;
+        openTutorialInit = true;
         statused = false;
 
         xDown = false;
@@ -312,24 +313,6 @@ public class combatController : MonoBehaviour
             correctColor = true;
         }
 
-        //this cannot be moved to start wholesale
-        //Kate is working on moving this
-        switch (isTutorial){
-            case 0:default:
-            rotateAllowed = true;
-            break;
-
-            case 1: 
-            tutorialHandler.GetComponent<tutorialHandler>().open(0);
-            break;
-
-            case 2:
-            tutorialHandler.GetComponent<tutorialHandler>().open(2);
-            rotateAllowed = true;
-            break;
-        }
-        
-
         //Move to Unity Input Mangager
         if (Input.GetKeyDown(KeyCode.Z))
         {
@@ -346,47 +329,13 @@ public class combatController : MonoBehaviour
             }
             ///////////////////////////////////////////////*/
 
-            //Entered if there is a tutorial when isTutorial == 0 there is no tutorial
-            
-            if (isTutorial > 0)
-            {
-                //Kate is working on collapsing this
-                int bookTemp = tutorialHandler.GetComponent<tutorialHandler>().bookCount;
-                int pageTemp = tutorialHandler.GetComponent<tutorialHandler>().pageCount;
-
-
-                if (tutorialHandler.GetComponent<tutorialHandler>().isOpen && (isIntroAnimating == false))
-                {
-                    //Changes accepted input to continue
-                    switch (tutorialHandler.GetComponent<tutorialHandler>().allTutorials[bookTemp][pageTemp].trigger)
-                    {
-                        case "xDown":
-                            if (xPress())
-                            {
-                                tutorialHandler.GetComponent<tutorialHandler>().nextPage();
-                            }
-                            break;
-
-                        case "ArrowKeys":
-                            xDown = false;
-                            if (Input.GetKeyDown(KeyCode.UpArrow) ||
-                                Input.GetKeyDown(KeyCode.DownArrow) ||
-                                Input.GetKeyDown(KeyCode.LeftArrow) ||
-                                Input.GetKeyDown(KeyCode.RightArrow))
-                                tutorialHandler.GetComponent<tutorialHandler>().nextPage();
-                            break;
-
-                        case "G":
-                            xDown = false;
-                            if (Input.GetKeyDown(KeyCode.G))
-                                tutorialHandler.GetComponent<tutorialHandler>().nextPage();
-                            break;
-
-                        default:
-                            break;
-                    }
-                }
-            }
+            //Opens Tutorial on Startup
+            if(openTutorialInit)openTutorial();
+            //Turns the page when given input
+            tutorialPageTurner(
+                tutorialHandler.GetComponent<tutorialHandler>().bookCount,
+                tutorialHandler.GetComponent<tutorialHandler>().pageCount
+                );
 
             // this variable is controlled by introAnimationController.cs
             //true at the start and the end of combat
@@ -745,6 +694,62 @@ public class combatController : MonoBehaviour
             }
         }
         return temp;
+    }
+
+    void openTutorial (){
+        switch (isTutorial){
+            case 0:default:
+            rotateAllowed = true;
+            break;
+
+            case 1: 
+            tutorialHandler.GetComponent<tutorialHandler>().open(0);
+            break;
+
+            case 2:
+            tutorialHandler.GetComponent<tutorialHandler>().bookCount = 2;
+            tutorialHandler.GetComponent<tutorialHandler>().open(2);
+            rotateAllowed = true;
+            break;
+        }
+        openTutorialInit = false;
+    }
+
+    void tutorialPageTurner (int bookTemp, int pageTemp){
+        if (isTutorial > 0)
+            {
+                if (tutorialHandler.GetComponent<tutorialHandler>().isOpen && (isIntroAnimating == false))
+                {
+                    //Changes accepted input to continue
+                    switch (tutorialHandler.GetComponent<tutorialHandler>().allTutorials[bookTemp][pageTemp].trigger)
+                    {
+                        case "xDown":
+                            if (xPress())
+                            {
+                                tutorialHandler.GetComponent<tutorialHandler>().nextPage();
+                            }
+                            break;
+
+                        case "ArrowKeys":
+                            xDown = false;
+                            if (Input.GetKeyDown(KeyCode.UpArrow) ||
+                                Input.GetKeyDown(KeyCode.DownArrow) ||
+                                Input.GetKeyDown(KeyCode.LeftArrow) ||
+                                Input.GetKeyDown(KeyCode.RightArrow))
+                                tutorialHandler.GetComponent<tutorialHandler>().nextPage();
+                            break;
+
+                        case "G":
+                            xDown = false;
+                            if (Input.GetKeyDown(KeyCode.G))
+                                tutorialHandler.GetComponent<tutorialHandler>().nextPage();
+                            break;
+
+                        default:
+                            break;
+                    }
+                }else if (tutorialHandler.GetComponent<tutorialHandler>().isOpen) xPress();
+            }
     }
 
     // gets called once at the beginning of the pentagon rotation when the player presses up or down
