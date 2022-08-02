@@ -3,12 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Script1d : MonoBehaviour
+public class Script1d : ScriptTemplate
 {
-
-     public overallDialogue[] script;
-    public int dialogueVarietyCount = 0;
-    // Start is called before the first frame update
     void Start()
     {
         overallDialogue[] temp = new overallDialogue [100];

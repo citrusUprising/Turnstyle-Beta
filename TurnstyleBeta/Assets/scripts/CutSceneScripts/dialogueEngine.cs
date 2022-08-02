@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -77,6 +78,7 @@ public class dialogueEngine : MonoBehaviour
 	bool writing;
 	private int dialogueChoice = 0;
 	private bool endOfDay = false;
+	private ScriptTemplate scriptPort;
 
 	private float textSpeed;
 
@@ -118,66 +120,26 @@ public class dialogueEngine : MonoBehaviour
         */
 		mainBoxText = mainBox.GetComponent<TextMeshProUGUI>();
 		//handles which cutscenes to open
-		switch(GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentDay){
-			
-			case 0: default: //day 1
-			switch(GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentCutScene){
-				case 0: default:
-				dialogueVarieties = PlayScripts.GetComponent<Script1a>().script;
-				break;
 
-				case 1:
-				dialogueVarieties = PlayScripts.GetComponent<Script1b>().script;
-				break;
+		//Converts day/cutscene to string to load script
+		string scriptTag = "Script";
+		int tempDay = GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentDay + 1;
+		char tempCutscene = Convert.ToChar(
+			GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentCutScene + 97);
+		scriptTag += tempDay;
+		scriptTag += tempCutscene;
+		scriptPort = PlayScripts.GetComponent(scriptTag) as ScriptTemplate;
+		dialogueVarieties = scriptPort.returnScript();
 
-				case 2:
-				dialogueVarieties = PlayScripts.GetComponent<Script1c>().script;
-				break;
+		//sets endOfDay to true for final cutscene;
+		if(
+			(tempDay == 1 && tempCutscene ==(char)100)||	//d
+			(tempDay == 2 && tempCutscene ==(char)097)||	//a
+			(tempDay == 3 && tempCutscene ==(char)097)||	//a
+			(tempDay == 4 && tempCutscene ==(char)097)||	//a
+			(tempDay == 5 && tempCutscene ==(char)097)		//a
+		)endOfDay = true;
 
-				case 3:
-				dialogueVarieties = PlayScripts.GetComponent<Script1d>().script;
-				endOfDay = true;
-				break; 
-			}
-			break;
-
-			case 1:
-				switch(GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentCutScene){
-					case 0: default:
-					dialogueVarieties = PlayScripts.GetComponent<Script2a>().script;
-					endOfDay = true;
-					break;
-				}
-			break;
-
-			case 2:
-				switch(GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentCutScene){
-					default:
-					dialogueVarieties = PlayScripts.GetComponent<Script3a>().script;
-					endOfDay = true;
-					break;
-				}
-			break;
-
-			case 3:
-				switch(GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentCutScene){
-					default:
-					dialogueVarieties = PlayScripts.GetComponent<Script4a>().script;
-					endOfDay = true;
-					break;					
-				}
-			break;
-
-			case 4:
-				switch(GameObject.Find("NodeMapCamera").GetComponent<CameraController>().currentCutScene){
-					default:
-					dialogueVarieties = PlayScripts.GetComponent<Script5a>().script;
-					endOfDay = true;
-					break;					
-				}
-			break;
-
-		}
         chosenDialogue = dialogueVarieties[dialogueChoice];//flag
 
 		this.leftSprite.GetComponent<talkSpriteHandler>().changeCharacter(chosenDialogue.speakerA);
